@@ -74,6 +74,7 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_nama_depan"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
@@ -90,10 +91,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nama Depan"
+                        android:text="Nama Belakang"
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_nama_belakang"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
@@ -116,20 +118,21 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <RadioGroup
+                        android:id="@+id/radioJK"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="8dp">
 
                         <RadioButton
-                            android:id="@+id/first"
+                            android:id="@+id/rb_laki"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Laki - Laki"
                             android:buttonTint="@color/colorPrimary"
                             android:textColor="@color/colorPrimary"/>
                         <RadioButton
-                            android:id="@+id/second"
+                            android:id="@+id/rb_perempuan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Perempuan"
@@ -154,6 +157,7 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_bod"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
@@ -177,6 +181,7 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
@@ -197,6 +202,7 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
@@ -217,6 +223,7 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
@@ -239,6 +246,7 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_referral"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
@@ -260,7 +268,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/materialButton"
+                android:id="@+id/btn_daftar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
