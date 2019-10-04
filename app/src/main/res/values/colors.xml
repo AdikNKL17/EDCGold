@@ -5,4 +5,5 @@
     <color name="colorAccent">#ffffff</color>
     <color name="colorBg">#fafafa</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorError">#FFC107</color>
 </resources>
