@@ -33,7 +33,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/circular_std_medium"
-                android:text="Gagal Terhubung"
+                android:text="Title"
                 android:textColor="@color/colorWhite"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -67,67 +67,38 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
 
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:fontFamily="@font/circular_std_book"
-                android:gravity="center_horizontal"
-                android:text="Pastikan sudah terhubung dengan jaringan yang stabil"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView10" />
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+            <EditText
+                android:id="@+id/et_hint"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:scaleType="fitCenter"
+                android:background="@drawable/search_box1"
+                android:drawableLeft="@drawable/ic_search_grey_24dp"
+                android:ems="10"
+                android:hint="Hint"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_error" />
+                app:layout_constraintTop_toTopOf="parent"></EditText>
 
-            <Button
-                android:id="@+id/button_gallery"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_address"
+                android:layout_width="0dp"
+                android:layout_height="400dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="24dp"
-                android:fontFamily="@font/circular_std_medium"
-                android:text="coba lagi"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_hint" />
 
-            <Button
-                android:id="@+id/button_no"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="24dp"
-                android:fontFamily="@font/circular_std_medium"
-                android:text="keluar"
-                android:textColor="@color/colorError"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_gallery"
-                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
