@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.model.KabupatenModel;
+import id.dev.birifqa.edcgold.model.KecamatanModel;
+import id.dev.birifqa.edcgold.model.ProvinsiModel;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -39,6 +42,9 @@ public class Api {
 //    public static List<ModelTransaksi> transList;
 //    public static List<ModelAnggaran> anggaranList;
 //    public static List<ModelUser> userList;
+    public static List<ProvinsiModel> provinsiModels;
+    public static List<KabupatenModel> kabupatenModels;
+    public static List<KecamatanModel> kecamatanModels;
 
     public static ProgressDialog mProgressDialog;
     public static boolean showLog = true;

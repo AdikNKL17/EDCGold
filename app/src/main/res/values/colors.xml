@@ -6,4 +6,7 @@
     <color name="colorBg">#fafafa</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorError">#FFC107</color>
+    <color name="colorGray">#CBCBCB</color>
+    <color name="colorText">#222222</color>
+
 </resources>
