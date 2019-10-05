@@ -5,13 +5,13 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="100"
-        android:font="@font/proximanova_regular"
+        android:font="@font/circular_std_book"
         tools:ignore="UnusedAttribute" />
 
     <font
         android:fontStyle="normal"
         android:fontWeight="100"
-        android:font="@font/proximanova_semibold"
+        android:font="@font/circular_std_medium"
         tools:ignore="UnusedAttribute" />
 
 </font-family>
