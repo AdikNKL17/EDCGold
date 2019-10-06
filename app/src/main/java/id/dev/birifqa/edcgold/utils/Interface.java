@@ -21,7 +21,7 @@ public interface Interface {
     Call<ResponseBody> requestLogin(@PartMap Map<String, RequestBody> params);
 
     @Multipart
-    @POST("http://45.77.252.55/api/login")
+    @POST("http://45.77.252.55/api/register")
     Call<ResponseBody> requestRegister(@PartMap Map<String, RequestBody> params);
 
     @GET("http://45.77.252.55/api/region/95")
@@ -29,6 +29,9 @@ public interface Interface {
 
     @GET("http://45.77.252.55/api/regency/{id}")
     Call<ResponseBody> getKabupaten(@Path("id") String id_prov);
+
+    @GET("http://45.77.252.55/api/district/{id}")
+    Call<ResponseBody> getKecamatan(@Path("id") String id_kab);
 }
 
 

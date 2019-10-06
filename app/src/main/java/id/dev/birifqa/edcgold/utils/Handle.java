@@ -3,12 +3,14 @@ package id.dev.birifqa.edcgold.utils;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import id.dev.birifqa.edcgold.model.KabupatenModel;
+import id.dev.birifqa.edcgold.model.KecamatanModel;
 import id.dev.birifqa.edcgold.model.ProvinsiModel;
 
 /**
@@ -55,7 +57,7 @@ public class Handle {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
-            if (succses == true) {
+            if (succses) {
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -91,7 +93,7 @@ public class Handle {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
-            if (succses == true) {
+            if (succses) {
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -125,6 +127,67 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleGetKecamatan(String sjson, Context context) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        KecamatanModel kecamatan = new KecamatanModel();
+                        kecamatan.setId(data.getJSONObject(i).getString("id"));
+                        kecamatan.setRegency_id(data.getJSONObject(i).getString("regency_id"));
+                        kecamatan.setName(data.getJSONObject(i).getString("name"));
+                        kecamatan.setCreated_at(data.getJSONObject(i).getString("created_at"));
+                        kecamatan.setUpdated_at(data.getJSONObject(i).getString("updated_at"));
+
+                        Api.kecamatanModels.add(kecamatan);
+                    }
+                    return true;
+                } else {
+
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleRequestRegister(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
 //    public static boolean handleLogin(String sjson, Context context) {
 //
 //        Session session = new Session(context);

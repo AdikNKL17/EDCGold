@@ -35,19 +35,28 @@ public class ParamReq {
     }
 
     //add
-    public static Call<ResponseBody> requestRegister(String nama_depan, String nama_belakang, String jk, String bod, String phone, String email, String password, String referral, Context context) {
+    public static Call<ResponseBody> requestRegister(String nama_depan, String nama_belakang, String jk,
+                                                     String bod, String phone, String email, String password,
+                                                     String provinsi, String kabupaten, String kecamatan,
+                                                     String kodepos, String alamat, String referral, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
-        final Map<String, RequestBody> map = new HashMap<>();
+        final Map<String, RequestBody> data = new HashMap<>();
 
-        map.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), nama_depan));
-        map.put("lastname", RequestBody.create(MediaType.parse("multipart/form-data"), nama_belakang));
-        map.put("gender", RequestBody.create(MediaType.parse("multipart/form-data"), jk));
-        map.put("bod", RequestBody.create(MediaType.parse("multipart/form-data"), bod));
-        map.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), phone));
-        map.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
-        map.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
-        map.put("referral", RequestBody.create(MediaType.parse("multipart/form-data"), referral));
-        return APIInterface.requestRegister(map);
+        data.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), nama_depan));
+        data.put("lastname", RequestBody.create(MediaType.parse("multipart/form-data"), nama_belakang));
+        data.put("gender", RequestBody.create(MediaType.parse("multipart/form-data"), jk));
+        data.put("bod", RequestBody.create(MediaType.parse("multipart/form-data"), bod));
+        data.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), phone));
+        data.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
+        data.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
+        data.put("countries_id", RequestBody.create(MediaType.parse("multipart/form-data"), "95"));
+        data.put("regions_id", RequestBody.create(MediaType.parse("multipart/form-data"), provinsi));
+        data.put("regencies_id", RequestBody.create(MediaType.parse("multipart/form-data"), kabupaten));
+        data.put("districts_id", RequestBody.create(MediaType.parse("multipart/form-data"), kecamatan));
+        data.put("postcode", RequestBody.create(MediaType.parse("multipart/form-data"), kodepos));
+        data.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), alamat));
+        data.put("referral", RequestBody.create(MediaType.parse("multipart/form-data"), referral));
+        return APIInterface.requestRegister(data);
     }
 
     public static Call<ResponseBody> requestProvinsi(Context context) {
@@ -57,6 +66,10 @@ public class ParamReq {
     public static Call<ResponseBody> requestKabupaten(String idProv,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getKabupaten(idProv);
+    }
+    public static Call<ResponseBody> requestKecamatan(String idKab,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getKecamatan(idKab);
     }
 
 }
