@@ -50,4 +50,13 @@ public class ParamReq {
         return APIInterface.requestRegister(map);
     }
 
+    public static Call<ResponseBody> requestProvinsi(Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getProvinsi();
+    }
+    public static Call<ResponseBody> requestKabupaten(String idProv,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getKabupaten(idProv);
+    }
+
 }

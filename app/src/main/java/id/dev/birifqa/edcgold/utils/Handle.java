@@ -2,9 +2,14 @@ package id.dev.birifqa.edcgold.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import id.dev.birifqa.edcgold.model.KabupatenModel;
+import id.dev.birifqa.edcgold.model.ProvinsiModel;
 
 /**
  * Created by palapabeta on 03/02/18.
@@ -44,6 +49,82 @@ public class Handle {
 
         return false;
     }
+
+    public static boolean handleGetProvinsi(String sjson, Context context) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses == true) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        ProvinsiModel provinsi = new ProvinsiModel();
+                        provinsi.setId(data.getJSONObject(i).getString("id"));
+                        provinsi.setCountry_id(data.getJSONObject(i).getString("country_id"));
+                        provinsi.setName(data.getJSONObject(i).getString("name"));
+                        Api.provinsiModels.add(provinsi);
+                    }
+                    return true;
+                } else {
+                    Log.d("trip", "data not found");
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleGetKabupaten(String sjson, Context context) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses == true) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        KabupatenModel kabupaten = new KabupatenModel();
+                        kabupaten.setId(data.getJSONObject(i).getString("id"));
+                        kabupaten.setRegion_id(data.getJSONObject(i).getString("region_id"));
+                        kabupaten.setName(data.getJSONObject(i).getString("name"));
+                        kabupaten.setCreated_at(data.getJSONObject(i).getString("created_at"));
+                        kabupaten.setUpdated_at(data.getJSONObject(i).getString("updated_at"));
+
+                        Api.kabupatenModels.add(kabupaten);
+                    }
+                    return true;
+                } else {
+                    Log.d("trip", "data not found");
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
 //    public static boolean handleLogin(String sjson, Context context) {
 //
 //        Session session = new Session(context);
