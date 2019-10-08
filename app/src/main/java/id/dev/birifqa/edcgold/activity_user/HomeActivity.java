@@ -1,4 +1,4 @@
-package id.dev.birifqa.edcgold;
+package id.dev.birifqa.edcgold.activity_user;
 
 import android.os.Bundle;
 
@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+
+import id.dev.birifqa.edcgold.R;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

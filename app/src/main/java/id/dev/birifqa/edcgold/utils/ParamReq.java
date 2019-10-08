@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.HashMap;
 import java.util.Map;
 
-import id.dev.birifqa.edcgold.MainActivity;
+import id.dev.birifqa.edcgold.activity_user.MainActivity;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

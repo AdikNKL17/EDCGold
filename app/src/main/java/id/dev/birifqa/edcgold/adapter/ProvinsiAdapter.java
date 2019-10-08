@@ -2,7 +2,6 @@ package id.dev.birifqa.edcgold.adapter;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.RegisterActivity;
+import id.dev.birifqa.edcgold.activity_user.RegisterActivity;
 import id.dev.birifqa.edcgold.model.ProvinsiModel;
 
 public class ProvinsiAdapter  extends RecyclerView.Adapter<ProvinsiAdapter.MyViewHolder> {
