@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_user.ForgotPasswordActivity">
+    tools:context=".activity_user.RegisterSuksesActivity">
+
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -15,59 +16,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:contentInsetLeft="0dp"
-            app:navigationIcon="@drawable/ic_icons8_left">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Lupa Password"
-                android:textColor="@color/colorWhite"
-                android:textSize="16sp" />
-
-        </androidx.appcompat.widget.Toolbar>
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="48dp"
             android:layout_marginBottom="32dp"
             android:scaleType="centerInside"
-            android:src="@drawable/forgot_password_icon" />
+            android:src="@drawable/success_join_member_icon" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        android:background="@color/colorPrimaryDark">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Masukkan Alamat Email yang Digunakan"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:text="Selamat Bergabung,"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"
+            android:textSize="18sp" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bt_email_white"
-            android:hint="alamat@email.com"
-            android:padding="16dp"
-            android:textSize="14sp" />
+            android:text="Nama Pendaftar"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"
+            android:textSize="18sp" />
+
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -79,9 +67,10 @@
         android:backgroundTint="@color/colorPrimary"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        android:text="Selanjutnya"
+        android:text="Mulai"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

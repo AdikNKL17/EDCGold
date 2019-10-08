@@ -1,10 +1,12 @@
-package id.dev.birifqa.edcgold;
+package id.dev.birifqa.edcgold.activity_user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import id.dev.birifqa.edcgold.R;
 
 public class SplashActivity extends AppCompatActivity {
 

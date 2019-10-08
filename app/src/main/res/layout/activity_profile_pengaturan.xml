@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_user.ProfileActivity"
+    tools:context=".activity_user.ProfilePengaturanActivity"
     android:background="@color/colorBg">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -61,13 +61,21 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:src="@drawable/profil_icon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:elevation="0dp"
+                    android:background="@drawable/camera_change_profile_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView2" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -112,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:text="Profil"
+                        android:text="Ubah Nomor Telepon"
                         android:textColor="@color/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="@+id/icon_profil"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -150,7 +158,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:text="Lock"
+                        android:text="Ubah Alamat Email"
                         android:textColor="@color/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="@+id/icon_lock"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -188,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:text="Pengaturan"
+                        android:text="Ubah Akun Bank"
                         android:textColor="@color/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="@+id/icon_pengaturan"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -226,7 +234,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:text="Log Out"
+                        android:text="Ubah Alamat"
                         android:textColor="@color/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="@+id/icon_logout"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -243,10 +251,49 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon_password"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/ic_icons8_logout_rounded_up"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="Ubah Password"
+                        android:textColor="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="@+id/icon_password"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/icon_password"
+                        app:layout_constraintTop_toTopOf="@+id/icon_password" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="#dddddd"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/icon_password" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,10 @@
-package id.dev.birifqa.edcgold;
+package id.dev.birifqa.edcgold.activity_user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import id.dev.birifqa.edcgold.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
