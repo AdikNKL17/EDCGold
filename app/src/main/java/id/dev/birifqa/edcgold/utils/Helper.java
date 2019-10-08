@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import id.dev.birifqa.edcgold.MainActivity;
+import id.dev.birifqa.edcgold.activity_user.MainActivity;
 
 public class Helper {
 

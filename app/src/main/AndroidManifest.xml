@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="id.dev.birifqa.edcgold">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,24 +10,28 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity_user.ProfilePengaturanActivity"></activity>
+        <activity android:name=".activity_user.ProfileLockActivity" />
+        <activity android:name=".activity_user.ProfileDetailActivity" />
+        <activity android:name=".activity_user.RegisterSuksesActivity" />
+        <activity android:name=".activity_user.ProfileActivity" />
+        <activity android:name=".activity_user.RegisterActivity" />
+        <activity android:name=".activity_user.ForgotPasswordActivity" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activity_user.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".SplashActivity">
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity_user.LoginActivity" />
+        <activity android:name=".activity_user.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activity_user.MainActivity" />
     </application>
 
 </manifest>

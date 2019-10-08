@@ -1,4 +1,4 @@
-package id.dev.birifqa.edcgold;
+package id.dev.birifqa.edcgold.activity_user;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -24,11 +23,11 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
+import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.KabupatenAdapter;
 import id.dev.birifqa.edcgold.adapter.ProvinsiAdapter;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
-import id.dev.birifqa.edcgold.utils.Helper;
 import id.dev.birifqa.edcgold.utils.ParamReq;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

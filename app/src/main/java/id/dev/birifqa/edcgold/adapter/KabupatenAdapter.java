@@ -15,9 +15,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.RegisterActivity;
+import id.dev.birifqa.edcgold.activity_user.RegisterActivity;
 import id.dev.birifqa.edcgold.model.KabupatenModel;
-import id.dev.birifqa.edcgold.model.ProvinsiModel;
 
 public class KabupatenAdapter extends RecyclerView.Adapter<KabupatenAdapter.MyViewHolder> {
 
