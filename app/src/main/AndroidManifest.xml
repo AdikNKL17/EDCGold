@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity_user.ProfilePengaturanActivity"></activity>
+        <activity android:name=".activity_user.UbahEmailActivity"></activity>
+        <activity android:name=".activity_user.UbahNomorActivity" />
+        <activity android:name=".activity_user.ProfilePengaturanActivity" />
         <activity android:name=".activity_user.ProfileLockActivity" />
         <activity android:name=".activity_user.ProfileDetailActivity" />
         <activity android:name=".activity_user.RegisterSuksesActivity" />
