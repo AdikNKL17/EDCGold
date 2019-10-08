@@ -51,9 +51,9 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    TextInputEditText etNamaDepan, etNamaBelakang, etBOD, etPhone, etEmail, etPassword, etProvinsi, etKabupaten, etKecamatan, etKodepos, etAlamat, etReferral;
-    AppCompatButton btnDaftar;
-    RadioGroup groupJK;
+    private TextInputEditText etNamaDepan, etNamaBelakang, etBOD, etPhone, etEmail, etPassword, etProvinsi, etKabupaten, etKecamatan, etKodepos, etAlamat, etReferral;
+    private AppCompatButton btnDaftar;
+    private RadioGroup groupJK;
 
     private String jk = "";
     public static String idProv = "";
@@ -61,6 +61,8 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
     public static String idKec = "";
 
     private DatePickerDialog datePickerDialog;
+    private Callback<ResponseBody> cBack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +188,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                 etPhone.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString(), idProv,
                 idKab, idKec, etKodepos.getText().toString(), etAlamat.getText().toString(),
                 etReferral.getText().toString(), RegisterActivity.this);
-        Callback<ResponseBody> cBack = new Callback<ResponseBody>() {
+        cBack = new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
@@ -206,7 +208,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Api.retryDialog(RegisterActivity.this, call, cBack, 1, false);
             }
         };
 

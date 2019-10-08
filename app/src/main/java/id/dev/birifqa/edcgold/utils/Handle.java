@@ -4,14 +4,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import id.dev.birifqa.edcgold.activity_user.HomeActivity;
 import id.dev.birifqa.edcgold.activity_user.LoginActivity;
 import id.dev.birifqa.edcgold.activity_user.ProfileActivity;
+import id.dev.birifqa.edcgold.activity_user.ProfilePengaturanActivity;
+import id.dev.birifqa.edcgold.activity_user.UbahEmailActivity;
+import id.dev.birifqa.edcgold.activity_user.UbahNomorActivity;
 import id.dev.birifqa.edcgold.model.KabupatenModel;
 import id.dev.birifqa.edcgold.model.KecamatanModel;
 import id.dev.birifqa.edcgold.model.ProvinsiModel;
@@ -38,19 +49,7 @@ public class Handle {
                 session.save("name", jsonObject.getJSONObject("data").getString("name"));
                 session.save("email", jsonObject.getJSONObject("data").getString("email"));
 
-                Intent intent = new Intent(context, ProfileActivity.class);
-                intent.putExtra("ID", jsonObject.getJSONObject("data").getString("id"));
-                intent.putExtra("NAME", jsonObject.getJSONObject("data").getString("name"));
-                intent.putExtra("LASTNAME", jsonObject.getJSONObject("data").getString("lastname"));
-                intent.putExtra("EMAIL", jsonObject.getJSONObject("data").getString("email"));
-                intent.putExtra("GENDER", jsonObject.getJSONObject("data").getString("gender"));
-                intent.putExtra("BOD", jsonObject.getJSONObject("data").getString("bod"));
-                intent.putExtra("PHONE", jsonObject.getJSONObject("data").getString("phone"));
-                intent.putExtra("ADDRESS", jsonObject.getJSONObject("data").getString("address"));
-                intent.putExtra("POSTCODE", jsonObject.getJSONObject("data").getString("postcode"));
-                intent.putExtra("REFERRAL", jsonObject.getJSONObject("data").getString("referral_code"));
-                intent.putExtra("TOKEN", jsonObject.getJSONObject("data").getString("token"));
-
+                Intent intent = new Intent(context, HomeActivity.class);
                 context.startActivity(intent);
                 return true;
 
@@ -242,6 +241,114 @@ public class Handle {
                 return false;
 
             }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleHome(String sjson, TextView tvName, TextView tvEmail, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
+            tvEmail.setText(jsonObject.getJSONObject("data").getString("email"));
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleProfile(String sjson, TextView tvName, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleProfileDetail(String sjson, TextView tvName, TextInputEditText etName,
+                                              TextInputEditText etId, TextInputEditText etPhone,
+                                              TextInputEditText etEmail, TextInputEditText etAddress,
+                                              Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
+            etName.setText(jsonObject.getJSONObject("data").getString("name"));
+            etId.setText(jsonObject.getJSONObject("data").getString("id"));
+            etPhone.setText(jsonObject.getJSONObject("data").getString("phone"));
+            etEmail.setText(jsonObject.getJSONObject("data").getString("email"));
+            etAddress.setText(jsonObject.getJSONObject("data").getString("address"));
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    ConstraintLayout btnChangePhone, btnChangeEmail, btnChangeBank, btnChangeAddress, btnChangePassword;
+
+    public static boolean handleProfilePengaturan(String sjson, TextView tvName, ConstraintLayout btnChangePhone,
+                                                  ConstraintLayout btnChangeEmail, ConstraintLayout btnChangeBank,
+                                                  ConstraintLayout btnChangeAddress, ConstraintLayout btnChangePassword,
+                                                  Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
+
+            btnChangePhone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, UbahNomorActivity.class);
+                    try {
+                        intent.putExtra("PHONE", jsonObject.getJSONObject("data").getString("phone"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    context.startActivity(intent);
+                }
+            });
+
+            btnChangeEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, UbahEmailActivity.class);
+                    try {
+                        intent.putExtra("EMAIL", jsonObject.getJSONObject("data").getString("email"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    context.startActivity(intent);
+                }
+            });
+
+            return true;
 
         } catch (JSONException e) {
 

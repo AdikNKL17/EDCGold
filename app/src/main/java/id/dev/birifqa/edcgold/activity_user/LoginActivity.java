@@ -15,6 +15,7 @@ import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
 import id.dev.birifqa.edcgold.utils.Helper;
 import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,9 +23,11 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    AppCompatButton buttonForgot, buttonRegister;
-    TextInputEditText etUsername, etPassword;
+    private AppCompatButton buttonForgot, buttonRegister;
+    private TextInputEditText etUsername, etPassword;
     private View view;
+    private Callback<ResponseBody> cBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,17 @@ public class LoginActivity extends AppCompatActivity {
         buttonForgot = findViewById(R.id.button_forgot);
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
+
+        Session session = new Session(getApplicationContext());
+        try{
+            if(!session.get("token").equals("null")){
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+                LoginActivity.this.finish();
+            }
+        }catch (Exception e){
+
+        }
 
         buttonForgot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (!etUsername.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()){
                     Call<ResponseBody> call = ParamReq.reqLogin(etUsername.getText().toString(), etPassword.getText().toString(), LoginActivity.this);
-                    Callback<ResponseBody> cBack = new Callback<ResponseBody>() {
+                    cBack = new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             try {
@@ -74,8 +88,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                 } else {
                                     Api.mProgressDialog.dismiss();
-//                                    Helper.constraintLayout(R.id.notif_error, view).setVisibility(View.VISIBLE);
-//                                    Helper.setText(R.id.text_error, view, "Login failed!! Please try again !!");
                                     Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                                 }
 
@@ -86,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                            Api.retryDialog(LoginActivity.this, call, cBack, 1, false);
                         }
                     };
 

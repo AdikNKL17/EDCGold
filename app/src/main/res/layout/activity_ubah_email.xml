@@ -64,6 +64,7 @@
                     android:id="@+id/et_email_lama"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:enabled="false"
                     android:layout_marginTop="4dp"
                     android:backgroundTint="@color/colorPrimary" />
             </LinearLayout>
@@ -86,6 +87,7 @@
                     android:id="@+id/et_email_baru"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:enabled="false"
                     android:layout_marginTop="4dp"
                     android:backgroundTint="@color/colorPrimary" />
             </LinearLayout>

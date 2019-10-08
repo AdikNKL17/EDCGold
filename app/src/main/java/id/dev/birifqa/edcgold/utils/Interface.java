@@ -28,6 +28,9 @@ public interface Interface {
     @POST("http://45.77.252.55/api/register")
     Call<ResponseBody> requestRegister(@PartMap Map<String, RequestBody> params);
 
+    @GET("http://45.77.252.55/api/user")
+    Call<ResponseBody> getUserDetail(@Header("Authorization") String authorization);
+
     @GET("http://45.77.252.55/api/region/95")
     Call<ResponseBody> getProvinsi();
 
@@ -38,10 +41,10 @@ public interface Interface {
     Call<ResponseBody> getKecamatan(@Path("id") String id_kab);
 
     @PUT("http://45.77.252.55/api/phone")
-    Call<ResponseBody> changePhone(@Body RequestChangePhone requestChangePhone);
+    Call<ResponseBody> changePhone(@Header("Authorization") String authorization,@Body RequestChangePhone requestChangePhone);
 
     @PUT("http://45.77.252.55/api/email")
-    Call<ResponseBody> changeEmail(@Body RequestChangeEmail requestChangeEmail);
+    Call<ResponseBody> changeEmail(@Header("Authorization") String authorization,@Body RequestChangeEmail requestChangeEmail);
 }
 
 

@@ -12,12 +12,23 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.Handle;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfilePengaturanActivity extends AppCompatActivity {
 
     private ConstraintLayout btnChangePhone, btnChangeEmail, btnChangeBank, btnChangeAddress, btnChangePassword;
     private TextView tvName;
     private Toolbar toolbar;
+    private Session session;
+    private Callback<ResponseBody> cBack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +54,32 @@ public class ProfilePengaturanActivity extends AppCompatActivity {
 
         tvName.setText(getIntent.getStringExtra("NAME"));
 
-        btnChangePhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProfilePengaturanActivity.this, UbahNomorActivity.class));
-            }
-        });
+        getUserDetail();
+    }
 
-        btnChangeEmail.setOnClickListener(new View.OnClickListener() {
+    private void getUserDetail(){
+        Call<ResponseBody> call = ParamReq.requestUserDetail(session.get("token"), ProfilePengaturanActivity.this);
+        cBack = new Callback<ResponseBody>() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProfilePengaturanActivity.this, UbahEmailActivity.class));
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    boolean handle = Handle.handleProfilePengaturan(response.body().string(), tvName, btnChangePhone, btnChangeEmail, btnChangeBank, btnChangeAddress, btnChangePassword, ProfilePengaturanActivity.this);
+                    if (handle) {
+
+                    } else {
+                        Api.mProgressDialog.dismiss();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-        });
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(ProfilePengaturanActivity.this, call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(ProfilePengaturanActivity.this, call, cBack, false, "Loading");
     }
 }

@@ -61,6 +61,11 @@ public class ParamReq {
         return APIInterface.requestRegister(data);
     }
 
+    public static Call<ResponseBody> requestUserDetail(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getUserDetail("Bearer " +token);
+    }
+
     public static Call<ResponseBody> requestProvinsi(Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getProvinsi();
@@ -74,23 +79,23 @@ public class ParamReq {
         return APIInterface.getKecamatan(idKab);
     }
 
-    public static Call<ResponseBody> changeEmail(String verification, String old_email, String new_email, String confirmed,Context context) {
+    public static Call<ResponseBody> changeEmail(String token,String verification, String old_email, String new_email, String confirmed,Context context) {
         RequestChangeEmail requestChangeEmail = new RequestChangeEmail();
         requestChangeEmail.setVerification(verification);
         requestChangeEmail.setOld_email(old_email);
         requestChangeEmail.setNew_email(new_email);
         requestChangeEmail.setConfirmed(confirmed);
         APIInterface = Api.initRetrofit(Api.showLog);
-        return APIInterface.changeEmail(requestChangeEmail);
+        return APIInterface.changeEmail("Bearer " +token,requestChangeEmail);
     }
 
-    public static Call<ResponseBody> changePhone(String old_email, String new_email, String confirmed,Context context) {
+    public static Call<ResponseBody> changePhone(String token, String old_email, String new_email, String confirmed,Context context) {
         RequestChangePhone requestChangePhone = new RequestChangePhone();
         requestChangePhone.setOld_phone(old_email);
         requestChangePhone.setNew_phone(new_email);
         requestChangePhone.setConfirmed(confirmed);
         APIInterface = Api.initRetrofit(Api.showLog);
-        return APIInterface.changePhone(requestChangePhone);
+        return APIInterface.changePhone("Bearer " +token, requestChangePhone);
     }
 
 }

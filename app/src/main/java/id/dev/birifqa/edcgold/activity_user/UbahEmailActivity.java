@@ -15,6 +15,7 @@ import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
 import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,9 +23,11 @@ import retrofit2.Response;
 
 public class UbahEmailActivity extends AppCompatActivity {
 
-    TextInputEditText etEmailLama, etEmailBaru, etKonfirmasi;
-    AppCompatButton btnKonfirmasi;
-    Toolbar toolbar;
+    private TextInputEditText etEmailLama, etEmailBaru, etKonfirmasi;
+    private AppCompatButton btnKonfirmasi;
+    private Toolbar toolbar;
+    private Callback<ResponseBody> cBack;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,9 @@ public class UbahEmailActivity extends AppCompatActivity {
         etEmailBaru = findViewById(R.id.et_email_baru);
         etKonfirmasi = findViewById(R.id.konfirmasi);
         btnKonfirmasi = findViewById(R.id.btn_confirm);
+
+        Intent getIntent = getIntent();
+        etEmailLama.setText(getIntent.getStringExtra("EMAIL"));
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +60,8 @@ public class UbahEmailActivity extends AppCompatActivity {
 
     private void changeEmail(){
         if (!etEmailLama.getText().toString().isEmpty() && !etEmailBaru.getText().toString().isEmpty() && !etKonfirmasi.getText().toString().isEmpty()){
-            Call<ResponseBody> call = ParamReq.changeEmail("", etEmailLama.getText().toString(), etEmailBaru.getText().toString(), etKonfirmasi.getText().toString(), UbahEmailActivity.this);
-            Callback<ResponseBody> cBack = new Callback<ResponseBody>() {
+            Call<ResponseBody> call = ParamReq.changeEmail(session.get("token"),"", etEmailLama.getText().toString(), etEmailBaru.getText().toString(), etKonfirmasi.getText().toString(), UbahEmailActivity.this);
+            cBack = new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
@@ -76,7 +82,7 @@ public class UbahEmailActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                    Api.retryDialog(UbahEmailActivity.this, call, cBack, 1, false);
                 }
             };
 
