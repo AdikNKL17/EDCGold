@@ -70,8 +70,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                 boolean handle = Handle.handleLogin(response.body().string(), LoginActivity.this);
                                 if (handle) {
-
-                                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
                                     LoginActivity.this.finish();
 
                                 } else {

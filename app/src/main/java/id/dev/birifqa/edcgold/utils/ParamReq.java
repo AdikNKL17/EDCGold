@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import id.dev.birifqa.edcgold.activity_user.MainActivity;
+import id.dev.birifqa.edcgold.request.RequestChangeEmail;
+import id.dev.birifqa.edcgold.request.RequestChangePhone;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -70,6 +72,25 @@ public class ParamReq {
     public static Call<ResponseBody> requestKecamatan(String idKab,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getKecamatan(idKab);
+    }
+
+    public static Call<ResponseBody> changeEmail(String verification, String old_email, String new_email, String confirmed,Context context) {
+        RequestChangeEmail requestChangeEmail = new RequestChangeEmail();
+        requestChangeEmail.setVerification(verification);
+        requestChangeEmail.setOld_email(old_email);
+        requestChangeEmail.setNew_email(new_email);
+        requestChangeEmail.setConfirmed(confirmed);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changeEmail(requestChangeEmail);
+    }
+
+    public static Call<ResponseBody> changePhone(String old_email, String new_email, String confirmed,Context context) {
+        RequestChangePhone requestChangePhone = new RequestChangePhone();
+        requestChangePhone.setOld_phone(old_email);
+        requestChangePhone.setNew_phone(new_email);
+        requestChangePhone.setConfirmed(confirmed);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changePhone(requestChangePhone);
     }
 
 }

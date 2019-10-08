@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -87,10 +88,10 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId){
                     case R.id.rb_laki:
-                        jk = "Laki-laki";
+                        jk = "1";
                         break;
                     case R.id.rb_perempuan:
-                        jk = "Perempuan";
+                        jk = "2";
                         break;
                 }
             }
@@ -130,8 +131,8 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                 if (!etNamaDepan.getText().toString().isEmpty() && !etNamaBelakang.getText().toString().isEmpty() &&
                         !jk.isEmpty() && !etBOD.getText().toString().isEmpty() && !etPhone.getText().toString().isEmpty() &&
                         !etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty() &&
-                        !etReferral.getText().toString().isEmpty() && !etProvinsi.getText().toString().isEmpty() &&
-                        !etKabupaten.getText().toString().isEmpty() && !etKecamatan.getText().toString().isEmpty() &&
+                        !etReferral.getText().toString().isEmpty() && !idProv.isEmpty() &&
+                        !idKab.isEmpty() && !idKec.isEmpty() &&
                         !etAlamat.getText().toString().isEmpty() && !etKodepos.getText().toString().isEmpty()){
 
                     if (etPassword.getText().length() >= 6){
@@ -182,8 +183,8 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
 
     private void requestRegister(){
         Call<ResponseBody> call = ParamReq.requestRegister(etNamaDepan.getText().toString(), etNamaBelakang.getText().toString(), jk, etBOD.getText().toString(),
-                etPhone.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString(), etProvinsi.getText().toString(),
-                etKabupaten.getText().toString(), etKecamatan.getText().toString(), etKodepos.getText().toString(), etAlamat.getText().toString(),
+                etPhone.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString(), idProv,
+                idKab, idKec, etKodepos.getText().toString(), etAlamat.getText().toString(),
                 etReferral.getText().toString(), RegisterActivity.this);
         Callback<ResponseBody> cBack = new Callback<ResponseBody>() {
             @Override
@@ -192,8 +193,9 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
 
                     boolean handle = Handle.handleRequestRegister(response.body().string(), RegisterActivity.this);
                     if (handle) {
-                        Toast.makeText(RegisterActivity.this, "Sudah Lengkap", Toast.LENGTH_SHORT).show();
-
+                        Intent intent = new Intent(RegisterActivity.this, RegisterSuksesActivity.class);
+                        intent.putExtra("NAME", etNamaDepan.getText().toString());
+                        startActivity(intent);
                     } else {
                         Api.mProgressDialog.dismiss();
                     }

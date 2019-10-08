@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,6 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import id.dev.birifqa.edcgold.activity_user.LoginActivity;
+import id.dev.birifqa.edcgold.activity_user.ProfileActivity;
 import id.dev.birifqa.edcgold.model.KabupatenModel;
 import id.dev.birifqa.edcgold.model.KecamatanModel;
 import id.dev.birifqa.edcgold.model.ProvinsiModel;
@@ -35,6 +38,20 @@ public class Handle {
                 session.save("name", jsonObject.getJSONObject("data").getString("name"));
                 session.save("email", jsonObject.getJSONObject("data").getString("email"));
 
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra("ID", jsonObject.getJSONObject("data").getString("id"));
+                intent.putExtra("NAME", jsonObject.getJSONObject("data").getString("name"));
+                intent.putExtra("LASTNAME", jsonObject.getJSONObject("data").getString("lastname"));
+                intent.putExtra("EMAIL", jsonObject.getJSONObject("data").getString("email"));
+                intent.putExtra("GENDER", jsonObject.getJSONObject("data").getString("gender"));
+                intent.putExtra("BOD", jsonObject.getJSONObject("data").getString("bod"));
+                intent.putExtra("PHONE", jsonObject.getJSONObject("data").getString("phone"));
+                intent.putExtra("ADDRESS", jsonObject.getJSONObject("data").getString("address"));
+                intent.putExtra("POSTCODE", jsonObject.getJSONObject("data").getString("postcode"));
+                intent.putExtra("REFERRAL", jsonObject.getJSONObject("data").getString("referral_code"));
+                intent.putExtra("TOKEN", jsonObject.getJSONObject("data").getString("token"));
+
+                context.startActivity(intent);
                 return true;
 
             } else {
@@ -167,6 +184,52 @@ public class Handle {
     }
 
     public static boolean handleRequestRegister(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleChangePhone(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleChangeEmail(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
