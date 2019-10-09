@@ -96,7 +96,7 @@
                 app:srcCompat="@drawable/ic_error" />
 
             <Button
-                android:id="@+id/button_gallery"
+                android:id="@+id/button_cancel"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,14 +105,14 @@
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/circular_std_medium"
                 android:text="TIdak"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorError"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
             <Button
-                android:id="@+id/button_no"
+                android:id="@+id/button_yes"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                 android:textColor="@color/colorError"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_gallery"
+                app:layout_constraintEnd_toStartOf="@+id/button_cancel"
                 app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

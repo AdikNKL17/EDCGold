@@ -109,6 +109,11 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
         etProvinsi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                etKabupaten.setText("");
+                etKecamatan.setText("");
+                idProv="";
+                idKab= "";
+                idKec="";
                 showProvinsiDialog();
             }
         });
@@ -116,6 +121,8 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
         etKabupaten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                etKecamatan.setText("");
+                idKec="";
                 showKabupatenDialog();
             }
         });
@@ -275,7 +282,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
         et_hint.setHint("Cari Provinsi");
 
         Api.provinsiModels = new ArrayList<>();
-        provinsiAdapter = new ProvinsiAdapter(RegisterActivity.this, Api.provinsiModels, dialog1, etProvinsi);
+        provinsiAdapter = new ProvinsiAdapter(RegisterActivity.this, Api.provinsiModels, dialog1, etProvinsi, "1");
         recyclerProvinsi.setLayoutManager(new LinearLayoutManager(RegisterActivity.this, RecyclerView.VERTICAL, false));
         recyclerProvinsi.setItemAnimator(new DefaultItemAnimator());
         recyclerProvinsi.setAdapter(provinsiAdapter);
@@ -367,7 +374,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
         et_hint.setHint("Cari Kabupaten");
 
         Api.kabupatenModels = new ArrayList<>();
-        kabupatenAdapter = new KabupatenAdapter(RegisterActivity.this, Api.kabupatenModels, dialog1, etKabupaten);
+        kabupatenAdapter = new KabupatenAdapter(RegisterActivity.this, Api.kabupatenModels, dialog1, etKabupaten, "1");
         recyclerKabupaten.setLayoutManager(new LinearLayoutManager(RegisterActivity.this, RecyclerView.VERTICAL, false));
         recyclerKabupaten.setItemAnimator(new DefaultItemAnimator());
         recyclerKabupaten.setAdapter(kabupatenAdapter);
@@ -463,7 +470,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
 
 
         Api.kecamatanModels = new ArrayList<>();
-        kecamatanAdapter = new KecamatanAdapter(RegisterActivity.this, Api.kecamatanModels, dialog1, etKecamatan);
+        kecamatanAdapter = new KecamatanAdapter(RegisterActivity.this, Api.kecamatanModels, dialog1, etKecamatan, "1");
         recyclerKecamatan.setLayoutManager(new LinearLayoutManager(RegisterActivity.this, RecyclerView.VERTICAL, false));
         recyclerKecamatan.setItemAnimator(new DefaultItemAnimator());
         recyclerKecamatan.setAdapter(kecamatanAdapter);

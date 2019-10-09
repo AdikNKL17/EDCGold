@@ -47,6 +47,7 @@ public class ProfilePengaturanActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+                ProfilePengaturanActivity.this.finish();
             }
         });
 
