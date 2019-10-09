@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
@@ -50,7 +51,7 @@ public class KabupatenAdapter extends RecyclerView.Adapter<KabupatenAdapter.MyVi
             @Override
             public void onClick(View view) {
                 text.setText(kabupaten.getName());
-                RegisterActivity.idKab = kabupaten.getRegion_id();
+                RegisterActivity.idKab = kabupaten.getId();
                 dialog.dismiss();
             }
         });
@@ -68,5 +69,12 @@ public class KabupatenAdapter extends RecyclerView.Adapter<KabupatenAdapter.MyVi
 
             tvName = itemView.findViewById(R.id.tv_name);
         }
+    }
+
+
+    public void setFilter(List<KabupatenModel> newList){
+        kabupatenModels=new ArrayList<>();
+        kabupatenModels.addAll(newList);
+        notifyDataSetChanged();
     }
 }

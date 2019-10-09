@@ -75,6 +75,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_nama_depan"
+                        android:inputType="textPersonName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
@@ -98,6 +99,7 @@
                         android:id="@+id/et_nama_belakang"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:inputType="textPersonName"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"/>
                 </LinearLayout>
@@ -136,6 +138,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Perempuan"
+                            android:enabled="true"
                             android:textColor="@color/colorPrimary"
                             android:buttonTint="@color/colorPrimary"/>
 
@@ -161,6 +164,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:hint="Pilih Tanggal"
                         android:textColorHint="#888888"
                         android:backgroundTint="@color/colorPrimary"
@@ -184,6 +190,7 @@
                         android:id="@+id/et_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:inputType="number"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"/>
                 </LinearLayout>
@@ -205,6 +212,7 @@
                         android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:inputType="textEmailAddress"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"/>
                 </LinearLayout>
@@ -227,6 +235,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
+                        android:inputType="textPassword"
                         android:backgroundTint="@color/colorPrimary"
                         android:hint="Minimal 6 karakter"/>
                 </LinearLayout>
@@ -248,6 +257,9 @@
                         android:id="@+id/et_provinsi"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"
                         android:hint="Pilih Provinsi"/>
@@ -270,6 +282,9 @@
                         android:id="@+id/et_kabupaten"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"
                         android:hint="Pilih Kabupaten/Kota"/>
@@ -292,6 +307,9 @@
                         android:id="@+id/et_kecamatan"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"
                         android:hint="Pilih Kecamatan"/>
@@ -314,6 +332,7 @@
                         android:id="@+id/et_kodepos"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:inputType="number"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"
                         android:hint="Pilih Kode Pos"/>

@@ -17,19 +17,20 @@ import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.RegisterActivity;
-import id.dev.birifqa.edcgold.model.ProvinsiModel;
+import id.dev.birifqa.edcgold.model.KabupatenModel;
+import id.dev.birifqa.edcgold.model.KecamatanModel;
 
-public class ProvinsiAdapter  extends RecyclerView.Adapter<ProvinsiAdapter.MyViewHolder> {
+public class KecamatanAdapter extends RecyclerView.Adapter<KecamatanAdapter.MyViewHolder> {
 
     private View itemView;
     private Context mContext;
-    private List<ProvinsiModel> provinsiModels;
+    private List<KecamatanModel> kecamatanModels;
     private Dialog dialog;
     private TextInputEditText text;
 
-    public ProvinsiAdapter(Context mContext, List<ProvinsiModel> provinsiModels, Dialog dialog, TextInputEditText text) {
+    public KecamatanAdapter(Context mContext, List<KecamatanModel> kecamatanModels, Dialog dialog, TextInputEditText text) {
         this.mContext = mContext;
-        this.provinsiModels = provinsiModels;
+        this.kecamatanModels = kecamatanModels;
         this.dialog = dialog;
         this.text = text;
     }
@@ -38,29 +39,28 @@ public class ProvinsiAdapter  extends RecyclerView.Adapter<ProvinsiAdapter.MyVie
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_address, parent, false);
-        return new ProvinsiAdapter.MyViewHolder(itemView);
+        return new KecamatanAdapter.MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final ProvinsiModel provinsi = provinsiModels.get(position);
+        final KecamatanModel kecamatan = kecamatanModels.get(position);
 
-        holder.tvName.setText(provinsi.getName());
+        holder.tvName.setText(kecamatan.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                text.setText(provinsi.getName());
-                RegisterActivity.idProv = provinsi.getId();
+                text.setText(kecamatan.getName());
+                RegisterActivity.idKec = kecamatan.getRegency_id();
                 dialog.dismiss();
-
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return provinsiModels.size();
+        return kecamatanModels.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -73,9 +73,9 @@ public class ProvinsiAdapter  extends RecyclerView.Adapter<ProvinsiAdapter.MyVie
     }
 
 
-    public void setFilter(List<ProvinsiModel> newList){
-        provinsiModels=new ArrayList<>();
-        provinsiModels.addAll(newList);
+    public void setFilter(List<KecamatanModel> newList){
+        kecamatanModels=new ArrayList<>();
+        kecamatanModels.addAll(newList);
         notifyDataSetChanged();
     }
 }
