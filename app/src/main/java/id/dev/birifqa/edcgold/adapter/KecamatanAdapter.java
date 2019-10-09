@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.RegisterActivity;
+import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
 import id.dev.birifqa.edcgold.model.KabupatenModel;
 import id.dev.birifqa.edcgold.model.KecamatanModel;
 
@@ -27,12 +29,14 @@ public class KecamatanAdapter extends RecyclerView.Adapter<KecamatanAdapter.MyVi
     private List<KecamatanModel> kecamatanModels;
     private Dialog dialog;
     private TextInputEditText text;
+    private String status;
 
-    public KecamatanAdapter(Context mContext, List<KecamatanModel> kecamatanModels, Dialog dialog, TextInputEditText text) {
+    public KecamatanAdapter(Context mContext, List<KecamatanModel> kecamatanModels, Dialog dialog, TextInputEditText text, String status) {
         this.mContext = mContext;
         this.kecamatanModels = kecamatanModels;
         this.dialog = dialog;
         this.text = text;
+        this.status = status;
     }
 
     @NonNull
@@ -48,14 +52,28 @@ public class KecamatanAdapter extends RecyclerView.Adapter<KecamatanAdapter.MyVi
 
         holder.tvName.setText(kecamatan.getName());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                text.setText(kecamatan.getName());
-                RegisterActivity.idKec = kecamatan.getRegency_id();
-                dialog.dismiss();
-            }
-        });
+        if (status.equals("1")){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    text.setText(kecamatan.getName());
+                    RegisterActivity.idKec = kecamatan.getId();
+                    dialog.dismiss();
+
+                }
+            });
+        } else if (status.equals("2")){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    text.setText(kecamatan.getName());
+                    UbahAlamatActivity.idKec = kecamatan.getId();
+                    dialog.dismiss();
+                }
+            });
+        } else {
+            Toast.makeText(mContext, "Status Unauthenticated", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

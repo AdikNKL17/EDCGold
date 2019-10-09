@@ -21,8 +21,10 @@ import id.dev.birifqa.edcgold.activity_user.HomeActivity;
 import id.dev.birifqa.edcgold.activity_user.LoginActivity;
 import id.dev.birifqa.edcgold.activity_user.ProfileActivity;
 import id.dev.birifqa.edcgold.activity_user.ProfilePengaturanActivity;
+import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahEmailActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahNomorActivity;
+import id.dev.birifqa.edcgold.activity_user.UbahPasswordActivity;
 import id.dev.birifqa.edcgold.model.KabupatenModel;
 import id.dev.birifqa.edcgold.model.KecamatanModel;
 import id.dev.birifqa.edcgold.model.ProvinsiModel;
@@ -34,7 +36,6 @@ import id.dev.birifqa.edcgold.model.ProvinsiModel;
 public class Handle {
 
     private Session session;
-
 
     public static boolean handleLogin(String sjson, Context context) {
 
@@ -48,6 +49,11 @@ public class Handle {
                 session.save("id", jsonObject.getJSONObject("data").getString("id"));
                 session.save("name", jsonObject.getJSONObject("data").getString("name"));
                 session.save("email", jsonObject.getJSONObject("data").getString("email"));
+                session.save("regions_id", jsonObject.getJSONObject("data").getString("regions_id"));
+                session.save("regencies_id", jsonObject.getJSONObject("data").getString("regencies_id"));
+                session.save("districts_id", jsonObject.getJSONObject("data").getString("districts_id"));
+                session.save("postcode", jsonObject.getJSONObject("data").getString("postcode"));
+                session.save("address", jsonObject.getJSONObject("data").getString("address"));
 
                 Intent intent = new Intent(context, HomeActivity.class);
                 context.startActivity(intent);
@@ -84,6 +90,41 @@ public class Handle {
                         Api.provinsiModels.add(provinsi);
                     }
                     return true;
+                } else {
+                    Log.d("trip", "data not found");
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleGetProvinsiName(String sjson, TextInputEditText etProvinsi, Context context) {
+        Session session = new Session(context);
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        if (data.getJSONObject(i).getString("id").equals(session.get("regions_id"))){
+                            etProvinsi.setText(data.getJSONObject(i).getString("name"));
+                            UbahAlamatActivity.idProv = data.getJSONObject(i).getString("id");
+                            return true;
+                        }
+                    }
                 } else {
                     Log.d("trip", "data not found");
                 }
@@ -143,6 +184,41 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleGetKabupatenName(String sjson, TextInputEditText etKabupaten, Context context) {
+        Session session = new Session(context);
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        if (data.getJSONObject(i).getString("id").equals(session.get("regencies_id"))){
+                            etKabupaten.setText(data.getJSONObject(i).getString("name"));
+                            UbahAlamatActivity.idKab = data.getJSONObject(i).getString("id");
+                            return true;
+                        }
+                    }
+                } else {
+                    Log.d("trip", "data not found");
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
     public static boolean handleGetKecamatan(String sjson, Context context) {
 
         try {
@@ -164,6 +240,42 @@ public class Handle {
                     return true;
                 } else {
 
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleGetKecamatanName(String sjson, TextInputEditText etKecamatan, Context context) {
+        Session session = new Session(context);
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        if (data.getJSONObject(i).getString("id").equals(session.get("districts_id"))){
+                            etKecamatan.setText(data.getJSONObject(i).getString("name"));
+                            UbahAlamatActivity.idKec = data.getJSONObject(i).getString("id");
+                            Log.d("Kecamatan name", data.getJSONObject(i).getString("name"));
+                            return true;
+                        }
+                    }
+                } else {
+                    Log.d("trip", "data not found");
                 }
                 return true;
 
@@ -251,6 +363,24 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleChangeAddressDetail(String sjson, TextInputEditText etKodepos, TextInputEditText etAddress, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            etKodepos.setText(jsonObject.getJSONObject("data").getString("postcode"));
+            etAddress.setText(jsonObject.getJSONObject("data").getString("address"));
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
     public static boolean handleHome(String sjson, TextView tvName, TextView tvEmail, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -311,8 +441,6 @@ public class Handle {
         return false;
     }
 
-    ConstraintLayout btnChangePhone, btnChangeEmail, btnChangeBank, btnChangeAddress, btnChangePassword;
-
     public static boolean handleProfilePengaturan(String sjson, TextView tvName, ConstraintLayout btnChangePhone,
                                                   ConstraintLayout btnChangeEmail, ConstraintLayout btnChangeBank,
                                                   ConstraintLayout btnChangeAddress, ConstraintLayout btnChangePassword,
@@ -344,6 +472,22 @@ public class Handle {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    context.startActivity(intent);
+                }
+            });
+
+            btnChangeAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, UbahAlamatActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+
+            btnChangePassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, UbahPasswordActivity.class);
                     context.startActivity(intent);
                 }
             });
