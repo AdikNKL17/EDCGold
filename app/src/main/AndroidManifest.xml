@@ -12,7 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity_user.UbahEmailActivity"></activity>
+        <activity android:name=".activity_user.MiningActivity"></activity>
+        <activity android:name=".activity_user.UbahPasswordActivity" />
+        <activity android:name=".activity_user.UbahAlamatActivity" />
+        <activity android:name=".activity_user.EditRekeningBank" />
+        <activity android:name=".activity_user.RekeningBankActivity" />
+        <activity android:name=".activity_user.UbahEmailActivity" />
         <activity android:name=".activity_user.UbahNomorActivity" />
         <activity android:name=".activity_user.ProfilePengaturanActivity" />
         <activity android:name=".activity_user.ProfileLockActivity" />
