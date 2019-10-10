@@ -1,18 +1,18 @@
-package id.dev.birifqa.edcgold.model;
+package id.dev.birifqa.edcgold.model.address;
 
-public class KecamatanModel {
+public class KabupatenModel {
     private String id;
-    private String regency_id;
+    private String region_id;
     private String name;
     private String created_at;
     private String updated_at;
 
-    public KecamatanModel() {
+    public KabupatenModel() {
     }
 
-    public KecamatanModel(String id, String regency_id, String name, String created_at, String updated_at) {
+    public KabupatenModel(String id, String region_id, String name, String created_at, String updated_at) {
         this.id = id;
-        this.regency_id = regency_id;
+        this.region_id = region_id;
         this.name = name;
         this.created_at = created_at;
         this.updated_at = updated_at;
@@ -26,12 +26,12 @@ public class KecamatanModel {
         this.id = id;
     }
 
-    public String getRegency_id() {
-        return regency_id;
+    public String getRegion_id() {
+        return region_id;
     }
 
-    public void setRegency_id(String regency_id) {
-        this.regency_id = regency_id;
+    public void setRegion_id(String region_id) {
+        this.region_id = region_id;
     }
 
     public String getName() {
