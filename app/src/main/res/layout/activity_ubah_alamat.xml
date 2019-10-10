@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_icons8_left"
@@ -23,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ubah Rekening Bank"
+                android:text="Ubah Alamat"
                 android:layout_gravity="center"
                 android:textSize="16sp"
                 android:fontFamily="@font/circular_std_medium"
@@ -64,6 +65,9 @@
                     android:id="@+id/et_provinsi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:layout_marginTop="4dp"
                     android:backgroundTint="@color/colorPrimary"
                     />
@@ -86,6 +90,33 @@
                     android:id="@+id/et_kabkota"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:layout_marginTop="4dp"
+                    android:backgroundTint="@color/colorPrimary"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kecamatan"
+                    android:textColor="@color/colorPrimary"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_kecamatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:layout_marginTop="4dp"
                     android:backgroundTint="@color/colorPrimary"/>
             </LinearLayout>

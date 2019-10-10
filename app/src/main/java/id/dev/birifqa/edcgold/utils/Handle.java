@@ -1,14 +1,32 @@
 package id.dev.birifqa.edcgold.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import id.dev.birifqa.edcgold.activity_user.HomeActivity;
+import id.dev.birifqa.edcgold.activity_user.LoginActivity;
+import id.dev.birifqa.edcgold.activity_user.ProfileActivity;
+import id.dev.birifqa.edcgold.activity_user.ProfilePengaturanActivity;
+import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
+import id.dev.birifqa.edcgold.activity_user.UbahEmailActivity;
+import id.dev.birifqa.edcgold.activity_user.UbahNomorActivity;
+import id.dev.birifqa.edcgold.activity_user.UbahPasswordActivity;
 import id.dev.birifqa.edcgold.model.KabupatenModel;
+import id.dev.birifqa.edcgold.model.KecamatanModel;
 import id.dev.birifqa.edcgold.model.ProvinsiModel;
 
 /**
@@ -18,7 +36,6 @@ import id.dev.birifqa.edcgold.model.ProvinsiModel;
 public class Handle {
 
     private Session session;
-
 
     public static boolean handleLogin(String sjson, Context context) {
 
@@ -32,7 +49,14 @@ public class Handle {
                 session.save("id", jsonObject.getJSONObject("data").getString("id"));
                 session.save("name", jsonObject.getJSONObject("data").getString("name"));
                 session.save("email", jsonObject.getJSONObject("data").getString("email"));
+                session.save("regions_id", jsonObject.getJSONObject("data").getString("regions_id"));
+                session.save("regencies_id", jsonObject.getJSONObject("data").getString("regencies_id"));
+                session.save("districts_id", jsonObject.getJSONObject("data").getString("districts_id"));
+                session.save("postcode", jsonObject.getJSONObject("data").getString("postcode"));
+                session.save("address", jsonObject.getJSONObject("data").getString("address"));
 
+                Intent intent = new Intent(context, HomeActivity.class);
+                context.startActivity(intent);
                 return true;
 
             } else {
@@ -55,7 +79,7 @@ public class Handle {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
-            if (succses == true) {
+            if (succses) {
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -86,12 +110,47 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleGetProvinsiName(String sjson, TextInputEditText etProvinsi, Context context) {
+        Session session = new Session(context);
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        if (data.getJSONObject(i).getString("id").equals(session.get("regions_id"))){
+                            etProvinsi.setText(data.getJSONObject(i).getString("name"));
+                            UbahAlamatActivity.idProv = data.getJSONObject(i).getString("id");
+                            return true;
+                        }
+                    }
+                } else {
+                    Log.d("trip", "data not found");
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
     public static boolean handleGetKabupaten(String sjson, Context context) {
 
         try {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
-            if (succses == true) {
+            if (succses) {
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -125,6 +184,324 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleGetKabupatenName(String sjson, TextInputEditText etKabupaten, Context context) {
+        Session session = new Session(context);
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        if (data.getJSONObject(i).getString("id").equals(session.get("regencies_id"))){
+                            etKabupaten.setText(data.getJSONObject(i).getString("name"));
+                            UbahAlamatActivity.idKab = data.getJSONObject(i).getString("id");
+                            return true;
+                        }
+                    }
+                } else {
+                    Log.d("trip", "data not found");
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleGetKecamatan(String sjson, Context context) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        KecamatanModel kecamatan = new KecamatanModel();
+                        kecamatan.setId(data.getJSONObject(i).getString("id"));
+                        kecamatan.setRegency_id(data.getJSONObject(i).getString("regency_id"));
+                        kecamatan.setName(data.getJSONObject(i).getString("name"));
+                        kecamatan.setCreated_at(data.getJSONObject(i).getString("created_at"));
+                        kecamatan.setUpdated_at(data.getJSONObject(i).getString("updated_at"));
+
+                        Api.kecamatanModels.add(kecamatan);
+                    }
+                    return true;
+                } else {
+
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleGetKecamatanName(String sjson, TextInputEditText etKecamatan, Context context) {
+        Session session = new Session(context);
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        if (data.getJSONObject(i).getString("id").equals(session.get("districts_id"))){
+                            etKecamatan.setText(data.getJSONObject(i).getString("name"));
+                            UbahAlamatActivity.idKec = data.getJSONObject(i).getString("id");
+                            Log.d("Kecamatan name", data.getJSONObject(i).getString("name"));
+                            return true;
+                        }
+                    }
+                } else {
+                    Log.d("trip", "data not found");
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleRequestRegister(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleChangePhone(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleChangeEmail(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleChangeAddressDetail(String sjson, TextInputEditText etKodepos, TextInputEditText etAddress, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            etKodepos.setText(jsonObject.getJSONObject("data").getString("postcode"));
+            etAddress.setText(jsonObject.getJSONObject("data").getString("address"));
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleHome(String sjson, TextView tvName, TextView tvEmail, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
+            tvEmail.setText(jsonObject.getJSONObject("data").getString("email"));
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleProfile(String sjson, TextView tvName, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleProfileDetail(String sjson, TextView tvName, TextInputEditText etName,
+                                              TextInputEditText etId, TextInputEditText etPhone,
+                                              TextInputEditText etEmail, TextInputEditText etAddress,
+                                              Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
+            etName.setText(jsonObject.getJSONObject("data").getString("name"));
+            etId.setText(jsonObject.getJSONObject("data").getString("id"));
+            etPhone.setText(jsonObject.getJSONObject("data").getString("phone"));
+            etEmail.setText(jsonObject.getJSONObject("data").getString("email"));
+            etAddress.setText(jsonObject.getJSONObject("data").getString("address"));
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleProfilePengaturan(String sjson, TextView tvName, ConstraintLayout btnChangePhone,
+                                                  ConstraintLayout btnChangeEmail, ConstraintLayout btnChangeBank,
+                                                  ConstraintLayout btnChangeAddress, ConstraintLayout btnChangePassword,
+                                                  Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
+
+            btnChangePhone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, UbahNomorActivity.class);
+                    try {
+                        intent.putExtra("PHONE", jsonObject.getJSONObject("data").getString("phone"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    context.startActivity(intent);
+                }
+            });
+
+            btnChangeEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, UbahEmailActivity.class);
+                    try {
+                        intent.putExtra("EMAIL", jsonObject.getJSONObject("data").getString("email"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    context.startActivity(intent);
+                }
+            });
+
+            btnChangeAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, UbahAlamatActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+
+            btnChangePassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, UbahPasswordActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
 //    public static boolean handleLogin(String sjson, Context context) {
 //
 //        Session session = new Session(context);

@@ -1,5 +1,6 @@
 package id.dev.birifqa.edcgold.activity_user;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,11 +21,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.Handle;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView tvName, tvEmail;
+    private Session session;
+    private Callback<ResponseBody> cBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +53,38 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        View hearderView = navigationView.getHeaderView(0);
+        tvName = hearderView.findViewById(R.id.tv_name);
+        tvEmail = hearderView.findViewById(R.id.tv_email);
+
+        getUserDetail();
+    }
+
+    private void getUserDetail(){
+        Call<ResponseBody> call = ParamReq.requestUserDetail(session.get("token"), HomeActivity.this);
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    boolean handle = Handle.handleHome(response.body().string(), tvName, tvEmail, HomeActivity.this);
+                    if (handle) {
+
+                    } else {
+                        Api.mProgressDialog.dismiss();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(HomeActivity.this, call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(HomeActivity.this, call, cBack, false, "Loading");
     }
 
     @Override
@@ -80,7 +126,8 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

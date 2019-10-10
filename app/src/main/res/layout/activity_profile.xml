@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_icons8_left"
@@ -70,6 +71,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -92,6 +94,7 @@
                 android:layout_marginTop="24dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_profil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -130,6 +133,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_lock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -168,6 +172,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_pengaturan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -206,6 +211,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

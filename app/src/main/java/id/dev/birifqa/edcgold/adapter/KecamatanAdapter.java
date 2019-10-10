@@ -20,19 +20,20 @@ import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.RegisterActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
 import id.dev.birifqa.edcgold.model.KabupatenModel;
+import id.dev.birifqa.edcgold.model.KecamatanModel;
 
-public class KabupatenAdapter extends RecyclerView.Adapter<KabupatenAdapter.MyViewHolder> {
+public class KecamatanAdapter extends RecyclerView.Adapter<KecamatanAdapter.MyViewHolder> {
 
     private View itemView;
     private Context mContext;
-    private List<KabupatenModel> kabupatenModels;
+    private List<KecamatanModel> kecamatanModels;
     private Dialog dialog;
     private TextInputEditText text;
     private String status;
 
-    public KabupatenAdapter(Context mContext, List<KabupatenModel> kabupatenModels, Dialog dialog, TextInputEditText text, String status) {
+    public KecamatanAdapter(Context mContext, List<KecamatanModel> kecamatanModels, Dialog dialog, TextInputEditText text, String status) {
         this.mContext = mContext;
-        this.kabupatenModels = kabupatenModels;
+        this.kecamatanModels = kecamatanModels;
         this.dialog = dialog;
         this.text = text;
         this.status = status;
@@ -42,21 +43,21 @@ public class KabupatenAdapter extends RecyclerView.Adapter<KabupatenAdapter.MyVi
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_address, parent, false);
-        return new KabupatenAdapter.MyViewHolder(itemView);
+        return new KecamatanAdapter.MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final KabupatenModel kabupaten = kabupatenModels.get(position);
+        final KecamatanModel kecamatan = kecamatanModels.get(position);
 
-        holder.tvName.setText(kabupaten.getName());
+        holder.tvName.setText(kecamatan.getName());
 
         if (status.equals("1")){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    text.setText(kabupaten.getName());
-                    RegisterActivity.idKab = kabupaten.getId();
+                    text.setText(kecamatan.getName());
+                    RegisterActivity.idKec = kecamatan.getId();
                     dialog.dismiss();
 
                 }
@@ -65,8 +66,8 @@ public class KabupatenAdapter extends RecyclerView.Adapter<KabupatenAdapter.MyVi
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    text.setText(kabupaten.getName());
-                    UbahAlamatActivity.idKab = kabupaten.getId();
+                    text.setText(kecamatan.getName());
+                    UbahAlamatActivity.idKec = kecamatan.getId();
                     dialog.dismiss();
                 }
             });
@@ -77,7 +78,7 @@ public class KabupatenAdapter extends RecyclerView.Adapter<KabupatenAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        return kabupatenModels.size();
+        return kecamatanModels.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -90,9 +91,9 @@ public class KabupatenAdapter extends RecyclerView.Adapter<KabupatenAdapter.MyVi
     }
 
 
-    public void setFilter(List<KabupatenModel> newList){
-        kabupatenModels=new ArrayList<>();
-        kabupatenModels.addAll(newList);
+    public void setFilter(List<KecamatanModel> newList){
+        kecamatanModels=new ArrayList<>();
+        kecamatanModels.addAll(newList);
         notifyDataSetChanged();
     }
 }
