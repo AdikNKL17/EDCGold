@@ -19,8 +19,7 @@ import java.util.List;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.RegisterActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
-import id.dev.birifqa.edcgold.model.KabupatenModel;
-import id.dev.birifqa.edcgold.model.KecamatanModel;
+import id.dev.birifqa.edcgold.model.address.KecamatanModel;
 
 public class KecamatanAdapter extends RecyclerView.Adapter<KecamatanAdapter.MyViewHolder> {
 

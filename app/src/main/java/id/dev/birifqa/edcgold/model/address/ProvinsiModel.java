@@ -1,4 +1,4 @@
-package id.dev.birifqa.edcgold.model;
+package id.dev.birifqa.edcgold.model.address;
 
 public class ProvinsiModel {
     private String id;

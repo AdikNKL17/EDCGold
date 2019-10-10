@@ -52,6 +52,7 @@
                 android:drawablePadding="16dp"
                 android:hint="Username"
                 android:id="@+id/et_username"
+                android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:padding="16dp" />
 
@@ -70,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_icons8_password"
                 android:drawablePadding="16dp"
+                android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:hint="Password"
                 android:inputType="textPassword"

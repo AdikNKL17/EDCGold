@@ -15,19 +15,16 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
+import id.dev.birifqa.edcgold.activity_user.EditRekeningBank;
 import id.dev.birifqa.edcgold.activity_user.HomeActivity;
-import id.dev.birifqa.edcgold.activity_user.LoginActivity;
-import id.dev.birifqa.edcgold.activity_user.ProfileActivity;
-import id.dev.birifqa.edcgold.activity_user.ProfilePengaturanActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahEmailActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahNomorActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahPasswordActivity;
-import id.dev.birifqa.edcgold.model.KabupatenModel;
-import id.dev.birifqa.edcgold.model.KecamatanModel;
-import id.dev.birifqa.edcgold.model.ProvinsiModel;
+import id.dev.birifqa.edcgold.model.address.KabupatenModel;
+import id.dev.birifqa.edcgold.model.address.KecamatanModel;
+import id.dev.birifqa.edcgold.model.address.ProvinsiModel;
 
 /**
  * Created by palapabeta on 03/02/18.
@@ -472,6 +469,14 @@ public class Handle {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    context.startActivity(intent);
+                }
+            });
+
+            btnChangeBank.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, EditRekeningBank.class);
                     context.startActivity(intent);
                 }
             });
