@@ -3,42 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Profil Saya" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Wallet" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="History" />
-        <item
-            android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Komunitas" />
-    </group>
+    <!--<group android:checkableBehavior="single">-->
+        <!--<item-->
+            <!--android:id="@+id/nav_home"-->
+            <!--android:icon="@drawable/ic_menu_camera"-->
+            <!--android:title="Profil Saya" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_gallery"-->
+            <!--android:icon="@drawable/ic_menu_gallery"-->
+            <!--android:title="Wallet" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_slideshow"-->
+            <!--android:icon="@drawable/ic_menu_slideshow"-->
+            <!--android:title="History" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_tools"-->
+            <!--android:icon="@drawable/ic_menu_manage"-->
+            <!--android:title="Komunitas" />-->
+    <!--</group>-->
 
-    <item android:title="Social Media">
-        <menu>
+    <!--<item android:title="Social Media">-->
+        <!--<menu>-->
 
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Keluar Aplikasi" />
-        </menu>
-    </item>
-
-    <menu>
-
-        <item
-            android:id="@+id/nav_exit"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Keluar Aplikasi" />
-    </menu>
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Keluar Aplikasi" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
 
 </menu>

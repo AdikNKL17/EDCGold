@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="id.dev.birifqa.edcgold">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
         android:usesCleartextTraffic="true">
         <activity android:name=".activity_user.GantiAlamatSuksesActivity"></activity>
         <activity android:name=".activity_user.GantiRekeningSuksesActivity" />
@@ -40,7 +42,8 @@
             android:name=".activity_user.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity_user.LoginActivity" />
+        <activity android:name=".activity_user.LoginActivity"
+            android:theme="@style/LoginTheme"/>
         <activity android:name=".activity_user.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

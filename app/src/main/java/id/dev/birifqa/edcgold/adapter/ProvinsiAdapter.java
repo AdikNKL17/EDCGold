@@ -19,7 +19,7 @@ import java.util.List;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.RegisterActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
-import id.dev.birifqa.edcgold.model.ProvinsiModel;
+import id.dev.birifqa.edcgold.model.address.ProvinsiModel;
 
 public class ProvinsiAdapter  extends RecyclerView.Adapter<ProvinsiAdapter.MyViewHolder> {
 
