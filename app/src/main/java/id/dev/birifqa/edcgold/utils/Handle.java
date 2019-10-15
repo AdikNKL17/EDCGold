@@ -16,7 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import id.dev.birifqa.edcgold.activity_user.EditRekeningBank;
+import id.dev.birifqa.edcgold.activity_user.UbahRekeningBankActivity;
 import id.dev.birifqa.edcgold.activity_user.HomeActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahEmailActivity;
@@ -71,7 +71,43 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleGetProvinsi(String sjson, Context context) {
+    public static boolean handleGetProvinsi1(String sjson, Context context) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        ProvinsiModel provinsi = new ProvinsiModel();
+                        provinsi.setId(data.getJSONObject(i).getString("id"));
+                        provinsi.setCountry_id(data.getJSONObject(i).getString("country_id"));
+                        provinsi.setName(data.getJSONObject(i).getString("name"));
+                        Api.provinsiModels.add(provinsi);
+                    }
+                    return true;
+                } else {
+                    Log.d("trip", "data not found");
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleGetProvinsi2(String sjson, Context context) {
 
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -142,7 +178,46 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleGetKabupaten(String sjson, Context context) {
+    public static boolean handleGetKabupaten1(String sjson, Context context) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        KabupatenModel kabupaten = new KabupatenModel();
+                        kabupaten.setId(data.getJSONObject(i).getString("id"));
+                        kabupaten.setRegion_id(data.getJSONObject(i).getString("region_id"));
+                        kabupaten.setName(data.getJSONObject(i).getString("name"));
+                        kabupaten.setCreated_at(data.getJSONObject(i).getString("created_at"));
+                        kabupaten.setUpdated_at(data.getJSONObject(i).getString("updated_at"));
+
+                        Api.kabupatenModels.add(kabupaten);
+                    }
+                    return true;
+                } else {
+                    Log.d("trip", "data not found");
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleGetKabupaten2(String sjson, Context context) {
 
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -216,7 +291,46 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleGetKecamatan(String sjson, Context context) {
+    public static boolean handleGetKecamatan1(String sjson, Context context) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        KecamatanModel kecamatan = new KecamatanModel();
+                        kecamatan.setId(data.getJSONObject(i).getString("id"));
+                        kecamatan.setRegency_id(data.getJSONObject(i).getString("regency_id"));
+                        kecamatan.setName(data.getJSONObject(i).getString("name"));
+                        kecamatan.setCreated_at(data.getJSONObject(i).getString("created_at"));
+                        kecamatan.setUpdated_at(data.getJSONObject(i).getString("updated_at"));
+
+                        Api.kecamatanModels.add(kecamatan);
+                    }
+                    return true;
+                } else {
+
+                }
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleGetKecamatan2(String sjson, Context context) {
 
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -363,7 +477,9 @@ public class Handle {
     public static boolean handleChangeAddressDetail(String sjson, TextInputEditText etKodepos, TextInputEditText etAddress, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
-
+            UbahAlamatActivity.idProv = jsonObject.getJSONObject("data").getString("regions_id");
+            UbahAlamatActivity.idKab = jsonObject.getJSONObject("data").getString("regencies_id");
+            UbahAlamatActivity.idKec = jsonObject.getJSONObject("data").getString("districts_id");
             etKodepos.setText(jsonObject.getJSONObject("data").getString("postcode"));
             etAddress.setText(jsonObject.getJSONObject("data").getString("address"));
 
@@ -476,7 +592,7 @@ public class Handle {
             btnChangeBank.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, EditRekeningBank.class);
+                    Intent intent = new Intent(context, UbahRekeningBankActivity.class);
                     context.startActivity(intent);
                 }
             });

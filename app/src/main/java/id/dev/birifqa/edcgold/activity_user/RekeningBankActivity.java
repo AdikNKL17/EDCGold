@@ -12,5 +12,16 @@ public class RekeningBankActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rekening_bank);
+
+        findViewById();
+        onAction();
+    }
+
+    private void findViewById(){
+
+    }
+
+    private void onAction(){
+
     }
 }

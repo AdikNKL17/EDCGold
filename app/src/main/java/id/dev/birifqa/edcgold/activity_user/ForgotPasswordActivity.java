@@ -17,8 +17,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
+        findViewById();
+        onAction();
+    }
+
+    private void findViewById(){
         toolbar = findViewById(R.id.toolbar);
 
+    }
+
+    private void onAction(){
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -21,8 +21,16 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        bgSplash = findViewById(R.id.bg_splash);
+        findViewById();
+        onAction();
 
+    }
+
+    private void findViewById(){
+        bgSplash = findViewById(R.id.bg_splash);
+    }
+
+    private void onAction(){
         RequestOptions myOptions = new RequestOptions()
                 .fitCenter() // or centerCrop
                 .override(600, 1200);
