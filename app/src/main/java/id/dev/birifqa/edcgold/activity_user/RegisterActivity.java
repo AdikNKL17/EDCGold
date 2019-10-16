@@ -64,6 +64,12 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        findViewById();
+        onAction();
+
+    }
+
+    private void findViewById(){
         etNamaDepan = findViewById(R.id.et_nama_depan);
         etNamaBelakang = findViewById(R.id.et_nama_belakang);
         etBOD = findViewById(R.id.et_bod);
@@ -78,8 +84,9 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
         etReferral = findViewById(R.id.et_referral);
         groupJK = findViewById(R.id.radioJK);
         btnDaftar = findViewById(R.id.btn_daftar);
+    }
 
-
+    private void onAction(){
         groupJK.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -288,7 +295,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     Api.provinsiModels.clear();
-                    boolean handle = Handle.handleGetProvinsi(response.body().string(), RegisterActivity.this);
+                    boolean handle = Handle.handleGetProvinsi1(response.body().string(), RegisterActivity.this);
                     if (handle) {
                         provinsiAdapter.notifyDataSetChanged();
                     } else {
@@ -381,7 +388,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         Api.kabupatenModels.clear();
-                        boolean handle = Handle.handleGetKabupaten(response.body().string(), RegisterActivity.this);
+                        boolean handle = Handle.handleGetKabupaten1(response.body().string(), RegisterActivity.this);
                         if (handle) {
                             kabupatenAdapter.notifyDataSetChanged();
                         } else {
@@ -478,7 +485,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         Api.kecamatanModels.clear();
-                        boolean handle = Handle.handleGetKecamatan(response.body().string(), RegisterActivity.this);
+                        boolean handle = Handle.handleGetKecamatan1(response.body().string(), RegisterActivity.this);
                         if (handle) {
                             kecamatanAdapter.notifyDataSetChanged();
                         } else {

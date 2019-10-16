@@ -31,7 +31,7 @@
         <activity android:name=".activity_user.MiningActivity" />
         <activity android:name=".activity_user.UbahPasswordActivity" />
         <activity android:name=".activity_user.UbahAlamatActivity" />
-        <activity android:name=".activity_user.EditRekeningBank" />
+        <activity android:name=".activity_user.UbahRekeningBankActivity" />
         <activity android:name=".activity_user.RekeningBankActivity" />
         <activity android:name=".activity_user.UbahEmailActivity" />
         <activity android:name=".activity_user.UbahNomorActivity" />

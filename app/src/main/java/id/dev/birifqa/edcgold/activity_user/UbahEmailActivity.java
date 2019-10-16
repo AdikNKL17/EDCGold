@@ -24,7 +24,7 @@ import retrofit2.Response;
 public class UbahEmailActivity extends AppCompatActivity {
 
     private TextInputEditText etEmailLama, etEmailBaru, etKonfirmasi;
-    private AppCompatButton btnKonfirmasi;
+    private AppCompatButton btnConfirm;
     private Toolbar toolbar;
     private Callback<ResponseBody> cBack;
     private Session session;
@@ -34,12 +34,21 @@ public class UbahEmailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubah_email);
 
+
+        findViewById();
+        onAction();
+
+    }
+
+    private void findViewById(){
         toolbar = findViewById(R.id.toolbar);
         etEmailLama = findViewById(R.id.et_email_lama);
         etEmailBaru = findViewById(R.id.et_email_baru);
         etKonfirmasi = findViewById(R.id.konfirmasi);
-        btnKonfirmasi = findViewById(R.id.btn_confirm);
+        btnConfirm = findViewById(R.id.btn_confirm);
+    }
 
+    private void onAction(){
         Intent getIntent = getIntent();
         etEmailLama.setText(getIntent.getStringExtra("EMAIL"));
 
@@ -50,10 +59,10 @@ public class UbahEmailActivity extends AppCompatActivity {
             }
         });
 
-        btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeEmail();
+                startActivity(new Intent(UbahEmailActivity.this, GantiEmailSukses.class));
             }
         });
     }

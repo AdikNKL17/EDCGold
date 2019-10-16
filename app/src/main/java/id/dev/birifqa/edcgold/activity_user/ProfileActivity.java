@@ -37,12 +37,22 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        findViewById();
+        onAction();
+
+        getUserDetail();
+    }
+
+    private void findViewById(){
         toolbar = findViewById(R.id.toolbar);
         tvName = findViewById(R.id.tv_name);
         btnProfil = findViewById(R.id.btn_profil);
         btnLock = findViewById(R.id.btn_lock);
         btnPengaturan = findViewById(R.id.btn_pengaturan);
         btnLogout = findViewById(R.id.btn_logout);
+    }
+
+    private void onAction(){
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,13 +62,11 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        Intent getIntent = getIntent();
 
         btnProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, ProfileDetailActivity.class);
-                intent.putExtra("TOKEN", session.get("token"));
                 startActivity(intent);
             }
         });
@@ -74,7 +82,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, ProfilePengaturanActivity.class);
-                intent.putExtra("NAME", getIntent.getStringExtra("NAME"));
                 startActivity(intent);
             }
         });
@@ -85,8 +92,6 @@ public class ProfileActivity extends AppCompatActivity {
                 logout();
             }
         });
-
-        getUserDetail();
     }
 
     private void logout(){
