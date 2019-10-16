@@ -35,12 +35,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"></androidx.viewpager.widget.ViewPager>
+        app:layout_constraintTop_toBottomOf="@+id/appBar"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -55,16 +56,19 @@
         app:tabTextColor="@color/colorWhite">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_aging"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Aging" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Balance" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_withdraw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Withdraw" />
