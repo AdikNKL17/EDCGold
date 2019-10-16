@@ -1,12 +1,14 @@
 package id.dev.birifqa.edcgold.activity_user;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -44,26 +46,38 @@ import retrofit2.Response;
 public class UbahAlamatActivity extends AppCompatActivity {
 
     private TextInputEditText etProvinsi, etKabupaten, etKecamatan, etKodepos, etAlamat;
+    private AppCompatButton btnConfirm;
     private Session session;
     private Callback<ResponseBody> cBack;
     private Toolbar toolbar;
 
-    public static String idProv = "";
-    public static String idKab = "";
-    public static String idKec = "";
+    public static String idProv;
+    public static String idKab;
+    public static String idKec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubah_alamat);
 
+        findViewById();
+        onAction();
+
+        getUserDetail();
+        getProvinsi();
+    }
+
+    private void findViewById(){
         toolbar = findViewById(R.id.toolbar);
         etProvinsi = findViewById(R.id.et_provinsi);
         etKabupaten = findViewById(R.id.et_kabkota);
         etKecamatan = findViewById(R.id.et_kecamatan);
         etKodepos = findViewById(R.id.et_kodepos);
         etAlamat = findViewById(R.id.et_alamat);
+        btnConfirm = findViewById(R.id.btn_confirm);
+    }
 
+    private void onAction(){
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,8 +110,12 @@ public class UbahAlamatActivity extends AppCompatActivity {
             }
         });
 
-        getUserDetail();
-        getProvinsi();
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UbahAlamatActivity.this, GantiAlamatSuksesActivity.class));
+            }
+        });
     }
 
     private void getUserDetail(){
@@ -134,6 +152,7 @@ public class UbahAlamatActivity extends AppCompatActivity {
                 try {
                     boolean handle = Handle.handleGetProvinsiName(response.body().string(), etProvinsi, UbahAlamatActivity.this);
                     if (handle) {
+                        Log.d("prov id", idProv);
                         getKabupaten();
                     } else {
                         Api.mProgressDialog.dismiss();
@@ -161,6 +180,7 @@ public class UbahAlamatActivity extends AppCompatActivity {
                 try {
                     boolean handle = Handle.handleGetKabupatenName(response.body().string(), etKabupaten, UbahAlamatActivity.this);
                     if (handle) {
+                        Log.d("kab id", idKab);
                         getKecamatan();
                     } else {
                         Api.mProgressDialog.dismiss();
@@ -188,7 +208,7 @@ public class UbahAlamatActivity extends AppCompatActivity {
                 try {
                     boolean handle = Handle.handleGetKecamatanName(response.body().string(), etKecamatan, UbahAlamatActivity.this);
                     if (handle) {
-
+                        Log.d("kec id", idKec);
                     } else {
                         Api.mProgressDialog.dismiss();
                     }
@@ -239,7 +259,7 @@ public class UbahAlamatActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     Api.provinsiModels.clear();
-                    boolean handle = Handle.handleGetProvinsi(response.body().string(), UbahAlamatActivity.this);
+                    boolean handle = Handle.handleGetProvinsi2(response.body().string(), UbahAlamatActivity.this);
                     if (handle) {
                         provinsiAdapter.notifyDataSetChanged();
                     } else {
@@ -325,14 +345,14 @@ public class UbahAlamatActivity extends AppCompatActivity {
         recyclerKabupaten.setItemAnimator(new DefaultItemAnimator());
         recyclerKabupaten.setAdapter(kabupatenAdapter);
 
-        if (!RegisterActivity.idProv.equals("")){
-            Call<ResponseBody> call = ParamReq.requestKabupaten(RegisterActivity.idProv,UbahAlamatActivity.this);
+        if (!UbahAlamatActivity.idProv.equals("")){
+            Call<ResponseBody> call = ParamReq.requestKabupaten(UbahAlamatActivity.idProv,UbahAlamatActivity.this);
             Callback<ResponseBody> cBack = new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         Api.kabupatenModels.clear();
-                        boolean handle = Handle.handleGetKabupaten(response.body().string(), UbahAlamatActivity.this);
+                        boolean handle = Handle.handleGetKabupaten2(response.body().string(), UbahAlamatActivity.this);
                         if (handle) {
                             kabupatenAdapter.notifyDataSetChanged();
                         } else {
@@ -421,15 +441,14 @@ public class UbahAlamatActivity extends AppCompatActivity {
         recyclerKecamatan.setItemAnimator(new DefaultItemAnimator());
         recyclerKecamatan.setAdapter(kecamatanAdapter);
 
-        if (!RegisterActivity.idKab.equals("")){
-            Log.d("ID_KAB", RegisterActivity.idKab);
-            Call<ResponseBody> call = ParamReq.requestKecamatan(RegisterActivity.idKab,UbahAlamatActivity.this);
+        if (!UbahAlamatActivity.idKab.equals("")){
+            Call<ResponseBody> call = ParamReq.requestKecamatan(UbahAlamatActivity.idKab,UbahAlamatActivity.this);
             Callback<ResponseBody> cBack = new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         Api.kecamatanModels.clear();
-                        boolean handle = Handle.handleGetKecamatan(response.body().string(), UbahAlamatActivity.this);
+                        boolean handle = Handle.handleGetKecamatan2(response.body().string(), UbahAlamatActivity.this);
                         if (handle) {
                             kecamatanAdapter.notifyDataSetChanged();
                         } else {

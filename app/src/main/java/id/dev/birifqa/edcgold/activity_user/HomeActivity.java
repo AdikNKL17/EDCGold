@@ -29,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +51,7 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView tvName, tvEmail;
+    private Toolbar toolbar;
     private Session session;
     private Callback<ResponseBody> cBack;
     private NavigationView navigationView;
@@ -65,7 +67,14 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        findViewById();
+        onAction();
+
+        getUserDetail();
+    }
+
+    private void findViewById(){
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -74,6 +83,9 @@ public class HomeActivity extends AppCompatActivity
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
 
+    }
+
+    private void onAction(){
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         prepareMenuData();
@@ -83,8 +95,6 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
-        getUserDetail();
     }
 
     private void getUserDetail(){
@@ -192,6 +202,17 @@ public class HomeActivity extends AppCompatActivity
                 if (childList.get(headerList.get(groupPosition)) != null) {
                     MenuModel model = childList.get(headerList.get(groupPosition)).get(childPosition);
 
+                    if (model.menuName.equals("Mining")){
+                        startActivity(new Intent(HomeActivity.this, MiningActivity.class));
+                    } else if (model.menuName.equals("Aging")){
+                        startActivity(new Intent(HomeActivity.this, AgingActivity.class));
+                    } else if (model.menuName.equals("Pembayaran")){
+                        startActivity(new Intent(HomeActivity.this, PembayaranActivity.class));
+                    } else if (model.menuName.equals("Transaksi")){
+//                        startActivity(new Intent(HomeActivity.this, Transaks));
+                    } else {
+                        Toast.makeText(HomeActivity.this, "Error, Please contact the developer!!", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 return false;

@@ -24,7 +24,7 @@ import retrofit2.Response;
 public class UbahNomorActivity extends AppCompatActivity {
 
     private TextInputEditText etPhoneLama, etPhoneBaru, etKonfirmasi;
-    private AppCompatButton btnKonfirmasi;
+    private AppCompatButton btnConfirm;
     private Toolbar toolbar;
     private Callback<ResponseBody> cBack;
     private Session session;
@@ -34,12 +34,21 @@ public class UbahNomorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubah_nomor);
 
+        findViewById();
+        onAction();
+
+    }
+
+    private void findViewById(){
         toolbar = findViewById(R.id.toolbar);
         etPhoneLama = findViewById(R.id.et_nomor_lama);
         etPhoneBaru = findViewById(R.id.et_nomor_baru);
         etKonfirmasi = findViewById(R.id.konfirmasi);
-        btnKonfirmasi = findViewById(R.id.btn_daftar);
+        btnConfirm = findViewById(R.id.btn_confirm);
 
+    }
+
+    private void onAction(){
         Intent getIntent = getIntent();
         etPhoneLama.setText(getIntent.getStringExtra("PHONE"));
 
@@ -50,10 +59,10 @@ public class UbahNomorActivity extends AppCompatActivity {
             }
         });
 
-        btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changePhone();
+                startActivity(new Intent(UbahNomorActivity.this, GantiNomorSuksesActivity.class));
             }
         });
     }

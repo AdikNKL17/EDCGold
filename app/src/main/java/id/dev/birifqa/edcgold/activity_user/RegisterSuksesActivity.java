@@ -31,11 +31,21 @@ public class RegisterSuksesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_sukses);
+
+        findViewById();
+        onAction();
+
+
+    }
+
+    private void findViewById(){
         view = getWindow().getDecorView().getRootView();
 
         tvName = findViewById(R.id.tv_name);
         btnMulai = findViewById(R.id.btn_mulai);
+    }
 
+    private void onAction(){
         Intent getIntent = getIntent();
         tvName.setText(getIntent.getStringExtra("NAME"));
 
@@ -45,6 +55,5 @@ public class RegisterSuksesActivity extends AppCompatActivity {
                 startActivity(new Intent(RegisterSuksesActivity.this, LoginActivity.class));
             }
         });
-
     }
 }

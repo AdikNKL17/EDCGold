@@ -23,7 +23,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private AppCompatButton buttonForgot, buttonRegister;
+    private AppCompatButton buttonForgot, buttonRegister, buttonLogin;
     private TextInputEditText etUsername, etPassword;
     private View view;
     private Callback<ResponseBody> cBack;
@@ -33,12 +33,46 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        findViewById();
+        onAction();
+        session();
+    }
+
+    private void findViewById(){
         view = getWindow().getDecorView().getRootView();
 
         buttonForgot = findViewById(R.id.button_forgot);
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
+        buttonRegister = findViewById(R.id.button_daftar);
+        buttonLogin = findViewById(R.id.btn_login);
 
+    }
+
+    private void onAction(){
+        buttonForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), ForgotPasswordActivity.class));
+            }
+        });
+
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), RegisterActivity.class));
+            }
+        });
+
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                login();
+            }
+        });
+    }
+
+    private void session(){
         Session session = new Session(getApplicationContext());
         try{
             if(!session.get("token").equals("null")){
@@ -49,67 +83,49 @@ public class LoginActivity extends AppCompatActivity {
         }catch (Exception e){
 
         }
+    }
 
-        buttonForgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), ForgotPasswordActivity.class));
-            }
-        });
+    private void login(){
+        if (etUsername.getText().toString().isEmpty()){
+            etUsername.setError("Harus Diisi !!");
+        }
+        if (etPassword.getText().toString().isEmpty()){
+            etPassword.setError("Harus Diisi !!");
+        }
 
-        buttonRegister = findViewById(R.id.button_daftar);
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), RegisterActivity.class));
-            }
-        });
+        if (!etUsername.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()){
+            Call<ResponseBody> call = ParamReq.reqLogin(etUsername.getText().toString(), etPassword.getText().toString(), LoginActivity.this);
+            cBack = new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
 
-        Helper.appCompatButton(R.id.btn_login, view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (etUsername.getText().toString().isEmpty()){
-                    etUsername.setError("Harus Diisi !!");
-                }
-                if (etPassword.getText().toString().isEmpty()){
-                    etPassword.setError("Harus Diisi !!");
-                }
+                        boolean handle = Handle.handleLogin(response.body().string(), LoginActivity.this);
+                        if (handle) {
+                            LoginActivity.this.finish();
 
-                if (!etUsername.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()){
-                    Call<ResponseBody> call = ParamReq.reqLogin(etUsername.getText().toString(), etPassword.getText().toString(), LoginActivity.this);
-                    cBack = new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            try {
-
-                                boolean handle = Handle.handleLogin(response.body().string(), LoginActivity.this);
-                                if (handle) {
-                                    LoginActivity.this.finish();
-
-                                } else {
-                                    Api.mProgressDialog.dismiss();
-                                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                        } else {
+                            Api.mProgressDialog.dismiss();
+                            Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                         }
 
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Api.retryDialog(LoginActivity.this, call, cBack, 1, false);
-                        }
-                    };
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
 
-                    Api.enqueueWithRetry(LoginActivity.this, call, cBack, true, "Loading");
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Api.retryDialog(LoginActivity.this, call, cBack, 1, false);
+                }
+            };
 
-                } else {
-                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+            Api.enqueueWithRetry(LoginActivity.this, call, cBack, true, "Loading");
+
+        } else {
+            Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
 //                    Helper.constraintLayout(R.id.notif_error, view).setVisibility(View.VISIBLE);
 //                    Helper.setText(R.id.text_error, view, "Email or Password must not be empty!!!");
-                }
-            }
-        });
+        }
     }
 }

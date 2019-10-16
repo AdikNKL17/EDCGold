@@ -17,8 +17,17 @@ public class ProfileLockActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_lock);
 
+        findViewById();
+        onAction();
+
+    }
+
+    private void findViewById(){
         toolbar = findViewById(R.id.toolbar);
 
+    }
+
+    private void onAction(){
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

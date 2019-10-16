@@ -35,6 +35,13 @@ public class ProfilePengaturanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_pengaturan);
 
+        findViewById();
+        onAction();
+
+        getUserDetail();
+    }
+
+    private void findViewById(){
         toolbar = findViewById(R.id.toolbar);
         tvName = findViewById(R.id.tv_name);
         btnChangePhone = findViewById(R.id.btn_change_phone);
@@ -42,7 +49,9 @@ public class ProfilePengaturanActivity extends AppCompatActivity {
         btnChangeBank = findViewById(R.id.btn_change_bank);
         btnChangeAddress = findViewById(R.id.btn_change_address);
         btnChangePassword = findViewById(R.id.btn_change_password);
+    }
 
+    private void onAction(){
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,12 +59,6 @@ public class ProfilePengaturanActivity extends AppCompatActivity {
                 ProfilePengaturanActivity.this.finish();
             }
         });
-
-        Intent getIntent = getIntent();
-
-        tvName.setText(getIntent.getStringExtra("NAME"));
-
-        getUserDetail();
     }
 
     private void getUserDetail(){

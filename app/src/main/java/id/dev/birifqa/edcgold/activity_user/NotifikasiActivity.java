@@ -12,5 +12,16 @@ public class NotifikasiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifikasi);
+
+        findViewById();
+        onAction();
+    }
+
+    private void findViewById(){
+
+    }
+
+    private void onAction(){
+
     }
 }

@@ -34,6 +34,13 @@ public class ProfileDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_detail);
 
+        findViewById();
+        onAction();
+
+        getUserDetail();
+    }
+
+    private void findViewById(){
         toolbar = findViewById(R.id.toolbar);
         etId = findViewById(R.id.et_id);
         etName = findViewById(R.id.et_name);
@@ -41,7 +48,9 @@ public class ProfileDetailActivity extends AppCompatActivity {
         etPhone = findViewById(R.id.et_phone);
         etAddress = findViewById(R.id.et_address);
         tvName = findViewById(R.id.tv_name);
+    }
 
+    private void onAction(){
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,16 +58,6 @@ public class ProfileDetailActivity extends AppCompatActivity {
                 ProfileDetailActivity.this.finish();
             }
         });
-
-        Intent getIntent = getIntent();
-        etId.setText(getIntent.getStringExtra("ID"));
-        etName.setText(getIntent.getStringExtra("NAME"));
-        etEmail.setText(getIntent.getStringExtra("EMAIL"));
-        etPhone.setText(getIntent.getStringExtra("PHONE"));
-        etAddress.setText(getIntent.getStringExtra("ADDRESS"));
-        tvName.setText(getIntent.getStringExtra("NAME"));
-
-        getUserDetail();
     }
 
     private void getUserDetail(){
