@@ -12,9 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".activity_user.GantiAlamatSuksesActivity"></activity>
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity_user.HistoryActivity"></activity>
+        <activity android:name=".activity_user.TopUpSuksesActivity" />
+        <activity android:name=".activity_user.TopUpKartuDebitActivity" />
+        <activity android:name=".activity_user.WithdrawSuksesActivity" />
+        <activity android:name=".activity_user.GantiAlamatSuksesActivity" />
         <activity android:name=".activity_user.GantiRekeningSuksesActivity" />
         <activity android:name=".activity_user.GantiEmailSukses" />
         <activity android:name=".activity_user.GantiNomorSuksesActivity" />
@@ -42,8 +46,9 @@
             android:name=".activity_user.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity_user.LoginActivity"
-            android:theme="@style/LoginTheme"/>
+        <activity
+            android:name=".activity_user.LoginActivity"
+            android:theme="@style/LoginTheme" />
         <activity android:name=".activity_user.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
