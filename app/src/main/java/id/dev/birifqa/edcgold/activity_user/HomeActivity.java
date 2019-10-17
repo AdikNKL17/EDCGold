@@ -281,6 +281,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.action_faq){
             return true;
         } else if (id == R.id.action_feedback){
+            startActivity(new Intent(HomeActivity.this, FeedbackActivity.class));
             return true;
         } else if (id == R.id.action_petunjuk){
             return true;
