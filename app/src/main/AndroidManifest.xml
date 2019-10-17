@@ -14,7 +14,23 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_user.TransferActivity"></activity>
+        <activity android:name=".activity_admin.ActivityBalasFeedbackSukses"></activity>
+        <activity android:name=".activity_admin.ActivityFeedbackDetail" />
+        <activity android:name=".activity_admin.ActivityFaqAnswer" />
+        <activity android:name=".activity_admin.ActivityFaqList" />
+        <activity android:name=".activity_admin.ActivityAdminUpdate" />
+        <activity android:name=".activity_admin.ActivityFeedbackList" />
+        <activity android:name=".activity_admin.ActivityUserList" />
+        <activity android:name=".activity_admin.ActivityReport" />
+        <activity android:name=".activity_admin.ActivityTutupAdmin" />
+        <activity android:name=".activity_admin.ActivityTutupUser" />
+        <activity android:name=".activity_admin.ActivityUserDetail" />
+        <activity android:name=".activity_admin.ActivityProfileAdmin" />
+        <activity
+            android:name=".activity_admin.AdminHomeActivity"
+            android:label="@string/title_activity_admin_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity_user.TransferActivity" />
         <activity android:name=".activity_user.HistoryActivity" />
         <activity android:name=".activity_user.TopUpSuksesActivity" />
         <activity android:name=".activity_user.TopUpKartuDebitActivity" />
