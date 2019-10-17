@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_user.HistoryActivity">
+    tools:context=".activity_admin.ActivityAdminUpdate">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_icons8_left"
@@ -23,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="History"
+                android:text="Update"
                 android:layout_gravity="center"
                 android:textSize="16sp"
                 android:fontFamily="@font/circular_std_medium"
@@ -33,66 +34,37 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/view_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/tabLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
-        android:visibility="gone">
-
-    </androidx.viewpager.widget.ViewPager>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/tabLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
-        app:layout_constraintVertical_bias="0.3">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/no_history_icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/circular_std_bold"
-            android:text="Tidak Ada Riwayat"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/appBar"/>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout2"
+        android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:tabIndicatorFullWidth="true"
         app:tabSelectedTextColor="@color/colorWhite"
         app:tabTextColor="@color/colorWhite">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_aging"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sedang Di Proses" />
+            android:text="Update" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Transaksi Selesai" />
+            android:text="Lihat" />
 
     </com.google.android.material.tabs.TabLayout>
 
