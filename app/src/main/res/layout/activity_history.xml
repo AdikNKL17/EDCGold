@@ -33,14 +33,45 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/tabLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar">
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        android:visibility="gone">
 
     </androidx.viewpager.widget.ViewPager>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        app:layout_constraintVertical_bias="0.3">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/no_history_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/circular_std_bold"
+            android:text="Tidak Ada Riwayat"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+    </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout2"

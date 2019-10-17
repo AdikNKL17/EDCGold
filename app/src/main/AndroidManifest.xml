@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_user.HistoryActivity"></activity>
+        <activity android:name=".activity_user.TransferActivity"></activity>
+        <activity android:name=".activity_user.HistoryActivity" />
         <activity android:name=".activity_user.TopUpSuksesActivity" />
         <activity android:name=".activity_user.TopUpKartuDebitActivity" />
         <activity android:name=".activity_user.WithdrawSuksesActivity" />
