@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import id.dev.birifqa.edcgold.R;
 
-public class ActivityAdminUpdate extends AppCompatActivity {
+public class AdminUserDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_update);
+        setContentView(R.layout.activity_admin_user_detail);
     }
 }

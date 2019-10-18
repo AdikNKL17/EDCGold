@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import id.dev.birifqa.edcgold.R;
 
-public class ActivityFeedbackDetail extends AppCompatActivity {
+public class AdminFeedbackListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feedback_detail);
+        setContentView(R.layout.activity_admin_feedback_list);
     }
 }

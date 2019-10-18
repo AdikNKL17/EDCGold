@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminHomeActivity;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
 import id.dev.birifqa.edcgold.utils.Helper;
@@ -76,9 +77,17 @@ public class LoginActivity extends AppCompatActivity {
         Session session = new Session(getApplicationContext());
         try{
             if(!session.get("token").equals("null")){
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
-                LoginActivity.this.finish();
+
+                if (session.get("roles_name").equals("admin")){
+                    Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                    startActivity(intent);
+                    LoginActivity.this.finish();
+                } else if (session.get("roles_name").equals("member")){
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    LoginActivity.this.finish();
+                }
+
             }
         }catch (Exception e){
 
