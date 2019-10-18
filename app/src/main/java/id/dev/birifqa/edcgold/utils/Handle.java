@@ -11,11 +11,13 @@ import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import id.dev.birifqa.edcgold.activity_admin.AdminHomeActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahRekeningBankActivity;
 import id.dev.birifqa.edcgold.activity_user.HomeActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
@@ -42,18 +44,50 @@ public class Handle {
 
             if (!TextUtils.isEmpty(jsonObject.getJSONObject("data").getString("token"))) {
 
-                session.save("token", jsonObject.getJSONObject("data").getString("token"));
-                session.save("id", jsonObject.getJSONObject("data").getString("id"));
-                session.save("name", jsonObject.getJSONObject("data").getString("name"));
-                session.save("email", jsonObject.getJSONObject("data").getString("email"));
-                session.save("regions_id", jsonObject.getJSONObject("data").getString("regions_id"));
-                session.save("regencies_id", jsonObject.getJSONObject("data").getString("regencies_id"));
-                session.save("districts_id", jsonObject.getJSONObject("data").getString("districts_id"));
-                session.save("postcode", jsonObject.getJSONObject("data").getString("postcode"));
-                session.save("address", jsonObject.getJSONObject("data").getString("address"));
+                JSONObject data = jsonObject.getJSONObject("data");
+                JSONArray roles = data.getJSONArray("roles");
 
-                Intent intent = new Intent(context, HomeActivity.class);
-                context.startActivity(intent);
+                if (roles.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        if (roles.getJSONObject(i).getString("name").equals("member")){
+                            session.save("token", jsonObject.getJSONObject("data").getString("token"));
+                            session.save("id", jsonObject.getJSONObject("data").getString("id"));
+                            session.save("name", jsonObject.getJSONObject("data").getString("name"));
+                            session.save("email", jsonObject.getJSONObject("data").getString("email"));
+                            session.save("regions_id", jsonObject.getJSONObject("data").getString("regions_id"));
+                            session.save("regencies_id", jsonObject.getJSONObject("data").getString("regencies_id"));
+                            session.save("districts_id", jsonObject.getJSONObject("data").getString("districts_id"));
+                            session.save("postcode", jsonObject.getJSONObject("data").getString("postcode"));
+                            session.save("address", jsonObject.getJSONObject("data").getString("address"));
+                            session.save("roles_name", roles.getJSONObject(i).getString("name"));
+
+                            Intent intent = new Intent(context, HomeActivity.class);
+                            context.startActivity(intent);
+                            return true;
+
+                        } else if (roles.getJSONObject(i).getString("name").equals("admin")){
+                            session.save("token", jsonObject.getJSONObject("data").getString("token"));
+                            session.save("id", jsonObject.getJSONObject("data").getString("id"));
+                            session.save("name", jsonObject.getJSONObject("data").getString("name"));
+                            session.save("email", jsonObject.getJSONObject("data").getString("email"));
+                            session.save("regions_id", jsonObject.getJSONObject("data").getString("regions_id"));
+                            session.save("regencies_id", jsonObject.getJSONObject("data").getString("regencies_id"));
+                            session.save("districts_id", jsonObject.getJSONObject("data").getString("districts_id"));
+                            session.save("postcode", jsonObject.getJSONObject("data").getString("postcode"));
+                            session.save("address", jsonObject.getJSONObject("data").getString("address"));
+                            session.save("roles_name", roles.getJSONObject(i).getString("name"));
+
+                            Intent intent = new Intent(context, AdminHomeActivity.class);
+                            context.startActivity(intent);
+                            return true;
+                        }
+                    }
+                    return true;
+                } else {
+                    Log.d("trip", "data not found");
+                }
+
+
                 return true;
 
             } else {
@@ -612,6 +646,39 @@ public class Handle {
                     context.startActivity(intent);
                 }
             });
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleAgingAging(String sjson, TextView tvSaldo, TextView tvProfit, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject data = jsonObject.getJSONObject("data");
+            JSONArray coins = data.getJSONArray("coins");
+            if (coins.length() >= 0) {
+                for (int i = 0; i < coins.length(); i++) {
+                    Log.d("COIN123", coins.getJSONObject(i).getString("balance_coin"));
+                    tvSaldo.setText(coins.getJSONObject(i).getString("balance_coin"));
+                }
+            }
+
+            JSONArray point = data.getJSONArray("point");
+            if (point.length() >= 0){
+                for (int i = 0; i < point.length(); i++){
+                    Log.d("POINT123", point.getJSONObject(i).getString("balance_point"));
+                    tvProfit.setText(point.getJSONObject(i).getString("balance_point"));
+                }
+
+                return true;
+            }
 
             return true;
 

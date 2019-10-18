@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import id.dev.birifqa.edcgold.R;
 
-public class ActivityTutupUser extends AppCompatActivity {
+public class AdminProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tutup_user);
+        setContentView(R.layout.activity_admin_profile);
     }
 }
