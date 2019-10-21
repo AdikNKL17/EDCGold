@@ -207,6 +207,10 @@ public class AdminHomeActivity extends AppCompatActivity
                         startActivity(new Intent(AdminHomeActivity.this, ProfileActivity.class));
                     }
 
+                    if (headerList.get(groupPosition).menuName.equals("Update")) {
+                        startActivity(new Intent(AdminHomeActivity.this, AdminUpdateActivity.class));
+                    }
+
                     if (headerList.get(groupPosition).menuName.equals("Keluar Aplikasi")) {
                         logout();
                     }

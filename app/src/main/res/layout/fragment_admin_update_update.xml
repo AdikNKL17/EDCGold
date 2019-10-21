@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_penarikan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -31,6 +32,7 @@
             android:drawableEnd="@drawable/ic_icons8_forward" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_topup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -51,6 +53,7 @@
             android:drawableEnd="@drawable/ic_icons8_forward" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_beli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -71,6 +74,7 @@
             android:drawableEnd="@drawable/ic_icons8_forward" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_transfer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -91,6 +95,7 @@
             android:drawableEnd="@drawable/ic_icons8_forward" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_feedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
