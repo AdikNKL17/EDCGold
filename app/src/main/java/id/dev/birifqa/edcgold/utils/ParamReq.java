@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import id.dev.birifqa.edcgold.activity_user.MainActivity;
+import id.dev.birifqa.edcgold.request.RequestChangeBank;
 import id.dev.birifqa.edcgold.request.RequestChangeEmail;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
 import okhttp3.MediaType;
@@ -96,6 +97,20 @@ public class ParamReq {
         requestChangePhone.setConfirmed(confirmed);
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.changePhone("Bearer " +token, requestChangePhone);
+    }
+
+    public static Call<ResponseBody> changeBank(String token, String id, String bank_name, String bank_number, String account_name,Context context) {
+        RequestChangeBank requestChangeBank = new RequestChangeBank();
+        requestChangeBank.setBank_name(bank_name);
+        requestChangeBank.setBank_number(bank_number);
+        requestChangeBank.setAccount_name(account_name);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changeBank("Bearer " +token, id, requestChangeBank);
+    }
+
+    public static Call<ResponseBody> requestRekeningBank(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getRekeningBank("Bearer " +token);
     }
 
 }
