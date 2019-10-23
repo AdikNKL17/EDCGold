@@ -32,7 +32,9 @@ public class GantiRekeningSuksesActivity extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GantiRekeningSuksesActivity.this, ProfilePengaturanActivity.class));
+                Intent intent = new Intent(GantiRekeningSuksesActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }
