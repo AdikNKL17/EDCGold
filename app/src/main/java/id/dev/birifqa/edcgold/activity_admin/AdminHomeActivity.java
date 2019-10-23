@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import android.util.Pair;
 import android.view.View;
 
 import androidx.core.view.GravityCompat;
@@ -108,6 +109,7 @@ public class AdminHomeActivity extends AppCompatActivity
                 try {
                     boolean handle = Handle.handleHome(response.body().string(), tvName, tvEmail, AdminHomeActivity.this);
                     if (handle) {
+
 
                     } else {
                         Api.mProgressDialog.dismiss();
@@ -281,7 +283,6 @@ public class AdminHomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
