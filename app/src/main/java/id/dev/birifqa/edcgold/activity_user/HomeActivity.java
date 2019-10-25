@@ -6,18 +6,38 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Cartesian;
+import com.anychart.core.cartesian.series.Column;
+import com.anychart.core.cartesian.series.Line;
+import com.anychart.data.Mapping;
+import com.anychart.data.Set;
+import com.anychart.enums.Anchor;
+import com.anychart.enums.HoverMode;
+import com.anychart.enums.MarkerType;
+import com.anychart.enums.Position;
+import com.anychart.enums.TooltipPositionMode;
+import com.anychart.graphics.vector.Stroke;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -57,10 +77,14 @@ public class HomeActivity extends AppCompatActivity
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View headerView;
+    private AnyChartView anyChartView;
+    private YouTubePlayerView youTubePlayerView;
     private ExpandableListAdapter expandableListAdapter;
     private ExpandableListView expandableListView;
     private List<MenuModel> headerList = new ArrayList<>();
     private HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
+    private boolean doubleBackToExitPressedOnce = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +102,12 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        anyChartView = findViewById(R.id.any_chart_view);
+        youTubePlayerView = findViewById(R.id.youtube_player_view);
         expandableListView = findViewById(R.id.expandableListView);
         headerView = navigationView.getHeaderView(0);
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
-
     }
 
     private void onAction(){
@@ -95,6 +120,58 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                String videoId = "YJHeVKv_W5Q";
+                youTubePlayer.loadVideo(videoId, 0);
+                youTubePlayer.pause();
+            }
+        });
+
+        anyChartSetup();
+    }
+
+    private void anyChartSetup(){
+        Cartesian cartesian = AnyChart.column();
+
+        List<DataEntry> data = new ArrayList<>();
+        data.add(new ValueDataEntry("Litecoin", 80540));
+        data.add(new ValueDataEntry("Ethereum", 94190));
+        data.add(new ValueDataEntry("Zcash", 102610));
+        data.add(new ValueDataEntry("Dash", 110430));
+        data.add(new ValueDataEntry("Ripple", 128000));
+        data.add(new ValueDataEntry("Monero", 143760));
+        data.add(new ValueDataEntry("Bitcoin Cash", 170670));
+        data.add(new ValueDataEntry("NEO", 213210));
+        data.add(new ValueDataEntry("Cardano", 249980));
+        data.add(new ValueDataEntry("EOS ", 149980));
+
+        Column column = cartesian.column(data);
+
+        column.tooltip()
+                .titleFormat("{%X}")
+                .position(Position.CENTER_BOTTOM)
+                .anchor(Anchor.CENTER_BOTTOM)
+                .offsetX(0d)
+                .offsetY(5d)
+                .format("${%Value}{groupsSeparator: }");
+
+        cartesian.animation(true);
+        cartesian.title("Top 10 Cryptocurrency Value");
+
+        cartesian.yScale().minimum(0d);
+
+        cartesian.yAxis(0).labels().format("${%Value}{groupsSeparator: }");
+
+        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+        cartesian.interactivity().hoverMode(HoverMode.BY_X);
+
+        cartesian.xAxis(0).title("Product");
+        cartesian.yAxis(0).title("Revenue");
+
+        anyChartView.setChart(cartesian);
     }
 
     private void getUserDetail(){
@@ -186,6 +263,10 @@ public class HomeActivity extends AppCompatActivity
                         startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                     }
 
+                    if (headerList.get(groupPosition).menuName.equals("History")) {
+                        startActivity(new Intent(HomeActivity.this, HistoryActivity.class));
+                    }
+
                     if (headerList.get(groupPosition).menuName.equals("Keluar Aplikasi")) {
                         logout();
                     }
@@ -209,7 +290,7 @@ public class HomeActivity extends AppCompatActivity
                     } else if (model.menuName.equals("Pembayaran")){
                         startActivity(new Intent(HomeActivity.this, PembayaranActivity.class));
                     } else if (model.menuName.equals("Transaksi")){
-//                        startActivity(new Intent(HomeActivity.this, Transaks));
+                        startActivity(new Intent(HomeActivity.this, TransferActivity.class));
                     } else {
                         Toast.makeText(HomeActivity.this, "Error, Please contact the developer!!", Toast.LENGTH_SHORT).show();
                     }
@@ -257,7 +338,23 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                HomeActivity.this.finish();
+                moveTaskToBack(true);
+                System.exit(0);
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
         }
     }
 
