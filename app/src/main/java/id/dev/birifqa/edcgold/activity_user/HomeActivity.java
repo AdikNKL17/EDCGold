@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -61,6 +62,8 @@ public class HomeActivity extends AppCompatActivity
     private ExpandableListView expandableListView;
     private List<MenuModel> headerList = new ArrayList<>();
     private HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
+    private boolean doubleBackToExitPressedOnce = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,6 +189,10 @@ public class HomeActivity extends AppCompatActivity
                         startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                     }
 
+                    if (headerList.get(groupPosition).menuName.equals("History")) {
+                        startActivity(new Intent(HomeActivity.this, HistoryActivity.class));
+                    }
+
                     if (headerList.get(groupPosition).menuName.equals("Keluar Aplikasi")) {
                         logout();
                     }
@@ -257,7 +264,23 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                HomeActivity.this.finish();
+                moveTaskToBack(true);
+                System.exit(0);
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
         }
     }
 

@@ -31,7 +31,9 @@ public class GantiAlamatSuksesActivity extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GantiAlamatSuksesActivity.this, ProfilePengaturanActivity.class));
+                Intent intent = new Intent(GantiAlamatSuksesActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }

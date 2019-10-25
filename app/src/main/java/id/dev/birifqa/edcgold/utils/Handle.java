@@ -18,12 +18,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import id.dev.birifqa.edcgold.activity_admin.AdminHomeActivity;
+import id.dev.birifqa.edcgold.activity_user.RekeningBankActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahRekeningBankActivity;
 import id.dev.birifqa.edcgold.activity_user.HomeActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahEmailActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahNomorActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahPasswordActivity;
+import id.dev.birifqa.edcgold.model.BankModel;
 import id.dev.birifqa.edcgold.model.address.KabupatenModel;
 import id.dev.birifqa.edcgold.model.address.KecamatanModel;
 import id.dev.birifqa.edcgold.model.address.ProvinsiModel;
@@ -471,7 +473,6 @@ public class Handle {
                 return true;
 
             } else {
-                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                 return false;
 
             }
@@ -494,7 +495,28 @@ public class Handle {
                 return true;
 
             } else {
-                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleChangeBank(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
                 return false;
 
             }
@@ -626,7 +648,7 @@ public class Handle {
             btnChangeBank.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, UbahRekeningBankActivity.class);
+                    Intent intent = new Intent(context, RekeningBankActivity.class);
                     context.startActivity(intent);
                 }
             });
@@ -681,6 +703,42 @@ public class Handle {
             }
 
             return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleGetRekeningBank(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses){
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        BankModel bankModel = new BankModel();
+                        bankModel.setId(data.getJSONObject(i).getString("id"));
+                        bankModel.setUser_id(data.getJSONObject(i).getString("user_id"));
+                        bankModel.setBank_name(data.getJSONObject(i).getString("bank_name"));
+                        bankModel.setBank_number(data.getJSONObject(i).getString("bank_number"));
+                        bankModel.setAccount_name(data.getJSONObject(i).getString("account_name"));
+                        bankModel.setCreated_at(data.getJSONObject(i).getString("created_at"));
+                        bankModel.setUpdated_at(data.getJSONObject(i).getString("updated_at"));
+
+                        Api.bankModels.add(bankModel);
+
+                    }
+                }
+
+                return true;
+            }else {
+                return false;
+            }
 
         } catch (JSONException e) {
 
