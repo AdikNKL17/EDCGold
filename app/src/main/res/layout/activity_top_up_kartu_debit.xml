@@ -33,8 +33,12 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,29 +48,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/colorPrimaryDark">
+                android:background="@color/colorPrimaryDark"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Informasi Saldo (Rp)"
                     android:layout_gravity="center"
                     android:layout_marginTop="24dp"
-                    android:textColor="@color/colorWhite"
                     android:fontFamily="@font/circular_std_bold"
-                    android:textSize="18sp"/>
+                    android:text="Informasi Saldo (Rp)"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp. 0,00"
                     android:layout_gravity="center"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="24dp"
-                    android:textSize="24dp"
+                    android:fontFamily="@font/circular_std_bold"
+                    android:text="Rp. 0,00"
                     android:textColor="@android:color/holo_orange_light"
-                    android:fontFamily="@font/circular_std_bold" />
+                    android:textSize="24dp" />
 
             </LinearLayout>
 
@@ -88,14 +92,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
-                    android:hint="Pilih Nominal"
                     android:backgroundTint="@color/colorPrimary"
-                    android:drawableRight="@drawable/ic_icons8_expand_arrow"/>
+                    android:drawableRight="@drawable/ic_icons8_expand_arrow"
+                    android:hint="Pilih Nominal" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:text="Saat ini kami hanya menerima debit yang sudh aktif 3D secure" />
+                    android:text="Saat ini kami hanya menerima debit yang sudh aktif 3D secure"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -116,8 +121,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
-                    android:hint="Masukkan Nomor Kartu"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:backgroundTint="@color/colorPrimary"
+                    android:hint="Masukkan Nomor Kartu" />
             </LinearLayout>
 
             <LinearLayout
@@ -138,8 +143,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
-                    android:hint="Pilih Tanggal"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:backgroundTint="@color/colorPrimary"
+                    android:hint="Pilih Tanggal" />
             </LinearLayout>
 
             <LinearLayout
@@ -160,21 +165,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
-                    android:hint="Masukkan 3 Digit CVV"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:backgroundTint="@color/colorPrimary"
+                    android:hint="Masukkan 3 Digit CVV" />
             </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="24dp"
-                android:background="@drawable/bt_bg_blue"
-                android:text="Top Up"
-                android:textColor="@color/colorWhite"
-                android:layout_gravity="center"/>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:elevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_topup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bt_bg_blue"
+            android:text="TOP_UP"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
