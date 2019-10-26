@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_icons8_left"
@@ -53,7 +54,7 @@
                 android:paddingTop="12dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="12dp"
-                android:text="Status Mining : Aktif"
+                android:text="Info Komunitas"
                 android:textColor="@color/colorWhite" />
 
             <androidx.recyclerview.widget.RecyclerView
