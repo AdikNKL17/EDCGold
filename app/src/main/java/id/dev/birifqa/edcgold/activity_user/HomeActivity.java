@@ -267,6 +267,10 @@ public class HomeActivity extends AppCompatActivity
                         startActivity(new Intent(HomeActivity.this, HistoryActivity.class));
                     }
 
+                    if (headerList.get(groupPosition).menuName.equals("Komunitas")) {
+                        startActivity(new Intent(HomeActivity.this, KomunitasActivity.class));
+                    }
+
                     if (headerList.get(groupPosition).menuName.equals("Keluar Aplikasi")) {
                         logout();
                     }
