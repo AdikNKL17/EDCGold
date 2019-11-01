@@ -80,6 +80,26 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputBrainkey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:hint="Brain Key"
+                android:inputType="text"
+                android:id="@+id/et_brainkey"
+                android:padding="16dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"

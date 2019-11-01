@@ -25,7 +25,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private AppCompatButton buttonForgot, buttonRegister, buttonLogin;
-    private TextInputEditText etUsername, etPassword;
+    private TextInputEditText etUsername, etPassword, etBrainkey;
     private View view;
     private Callback<ResponseBody> cBack;
 
@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonForgot = findViewById(R.id.button_forgot);
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
+        etBrainkey = findViewById(R.id.et_brainkey);
         buttonRegister = findViewById(R.id.button_daftar);
         buttonLogin = findViewById(R.id.btn_login);
 
@@ -102,8 +103,8 @@ public class LoginActivity extends AppCompatActivity {
             etPassword.setError("Harus Diisi !!");
         }
 
-        if (!etUsername.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()){
-            Call<ResponseBody> call = ParamReq.reqLogin(etUsername.getText().toString(), etPassword.getText().toString(), LoginActivity.this);
+        if (!etUsername.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty() && !etBrainkey.getText().toString().isEmpty()){
+            Call<ResponseBody> call = ParamReq.reqLogin(etUsername.getText().toString(), etPassword.getText().toString(), etBrainkey.getText().toString(), LoginActivity.this);
             cBack = new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

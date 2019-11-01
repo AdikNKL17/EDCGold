@@ -28,12 +28,13 @@ public class ParamReq {
         return (MainActivity) context;
     }
 
-    public static Call<ResponseBody> reqLogin(String email, String password, Context context) {
+    public static Call<ResponseBody> reqLogin(String email, String password, String brainkey, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         final Map<String, RequestBody> map = new HashMap<>();
 
         map.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
         map.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
+        map.put("brainkey", RequestBody.create(MediaType.parse("multipart/form-data"), brainkey));
         return APIInterface.requestLogin(map);
     }
 
