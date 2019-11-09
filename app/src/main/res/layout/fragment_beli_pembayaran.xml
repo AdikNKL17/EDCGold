@@ -26,6 +26,7 @@
                 android:textSize="18sp"/>
 
             <TextView
+                android:id="@+id/tv_saldo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rp. 0,00"
@@ -53,14 +54,14 @@
                 android:text="Beli Koin Virtual"
                 android:textColor="@color/colorPrimary" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_email_lama"
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_nominal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:enabled="false"
-                android:layout_marginTop="4dp"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:backgroundTint="@color/colorPrimary"
-                android:drawableRight="@drawable/ic_icons8_expand_arrow"/>
+                android:spinnerMode="dropdown"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -95,6 +96,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_nominal_coin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"

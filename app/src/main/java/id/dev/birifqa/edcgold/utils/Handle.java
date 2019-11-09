@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import id.dev.birifqa.edcgold.activity_admin.AdminHomeActivity;
 import id.dev.birifqa.edcgold.activity_user.RekeningBankActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahRekeningBankActivity;
@@ -26,6 +28,7 @@ import id.dev.birifqa.edcgold.activity_user.UbahEmailActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahNomorActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahPasswordActivity;
 import id.dev.birifqa.edcgold.model.BankModel;
+import id.dev.birifqa.edcgold.model.NominalTopupModel;
 import id.dev.birifqa.edcgold.model.address.KabupatenModel;
 import id.dev.birifqa.edcgold.model.address.KecamatanModel;
 import id.dev.birifqa.edcgold.model.address.ProvinsiModel;
@@ -113,6 +116,7 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
+                Api.provinsiModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -149,6 +153,7 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
+                Api.provinsiModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -220,6 +225,7 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
+                Api.kabupatenModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -259,6 +265,7 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
+                Api.kabupatenModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -333,6 +340,7 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
+                Api.kecamatanModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -372,6 +380,7 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
+                Api.kecamatanModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -442,6 +451,29 @@ public class Handle {
     }
 
     public static boolean handleRequestRegister(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleForgotPassword(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
@@ -718,6 +750,7 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses){
+                Api.bankModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -738,6 +771,40 @@ public class Handle {
                 return true;
             }else {
                 return false;
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleNominalTopup(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+                Api.nominalTopupModels = new ArrayList<>();
+                JSONArray data = jsonObject.getJSONArray("data");
+                if (data.length() >= 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        NominalTopupModel nominalTopupModel = new NominalTopupModel();
+                        nominalTopupModel.setId(data.getJSONObject(i).getString("id"));
+                        nominalTopupModel.setLabel(data.getJSONObject(i).getString("label"));
+                        nominalTopupModel.setNominal(data.getJSONObject(i).getString("nominal"));
+                        Log.d("nominal label", data.getJSONObject(i).getString("label"));
+
+                        Api.nominalTopupModels.add(nominalTopupModel);
+                    }
+                }
+                return true;
+            } else {
+                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                return false;
+
             }
 
         } catch (JSONException e) {

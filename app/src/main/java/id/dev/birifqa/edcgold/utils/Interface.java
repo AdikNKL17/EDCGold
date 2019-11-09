@@ -37,6 +37,9 @@ public interface Interface {
     @GET("http://45.77.252.55/api/bank_user")
     Call<ResponseBody> getRekeningBank(@Header("Authorization") String authorization);
 
+    @GET("http://45.77.252.55/api/topup_nominal")
+    Call<ResponseBody> getNominalTopup(@Header("Authorization") String authorization);
+
     //POST
     @Multipart
     @POST("http://45.77.252.55/api/login")
@@ -45,6 +48,10 @@ public interface Interface {
     @Multipart
     @POST("http://45.77.252.55/api/register")
     Call<ResponseBody> requestRegister(@PartMap Map<String, RequestBody> params);
+
+    @Multipart
+    @POST("http://45.77.252.55/api/forgot")
+    Call<ResponseBody> requestForgotPassword(@PartMap Map<String, RequestBody> params);
 
     //PUT
     @PUT("http://45.77.252.55/api/phone")
