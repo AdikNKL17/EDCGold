@@ -63,6 +63,14 @@ public class ParamReq {
         return APIInterface.requestRegister(data);
     }
 
+    public static Call<ResponseBody> reqForgotPassword(String email, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
+        return APIInterface.requestForgotPassword(map);
+    }
+
     public static Call<ResponseBody> requestUserDetail(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getUserDetail("Bearer " +token);
@@ -79,6 +87,11 @@ public class ParamReq {
     public static Call<ResponseBody> requestKecamatan(String idKab,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getKecamatan(idKab);
+    }
+
+    public static Call<ResponseBody> requestNominalTopup(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getNominalTopup("Bearer " +token);
     }
 
     public static Call<ResponseBody> changeEmail(String token,String verification, String old_email, String new_email, String confirmed,Context context) {

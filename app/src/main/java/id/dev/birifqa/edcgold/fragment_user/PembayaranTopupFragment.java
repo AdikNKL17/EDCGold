@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import id.dev.birifqa.edcgold.R;
 
@@ -16,6 +19,7 @@ import id.dev.birifqa.edcgold.R;
  */
 public class PembayaranTopupFragment extends Fragment {
 
+    private View view;
 
     public PembayaranTopupFragment() {
         // Required empty public constructor
@@ -25,8 +29,10 @@ public class PembayaranTopupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_topup_pembayaran, container, false);
+
+        view = inflater.inflate(R.layout.fragment_topup_pembayaran, container, false);
+
+        return view;
     }
 
 }
