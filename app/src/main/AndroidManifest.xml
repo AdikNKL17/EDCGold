@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="id.dev.birifqa.edcgold">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/edc_coin_small"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
@@ -42,7 +43,8 @@
         <activity android:name=".activity_user.GantiEmailSukses" />
         <activity android:name=".activity_user.GantiNomorSuksesActivity" />
         <activity android:name=".activity_user.GantiKataSandiSukses" />
-        <activity android:name=".activity_user.PembayaranActivity" />
+        <activity android:name=".activity_user.PembayaranActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name=".activity_user.AgingActivity" />
         <activity android:name=".activity_user.PetunjukActivity" />
         <activity android:name=".activity_user.NotifikasiActivity" />

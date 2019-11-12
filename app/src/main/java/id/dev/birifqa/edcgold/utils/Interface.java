@@ -53,6 +53,10 @@ public interface Interface {
     @POST("http://45.77.252.55/api/forgot")
     Call<ResponseBody> requestForgotPassword(@PartMap Map<String, RequestBody> params);
 
+    @Multipart
+    @POST("http://45.77.252.55/api/topup")
+    Call<ResponseBody> requestTopup(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
     //PUT
     @PUT("http://45.77.252.55/api/phone")
     Call<ResponseBody> changePhone(@Header("Authorization") String authorization,@Body RequestChangePhone requestChangePhone);

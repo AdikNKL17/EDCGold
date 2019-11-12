@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment_user.FragmentTopupNominal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pilih nominal uang"
+            android:fontFamily="@font/circular_std_medium"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_nominal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            android:backgroundTint="@color/colorPrimary"
+            android:spinnerMode="dropdown"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Jumlah koin yang akan anda dapatkan"
+            android:fontFamily="@font/circular_std_medium"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/edc_coin_small"
+                android:layout_marginRight="16dp"/>
+            <TextView
+                android:id="@+id/tv_nominal_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/colorPrimary"
+                android:textSize="42sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
