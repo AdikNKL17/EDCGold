@@ -815,6 +815,25 @@ public class Handle {
 
         return false;
     }
+
+    public static boolean handleTopup(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            Boolean success = jsonObject.getBoolean("success");
+            if (success){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
 //    public static boolean handleLogin(String sjson, Context context) {
 //
 //        Session session = new Session(context);

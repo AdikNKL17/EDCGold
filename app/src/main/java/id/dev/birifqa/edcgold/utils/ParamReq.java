@@ -94,6 +94,16 @@ public class ParamReq {
         return APIInterface.getNominalTopup("Bearer " +token);
     }
 
+    public static Call<ResponseBody> reqTopup(String token,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("method_id", RequestBody.create(MediaType.parse("multipart/form-data"), "1"));
+        map.put("nominal_id", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_id")));
+        map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_nominal")));
+        return APIInterface.requestTopup("Bearer " +token,map);
+    }
+
     public static Call<ResponseBody> changeEmail(String token,String verification, String old_email, String new_email, String confirmed,Context context) {
         RequestChangeEmail requestChangeEmail = new RequestChangeEmail();
         requestChangeEmail.setVerification(verification);
