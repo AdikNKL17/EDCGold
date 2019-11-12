@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_wallet"
+        android:orderInCategory="100"
+        android:title="Wallet"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icons8_wallet_copy_2"/>
+
+    <item
+        android:id="@+id/action_history"
+        android:orderInCategory="100"
+        android:title="History"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_history_white_24dp"/>
+
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="100"
+        android:title="Profile"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icons8_user"/>
+
+    <item
+        android:id="@+id/action_info"
+        android:orderInCategory="100"
+        android:title="Info"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icons8_info"/>
+
+    <item
+        android:id="@+id/action_qr"
+        android:orderInCategory="100"
+        android:title="QR"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icons8_qr_code"/>
+
+</menu>

@@ -102,8 +102,8 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        anyChartView = findViewById(R.id.any_chart_view);
-        youTubePlayerView = findViewById(R.id.youtube_player_view);
+        /*anyChartView = findViewById(R.id.any_chart_view);
+        youTubePlayerView = findViewById(R.id.youtube_player_view);*/
         expandableListView = findViewById(R.id.expandableListView);
         headerView = navigationView.getHeaderView(0);
         tvName = headerView.findViewById(R.id.tv_name);
@@ -121,7 +121,7 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+        /*youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 String videoId = "YJHeVKv_W5Q";
@@ -129,8 +129,8 @@ public class HomeActivity extends AppCompatActivity
                 youTubePlayer.pause();
             }
         });
-
-        anyChartSetup();
+*/
+        /*anyChartSetup();*/
     }
 
     private void anyChartSetup(){
