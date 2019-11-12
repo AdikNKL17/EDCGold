@@ -16,6 +16,7 @@ import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.fragment_user.AgingAgingFragment;
 import id.dev.birifqa.edcgold.fragment_user.AgingBalanceFragment;
 import id.dev.birifqa.edcgold.fragment_user.AgingWithdrawFragment;
+import id.dev.birifqa.edcgold.fragment_user.FragmentTopup;
 import id.dev.birifqa.edcgold.fragment_user.PembayaranBeliFragment;
 import id.dev.birifqa.edcgold.fragment_user.PembayaranTopupFragment;
 
@@ -87,7 +88,7 @@ public class PembayaranActivity extends AppCompatActivity {
 
             switch (position) {
                 case 0:
-                    return new PembayaranTopupFragment();
+                    return new FragmentTopup();
                 case 1:
                     return new PembayaranBeliFragment();
 
