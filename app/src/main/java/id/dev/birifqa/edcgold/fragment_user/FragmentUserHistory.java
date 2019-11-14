@@ -1,52 +1,54 @@
-package id.dev.birifqa.edcgold.activity_user;
+package id.dev.birifqa.edcgold.fragment_user;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.fragment_user.FragmentUserHistoryProses;
-import id.dev.birifqa.edcgold.fragment_user.FragmentUserHistorySelesai;
 
-public class HistoryActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class FragmentUserHistory extends Fragment {
 
-    private Toolbar toolbar;
+    private View view;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+    public FragmentUserHistory() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_user_history, container, false);
 
         findViewById();
         onAction();
+
+        return view;
     }
 
     private void findViewById(){
-        toolbar = findViewById(R.id.toolbar);
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.view_pager);
+        tabLayout = view.findViewById(R.id.tabLayout);
+        viewPager = view.findViewById(R.id.view_pager);
     }
 
     private void onAction(){
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-                HistoryActivity.this.finish();
-            }
-        });
-
-        viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount()));
+        viewPager.setAdapter(new PagerAdapter(getChildFragmentManager(), tabLayout.getTabCount()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setText("SEDANG DI PROSES");
@@ -98,4 +100,5 @@ public class HistoryActivity extends AppCompatActivity {
             return mNumOfTabs;
         }
     }
+
 }
