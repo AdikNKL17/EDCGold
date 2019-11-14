@@ -228,11 +228,11 @@ public class HomeActivity extends AppCompatActivity
                     }
 
                     if (headerList.get(groupPosition).menuName.equals("Setting")) {
-
+                        startActivity(new Intent(v.getContext(), SettingActivity.class));
                     }
 
                     if (headerList.get(groupPosition).menuName.equals("Komunitas")) {
-
+                        startActivity(new Intent(v.getContext(), KomunitasActivity.class));
                     }
 
                     if (headerList.get(groupPosition).menuName.equals("Lock")) {
