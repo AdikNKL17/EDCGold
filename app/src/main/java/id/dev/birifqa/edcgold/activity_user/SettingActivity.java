@@ -62,7 +62,7 @@ public class SettingActivity extends AppCompatActivity {
         btnEditNama.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SettingActivity.this, UbahNomorActivity.class));
+                startActivity(new Intent(SettingActivity.this, UbahUsernameActivity.class));
             }
         });
 

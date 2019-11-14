@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import id.dev.birifqa.edcgold.activity_user.MainActivity;
+import id.dev.birifqa.edcgold.request.RequestChangeAddress;
 import id.dev.birifqa.edcgold.request.RequestChangeBank;
 import id.dev.birifqa.edcgold.request.RequestChangeEmail;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
+import id.dev.birifqa.edcgold.request.RequestChangeUsername;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -104,6 +106,25 @@ public class ParamReq {
         return APIInterface.requestTopup("Bearer " +token,map);
     }
 
+    public static Call<ResponseBody> changeUsername(String token,String name,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+
+        RequestChangeUsername requestChangeUsername = new RequestChangeUsername();
+        requestChangeUsername.setName(name);
+
+        return APIInterface.changeUsername("Bearer " +token,requestChangeUsername);
+    }
+
+    public static Call<ResponseBody> changeEmailRequest(String token, String old_email, String new_email, String confirmed,Context context) {
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("old_email", RequestBody.create(MediaType.parse("multipart/form-data"), old_email));
+        map.put("new_email", RequestBody.create(MediaType.parse("multipart/form-data"), new_email));
+        map.put("confirmed", RequestBody.create(MediaType.parse("multipart/form-data"), confirmed));
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.requestChangeEmail("Bearer " +token,map);
+    }
+
     public static Call<ResponseBody> changeEmail(String token,String verification, String old_email, String new_email, String confirmed,Context context) {
         RequestChangeEmail requestChangeEmail = new RequestChangeEmail();
         requestChangeEmail.setVerification(verification);
@@ -114,10 +135,22 @@ public class ParamReq {
         return APIInterface.changeEmail("Bearer " +token,requestChangeEmail);
     }
 
-    public static Call<ResponseBody> changePhone(String token, String old_email, String new_email, String confirmed,Context context) {
+    public static Call<ResponseBody> changeAddress(String token,String country, String region, String regency, String district, String address, String postcode,Context context) {
+        RequestChangeAddress requestChangeAddress = new RequestChangeAddress();
+        requestChangeAddress.setCountry(country);
+        requestChangeAddress.setRegion(region);
+        requestChangeAddress.setRegency(regency);
+        requestChangeAddress.setDistrict(district);
+        requestChangeAddress.setAddress(address);
+        requestChangeAddress.setPostcode(postcode);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changeAddress("Bearer " +token,requestChangeAddress);
+    }
+
+    public static Call<ResponseBody> changePhone(String token, String old_phone, String new_phone, String confirmed,Context context) {
         RequestChangePhone requestChangePhone = new RequestChangePhone();
-        requestChangePhone.setOld_phone(old_email);
-        requestChangePhone.setNew_phone(new_email);
+        requestChangePhone.setOld_phone(old_phone);
+        requestChangePhone.setNew_phone(new_phone);
         requestChangePhone.setConfirmed(confirmed);
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.changePhone("Bearer " +token, requestChangePhone);

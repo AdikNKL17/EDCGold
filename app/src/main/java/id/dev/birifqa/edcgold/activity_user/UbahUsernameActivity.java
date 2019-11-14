@@ -21,35 +21,32 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UbahEmailActivity extends AppCompatActivity {
+public class UbahUsernameActivity extends AppCompatActivity {
 
-    private TextInputEditText etEmailLama, etEmailBaru, etKonfirmasi;
+    private TextInputEditText etUsernameLama, etUsernameBaru;
     private AppCompatButton btnConfirm;
     private Toolbar toolbar;
     private Callback<ResponseBody> cBack;
-    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ubah_email);
-
+        setContentView(R.layout.activity_ubah_username);
 
         findViewById();
         onAction();
-
     }
 
     private void findViewById(){
         toolbar = findViewById(R.id.toolbar);
-        etEmailLama = findViewById(R.id.et_email_lama);
-        etEmailBaru = findViewById(R.id.et_email_baru);
-        etKonfirmasi = findViewById(R.id.konfirmasi);
+        etUsernameLama = findViewById(R.id.et_username_lama);
+        etUsernameBaru = findViewById(R.id.et_username_baru);
         btnConfirm = findViewById(R.id.btn_confirm);
+
     }
 
     private void onAction(){
-        etEmailLama.setText(Session.get("email"));
+        etUsernameLama.setText(Session.get("name"));
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,29 +58,26 @@ public class UbahEmailActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeEmail();
+                changeUsername();
             }
         });
     }
 
-    private void changeEmail(){
-        if (!etEmailLama.getText().toString().isEmpty() && !etEmailBaru.getText().toString().isEmpty() && !etKonfirmasi.getText().toString().isEmpty()){
-            Call<ResponseBody> call = ParamReq.changeEmailRequest(session.get("token"), etEmailLama.getText().toString(), etEmailBaru.getText().toString(), etKonfirmasi.getText().toString(), UbahEmailActivity.this);
+    private void changeUsername(){
+        if (!etUsernameBaru.getText().toString().isEmpty()){
+            Call<ResponseBody> call = ParamReq.changeUsername(Session.get("token"),etUsernameBaru.getText().toString(), UbahUsernameActivity.this);
             cBack = new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
 
-                        boolean handle = Handle.handleChangeEmail(response.body().string(), UbahEmailActivity.this);
+                        boolean handle = Handle.handleChangeUsername(response.body().string(), UbahUsernameActivity.this);
                         if (handle) {
-                            Intent intent = new Intent(UbahEmailActivity.this, VerifikasiActivity.class);
-                            intent.putExtra("OLD_EMAIL", etEmailLama.getText().toString());
-                            intent.putExtra("NEW_EMAIL", etEmailBaru.getText().toString());
-                            intent.putExtra("CONFIRMATION", etKonfirmasi.getText().toString());
-                            startActivity(intent);
+                            Session.save("name", etUsernameBaru.getText().toString());
+                            startActivity(new Intent(UbahUsernameActivity.this, GantiUsernameSuksesActivity.class));
                         } else {
                             Api.mProgressDialog.dismiss();
-                            Toast.makeText(UbahEmailActivity.this, "Email baru dan email konfirmasi harus sama !!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UbahUsernameActivity.this, "Change Username Failed, Check again later !!!", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Exception e) {
@@ -93,13 +87,13 @@ public class UbahEmailActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Api.retryDialog(UbahEmailActivity.this, call, cBack, 1, false);
+                    Api.retryDialog(UbahUsernameActivity.this, call, cBack, 1, false);
                 }
             };
 
-            Api.enqueueWithRetry(UbahEmailActivity.this, call, cBack, true, "Loading");
+            Api.enqueueWithRetry(UbahUsernameActivity.this, call, cBack, true, "Loading");
         } else {
-            Toast.makeText(UbahEmailActivity.this, "All data must be filled !!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UbahUsernameActivity.this, "All data must be filled !!!", Toast.LENGTH_SHORT).show();
         }
     }
 }
