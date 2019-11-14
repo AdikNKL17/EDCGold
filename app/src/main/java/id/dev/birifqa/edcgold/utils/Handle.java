@@ -582,12 +582,40 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleHome(String sjson, TextView tvName, TextView tvEmail, Context context) {
+    public static boolean handleHome(String sjson, TextView tvName, TextView tvCoin, TextView tvNameHeader, TextView tvEmailHeader, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
 
-            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
-            tvEmail.setText(jsonObject.getJSONObject("data").getString("email"));
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            JSONObject coinObject = dataObject.getJSONObject("coin");
+
+            tvName.setText(dataObject.getString("name"));
+            tvCoin.setText(coinObject.getString("balance_coin"));
+
+            tvNameHeader.setText(dataObject.getString("name"));
+            tvEmailHeader.setText(dataObject.getString("email"));
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleProfileSetting(String sjson, TextView tvName, TextView tvCoin, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            JSONObject coinObject = dataObject.getJSONObject("coin");
+
+            tvName.setText(dataObject.getString("name"));
+            tvCoin.setText(coinObject.getString("balance_coin"));
+
 
             return true;
 
@@ -617,14 +645,12 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleProfileDetail(String sjson, TextView tvName, TextInputEditText etName,
+    public static boolean handleProfileDetail(String sjson, TextInputEditText etName,
                                               TextInputEditText etId, TextInputEditText etPhone,
                                               TextInputEditText etEmail, TextInputEditText etAddress,
                                               Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
-
-            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
             etName.setText(jsonObject.getJSONObject("data").getString("name"));
             etId.setText(jsonObject.getJSONObject("data").getString("id"));
             etPhone.setText(jsonObject.getJSONObject("data").getString("phone"));
