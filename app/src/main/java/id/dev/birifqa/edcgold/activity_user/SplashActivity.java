@@ -49,7 +49,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }
-        }, 3000L); //3000 L = 3 detik
+        }, 1500L); //3000 L = 3 detik
     }
 
     public int getImage(String imageName) {

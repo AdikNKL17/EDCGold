@@ -69,6 +69,10 @@ import id.dev.birifqa.edcgold.fragment_user.AgingAgingFragment;
 import id.dev.birifqa.edcgold.fragment_user.FragmentProfile;
 import id.dev.birifqa.edcgold.fragment_user.FragmentTopup;
 import id.dev.birifqa.edcgold.fragment_user.FragmentTopupNominal;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserHistory;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserInfo;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserProfile;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserWallet;
 import id.dev.birifqa.edcgold.fragment_user.MiningAktifFragment;
 import id.dev.birifqa.edcgold.fragment_user.MiningNonaktifFragment;
 import id.dev.birifqa.edcgold.fragment_user.PembayaranTopupFragment;
@@ -130,7 +134,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void onAction(){
-        loadFragment(new FragmentTopup());
+        loadFragment(new FragmentUserWallet());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         prepareMenuData();
@@ -366,13 +370,13 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_wallet) {
-            loadFragment(new AgingAgingFragment());
+            loadFragment(new FragmentUserWallet());
         } else if (id == R.id.action_history) {
-            loadFragment(new MiningAktifFragment());
+            loadFragment(new FragmentUserHistory());
         } else if (id == R.id.action_profile) {
-            loadFragment(new FragmentProfile());
+            loadFragment(new FragmentUserProfile());
         } else if (id == R.id.action_info) {
-            loadFragment(new PembayaranTopupFragment());
+            loadFragment(new FragmentUserInfo());
         } else if (id == R.id.action_qr){
             showQR();
         }
