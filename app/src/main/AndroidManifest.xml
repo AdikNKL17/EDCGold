@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_user.SettingActivity"></activity>
+        <activity android:name=".activity_user.VerivikasiActivity"></activity>
+        <activity android:name=".activity_user.SettingActivity" />
         <activity android:name=".activity_user.KomunitasActivity" />
         <activity android:name=".activity_admin.AdminHapusUserSuksesActivity" />
         <activity android:name=".activity_admin.AdminBalasFeedbackSuksesActivity" />
