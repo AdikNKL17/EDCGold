@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="id.dev.birifqa.edcgold">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_user.KomunitasActivity"></activity>
+        <activity android:name=".activity_user.SettingActivity"></activity>
+        <activity android:name=".activity_user.KomunitasActivity" />
         <activity android:name=".activity_admin.AdminHapusUserSuksesActivity" />
         <activity android:name=".activity_admin.AdminBalasFeedbackSuksesActivity" />
         <activity android:name=".activity_admin.AdminFeedbackDetailActivity" />
@@ -43,7 +44,8 @@
         <activity android:name=".activity_user.GantiEmailSukses" />
         <activity android:name=".activity_user.GantiNomorSuksesActivity" />
         <activity android:name=".activity_user.GantiKataSandiSukses" />
-        <activity android:name=".activity_user.PembayaranActivity"
+        <activity
+            android:name=".activity_user.PembayaranActivity"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name=".activity_user.AgingActivity" />
         <activity android:name=".activity_user.PetunjukActivity" />
