@@ -51,6 +51,7 @@ public class UbahAlamatActivity extends AppCompatActivity {
     private Callback<ResponseBody> cBack;
     private Toolbar toolbar;
 
+    public static String idNegara;
     public static String idProv;
     public static String idKab;
     public static String idKec;
@@ -113,7 +114,13 @@ public class UbahAlamatActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UbahAlamatActivity.this, GantiAlamatSuksesActivity.class));
+                changeAddress();
+                Log.e("negara", idNegara);
+                Log.e("provinsi", idProv);
+                Log.e("kabupaten", idKab);
+                Log.e("kecamanta", idKec);
+                Log.e("postkode", etKodepos.getText().toString());
+                Log.e("address", etAlamat.getText().toString());
             }
         });
     }
@@ -142,6 +149,45 @@ public class UbahAlamatActivity extends AppCompatActivity {
             }
         };
         Api.enqueueWithRetry(UbahAlamatActivity.this, call, cBack, false, "Loading");
+    }
+
+    private void changeAddress(){
+        if (!idNegara.isEmpty() && !idProv.isEmpty() && !idKab.isEmpty() && !idKec.isEmpty() && !etKodepos.getText().toString().isEmpty() && !etAlamat.getText().toString().isEmpty()){
+            Call<ResponseBody> call = ParamReq.changeAddress(Session.get("token"),idNegara, idProv, idKab, idKec, etAlamat.getText().toString(), etKodepos.getText().toString(), UbahAlamatActivity.this);
+            cBack = new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+
+                        boolean handle = Handle.handleChangeAddress(response.body().string(), UbahAlamatActivity.this);
+                        if (handle) {
+                            Session.save("countries_id", idNegara);
+                            Session.save("regions_id", idProv);
+                            Session.save("regencies_id", idKab);
+                            Session.save("districts_id", idKec);
+                            Session.save("postcode", etKodepos.getText().toString());
+                            Session.save("address", etAlamat.getText().toString());
+                            startActivity(new Intent(UbahAlamatActivity.this, GantiAlamatSuksesActivity.class));
+                        } else {
+                            Api.mProgressDialog.dismiss();
+                            Toast.makeText(UbahAlamatActivity.this, "Change Address Failed, Check again later !!!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Api.retryDialog(UbahAlamatActivity.this, call, cBack, 1, false);
+                }
+            };
+
+            Api.enqueueWithRetry(UbahAlamatActivity.this, call, cBack, true, "Loading");
+        } else {
+            Toast.makeText(UbahAlamatActivity.this, "All data must be filled !!!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void getProvinsi(){
@@ -261,6 +307,7 @@ public class UbahAlamatActivity extends AppCompatActivity {
                     Api.provinsiModels.clear();
                     boolean handle = Handle.handleGetProvinsi2(response.body().string(), UbahAlamatActivity.this);
                     if (handle) {
+                        Log.e("prov123", response.body().string());
                         provinsiAdapter.notifyDataSetChanged();
                     } else {
                         Api.mProgressDialog.dismiss();

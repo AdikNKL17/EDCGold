@@ -54,6 +54,7 @@
                 android:id="@+id/et_username"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
+                android:inputType="textEmailAddress"
                 android:padding="16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>

@@ -49,8 +49,7 @@ public class UbahNomorActivity extends AppCompatActivity {
     }
 
     private void onAction(){
-        Intent getIntent = getIntent();
-        etPhoneLama.setText(getIntent.getStringExtra("PHONE"));
+        etPhoneLama.setText(Session.get("phone"));
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +61,7 @@ public class UbahNomorActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UbahNomorActivity.this, GantiNomorSuksesActivity.class));
+                changePhone();
             }
         });
     }
@@ -77,11 +76,11 @@ public class UbahNomorActivity extends AppCompatActivity {
 
                         boolean handle = Handle.handleChangePhone(response.body().string(), UbahNomorActivity.this);
                         if (handle) {
-                            onBackPressed();
-                            Toast.makeText(UbahNomorActivity.this, "Ubah Nomor Telepon Berhasil!!!", Toast.LENGTH_SHORT).show();
+                            Session.save("phone", etPhoneBaru.getText().toString());
+                            startActivity(new Intent(UbahNomorActivity.this, GantiNomorSuksesActivity.class));
                         } else {
+                            Toast.makeText(UbahNomorActivity.this, "Nomor telepon baru dan nomor konfirmasi harus sama !!", Toast.LENGTH_SHORT).show();
                             Api.mProgressDialog.dismiss();
-                            Toast.makeText(UbahNomorActivity.this, "Change Phone Number Failed, Check again later !!!", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Exception e) {
