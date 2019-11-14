@@ -10,7 +10,7 @@ import id.dev.birifqa.edcgold.fragment_user.FragmentTopupConfirmation;
 import id.dev.birifqa.edcgold.fragment_user.FragmentTopupNominal;
 
 public class PagerTopupAdapter extends FragmentPagerAdapter {
-    public PagerTopupAdapter(@NonNull FragmentManager fm) {
+    public PagerTopupAdapter(FragmentManager fm) {
         super(fm);
     }
 

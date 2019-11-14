@@ -14,10 +14,10 @@ import id.dev.birifqa.edcgold.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HistoryProsesFragment extends Fragment {
+public class FragmentUserProfile extends Fragment {
 
 
-    public HistoryProsesFragment() {
+    public FragmentUserProfile() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class HistoryProsesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history_proses, container, false);
+        return inflater.inflate(R.layout.fragment_user_profile, container, false);
     }
 
 }
