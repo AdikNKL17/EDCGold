@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_icons8_left"
@@ -66,6 +67,7 @@
                     android:src="@drawable/profil_icon"/>
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nama Pengguna"
@@ -97,8 +99,10 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:enabled="false"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"/>
                 </LinearLayout>
@@ -117,8 +121,10 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_id"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:enabled="false"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"/>
                 </LinearLayout>
@@ -137,8 +143,10 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:enabled="false"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"/>
                 </LinearLayout>
@@ -157,8 +165,10 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:enabled="false"
                         android:layout_marginTop="4dp"
                         android:backgroundTint="@color/colorPrimary"/>
                 </LinearLayout>
@@ -178,8 +188,10 @@
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_address"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:enabled="false"
                         android:layout_marginTop="4dp"
                         android:minLines="3"
                         android:backgroundTint="@color/colorPrimary"/>

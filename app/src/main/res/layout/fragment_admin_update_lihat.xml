@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_beranda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/bt_bg_blue"
+            android:elevation="0dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="32dp"
+            android:paddingRight="24dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="Beranda"
+            android:textAllCaps="false"
+            android:textColor="@color/mdtp_white"
+            android:textSize="16sp"
+            tools:ignore="RtlHardcoded"
+            android:drawableEnd="@drawable/ic_icons8_forward" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_komunitas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/bt_bg_blue"
+            android:elevation="0dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="32dp"
+            android:paddingRight="24dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="Komunitas"
+            android:textAllCaps="false"
+            android:textColor="@color/mdtp_white"
+            android:textSize="16sp"
+            tools:ignore="RtlHardcoded"
+            android:drawableEnd="@drawable/ic_icons8_forward" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_tentang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/bt_bg_blue"
+            android:elevation="0dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="32dp"
+            android:paddingRight="24dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="Tentang"
+            android:textAllCaps="false"
+            android:textColor="@color/mdtp_white"
+            android:textSize="16sp"
+            tools:ignore="RtlHardcoded"
+            android:drawableEnd="@drawable/ic_icons8_forward" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_faq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/bt_bg_blue"
+            android:elevation="0dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="32dp"
+            android:paddingRight="24dp"
+            android:paddingTop="20dp"
+            android:layout_marginBottom="24dp"
+            android:paddingBottom="20dp"
+            android:text="FAQ"
+            android:textAllCaps="false"
+            android:textColor="@color/mdtp_white"
+            android:textSize="16sp"
+            tools:ignore="RtlHardcoded"
+            android:drawableEnd="@drawable/ic_icons8_forward" />
+
+
+
+    </LinearLayout>
+
+</ScrollView>

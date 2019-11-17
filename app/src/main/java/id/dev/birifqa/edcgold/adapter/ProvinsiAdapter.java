@@ -6,17 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.RegisterActivity;
-import id.dev.birifqa.edcgold.model.ProvinsiModel;
+import id.dev.birifqa.edcgold.activity_user.UbahAlamatActivity;
+import id.dev.birifqa.edcgold.model.address.ProvinsiModel;
 
 public class ProvinsiAdapter  extends RecyclerView.Adapter<ProvinsiAdapter.MyViewHolder> {
 
@@ -25,12 +28,14 @@ public class ProvinsiAdapter  extends RecyclerView.Adapter<ProvinsiAdapter.MyVie
     private List<ProvinsiModel> provinsiModels;
     private Dialog dialog;
     private TextInputEditText text;
+    private String status;
 
-    public ProvinsiAdapter(Context mContext, List<ProvinsiModel> provinsiModels, Dialog dialog, TextInputEditText text) {
+    public ProvinsiAdapter(Context mContext, List<ProvinsiModel> provinsiModels, Dialog dialog, TextInputEditText text, String status) {
         this.mContext = mContext;
         this.provinsiModels = provinsiModels;
         this.dialog = dialog;
         this.text = text;
+        this.status = status;
     }
 
     @NonNull
@@ -46,15 +51,28 @@ public class ProvinsiAdapter  extends RecyclerView.Adapter<ProvinsiAdapter.MyVie
 
         holder.tvName.setText(provinsi.getName());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                text.setText(provinsi.getName());
-                RegisterActivity.idProv = provinsi.getId();
-                dialog.dismiss();
+        if (status.equals("1")){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    text.setText(provinsi.getName());
+                    RegisterActivity.idProv = provinsi.getId();
+                    dialog.dismiss();
 
-            }
-        });
+                }
+            });
+        } else if (status.equals("2")){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    text.setText(provinsi.getName());
+                    UbahAlamatActivity.idProv = provinsi.getId();
+                    dialog.dismiss();
+                }
+            });
+        } else {
+            Toast.makeText(mContext, "Status Unauthenticated", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -69,5 +87,12 @@ public class ProvinsiAdapter  extends RecyclerView.Adapter<ProvinsiAdapter.MyVie
 
             tvName = itemView.findViewById(R.id.tv_name);
         }
+    }
+
+
+    public void setFilter(List<ProvinsiModel> newList){
+        provinsiModels=new ArrayList<>();
+        provinsiModels.addAll(newList);
+        notifyDataSetChanged();
     }
 }

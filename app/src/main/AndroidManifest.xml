@@ -1,18 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="id.dev.birifqa.edcgold">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/edc_coin_small"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".activity_user.UbahEmailActivity"></activity>
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity_user.GantiUsernameSuksesActivity"></activity>
+        <activity android:name=".activity_user.UbahUsernameActivity" />
+        <activity android:name=".activity_user.VerifikasiActivity" />
+        <activity android:name=".activity_user.SettingActivity" />
+        <activity android:name=".activity_user.KomunitasActivity" />
+        <activity android:name=".activity_admin.AdminHapusUserSuksesActivity" />
+        <activity android:name=".activity_admin.AdminBalasFeedbackSuksesActivity" />
+        <activity android:name=".activity_admin.AdminFeedbackDetailActivity" />
+        <activity android:name=".activity_admin.AdminFaqAnswerActivity" />
+        <activity android:name=".activity_admin.AdminFaqListActivity" />
+        <activity android:name=".activity_admin.AdminUpdateActivity" />
+        <activity android:name=".activity_admin.AdminFeedbackListActivity" />
+        <activity android:name=".activity_admin.AdminUserListActivity" />
+        <activity android:name=".activity_admin.AdminReportActivity" />
+        <activity android:name=".activity_admin.AdminTutupActivity" />
+        <activity android:name=".activity_admin.AdminTutupUserActivity" />
+        <activity android:name=".activity_admin.AdminUserDetailActivity" />
+        <activity android:name=".activity_admin.AdminProfileActivity" />
+        <activity
+            android:name=".activity_admin.AdminHomeActivity"
+            android:label="@string/title_activity_admin_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity_user.TransferActivity" />
+        <activity android:name=".activity_user.HistoryActivity" />
+        <activity android:name=".activity_user.TopUpSuksesActivity" />
+        <activity android:name=".activity_user.TopUpKartuDebitActivity" />
+        <activity android:name=".activity_user.WithdrawSuksesActivity" />
+        <activity android:name=".activity_user.GantiAlamatSuksesActivity" />
+        <activity android:name=".activity_user.GantiRekeningSuksesActivity" />
+        <activity android:name=".activity_user.GantiEmailSukses" />
+        <activity android:name=".activity_user.GantiNomorSuksesActivity" />
+        <activity android:name=".activity_user.GantiKataSandiSukses" />
+        <activity
+            android:name=".activity_user.PembayaranActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity android:name=".activity_user.AgingActivity" />
+        <activity android:name=".activity_user.PetunjukActivity" />
+        <activity android:name=".activity_user.NotifikasiActivity" />
+        <activity android:name=".activity_user.FeedbackActivity" />
+        <activity android:name=".activity_user.MiningActivity" />
+        <activity android:name=".activity_user.UbahPasswordActivity" />
+        <activity android:name=".activity_user.UbahAlamatActivity" />
+        <activity android:name=".activity_user.UbahRekeningBankActivity" />
+        <activity android:name=".activity_user.RekeningBankActivity" />
+        <activity android:name=".activity_user.UbahEmailActivity" />
         <activity android:name=".activity_user.UbahNomorActivity" />
         <activity android:name=".activity_user.ProfilePengaturanActivity" />
         <activity android:name=".activity_user.ProfileLockActivity" />
@@ -25,7 +74,9 @@
             android:name=".activity_user.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity_user.LoginActivity" />
+        <activity
+            android:name=".activity_user.LoginActivity"
+            android:theme="@style/LoginTheme" />
         <activity android:name=".activity_user.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

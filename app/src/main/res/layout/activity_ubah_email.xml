@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_icons8_left"
@@ -63,6 +64,8 @@
                     android:id="@+id/et_email_lama"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:inputType="textEmailAddress"
                     android:layout_marginTop="4dp"
                     android:backgroundTint="@color/colorPrimary" />
             </LinearLayout>
@@ -85,6 +88,7 @@
                     android:id="@+id/et_email_baru"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="textEmailAddress"
                     android:layout_marginTop="4dp"
                     android:backgroundTint="@color/colorPrimary" />
             </LinearLayout>
@@ -107,6 +111,7 @@
                     android:id="@+id/konfirmasi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="textEmailAddress"
                     android:layout_marginTop="4dp"
                     android:backgroundTint="@color/colorPrimary" />
             </LinearLayout>

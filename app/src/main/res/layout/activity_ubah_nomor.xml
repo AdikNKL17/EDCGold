@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_icons8_left"
@@ -64,7 +65,9 @@
                     android:id="@+id/et_nomor_lama"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:enabled="false"
                     android:layout_marginTop="4dp"
+                    android:inputType="number"
                     android:backgroundTint="@color/colorPrimary" />
             </LinearLayout>
 
@@ -87,6 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
+                    android:inputType="number"
                     android:backgroundTint="@color/colorPrimary" />
             </LinearLayout>
 
@@ -101,7 +105,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Konfirmasi NOmor Baru"
+                    android:text="Konfirmasi Nomor Baru"
                     android:textColor="@color/colorPrimary" />
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -109,6 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
+                    android:inputType="number"
                     android:backgroundTint="@color/colorPrimary" />
             </LinearLayout>
 
@@ -128,7 +133,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_daftar"
+            android:id="@+id/btn_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

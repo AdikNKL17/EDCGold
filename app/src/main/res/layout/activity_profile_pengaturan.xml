@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_icons8_left"
@@ -78,6 +79,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/imageView2" />
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -100,6 +102,7 @@
                 android:layout_marginTop="24dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_change_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -138,6 +141,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_change_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -176,6 +180,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_change_bank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -214,6 +219,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_change_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -252,6 +258,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_change_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

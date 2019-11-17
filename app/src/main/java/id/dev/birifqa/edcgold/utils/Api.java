@@ -15,13 +15,16 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.model.KabupatenModel;
-import id.dev.birifqa.edcgold.model.KecamatanModel;
-import id.dev.birifqa.edcgold.model.ProvinsiModel;
+import id.dev.birifqa.edcgold.model.BankModel;
+import id.dev.birifqa.edcgold.model.NominalTopupModel;
+import id.dev.birifqa.edcgold.model.address.KabupatenModel;
+import id.dev.birifqa.edcgold.model.address.KecamatanModel;
+import id.dev.birifqa.edcgold.model.address.ProvinsiModel;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -45,6 +48,8 @@ public class Api {
     public static List<ProvinsiModel> provinsiModels;
     public static List<KabupatenModel> kabupatenModels;
     public static List<KecamatanModel> kecamatanModels;
+    public static List<NominalTopupModel> nominalTopupModels;
+    public static List<BankModel> bankModels;
 
     public static ProgressDialog mProgressDialog;
     public static boolean showLog = true;

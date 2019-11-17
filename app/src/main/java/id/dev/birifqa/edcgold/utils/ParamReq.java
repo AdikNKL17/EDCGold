@@ -6,6 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import id.dev.birifqa.edcgold.activity_user.MainActivity;
+import id.dev.birifqa.edcgold.request.RequestChangeAddress;
+import id.dev.birifqa.edcgold.request.RequestChangeBank;
+import id.dev.birifqa.edcgold.request.RequestChangeEmail;
+import id.dev.birifqa.edcgold.request.RequestChangePhone;
+import id.dev.birifqa.edcgold.request.RequestChangeUsername;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -25,29 +30,52 @@ public class ParamReq {
         return (MainActivity) context;
     }
 
-    public static Call<ResponseBody> reqLogin(String email, String password, Context context) {
+    public static Call<ResponseBody> reqLogin(String email, String password, String brainkey, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         final Map<String, RequestBody> map = new HashMap<>();
 
         map.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
         map.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
+        map.put("brainkey", RequestBody.create(MediaType.parse("multipart/form-data"), brainkey));
         return APIInterface.requestLogin(map);
     }
 
     //add
-    public static Call<ResponseBody> requestRegister(String nama_depan, String nama_belakang, String jk, String bod, String phone, String email, String password, String referral, Context context) {
+    public static Call<ResponseBody> requestRegister(String nama_depan, String nama_belakang, String jk,
+                                                     String bod, String phone, String email, String password,
+                                                     String provinsi, String kabupaten, String kecamatan,
+                                                     String kodepos, String alamat, String referral, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> data = new HashMap<>();
+
+        data.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), nama_depan));
+        data.put("lastname", RequestBody.create(MediaType.parse("multipart/form-data"), nama_belakang));
+        data.put("gender", RequestBody.create(MediaType.parse("multipart/form-data"), jk));
+        data.put("bod", RequestBody.create(MediaType.parse("multipart/form-data"), bod));
+        data.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), phone));
+        data.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
+        data.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
+        data.put("countries_id", RequestBody.create(MediaType.parse("multipart/form-data"), "95"));
+        data.put("regions_id", RequestBody.create(MediaType.parse("multipart/form-data"), provinsi));
+        data.put("regencies_id", RequestBody.create(MediaType.parse("multipart/form-data"), kabupaten));
+        data.put("districts_id", RequestBody.create(MediaType.parse("multipart/form-data"), kecamatan));
+        data.put("postcode", RequestBody.create(MediaType.parse("multipart/form-data"), kodepos));
+        data.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), alamat));
+        data.put("referral", RequestBody.create(MediaType.parse("multipart/form-data"), referral));
+        return APIInterface.requestRegister(data);
+    }
+
+    public static Call<ResponseBody> reqForgotPassword(String email, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         final Map<String, RequestBody> map = new HashMap<>();
 
-        map.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), nama_depan));
-        map.put("lastname", RequestBody.create(MediaType.parse("multipart/form-data"), nama_belakang));
-        map.put("gender", RequestBody.create(MediaType.parse("multipart/form-data"), jk));
-        map.put("bod", RequestBody.create(MediaType.parse("multipart/form-data"), bod));
-        map.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), phone));
         map.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
-        map.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
-        map.put("referral", RequestBody.create(MediaType.parse("multipart/form-data"), referral));
-        return APIInterface.requestRegister(map);
+        return APIInterface.requestForgotPassword(map);
+    }
+
+    public static Call<ResponseBody> requestUserDetail(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getUserDetail("Bearer " +token);
     }
 
     public static Call<ResponseBody> requestProvinsi(Context context) {
@@ -57,6 +85,103 @@ public class ParamReq {
     public static Call<ResponseBody> requestKabupaten(String idProv,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getKabupaten(idProv);
+    }
+    public static Call<ResponseBody> requestKecamatan(String idKab,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getKecamatan(idKab);
+    }
+
+    public static Call<ResponseBody> requestNominalTopup(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getNominalTopup("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> reqTopup(String token,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("method_id", RequestBody.create(MediaType.parse("multipart/form-data"), "1"));
+        map.put("nominal_id", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_id")));
+        map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_nominal")));
+        return APIInterface.requestTopup("Bearer " +token,map);
+    }
+
+    public static Call<ResponseBody> reqTopupConfirmation(String token, String image,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("transaction_code", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_code")));
+        map.put("bank_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_bank_name")));
+        map.put("account_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_account_name")));
+        map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_amount")));
+        map.put("transfer_date", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_date")));
+        map.put("images", RequestBody.create(MediaType.parse("multipart/form-data"), image));
+
+        return APIInterface.requestTopupConfirmation("Bearer " +token,map);
+    }
+
+    public static Call<ResponseBody> changeUsername(String token,String name,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+
+        RequestChangeUsername requestChangeUsername = new RequestChangeUsername();
+        requestChangeUsername.setName(name);
+
+        return APIInterface.changeUsername("Bearer " +token,requestChangeUsername);
+    }
+
+    public static Call<ResponseBody> changeEmailRequest(String token, String old_email, String new_email, String confirmed,Context context) {
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("old_email", RequestBody.create(MediaType.parse("multipart/form-data"), old_email));
+        map.put("new_email", RequestBody.create(MediaType.parse("multipart/form-data"), new_email));
+        map.put("confirmed", RequestBody.create(MediaType.parse("multipart/form-data"), confirmed));
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.requestChangeEmail("Bearer " +token,map);
+    }
+
+    public static Call<ResponseBody> changeEmail(String token,String verification, String old_email, String new_email, String confirmed,Context context) {
+        RequestChangeEmail requestChangeEmail = new RequestChangeEmail();
+        requestChangeEmail.setVerification(verification);
+        requestChangeEmail.setOld_email(old_email);
+        requestChangeEmail.setNew_email(new_email);
+        requestChangeEmail.setConfirmed(confirmed);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changeEmail("Bearer " +token,requestChangeEmail);
+    }
+
+    public static Call<ResponseBody> changeAddress(String token,String country, String region, String regency, String district, String address, String postcode,Context context) {
+        RequestChangeAddress requestChangeAddress = new RequestChangeAddress();
+        requestChangeAddress.setCountry(country);
+        requestChangeAddress.setRegion(region);
+        requestChangeAddress.setRegency(regency);
+        requestChangeAddress.setDistrict(district);
+        requestChangeAddress.setAddress(address);
+        requestChangeAddress.setPostcode(postcode);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changeAddress("Bearer " +token,requestChangeAddress);
+    }
+
+    public static Call<ResponseBody> changePhone(String token, String old_phone, String new_phone, String confirmed,Context context) {
+        RequestChangePhone requestChangePhone = new RequestChangePhone();
+        requestChangePhone.setOld_phone(old_phone);
+        requestChangePhone.setNew_phone(new_phone);
+        requestChangePhone.setConfirmed(confirmed);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changePhone("Bearer " +token, requestChangePhone);
+    }
+
+    public static Call<ResponseBody> changeBank(String token, String id, String bank_name, String bank_number, String account_name,Context context) {
+        RequestChangeBank requestChangeBank = new RequestChangeBank();
+        requestChangeBank.setBank_name(bank_name);
+        requestChangeBank.setBank_number(bank_number);
+        requestChangeBank.setAccount_name(account_name);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changeBank("Bearer " +token, id, requestChangeBank);
+    }
+
+    public static Call<ResponseBody> requestRekeningBank(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getRekeningBank("Bearer " +token);
     }
 
 }

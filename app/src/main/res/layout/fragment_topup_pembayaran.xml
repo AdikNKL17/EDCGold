@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorPrimaryDark">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Informasi Saldo (Rp)"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/circular_std_bold"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp. 0,00"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="24dp"
+                android:textSize="24dp"
+                android:textColor="@android:color/holo_orange_light"
+                android:fontFamily="@font/circular_std_bold" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/image_debit"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_icons8_mastercard_credit_card"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Kartu Debit"
+                android:textColor="@color/colorWhite"
+                android:gravity=""
+                app:layout_constraintBottom_toBottomOf="@+id/image_debit"
+                app:layout_constraintEnd_toStartOf="@+id/debit_right"
+                app:layout_constraintStart_toEndOf="@+id/image_debit"
+                app:layout_constraintTop_toTopOf="@+id/image_debit" />
+
+            <ImageView
+                android:id="@+id/debit_right"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_icons8_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/image_debit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/image_debit" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/image_bank"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_icons8_merchant_account_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="ATM"
+                android:textColor="@color/colorWhite"
+                android:gravity=""
+                app:layout_constraintBottom_toBottomOf="@+id/image_bank"
+                app:layout_constraintEnd_toStartOf="@+id/bank_right"
+                app:layout_constraintStart_toEndOf="@+id/image_bank"
+                app:layout_constraintTop_toTopOf="@+id/image_bank" />
+
+            <ImageView
+                android:id="@+id/bank_right"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_icons8_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/image_bank"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/image_bank" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/image_mobile"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_icons8_touchscreen_smartphone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Mobile banking"
+                android:textColor="@color/colorWhite"
+                android:gravity=""
+                app:layout_constraintBottom_toBottomOf="@+id/image_mobile"
+                app:layout_constraintEnd_toStartOf="@+id/mobile_right"
+                app:layout_constraintStart_toEndOf="@+id/image_mobile"
+                app:layout_constraintTop_toTopOf="@+id/image_mobile" />
+
+            <ImageView
+                android:id="@+id/mobile_right"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_icons8_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/image_mobile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/image_mobile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
