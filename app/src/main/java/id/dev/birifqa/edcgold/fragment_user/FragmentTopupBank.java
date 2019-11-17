@@ -7,11 +7,14 @@ import android.os.Bundle;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -40,6 +43,7 @@ public class FragmentTopupBank extends Fragment {
     private Callback<ResponseBody> cBack;
     private Session session;
     private AppCompatSpinner spinnerBankTopup;
+    private TextInputEditText etRekening, etAtasnama;
 
     public FragmentTopupBank() {
         // Required empty public constructor
@@ -70,11 +74,25 @@ public class FragmentTopupBank extends Fragment {
         view = inflater.inflate(R.layout.fragment_topup_bank, container, false);
 
         spinnerBankTopup = view.findViewById(R.id.spinner_bank);
+        etRekening = view.findViewById(R.id.et_rekening);
+        etAtasnama = view.findViewById(R.id.et_atasnama);
 
         spinnerBankTopup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!parent.getSelectedItem().equals("Pilih Bank")){
+                    String bank = Api.bankModels.get(position-1).getBank_name();
+                    String rekening = Api.bankModels.get(position-1).getBank_number();
+                    String account = Api.bankModels.get(position-1).getAccount_name();
 
+                    etRekening.setText(rekening);
+                    etAtasnama.setText(account);
+
+                    Session.save("topup_bank_name", bank);
+                    Session.save("topup_account_name", account);
+                } else {
+
+                }
             }
 
             @Override
@@ -89,6 +107,7 @@ public class FragmentTopupBank extends Fragment {
     }
 
     private void getBank(){
+        Api.bankModels = new ArrayList<>();
         Call<ResponseBody> call = ParamReq.requestRekeningBank(session.get("token"), getActivity());
         cBack = new Callback<ResponseBody>() {
             @Override

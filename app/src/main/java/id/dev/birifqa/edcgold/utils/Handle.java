@@ -851,6 +851,7 @@ public class Handle {
     public static boolean handleNominalTopup(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
+            Api.nominalTopupModels = new ArrayList<>();
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
                 JSONArray data = jsonObject.getJSONArray("data");
@@ -882,6 +883,29 @@ public class Handle {
     }
 
     public static boolean handleTopup(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            Boolean success = jsonObject.getBoolean("success");
+            JSONObject data = jsonObject.getJSONObject("data");
+            if (success){
+                String date = data.getString("created_at");
+                Session.save("topup_code", data.getString("transaction_code"));
+                Session.save("topup_date", date.substring(0, date.indexOf(' ')));
+                return true;
+            } else {
+                return false;
+            }
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleTopupConfirmation(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
 

@@ -60,6 +60,10 @@ public interface Interface {
     Call<ResponseBody> requestTopup(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
     @Multipart
+    @POST("http://45.77.252.55/api/transfer_confirmation")
+    Call<ResponseBody> requestTopupConfirmation(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
+    @Multipart
     @POST("http://45.77.252.55/api/email")
     Call<ResponseBody> requestChangeEmail(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
