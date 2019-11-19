@@ -37,7 +37,7 @@ public class ProfileDetailActivity extends AppCompatActivity {
         findViewById();
         onAction();
 
-        getUserDetail();
+//        getUserDetail();
     }
 
     private void findViewById(){
@@ -60,29 +60,29 @@ public class ProfileDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void getUserDetail(){
-        Call<ResponseBody> call = ParamReq.requestUserDetail(session.get("token"), ProfileDetailActivity.this);
-        cBack = new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    boolean handle = Handle.handleProfileDetail(response.body().string(), tvName, etName, etId, etPhone, etEmail, etAddress, ProfileDetailActivity.this);
-                    if (handle) {
-
-                    } else {
-                        Api.mProgressDialog.dismiss();
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Api.retryDialog(ProfileDetailActivity.this, call, cBack, 1, false);
-            }
-        };
-        Api.enqueueWithRetry(ProfileDetailActivity.this, call, cBack, false, "Loading");
-    }
+//    private void getUserDetail(){
+//        Call<ResponseBody> call = ParamReq.requestUserDetail(session.get("token"), ProfileDetailActivity.this);
+//        cBack = new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                try {
+//                    boolean handle = Handle.handleProfileDetail(response.body().string(), tvName, etName, etId, etPhone, etEmail, etAddress, ProfileDetailActivity.this);
+//                    if (handle) {
+//
+//                    } else {
+//                        Api.mProgressDialog.dismiss();
+//                    }
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Api.retryDialog(ProfileDetailActivity.this, call, cBack, 1, false);
+//            }
+//        };
+//        Api.enqueueWithRetry(ProfileDetailActivity.this, call, cBack, false, "Loading");
+//    }
 }

@@ -88,7 +88,7 @@ public class AdminHomeActivity extends AppCompatActivity
     }
 
     private void onAction(){
-        getUserDetail();
+//        getUserDetail();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -101,32 +101,32 @@ public class AdminHomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void getUserDetail(){
-        Call<ResponseBody> call = ParamReq.requestUserDetail(session.get("token"), AdminHomeActivity.this);
-        cBack = new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    boolean handle = Handle.handleHome(response.body().string(), tvName, tvEmail, AdminHomeActivity.this);
-                    if (handle) {
-
-
-                    } else {
-                        Api.mProgressDialog.dismiss();
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Api.retryDialog(AdminHomeActivity.this, call, cBack, 1, false);
-            }
-        };
-        Api.enqueueWithRetry(AdminHomeActivity.this, call, cBack, false, "Loading");
-    }
+//    private void getUserDetail(){
+//        Call<ResponseBody> call = ParamReq.requestUserDetail(session.get("token"), AdminHomeActivity.this);
+//        cBack = new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                try {
+//                    boolean handle = Handle.handleHome(response.body().string(), tvName, tvEmail, AdminHomeActivity.this);
+//                    if (handle) {
+//
+//
+//                    } else {
+//                        Api.mProgressDialog.dismiss();
+//                    }
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Api.retryDialog(AdminHomeActivity.this, call, cBack, 1, false);
+//            }
+//        };
+//        Api.enqueueWithRetry(AdminHomeActivity.this, call, cBack, false, "Loading");
+//    }
 
     private void prepareMenuData(){
         MenuModel menuModel = new MenuModel("Profil Saya", getResources().getDrawable(R.drawable.ic_account_circle_white_24dp), true, false); //Menu of Android Tutorial. No sub menus

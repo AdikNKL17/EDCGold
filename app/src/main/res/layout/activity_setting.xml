@@ -65,6 +65,7 @@
                         android:src="@drawable/icon_profil_header" />
 
                     <TextView
+                        android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -97,6 +98,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/tv_coin"
                         android:layout_width="104dp"
                         android:layout_height="67dp"
                         android:layout_marginStart="8dp"
@@ -131,6 +133,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
+                    android:id="@+id/btn_edit_nama"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -147,10 +150,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
+                        android:layout_gravity="center"
                         android:text="Edit Nama Lengkap" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/btn_edit_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -167,10 +172,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
+                        android:layout_gravity="center"
                         android:text="Edit No. Telepon" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/btn_edit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -187,10 +194,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
+                        android:layout_gravity="center"
                         android:text="Edit Alamat Email" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/btn_edit_alamat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -208,6 +217,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
+                        android:layout_gravity="center"
                         android:text="Edit Alamat Lengkap" />
                 </LinearLayout>
             </LinearLayout>
@@ -225,6 +235,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
                 <LinearLayout
+                    android:id="@+id/btn_edit_rekening"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -241,10 +252,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
+                        android:layout_gravity="center"
                         android:text="Tambah atau ubah no. rekening" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/btn_edit_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -262,6 +275,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
+                        android:layout_gravity="center"
                         android:text="Ubah password" />
                 </LinearLayout>
             </LinearLayout>

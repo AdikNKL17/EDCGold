@@ -59,6 +59,8 @@ public class Handle {
                             session.save("id", jsonObject.getJSONObject("data").getString("id"));
                             session.save("name", jsonObject.getJSONObject("data").getString("name"));
                             session.save("email", jsonObject.getJSONObject("data").getString("email"));
+                            session.save("phone", jsonObject.getJSONObject("data").getString("phone"));
+                            session.save("countries_id", jsonObject.getJSONObject("data").getString("countries_id"));
                             session.save("regions_id", jsonObject.getJSONObject("data").getString("regions_id"));
                             session.save("regencies_id", jsonObject.getJSONObject("data").getString("regencies_id"));
                             session.save("districts_id", jsonObject.getJSONObject("data").getString("districts_id"));
@@ -116,7 +118,6 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
-                Api.provinsiModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -153,7 +154,6 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
-                Api.provinsiModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -225,7 +225,6 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
-                Api.kabupatenModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -265,7 +264,6 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
-                Api.kabupatenModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -340,7 +338,6 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
-                Api.kecamatanModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -380,7 +377,6 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
-                Api.kecamatanModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -496,6 +492,50 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleChangeUsername(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleChangeAddress(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
     public static boolean handleChangePhone(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -565,6 +605,7 @@ public class Handle {
     public static boolean handleChangeAddressDetail(String sjson, TextInputEditText etKodepos, TextInputEditText etAddress, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
+            UbahAlamatActivity.idNegara = jsonObject.getJSONObject("data").getString("countries_id");
             UbahAlamatActivity.idProv = jsonObject.getJSONObject("data").getString("regions_id");
             UbahAlamatActivity.idKab = jsonObject.getJSONObject("data").getString("regencies_id");
             UbahAlamatActivity.idKec = jsonObject.getJSONObject("data").getString("districts_id");
@@ -582,12 +623,40 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleHome(String sjson, TextView tvName, TextView tvEmail, Context context) {
+    public static boolean handleHome(String sjson, TextView tvName, TextView tvCoin, TextView tvNameHeader, TextView tvEmailHeader, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
 
-            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
-            tvEmail.setText(jsonObject.getJSONObject("data").getString("email"));
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            JSONObject coinObject = dataObject.getJSONObject("coin");
+
+            tvName.setText(dataObject.getString("name"));
+            tvCoin.setText(coinObject.getString("balance_coin"));
+
+            tvNameHeader.setText(dataObject.getString("name"));
+            tvEmailHeader.setText(dataObject.getString("email"));
+
+            return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleProfileSetting(String sjson, TextView tvName, TextView tvCoin, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            JSONObject coinObject = dataObject.getJSONObject("coin");
+
+            tvName.setText(dataObject.getString("name"));
+            tvCoin.setText(coinObject.getString("balance_coin"));
+
 
             return true;
 
@@ -617,14 +686,12 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleProfileDetail(String sjson, TextView tvName, TextInputEditText etName,
+    public static boolean handleProfileDetail(String sjson, TextInputEditText etName,
                                               TextInputEditText etId, TextInputEditText etPhone,
                                               TextInputEditText etEmail, TextInputEditText etAddress,
                                               Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
-
-            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
             etName.setText(jsonObject.getJSONObject("data").getString("name"));
             etId.setText(jsonObject.getJSONObject("data").getString("id"));
             etPhone.setText(jsonObject.getJSONObject("data").getString("phone"));
@@ -750,7 +817,6 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses){
-                Api.bankModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {
@@ -787,7 +853,6 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
             if (succses) {
-                Api.nominalTopupModels = new ArrayList<>();
                 JSONArray data = jsonObject.getJSONArray("data");
                 if (data.length() >= 0) {
                     for (int i = 0; i < data.length(); i++) {

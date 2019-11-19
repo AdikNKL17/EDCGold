@@ -120,7 +120,7 @@
                     android:textColor="@color/colorPrimary"/>
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_address"
+                    android:id="@+id/et_alamat"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:enabled="false"

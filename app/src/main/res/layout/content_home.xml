@@ -36,6 +36,7 @@
                     android:src="@drawable/icon_profil_header" />
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -68,6 +69,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_coin"
                     android:layout_width="104dp"
                     android:layout_height="67dp"
                     android:layout_marginStart="8dp"

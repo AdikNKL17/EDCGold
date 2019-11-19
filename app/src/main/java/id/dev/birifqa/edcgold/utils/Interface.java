@@ -2,9 +2,11 @@ package id.dev.birifqa.edcgold.utils;
 
 import java.util.Map;
 
+import id.dev.birifqa.edcgold.request.RequestChangeAddress;
 import id.dev.birifqa.edcgold.request.RequestChangeBank;
 import id.dev.birifqa.edcgold.request.RequestChangeEmail;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
+import id.dev.birifqa.edcgold.request.RequestChangeUsername;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -57,12 +59,22 @@ public interface Interface {
     @POST("http://45.77.252.55/api/topup")
     Call<ResponseBody> requestTopup(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
+    @Multipart
+    @POST("http://45.77.252.55/api/email")
+    Call<ResponseBody> requestChangeEmail(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
     //PUT
+    @PUT("http://45.77.252.55/api/username")
+    Call<ResponseBody> changeUsername(@Header("Authorization") String authorization, @Body RequestChangeUsername requestChangeUsername);
+
     @PUT("http://45.77.252.55/api/phone")
     Call<ResponseBody> changePhone(@Header("Authorization") String authorization,@Body RequestChangePhone requestChangePhone);
 
     @PUT("http://45.77.252.55/api/email")
     Call<ResponseBody> changeEmail(@Header("Authorization") String authorization,@Body RequestChangeEmail requestChangeEmail);
+
+    @PUT("http://45.77.252.55/api/address")
+    Call<ResponseBody> changeAddress(@Header("Authorization") String authorization, @Body RequestChangeAddress requestChangeAddress);
 
     @PUT("http://45.77.252.55/api/bank_user/{id}")
     Call<ResponseBody> changeBank(@Header("Authorization") String authorization,@Path("id") String id_bank, @Body RequestChangeBank requestChangeBank);

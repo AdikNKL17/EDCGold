@@ -89,7 +89,7 @@ import retrofit2.Response;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private TextView tvName, tvEmail;
+    private TextView tvName, tvCoin, tvNameHeader, tvEmailHeader;
     private Toolbar toolbar;
     private Session session;
     private Callback<ResponseBody> cBack;
@@ -124,13 +124,15 @@ public class HomeActivity extends AppCompatActivity
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         frameLayout = findViewById(R.id.frame_layout);
+        tvName = findViewById(R.id.tv_name);
+        tvCoin = findViewById(R.id.tv_coin);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         /*anyChartView = findViewById(R.id.any_chart_view);
         youTubePlayerView = findViewById(R.id.youtube_player_view);*/
         expandableListView = findViewById(R.id.expandableListView);
         headerView = navigationView.getHeaderView(0);
-        tvName = headerView.findViewById(R.id.tv_name);
-        tvEmail = headerView.findViewById(R.id.tv_email);
+        tvNameHeader = headerView.findViewById(R.id.tv_name_header);
+        tvEmailHeader = headerView.findViewById(R.id.tv_email_header);
     }
 
     private void onAction(){
@@ -149,12 +151,12 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void getUserDetail(){
-        Call<ResponseBody> call = ParamReq.requestUserDetail(session.get("token"), HomeActivity.this);
+        Call<ResponseBody> call = ParamReq.requestUserDetail(Session.get("token"), HomeActivity.this);
         cBack = new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    boolean handle = Handle.handleHome(response.body().string(), tvName, tvEmail, HomeActivity.this);
+                    boolean handle = Handle.handleHome(response.body().string(), tvName, tvCoin, tvNameHeader, tvEmailHeader, HomeActivity.this);
                     if (handle) {
 
                     } else {
