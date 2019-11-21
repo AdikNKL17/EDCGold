@@ -74,6 +74,8 @@ public class FragmentTopupNominal extends Fragment {
         tvNominalCoin = view.findViewById(R.id.tv_nominal_coin);
         spinnerNominalTopup = view.findViewById(R.id.spinner_nominal);
 
+        getNominalTopup();
+
         spinnerNominalTopup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -81,7 +83,8 @@ public class FragmentTopupNominal extends Fragment {
                     String ids = Api.nominalTopupModels.get(position-1).getId();
                     String label = Api.nominalTopupModels.get(position-1).getLabel();
                     String nominal = Api.nominalTopupModels.get(position-1).getNominal();
-                    Session.save("topup_nominal", "Topup sebesar "+nominal);
+                    Session.save("topup_nominal", "Topup sebesar "+label);
+                    Session.save("topup_amount", nominal);
                     Session.save("topup_id", ids);
                     tvNominalCoin.setText(nominal);
                     Log.e("Log123", "id " + ids + " label " + label);
@@ -96,7 +99,6 @@ public class FragmentTopupNominal extends Fragment {
             }
         });
 
-        getNominalTopup();
 
         return view;
     }
@@ -136,6 +138,4 @@ public class FragmentTopupNominal extends Fragment {
         };
         Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
-
-
 }

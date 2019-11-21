@@ -129,35 +129,51 @@ public class AdminHomeActivity extends AppCompatActivity
 //    }
 
     private void prepareMenuData(){
-        MenuModel menuModel = new MenuModel("Profil Saya", getResources().getDrawable(R.drawable.ic_account_circle_white_24dp), true, false); //Menu of Android Tutorial. No sub menus
+        MenuModel menuModel = new MenuModel("Profil Saya", getResources().getDrawable(R.drawable.ic_account_circle_white_24dp), true, false);
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Update", getResources().getDrawable(R.drawable.ic_history_white_24dp), false, false); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Report", getResources().getDrawable(R.drawable.ic_history_white_24dp), false, false);
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("User",getResources().getDrawable(R.drawable.ic_community_white_24dp) , false, false); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Post",getResources().getDrawable(R.drawable.ic_community_white_24dp) , true, true);
+        headerList.add(menuModel);
+        List<MenuModel> childModelsList = new ArrayList<>();
+        MenuModel childModel = new MenuModel("Tentang", false, true);
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("Komunitas", false, true);
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("FAQ", false, true);
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("Feedback", false, true);
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("Petunjuk", false, true);
+        childModelsList.add(childModel);
+
+
+        if (menuModel.hasChildren) {
+            childList.put(menuModel, childModelsList);
+        }
+
+        menuModel = new MenuModel("Update",getResources().getDrawable(R.drawable.ic_community_white_24dp) , false, false); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Report",getResources().getDrawable(R.drawable.ic_community_white_24dp) , false, false); //Menu of Android Tutorial. No sub menus
-        headerList.add(menuModel);
-
-        if (!menuModel.hasChildren) {
-            childList.put(menuModel, null);
-        }
-
-        menuModel = new MenuModel("Keluar Aplikasi", getResources().getDrawable(R.drawable.ic_exit_white_24dp), false, false); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Logout", getResources().getDrawable(R.drawable.ic_exit_white_24dp), false, false); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

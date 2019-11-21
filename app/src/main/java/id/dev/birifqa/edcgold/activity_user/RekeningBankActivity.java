@@ -86,6 +86,6 @@ public class RekeningBankActivity extends AppCompatActivity {
 
             }
         };
-        Api.enqueueWithRetry(RekeningBankActivity.this, call, cBack, false, "Loading");
+        Api.enqueueWithRetry(RekeningBankActivity.this, call, cBack, true, "Loading");
     }
 }

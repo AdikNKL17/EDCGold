@@ -106,6 +106,20 @@ public class ParamReq {
         return APIInterface.requestTopup("Bearer " +token,map);
     }
 
+    public static Call<ResponseBody> reqTopupConfirmation(String token, String image,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("transaction_code", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_code")));
+        map.put("bank_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_bank_name")));
+        map.put("account_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_account_name")));
+        map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_amount")));
+        map.put("transfer_date", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_date")));
+        map.put("images", RequestBody.create(MediaType.parse("multipart/form-data"), image));
+
+        return APIInterface.requestTopupConfirmation("Bearer " +token,map);
+    }
+
     public static Call<ResponseBody> changeUsername(String token,String name,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
 

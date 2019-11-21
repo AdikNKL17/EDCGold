@@ -1,8 +1,15 @@
 package id.dev.birifqa.edcgold.fragment_user;
 
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -18,6 +25,9 @@ import android.widget.Toast;
 import com.badoualy.stepperindicator.StepperIndicator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.PagerTopupAdapter;
@@ -44,6 +54,14 @@ public class FragmentTopup extends Fragment{
 
     private Integer pagerPosition;
 
+    private static final int PERMISSION_REQUEST_CODE = 1100;
+
+    String[] appPermission = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
     public FragmentTopup() {
         // Required empty public constructor
     }
@@ -69,19 +87,24 @@ public class FragmentTopup extends Fragment{
         pagerPosition = 0;
         Log.e("PAGER POSITION", String.valueOf(pagerPosition));
         Session.save("topup_id", "");
-
+        Session.save("topup_account_name", "");
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!Session.get("topup_id").equals("")){
-                    if (pagerPosition == 0){
+                if (pagerPosition == 0){
+                    if (!Session.get("topup_id").equals("")){
                         topupTransaction();
                     }else {
-                        pager.setCurrentItem(pagerPosition+1, true);
+                        Toast.makeText(getActivity(), "Harap pilih nominal topup", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    Toast.makeText(getActivity(), "Harap pilih nominal topup", Toast.LENGTH_SHORT).show();
+                }else if (pagerPosition == 1){
+                    if (!Session.get("topup_account_name").equals("")){
+                        pager.setCurrentItem(pagerPosition+1, true);
+                    }else {
+                        Toast.makeText(getActivity(), "Harap pilih bank", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
 
             }
         });
@@ -119,6 +142,11 @@ public class FragmentTopup extends Fragment{
             }
         });
 
+
+        if (checkAndRequestPermission()){
+
+        }
+
         return view;
     }
 
@@ -152,5 +180,68 @@ public class FragmentTopup extends Fragment{
             }
         };
         Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
+    }
+
+    public boolean checkAndRequestPermission(){
+        List<String> listPermissionNeeded = new ArrayList<>();
+        for (String perm: appPermission){
+            if (ContextCompat.checkSelfPermission(getActivity(), perm) != PackageManager.PERMISSION_GRANTED){
+                listPermissionNeeded.add(perm);
+            }
+        }
+        if (!listPermissionNeeded.isEmpty()){
+            ActivityCompat.requestPermissions(getActivity(), listPermissionNeeded.toArray(new String[listPermissionNeeded.size()]), PERMISSION_REQUEST_CODE);
+            return false;
+        }
+
+        return true;
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE){
+            HashMap<String, Integer> permissionResults = new HashMap<>();
+            int deniedCount = 0;
+
+            for (int i=0; i<grantResults.length;i++){
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED){
+                    permissionResults.put(permissions[i], grantResults[i]);
+                    deniedCount++;
+                }
+            }
+
+            if (deniedCount == 0){
+
+            } else {
+                for (Map.Entry<String, Integer> entry : permissionResults.entrySet()){
+                    String permName = entry.getKey();
+                    int permResult = entry.getValue();
+
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permName)){
+                        AlertDialog.Builder alertDialog= new AlertDialog.Builder(getActivity());
+                        alertDialog.setTitle("Alert");
+                        alertDialog.setMessage("This App need Camera Permission to work without and problems");
+                        alertDialog.setPositiveButton("YES, Granted permission", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                checkAndRequestPermission();
+                            }
+                        });
+                        alertDialog.setNegativeButton("NO, Cancel Taking Picture", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                System.exit(0);
+                            }
+                        });
+                        alertDialog.setCancelable(false);
+                        AlertDialog alert = alertDialog.create();
+                        alert.show();
+
+                    }
+                }
+            }
+        }
     }
 }
