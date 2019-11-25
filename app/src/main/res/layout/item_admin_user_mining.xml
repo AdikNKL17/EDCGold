@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@drawable/corner_edittext_blue">
+
+    <TextView
+        android:id="@+id/tv_nama_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/circular_std_medium"
+        android:text="Oliview Straw"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_id_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/circular_std_medium"
+        android:text="ID - 52802000611111"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_nama_user"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nama_user" />
+
+    <TextView
+        android:id="@+id/tv_mulai_mining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mulai Mining : 15/09/2019  09:05 PM"
+        android:textColor="@color/mdtp_dark_gray"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_id_user"
+        app:layout_constraintTop_toBottomOf="@+id/tv_id_user" />
+
+    <TextView
+        android:id="@+id/tv_sisa_waktu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sisa Waktu - 05 : 45 : 09"
+        android:textColor="@color/mdtp_dark_gray"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView25"
+        app:layout_constraintStart_toStartOf="@+id/tv_mulai_mining"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mulai_mining" />
+
+    <ImageView
+        android:id="@+id/imageView22"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/icon_100_mining"
+        app:layout_constraintBottom_toTopOf="@+id/textView25"
+        app:layout_constraintEnd_toEndOf="@+id/textView25"
+        app:layout_constraintStart_toStartOf="@+id/textView25"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/circular_std_bold"
+        android:text="View"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

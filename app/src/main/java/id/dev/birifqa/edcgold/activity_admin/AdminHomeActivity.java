@@ -9,28 +9,33 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import android.view.Menu;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.AgingActivity;
@@ -40,6 +45,16 @@ import id.dev.birifqa.edcgold.activity_user.MiningActivity;
 import id.dev.birifqa.edcgold.activity_user.PembayaranActivity;
 import id.dev.birifqa.edcgold.activity_user.ProfileActivity;
 import id.dev.birifqa.edcgold.adapter.ExpandableListAdapter;
+import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminHistory;
+import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminMining;
+import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminProfile;
+import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminTopup;
+import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminUser;
+import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminWithdraw;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserHistory;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserInfo;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserProfile;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserWallet;
 import id.dev.birifqa.edcgold.model.nav_drawer.MenuModel;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
@@ -51,18 +66,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AdminHomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
 
     private TextView tvName, tvEmail;
     private Toolbar toolbar;
     private Session session;
     private Callback<ResponseBody> cBack;
+    private BottomNavigationView bottomNavigationView;
+    private FrameLayout frameLayout;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View headerView;
     private ExpandableListAdapter expandableListAdapter;
     private ExpandableListView expandableListView;
+    private ConstraintLayout btnQuickMenu;
+
     private List<MenuModel> headerList = new ArrayList<>();
     private HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
 
@@ -78,17 +97,21 @@ public class AdminHomeActivity extends AppCompatActivity
     private void findViewById(){
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        frameLayout = findViewById(R.id.frame_layout);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         expandableListView = findViewById(R.id.expandableListView);
         headerView = navigationView.getHeaderView(0);
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
-
+        btnQuickMenu = toolbar.findViewById(R.id.btn_quick_menu);
     }
 
     private void onAction(){
 //        getUserDetail();
+        loadFragment(new FragmentAdminUser());
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -99,6 +122,24 @@ public class AdminHomeActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        btnQuickMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quickMenu();
+            }
+        });
+    }
+
+    private void quickMenu(){
+        final Dialog dialog1 = new Dialog(AdminHomeActivity.this);
+        dialog1.setContentView(R.layout.dialog_quick_menu);
+        dialog1.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+        dialog1.show();
     }
 
 //    private void getUserDetail(){
@@ -222,7 +263,8 @@ public class AdminHomeActivity extends AppCompatActivity
 
                 if (!headerList.get(groupPosition).isGroup) {
                     if (headerList.get(groupPosition).menuName.equals("Profil Saya")) {
-                        startActivity(new Intent(AdminHomeActivity.this, ProfileActivity.class));
+                        loadFragment(new FragmentAdminProfile());
+                        drawer.closeDrawer(GravityCompat.START, true);
                     }
 
                     if (headerList.get(groupPosition).menuName.equals("Update")) {
@@ -267,6 +309,16 @@ public class AdminHomeActivity extends AppCompatActivity
         });
     }
 
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame_layout, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -278,45 +330,21 @@ public class AdminHomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.admin_home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-//        if (id == R.id.nav_home) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_tools) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
+        if (id == R.id.action_user) {
+            loadFragment(new FragmentAdminUser());
+        } else if (id == R.id.action_history) {
+            loadFragment(new FragmentAdminHistory());
+        } else if (id == R.id.action_mining) {
+            loadFragment(new FragmentAdminMining());
+        } else if (id == R.id.action_topup) {
+            loadFragment(new FragmentAdminTopup());
+        } else if (id == R.id.action_withdraw) {
+            loadFragment(new FragmentAdminWithdraw());
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
