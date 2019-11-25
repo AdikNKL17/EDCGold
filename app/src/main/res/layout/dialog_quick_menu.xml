@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:layout_margin="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -24,9 +25,14 @@
                 android:id="@+id/imageView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_close_blue_24dp"
-                tools:layout_editor_absoluteX="372dp"
-                tools:layout_editor_absoluteY="0dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView11"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -44,22 +50,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/circular_std_medium"
                 android:text="EDCG Koin Keluar"
                 android:textColor="@color/colorText"
                 app:layout_constraintEnd_toEndOf="@+id/img_coin_keluar"
+                app:layout_constraintStart_toStartOf="@+id/img_coin_keluar"
                 app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/button_check_in"
-                android:layout_width="140dp"
-                android:layout_height="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/button_background_blue"
+                android:background="@drawable/button_background_blue_2"
                 android:letterSpacing="0.2"
                 android:orientation="horizontal"
                 android:textSize="16sp"
@@ -69,9 +75,9 @@
 
                 <ImageView
                     android:id="@+id/imageView7"
-                    android:layout_width="35dp"
+                    android:layout_width="30dp"
                     android:layout_height="35dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/edc_coin_small"
@@ -81,28 +87,33 @@
 
                 <TextView
                     android:id="@+id/tv_coin"
-                    android:layout_width="104dp"
-                    android:layout_height="67dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/circular_std_bold"
                     android:gravity="center"
                     android:text="5200"
                     android:textColor="@color/colorWhite"
-                    android:textSize="30sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView7"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.428"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/imageView7"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView7" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:layout_editor_absoluteX="180dp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/img_coin_keluar"
-                android:layout_width="140dp"
-                android:layout_height="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
@@ -117,9 +128,9 @@
 
                 <ImageView
                     android:id="@+id/imageView8"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/edc_coin_small"
@@ -129,22 +140,20 @@
 
                 <TextView
                     android:id="@+id/tv_coin2"
-                    android:layout_width="104dp"
-                    android:layout_height="67dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/circular_std_bold"
                     android:gravity="center"
                     android:text="5200"
                     android:textColor="@color/colorWhite"
-                    android:textSize="30sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.428"
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView8" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -188,46 +197,48 @@
 
             <ImageView
                 android:id="@+id/imageView11"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/ic_arrow_upward_red_24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView13"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                app:layout_constraintTop_toTopOf="@+id/textView13" />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/circular_std_bold"
                 android:text="20.000"
                 android:textColor="@color/ms_errorColor"
-                android:textSize="32sp"
+                android:textSize="24sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView11"
-                app:layout_constraintTop_toTopOf="@+id/imageView11" />
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
             <ImageView
                 android:id="@+id/imageView12"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_arrow_downward_green_24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView15"
                 app:layout_constraintEnd_toStartOf="@+id/textView15"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+                app:layout_constraintTop_toTopOf="@+id/textView15" />
 
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
                 android:fontFamily="@font/circular_std_bold"
                 android:text="15.000"
                 android:textColor="@color/colorGreen"
-                android:textSize="32sp"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView12" />
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
             <View
                 android:id="@+id/view3"

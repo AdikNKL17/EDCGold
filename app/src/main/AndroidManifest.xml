@@ -5,8 +5,8 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +17,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_user.GantiUsernameSuksesActivity"></activity>
+        <activity android:name=".activity_admin.AdminUbahAlamatActivity"></activity>
+        <activity android:name=".activity_admin.AdminUbahEmailActivity" />
+        <activity android:name=".activity_admin.AdminUbahNomorActivity" />
+        <activity android:name=".activity_admin.AdminProfileInformationActivity" />
+        <activity android:name=".activity_user.GantiUsernameSuksesActivity" />
         <activity android:name=".activity_user.UbahUsernameActivity" />
         <activity android:name=".activity_user.VerifikasiActivity" />
         <activity android:name=".activity_user.SettingActivity" />
@@ -37,7 +41,6 @@
         <activity android:name=".activity_admin.AdminProfileActivity" />
         <activity
             android:name=".activity_admin.AdminHomeActivity"
-            android:label="@string/title_activity_admin_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity_user.TransferActivity" />
         <activity android:name=".activity_user.HistoryActivity" />
