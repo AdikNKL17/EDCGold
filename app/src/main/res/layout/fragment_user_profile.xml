@@ -36,7 +36,7 @@
                     android:layout_height="match_parent"
                     android:enabled="false"
                     android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:backgroundTint="@color/colorGray"/>
             </LinearLayout>
 
             <LinearLayout
@@ -58,7 +58,29 @@
                     android:layout_height="match_parent"
                     android:enabled="false"
                     android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:backgroundTint="@color/colorGray"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Refferal Code"
+                    android:textColor="@color/colorPrimary"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_ref"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:layout_marginTop="4dp"
+                    android:backgroundTint="@color/colorGray"/>
             </LinearLayout>
 
             <LinearLayout
@@ -80,7 +102,7 @@
                     android:layout_height="match_parent"
                     android:enabled="false"
                     android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:backgroundTint="@color/colorGray"/>
             </LinearLayout>
 
             <LinearLayout
@@ -102,7 +124,7 @@
                     android:layout_height="match_parent"
                     android:enabled="false"
                     android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:backgroundTint="@color/colorGray"/>
             </LinearLayout>
 
             <LinearLayout
@@ -126,7 +148,7 @@
                     android:enabled="false"
                     android:layout_marginTop="4dp"
                     android:minLines="3"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:backgroundTint="@color/colorGray"/>
             </LinearLayout>
 
         </LinearLayout>
