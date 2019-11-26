@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_user"
+        android:orderInCategory="100"
+        android:title="Wallet"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_community_white_24dp"/>
+
+    <item
+        android:id="@+id/action_history"
+        android:orderInCategory="100"
+        android:title="History"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_history_white_24dp"/>
+
+    <item
+        android:id="@+id/action_mining"
+        android:orderInCategory="100"
+        android:title="Profile"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icons8_settings"/>
+
+    <item
+        android:id="@+id/action_topup"
+        android:orderInCategory="100"
+        android:title="Info"
+        app:showAsAction="always"
+        android:icon="@drawable/forgot_password_icon"/>
+
+    <item
+        android:id="@+id/action_withdraw"
+        android:orderInCategory="100"
+        android:title="QR"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icons8_qr_code"/>
+
+</menu>
