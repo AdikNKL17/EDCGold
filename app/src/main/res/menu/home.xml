@@ -2,26 +2,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
     <item
-        android:id="@+id/action_tentang"
+        android:id="@+id/action_notif"
         android:orderInCategory="100"
-        android:title="Tentang"
-        app:showAsAction="never" />
+        android:title="Notifikasi"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_notifications_white_24dp"/>
 
-    <item
-        android:id="@+id/action_faq"
-        android:orderInCategory="100"
-        android:title="FAQ"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_tentang"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="Tentang"-->
+        <!--app:showAsAction="never" />-->
 
-    <item
-        android:id="@+id/action_petunjuk"
-        android:orderInCategory="100"
-        android:title="Petunjuk"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_faq"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="FAQ"-->
+        <!--app:showAsAction="never" />-->
 
-    <item
-        android:id="@+id/action_feedback"
-        android:orderInCategory="100"
-        android:title="Feedback"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_petunjuk"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="Petunjuk"-->
+        <!--app:showAsAction="never" />-->
+
+    <!--<item-->
+        <!--android:id="@+id/action_feedback"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="Feedback"-->
+        <!--app:showAsAction="never" />-->
 </menu>

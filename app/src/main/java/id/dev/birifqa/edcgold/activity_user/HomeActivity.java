@@ -351,7 +351,7 @@ public class HomeActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        /*//noinspection SimplifiableIfStatement
         if (id == R.id.action_tentang) {
             return true;
         } else if (id == R.id.action_faq){
@@ -361,7 +361,7 @@ public class HomeActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.action_petunjuk){
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
