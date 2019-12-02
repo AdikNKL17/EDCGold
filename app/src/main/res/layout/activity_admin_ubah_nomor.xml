@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:background="@drawable/corner_topup_grey"
+            android:background="@drawable/corner_grey"
             android:orientation="vertical">
 
             <LinearLayout
@@ -73,8 +73,7 @@
                         android:id="@+id/et_email_lama"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:backgroundTint="@color/colorPrimary"
+                        android:backgroundTint="@color/colorWhite"
                         android:enabled="false"
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -105,8 +104,7 @@
                         android:id="@+id/et_email_baru"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:backgroundTint="@color/colorPrimary"
+                        android:backgroundTint="@color/colorWhite"
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -135,8 +133,7 @@
                         android:id="@+id/konfirmasi"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:backgroundTint="@color/colorPrimary"
+                        android:backgroundTint="@color/colorWhite"
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
 

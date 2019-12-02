@@ -47,7 +47,9 @@ import id.dev.birifqa.edcgold.activity_user.ProfileActivity;
 import id.dev.birifqa.edcgold.adapter.ExpandableListAdapter;
 import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminHistory;
 import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminMining;
+import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminNotification;
 import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminProfile;
+import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminReport;
 import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminTopup;
 import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminUser;
 import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminWithdraw;
@@ -80,7 +82,7 @@ public class AdminHomeActivity extends AppCompatActivity
     private View headerView;
     private ExpandableListAdapter expandableListAdapter;
     private ExpandableListView expandableListView;
-    private ConstraintLayout btnQuickMenu;
+    private ConstraintLayout btnQuickMenu, btnNotification;
 
     private List<MenuModel> headerList = new ArrayList<>();
     private HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
@@ -107,6 +109,7 @@ public class AdminHomeActivity extends AppCompatActivity
         tvName = headerView.findViewById(R.id.tv_name);
         tvEmail = headerView.findViewById(R.id.tv_email);
         btnQuickMenu = toolbar.findViewById(R.id.btn_quick_menu);
+        btnNotification = toolbar.findViewById(R.id.btn_notification);
     }
 
     private void onAction(){
@@ -128,6 +131,13 @@ public class AdminHomeActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 quickMenu();
+            }
+        });
+
+        btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new FragmentAdminNotification());
             }
         });
     }
@@ -267,17 +277,11 @@ public class AdminHomeActivity extends AppCompatActivity
                         drawer.closeDrawer(GravityCompat.START, true);
                     }
 
-                    if (headerList.get(groupPosition).menuName.equals("Update")) {
-                        startActivity(new Intent(AdminHomeActivity.this, AdminUpdateActivity.class));
-                    }
-
                     if (headerList.get(groupPosition).menuName.equals("Report")) {
-                        startActivity(new Intent(AdminHomeActivity.this, AdminReportActivity.class));
+                        loadFragment(new FragmentAdminReport());
+                        drawer.closeDrawer(GravityCompat.START, true);
                     }
 
-                    if (headerList.get(groupPosition).menuName.equals("Keluar Aplikasi")) {
-                        logout();
-                    }
                 }
 
                 return false;

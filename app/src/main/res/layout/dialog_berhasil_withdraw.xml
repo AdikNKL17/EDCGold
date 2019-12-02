@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/corner_grey">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Proses Withdraw Berhasil"
+        android:gravity="center"
+        android:textColor="@color/mdtp_dark_gray"
+        android:fontFamily="@font/circular_std_medium"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginLeft="64dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="Kembali"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/circular_std_medium"
+        android:background="@drawable/button_background_corner_blue_fill"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"/>
+</LinearLayout>
