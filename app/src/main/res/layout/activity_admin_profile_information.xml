@@ -37,9 +37,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="0dp"
         app:behavior_overlapTop="56dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar">
@@ -111,12 +110,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:background="@drawable/corner_topup_grey"
+                android:background="@drawable/corner_grey"
                 android:orientation="vertical"
                 android:padding="16dp">
 
 
                 <LinearLayout
+                    android:id="@+id/btn_ubah_telepon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -137,6 +137,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/btn_ubah_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -158,6 +159,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/btn_ubah_alamat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -179,6 +181,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/btn_ubah_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -204,17 +207,5 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:menu="@menu/bottom_nav"
-        app:itemBackground="@color/mdtp_white"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

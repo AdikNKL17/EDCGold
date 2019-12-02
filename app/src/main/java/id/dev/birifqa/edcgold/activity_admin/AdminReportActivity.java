@@ -13,10 +13,8 @@ import android.view.View;
 import com.google.android.material.tabs.TabLayout;
 
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.fragment_admin.AdminReportKoinFragment;
-import id.dev.birifqa.edcgold.fragment_admin.AdminReportReportFragment;
-import id.dev.birifqa.edcgold.fragment_admin.AdminUpdateLihatFragment;
-import id.dev.birifqa.edcgold.fragment_admin.AdminUpdateUpdateFragment;
+import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminReportKoin;
+import id.dev.birifqa.edcgold.fragment_admin.FragmentAdminReportAktifitas;
 
 public class AdminReportActivity extends AppCompatActivity {
 
@@ -52,7 +50,7 @@ public class AdminReportActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setText("Koin");
-        tabLayout.getTabAt(1).setText("Report");
+        tabLayout.getTabAt(1).setText("Aktifitas");
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
@@ -86,9 +84,9 @@ public class AdminReportActivity extends AppCompatActivity {
 
             switch (position) {
                 case 0:
-                    return new AdminReportKoinFragment();
+                    return new FragmentAdminReportKoin();
                 case 1:
-                    return new AdminReportReportFragment();
+                    return new FragmentAdminReportAktifitas();
 
                 default:
                     return null;

@@ -3,6 +3,7 @@ package id.dev.birifqa.edcgold.activity_user;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_admin.AdminHomeActivity;
 import id.dev.birifqa.edcgold.utils.Api;
@@ -28,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText etUsername, etPassword, etBrainkey;
     private View view;
     private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onAction(){
+        dialog = new SpotsDialog.Builder().setContext(LoginActivity.this).build();
+
+
         buttonForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.show();
                 login();
             }
         });
@@ -112,25 +119,32 @@ public class LoginActivity extends AppCompatActivity {
 
                         boolean handle = Handle.handleLogin(response.body().string(), LoginActivity.this);
                         if (handle) {
+                            dialog.dismiss();
                             LoginActivity.this.finish();
 
                         } else {
+                            dialog.dismiss();
+
                             Api.mProgressDialog.dismiss();
                             Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Exception e) {
+                        dialog.dismiss();
+
                         e.printStackTrace();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    dialog.dismiss();
+
                     Api.retryDialog(LoginActivity.this, call, cBack, 1, false);
                 }
             };
 
-            Api.enqueueWithRetry(LoginActivity.this, call, cBack, true, "Loading");
+            Api.enqueueWithRetry(LoginActivity.this, call, cBack, false, "Loading");
 
         } else {
             Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();

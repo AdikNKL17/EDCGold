@@ -9,7 +9,7 @@
     android:layout_marginTop="16dp"
     android:layout_marginRight="8dp"
     android:layout_marginBottom="24dp"
-    android:background="@drawable/corner_topup_grey"
+    android:background="@drawable/corner_grey"
     tools:context=".fragment_user.FragmentTopup">
 
     <id.dev.birifqa.edcgold.utils.HeightWrappingViewPager
