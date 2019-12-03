@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminDetailTopupActivity;
 import id.dev.birifqa.edcgold.model.AdminTransferTopupModel;
 import id.dev.birifqa.edcgold.model.AdminUserMiningModel;
 
@@ -48,6 +50,12 @@ public class AdminTransferTopupAdapter extends RecyclerView.Adapter<AdminTransfe
         holder.tvStatusProses.setText(transferTopup.getStatus_proses());
         holder.tvTglTopup.setText(transferTopup.getTgl_topup());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, AdminDetailTopupActivity.class));
+            }
+        });
     }
 
     @Override

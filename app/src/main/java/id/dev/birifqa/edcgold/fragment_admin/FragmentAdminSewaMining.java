@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_admin;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,10 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminDetailSewaMiningActivity;
+import id.dev.birifqa.edcgold.activity_admin.AdminPengaturanSewaActivity;
 import id.dev.birifqa.edcgold.adapter.AdminSewaMiningAdapter;
 import id.dev.birifqa.edcgold.model.AdminSewaMiningModel;
 
@@ -27,6 +31,8 @@ public class FragmentAdminSewaMining extends Fragment {
     private RecyclerView recyclerView;
     private AdminSewaMiningAdapter sewaMiningAdapter;
     private ArrayList<AdminSewaMiningModel> sewaMiningModels;
+
+    private ImageView btnSetting;
 
     public FragmentAdminSewaMining() {
         // Required empty public constructor
@@ -47,6 +53,7 @@ public class FragmentAdminSewaMining extends Fragment {
 
     private void findViewById(){
         recyclerView = view.findViewById(R.id.rv_sewa_mining);
+        btnSetting = view.findViewById(R.id.btn_setting);
     }
 
     private void onAction(){
@@ -55,6 +62,13 @@ public class FragmentAdminSewaMining extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(sewaMiningAdapter);
+
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AdminPengaturanSewaActivity.class));
+            }
+        });
 
         getData();
     }

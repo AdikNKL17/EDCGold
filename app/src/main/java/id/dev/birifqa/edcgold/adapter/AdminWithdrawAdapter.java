@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminDetailWithdrawActivity;
 import id.dev.birifqa.edcgold.model.AdminTransferTopupModel;
 import id.dev.birifqa.edcgold.model.AdminWithdrawModel;
 
@@ -47,6 +49,13 @@ public class AdminWithdrawAdapter extends RecyclerView.Adapter<AdminWithdrawAdap
         holder.tvId.setText(withdrawModel.getId_user());
         holder.tvStatusProses.setText(withdrawModel.getStatus_proses());
         holder.tvTglWithdraw.setText(withdrawModel.getTgl_withdraw());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, AdminDetailWithdrawActivity.class));
+            }
+        });
 
     }
 

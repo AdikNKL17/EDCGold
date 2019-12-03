@@ -17,7 +17,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_admin.AdminDetailListTopupActivity"></activity>
+        <activity android:name=".activity_admin.AdminPostPetunjukActivity"></activity>
+        <activity android:name=".activity_admin.AdminDetailFeedbackActivity" />
+        <activity android:name=".activity_admin.AdminPostFeedbackActivity" />
+        <activity android:name=".activity_admin.AdminPostFaqActivity" />
+        <activity android:name=".activity_admin.AdminPostKomunitasActivity" />
+        <activity android:name=".activity_admin.AdminPostTentangActivity" />
+        <activity android:name=".activity_admin.AdminDetailTransferActivity" />
+        <activity android:name=".activity_admin.AdminDetailListTopupActivity" />
         <activity android:name=".activity_admin.AdminListTransferActivity" />
         <activity android:name=".activity_admin.AdminListTopupActivity" />
         <activity android:name=".activity_admin.AdminDetailListWithdrawActivity" />

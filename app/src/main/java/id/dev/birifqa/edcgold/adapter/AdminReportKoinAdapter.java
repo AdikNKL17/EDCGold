@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminDetailKoinActivity;
 import id.dev.birifqa.edcgold.model.AdminReportKoinModel;
 
 public class AdminReportKoinAdapter extends RecyclerView.Adapter<AdminReportKoinAdapter.MyViewHolder> {
@@ -44,6 +46,13 @@ public class AdminReportKoinAdapter extends RecyclerView.Adapter<AdminReportKoin
         }
         holder.tvCoin.setText(koin.getCoin());
         holder.tvDate.setText(koin.getDate());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, AdminDetailKoinActivity.class));
+            }
+        });
     }
 
     @Override

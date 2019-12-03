@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminDetailSewaMiningActivity;
 import id.dev.birifqa.edcgold.model.AdminSewaMiningModel;
 
 public class AdminSewaMiningAdapter extends RecyclerView.Adapter<AdminSewaMiningAdapter.MyViewHolder> {
@@ -41,6 +43,12 @@ public class AdminSewaMiningAdapter extends RecyclerView.Adapter<AdminSewaMining
         holder.tvNoTransaksi.setText(sewaMining.getNo_transaksi());
         holder.tvTglTransaksi.setText(sewaMining.getTgl_transaksi());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, AdminDetailSewaMiningActivity.class));
+            }
+        });
     }
 
     @Override

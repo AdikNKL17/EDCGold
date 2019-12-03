@@ -5,21 +5,30 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputEditText;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
+import id.dev.birifqa.edcgold.utils.Helper;
 import id.dev.birifqa.edcgold.utils.ParamReq;
 import id.dev.birifqa.edcgold.utils.Session;
 import okhttp3.ResponseBody;
@@ -38,10 +47,17 @@ public class FragmentTopupNominal extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Boolean isChecked = false;
+
     private View view;
     private TextView tvNominalCoin;
     private Callback<ResponseBody> cBack;
-    private AppCompatSpinner spinnerNominalTopup;
+
+    private TextInputEditText etNominal;
+    private ConstraintLayout btnTopup1,btnTopup2,btnTopup3,btnTopup4,btnTopup5,btnTopup6,btnTopup7,btnTopup8,btnTopup9;
+    private TextView tvRp1,tvRp2,tvRp3,tvRp4,tvRp5,tvRp6,tvRp7,tvRp8,tvRp9;
+    private TextView tvNominal1,tvNominal2,tvNominal3,tvNominal4,tvNominal5,tvNominal6,tvNominal7,tvNominal8,tvNominal9;
+    private TextView tvBilangan1,tvBilangan2,tvBilangan3,tvBilangan4,tvBilangan5,tvBilangan6,tvBilangan7,tvBilangan8,tvBilangan9;
 
     public FragmentTopupNominal() {
         // Required empty public constructor
@@ -71,71 +87,644 @@ public class FragmentTopupNominal extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_topup_nominal, container, false);
 
-        tvNominalCoin = view.findViewById(R.id.tv_nominal_coin);
-        spinnerNominalTopup = view.findViewById(R.id.spinner_nominal);
-
-        getNominalTopup();
-
-        spinnerNominalTopup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!parent.getSelectedItem().equals("Pilih Nominal")){
-                    String ids = Api.nominalTopupModels.get(position-1).getId();
-                    String label = Api.nominalTopupModels.get(position-1).getLabel();
-                    String nominal = Api.nominalTopupModels.get(position-1).getNominal();
-                    Session.save("topup_nominal", "Topup sebesar "+label);
-                    Session.save("topup_amount", nominal);
-                    Session.save("topup_id", ids);
-                    tvNominalCoin.setText(nominal);
-                    Log.e("Log123", "id " + ids + " label " + label);
-                } else {
-                    tvNominalCoin.setText("0");
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
+        findViewById();
+        onAction();
         return view;
     }
 
+    private void findViewById(){
+        tvNominalCoin = view.findViewById(R.id.tv_nominal_coin);
+        etNominal = view.findViewById(R.id.et_nominal);
 
-    private void getNominalTopup(){
-        Call<ResponseBody> call = ParamReq.requestNominalTopup(Session.get("token"), getActivity());
-        cBack = new Callback<ResponseBody>() {
+        btnTopup1 = view.findViewById(R.id.btn_topup_1);
+        btnTopup2 = view.findViewById(R.id.btn_topup_2);
+        btnTopup3 = view.findViewById(R.id.btn_topup_3);
+        btnTopup4 = view.findViewById(R.id.btn_topup_4);
+        btnTopup5 = view.findViewById(R.id.btn_topup_5);
+        btnTopup6 = view.findViewById(R.id.btn_topup_6);
+        btnTopup7 = view.findViewById(R.id.btn_topup_7);
+        btnTopup8 = view.findViewById(R.id.btn_topup_8);
+        btnTopup9 = view.findViewById(R.id.btn_topup_9);
+
+        tvRp1 = view.findViewById(R.id.tv_rp_1);
+        tvRp2 = view.findViewById(R.id.tv_rp_2);
+        tvRp3 = view.findViewById(R.id.tv_rp_3);
+        tvRp4 = view.findViewById(R.id.tv_rp_4);
+        tvRp5 = view.findViewById(R.id.tv_rp_5);
+        tvRp6 = view.findViewById(R.id.tv_rp_6);
+        tvRp7 = view.findViewById(R.id.tv_rp_7);
+        tvRp8 = view.findViewById(R.id.tv_rp_8);
+        tvRp9 = view.findViewById(R.id.tv_rp_9);
+
+
+        tvNominal1 = view.findViewById(R.id.tv_nominal_1);
+        tvNominal2 = view.findViewById(R.id.tv_nominal_2);
+        tvNominal3 = view.findViewById(R.id.tv_nominal_3);
+        tvNominal4 = view.findViewById(R.id.tv_nominal_4);
+        tvNominal5 = view.findViewById(R.id.tv_nominal_5);
+        tvNominal6 = view.findViewById(R.id.tv_nominal_6);
+        tvNominal7 = view.findViewById(R.id.tv_nominal_7);
+        tvNominal8 = view.findViewById(R.id.tv_nominal_8);
+        tvNominal9 = view.findViewById(R.id.tv_nominal_9);
+
+        tvBilangan1 = view.findViewById(R.id.tv_bilangan_1);
+        tvBilangan2 = view.findViewById(R.id.tv_bilangan_2);
+        tvBilangan3 = view.findViewById(R.id.tv_bilangan_3);
+        tvBilangan4 = view.findViewById(R.id.tv_bilangan_4);
+        tvBilangan5 = view.findViewById(R.id.tv_bilangan_5);
+        tvBilangan6 = view.findViewById(R.id.tv_bilangan_6);
+        tvBilangan7 = view.findViewById(R.id.tv_bilangan_7);
+        tvBilangan8 = view.findViewById(R.id.tv_bilangan_8);
+        tvBilangan9 = view.findViewById(R.id.tv_bilangan_9);
+
+    }
+
+    private void onAction(){
+        etNominal.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    boolean handle = Handle.handleNominalTopup(response.body().string(), getActivity());
-                    if (handle) {
-                        ArrayList<String> nominalLabel = new ArrayList<>();
-                        nominalLabel.clear();
-                        nominalLabel.add("Pilih Nominal");
-                        for (int i = 0; i < Api.nominalTopupModels.size(); i++){
-                            nominalLabel.add(Api.nominalTopupModels.get(i).getLabel());
-                        }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_spinner_dropdown_item, nominalLabel);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerNominalTopup.setAdapter(adapter);
-                    } else {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                    }
+            }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tvNominalCoin.setText(Helper.getNumberFormat(Integer.parseInt(s.toString())));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Session.save("topup_nominal", "Topup sebesar ");
+                Session.save("topup_amount", "");
+                Session.save("topup_id", "");
+            }
+        });
+
+        btnTopup1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isChecked = false;
+                if (isChecked){
+                    isChecked = false;
+                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }else {
+                    isChecked = true;
+                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
+                    tvRp1.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvNominal1.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvBilangan1.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                    etNominal.setText("");
+                    tvNominalCoin.setText("100.000");
+
+                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                 }
             }
+        });
 
+        btnTopup2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            public void onClick(View v) {
+                isChecked = false;
+                if (isChecked){
+                    isChecked = false;
+                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }else {
+                    isChecked = true;
+                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
+                    tvRp2.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvNominal2.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvBilangan2.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                    etNominal.setText("");
+                    tvNominalCoin.setText("300.000");
+
+                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }
             }
-        };
-        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
+        });
+
+        btnTopup3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isChecked = false;
+                if (isChecked){
+                    isChecked = false;
+                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }else {
+                    isChecked = true;
+                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
+                    tvRp3.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvNominal3.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvBilangan3.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                    etNominal.setText("");
+                    tvNominalCoin.setText("500.000");
+
+                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }
+            }
+        });
+
+        btnTopup4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isChecked = false;
+                if (isChecked){
+                    isChecked = false;
+                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }else {
+                    isChecked = true;
+                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
+                    tvRp4.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvNominal4.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvBilangan4.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                    etNominal.setText("");
+                    tvNominalCoin.setText("1.000.000");
+
+                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }
+            }
+        });
+
+        btnTopup5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isChecked = false;
+                if (isChecked){
+                    isChecked = false;
+                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }else {
+                    isChecked = true;
+                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
+                    tvRp5.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvNominal5.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvBilangan5.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                    etNominal.setText("");
+                    tvNominalCoin.setText("2.000.000");
+
+                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }
+            }
+        });
+
+        btnTopup6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isChecked = false;
+                if (isChecked){
+                    isChecked = false;
+                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }else {
+                    isChecked = true;
+                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
+                    tvRp6.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvNominal6.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvBilangan6.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                    etNominal.setText("");
+                    tvNominalCoin.setText("5.000.000");
+
+                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }
+            }
+        });
+
+        btnTopup7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isChecked = false;
+                if (isChecked){
+                    isChecked = false;
+                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }else {
+                    isChecked = true;
+                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
+                    tvRp7.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvNominal7.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvBilangan7.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                    etNominal.setText("");
+                    tvNominalCoin.setText("7.000.000");
+
+                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }
+            }
+        });
+
+        btnTopup8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isChecked = false;
+                if (isChecked){
+                    isChecked = false;
+                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }else {
+                    isChecked = true;
+                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
+                    tvRp8.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvNominal8.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvBilangan8.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                    etNominal.setText("");
+                    tvNominalCoin.setText("10.000.000");
+
+                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }
+            }
+        });
+
+        btnTopup9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isChecked = false;
+                if (isChecked){
+                    isChecked = false;
+                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }else {
+                    isChecked = true;
+                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
+                    tvRp9.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvNominal9.setTextColor(getResources().getColor(R.color.colorWhite));
+                    tvBilangan9.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                    etNominal.setText("");
+                    tvNominalCoin.setText("15.000.000");
+
+                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+
+                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
+                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
+                }
+            }
+        });
     }
+
 }

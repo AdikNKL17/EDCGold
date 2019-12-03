@@ -125,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             dialog.dismiss();
 
-                            Api.mProgressDialog.dismiss();
                             Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                         }
 

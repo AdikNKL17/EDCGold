@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminDetailMiningActivity;
 import id.dev.birifqa.edcgold.model.AdminSewaMiningModel;
 import id.dev.birifqa.edcgold.model.AdminUserMiningModel;
 
@@ -42,6 +44,12 @@ public class AdminUserMiningAdapter extends RecyclerView.Adapter<AdminUserMining
         holder.tvMulaiMining.setText(userMining.getMulai_mining());
         holder.tvSisaWaktu.setText(userMining.getSisa_waktu());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, AdminDetailMiningActivity.class));
+            }
+        });
     }
 
     @Override
