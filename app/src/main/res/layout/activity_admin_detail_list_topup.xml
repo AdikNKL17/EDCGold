@@ -163,6 +163,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView62" />
 
                 <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -213,13 +214,12 @@
                     android:id="@+id/textView67"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
                     android:text=": 354546521321564"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/textView66"
-                    app:layout_constraintTop_toBottomOf="@+id/textView66" />
+                    app:layout_constraintTop_toTopOf="@+id/textView62" />
 
                 <TextView
                     android:id="@+id/textView68"
@@ -247,64 +247,72 @@
 
 
                 <TextView
+                    android:id="@+id/textView74"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
                     android:text="Jumlah Topup"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="207dp" />
+                    app:layout_constraintStart_toStartOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
                 <TextView
+                    android:id="@+id/textView75"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
                     android:text="Bank"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="239dp" />
+                    app:layout_constraintStart_toStartOf="@+id/textView74"
+                    app:layout_constraintTop_toBottomOf="@+id/textView74" />
 
                 <TextView
+                    android:id="@+id/textView76"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
                     android:text="No. Rekening"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="269dp" />
+                    app:layout_constraintStart_toStartOf="@+id/textView75"
+                    app:layout_constraintTop_toBottomOf="@+id/textView75" />
 
                 <TextView
+                    android:id="@+id/textView77"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
                     android:text="A.N"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="302dp" />
+                    app:layout_constraintStart_toStartOf="@+id/textView76"
+                    app:layout_constraintTop_toBottomOf="@+id/textView76" />
 
                 <TextView
                     android:id="@+id/textView71"
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
-                    android:text=": 15/05/2019"
+                    android:text=": Rp. 1.000.000"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    tools:layout_editor_absoluteX="132dp"
-                    tools:layout_editor_absoluteY="207dp" />
+                    app:layout_constraintStart_toStartOf="@+id/textView69"
+                    app:layout_constraintTop_toBottomOf="@+id/textView69" />
 
                 <TextView
                     android:id="@+id/textView72"
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
-                    android:text=": 15/05/2019"
+                    android:text=": BCA"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/textView71"
@@ -314,10 +322,9 @@
                     android:id="@+id/textView73"
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
-                    android:text=": 15/05/2019"
+                    android:text=": 52110363546356 "
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/textView72"
@@ -327,14 +334,39 @@
                     android:id="@+id/textView70"
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
-                    android:text=": 15/05/2019"
+                    android:text=": HABIB A.M"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/textView73"
                     app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
+                <TextView
+                    android:id="@+id/textView78"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/circular_std_bold"
+                    android:text="Tanggal Approve"
+                    android:textColor="@color/mdtp_dark_gray"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView70" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:fontFamily="@font/circular_std_bold"
+                    android:text="12/09/2019 - 09:45:34"
+                    android:textColor="@color/mdtp_dark_gray"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView78"
+                    app:layout_constraintTop_toBottomOf="@+id/textView78" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 

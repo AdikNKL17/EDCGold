@@ -282,6 +282,10 @@ public class AdminHomeActivity extends AppCompatActivity
                         drawer.closeDrawer(GravityCompat.START, true);
                     }
 
+                    if (headerList.get(groupPosition).menuName.equals("Logout")) {
+                        logout();
+                    }
+
                 }
 
                 return false;
@@ -295,14 +299,19 @@ public class AdminHomeActivity extends AppCompatActivity
                 if (childList.get(headerList.get(groupPosition)) != null) {
                     MenuModel model = childList.get(headerList.get(groupPosition)).get(childPosition);
 
-                    if (model.menuName.equals("Mining")){
-                        startActivity(new Intent(AdminHomeActivity.this, MiningActivity.class));
-                    } else if (model.menuName.equals("Aging")){
-                        startActivity(new Intent(AdminHomeActivity.this, AgingActivity.class));
-                    } else if (model.menuName.equals("Pembayaran")){
-                        startActivity(new Intent(AdminHomeActivity.this, PembayaranActivity.class));
-                    } else if (model.menuName.equals("Transaksi")){
-//                        startActivity(new Intent(HomeActivity.this, Transaks));
+                    if (model.menuName.equals("Tentang")){
+                        startActivity(new Intent(AdminHomeActivity.this, AdminPostTentangActivity.class));
+                        drawer.closeDrawer(GravityCompat.START, true);
+                    } else if (model.menuName.equals("Komunitas")){
+                        startActivity(new Intent(AdminHomeActivity.this, AdminPostKomunitasActivity.class));
+                        drawer.closeDrawer(GravityCompat.START, true);
+                    } else if (model.menuName.equals("FAQ")){
+                        startActivity(new Intent(AdminHomeActivity.this, AdminPostFaqActivity.class));
+                        drawer.closeDrawer(GravityCompat.START, true);
+                    } else if (model.menuName.equals("Feedback")){
+                        startActivity(new Intent(AdminHomeActivity.this, AdminPostFeedbackActivity.class));
+                    } else if (model.menuName.equals("Petunjuk")){
+                        startActivity(new Intent(AdminHomeActivity.this, AdminPostPetunjukActivity.class));
                     } else {
                         Toast.makeText(AdminHomeActivity.this, "Error, Please contact the developer!!", Toast.LENGTH_SHORT).show();
                     }

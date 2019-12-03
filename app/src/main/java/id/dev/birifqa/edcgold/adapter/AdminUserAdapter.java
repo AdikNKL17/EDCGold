@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminDetailUserActivity;
 import id.dev.birifqa.edcgold.model.AdminNotificationModel;
 import id.dev.birifqa.edcgold.model.AdminUserModel;
 
@@ -37,6 +39,13 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminUserModel user = userModels.get(position);
         holder.tvId.setText(user.getId());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, AdminDetailUserActivity.class));
+            }
+        });
     }
 
     @Override

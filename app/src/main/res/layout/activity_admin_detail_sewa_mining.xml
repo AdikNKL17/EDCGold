@@ -159,7 +159,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/circular_std_bold"
-                        android:text="14/09/2019  -  09:54:00 PMasdasdasdasd"
+                        android:text="14/09/2019  -  09:54:00"
                         android:textColor="@color/mdtp_dark_gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView34"

@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminDetailTransferActivity;
 import id.dev.birifqa.edcgold.model.AdminReportTopupModel;
 import id.dev.birifqa.edcgold.model.AdminReportTransferModel;
 
@@ -37,6 +39,13 @@ public class AdminReportTransferAdapter extends RecyclerView.Adapter<AdminReport
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminReportTransferModel aktifitas = transferModels.get(position);
         holder.tvId.setText(aktifitas.getId_transaksi());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, AdminDetailTransferActivity.class));
+            }
+        });
     }
 
     @Override
