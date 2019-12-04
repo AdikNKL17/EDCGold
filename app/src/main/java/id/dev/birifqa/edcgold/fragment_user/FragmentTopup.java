@@ -86,19 +86,24 @@ public class FragmentTopup extends Fragment{
 
         pagerPosition = 0;
         Log.e("PAGER POSITION", String.valueOf(pagerPosition));
-        Session.save("topup_id", "");
+        Session.save("topup_nominal", "");
+        Session.save("topup_label", "");
+        Session.save("topup_description", "");
+        Session.save("topup_bank_name", "");
         Session.save("topup_account_name", "");
+
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (pagerPosition == 0){
-                    if (!Session.get("topup_id").equals("")){
-                        topupTransaction();
+                    if (!Session.get("topup_nominal").equals("")){
+//                        topupTransaction();
+                        pager.setCurrentItem(pagerPosition+1, true);
                     }else {
                         Toast.makeText(getActivity(), "Harap pilih nominal topup", Toast.LENGTH_SHORT).show();
                     }
                 }else if (pagerPosition == 1){
-                    if (!Session.get("topup_account_name").equals("")){
+                    if (!Session.get("topup_bank_name").equals("")){
                         pager.setCurrentItem(pagerPosition+1, true);
                     }else {
                         Toast.makeText(getActivity(), "Harap pilih bank", Toast.LENGTH_SHORT).show();

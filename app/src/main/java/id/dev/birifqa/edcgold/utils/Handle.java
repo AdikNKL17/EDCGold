@@ -514,6 +514,28 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleChangeEmail(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
     public static boolean handleChangeAddress(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -558,7 +580,51 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleChangeEmail(String sjson, Context context) {
+    public static boolean handleVerificationEmail(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleChangePassword(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleAddBank(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
@@ -630,7 +696,7 @@ public class Handle {
             JSONObject dataObject = jsonObject.getJSONObject("data");
             JSONObject coinObject = dataObject.getJSONObject("coin");
 
-            tvName.setText(dataObject.getString("name"));
+            tvName.setText(dataObject.getString("name") +" "+dataObject.getString("lastname"));
             tvCoin.setText(coinObject.getString("balance_coin"));
 
             tvNameHeader.setText(dataObject.getString("name"));
@@ -654,7 +720,7 @@ public class Handle {
             JSONObject dataObject = jsonObject.getJSONObject("data");
             JSONObject coinObject = dataObject.getJSONObject("coin");
 
-            tvName.setText(dataObject.getString("name"));
+            tvName.setText(dataObject.getString("name") +" "+ dataObject.getString("lastname"));
             tvCoin.setText(coinObject.getString("balance_coin"));
 
 

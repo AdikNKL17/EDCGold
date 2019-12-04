@@ -13,8 +13,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminReportTopupAdapter;
-import id.dev.birifqa.edcgold.adapter.AdminReportWithdrawAdapter;
-import id.dev.birifqa.edcgold.model.AdminReportTopupModel;
+import id.dev.birifqa.edcgold.model.admin.AdminReportTopupModel;
 
 public class AdminListTopupActivity extends AppCompatActivity {
 

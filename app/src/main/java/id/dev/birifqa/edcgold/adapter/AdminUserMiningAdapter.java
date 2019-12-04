@@ -14,8 +14,7 @@ import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_admin.AdminDetailMiningActivity;
-import id.dev.birifqa.edcgold.model.AdminSewaMiningModel;
-import id.dev.birifqa.edcgold.model.AdminUserMiningModel;
+import id.dev.birifqa.edcgold.model.admin.AdminUserMiningModel;
 
 public class AdminUserMiningAdapter extends RecyclerView.Adapter<AdminUserMiningAdapter.MyViewHolder> {
 

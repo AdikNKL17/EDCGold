@@ -5,6 +5,7 @@ import java.util.Map;
 import id.dev.birifqa.edcgold.request.RequestChangeAddress;
 import id.dev.birifqa.edcgold.request.RequestChangeBank;
 import id.dev.birifqa.edcgold.request.RequestChangeEmail;
+import id.dev.birifqa.edcgold.request.RequestChangePassword;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
 import okhttp3.RequestBody;
@@ -56,12 +57,20 @@ public interface Interface {
     Call<ResponseBody> requestForgotPassword(@PartMap Map<String, RequestBody> params);
 
     @Multipart
-    @POST("http://45.77.252.55/api/topup")
+    @POST("http://45.77.252.55/api/verification")
+    Call<ResponseBody> requestVerification(@PartMap Map<String, RequestBody> params);
+
+    @Multipart
+    @POST("http://45.77.252.55/api/topup_nominal")
     Call<ResponseBody> requestTopup(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
     @Multipart
-    @POST("http://45.77.252.55/api/transfer_confirmation")
+    @POST("http://45.77.252.55/api/topup")
     Call<ResponseBody> requestTopupConfirmation(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
+    @Multipart
+    @POST("http://45.77.252.55/api/bank_user")
+    Call<ResponseBody> requestAddBank(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
     @Multipart
     @POST("http://45.77.252.55/api/email")
@@ -82,6 +91,9 @@ public interface Interface {
 
     @PUT("http://45.77.252.55/api/bank_user/{id}")
     Call<ResponseBody> changeBank(@Header("Authorization") String authorization,@Path("id") String id_bank, @Body RequestChangeBank requestChangeBank);
+
+    @PUT("http://45.77.252.55/api/reset")
+    Call<ResponseBody> changePassword(@Body RequestChangePassword requestChangePassword);
 }
 
 

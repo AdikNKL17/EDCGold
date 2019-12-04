@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminReportAktifitasAdapter;
-import id.dev.birifqa.edcgold.model.AdminReportAktifitasModel;
+import id.dev.birifqa.edcgold.model.admin.AdminReportAktifitasModel;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.model.AdminHistoryModel;
-import id.dev.birifqa.edcgold.model.AdminNotificationModel;
+import id.dev.birifqa.edcgold.model.admin.AdminNotificationModel;
 
 public class AdminNotificationAdapter extends RecyclerView.Adapter<AdminNotificationAdapter.MyViewHolder> {
 

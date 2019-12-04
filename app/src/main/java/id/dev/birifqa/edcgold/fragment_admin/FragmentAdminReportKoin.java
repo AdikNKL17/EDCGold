@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminReportKoinAdapter;
-import id.dev.birifqa.edcgold.model.AdminReportKoinModel;
+import id.dev.birifqa.edcgold.model.admin.AdminReportKoinModel;
 
 /**
  * A simple {@link Fragment} subclass.

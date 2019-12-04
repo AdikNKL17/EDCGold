@@ -137,6 +137,7 @@ public class FragmentTopupNominal extends Fragment {
         tvBilangan8 = view.findViewById(R.id.tv_bilangan_8);
         tvBilangan9 = view.findViewById(R.id.tv_bilangan_9);
 
+
     }
 
     private void onAction(){
@@ -148,14 +149,18 @@ public class FragmentTopupNominal extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tvNominalCoin.setText(Helper.getNumberFormat(Integer.parseInt(s.toString())));
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                Session.save("topup_nominal", "Topup sebesar ");
-                Session.save("topup_amount", "");
-                Session.save("topup_id", "");
+                if (!s.toString().equals("")){
+                    tvNominalCoin.setText(Helper.getNumberFormat(Integer.parseInt(s.toString())));
+                    Session.save("topup_nominal", s.toString());
+                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt(s.toString())));
+                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt(s.toString())));
+
+                }
             }
         });
 
@@ -178,6 +183,9 @@ public class FragmentTopupNominal extends Fragment {
 
                     etNominal.setText("");
                     tvNominalCoin.setText("100.000");
+                    Session.save("topup_nominal", "100000");
+                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("100000")));
+                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("100000")));
 
                     btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
                     tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
@@ -242,6 +250,11 @@ public class FragmentTopupNominal extends Fragment {
                     etNominal.setText("");
                     tvNominalCoin.setText("300.000");
 
+                    Session.save("topup_nominal", "300000");
+                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("300000")));
+                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("300000")));
+
+
                     btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
                     tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                     tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -304,6 +317,11 @@ public class FragmentTopupNominal extends Fragment {
 
                     etNominal.setText("");
                     tvNominalCoin.setText("500.000");
+
+                    Session.save("topup_nominal", "500000");
+                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("500000")));
+                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("500000")));
+
 
                     btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
                     tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
@@ -368,6 +386,11 @@ public class FragmentTopupNominal extends Fragment {
                     etNominal.setText("");
                     tvNominalCoin.setText("1.000.000");
 
+                    Session.save("topup_nominal", "1000000");
+                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("1000000")));
+                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("1000000")));
+
+
                     btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
                     tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                     tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -430,6 +453,11 @@ public class FragmentTopupNominal extends Fragment {
 
                     etNominal.setText("");
                     tvNominalCoin.setText("2.000.000");
+
+                    Session.save("topup_nominal", "2000000");
+                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("2000000")));
+                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("2000000")));
+
 
                     btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
                     tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
@@ -494,6 +522,11 @@ public class FragmentTopupNominal extends Fragment {
                     etNominal.setText("");
                     tvNominalCoin.setText("5.000.000");
 
+                    Session.save("topup_nominal", "5000000");
+                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("5000000")));
+                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("5000000")));
+
+
                     btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
                     tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                     tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -556,6 +589,11 @@ public class FragmentTopupNominal extends Fragment {
 
                     etNominal.setText("");
                     tvNominalCoin.setText("7.000.000");
+
+                    Session.save("topup_nominal", "7000000");
+                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("7000000")));
+                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("7000000")));
+
 
                     btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
                     tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
@@ -620,6 +658,11 @@ public class FragmentTopupNominal extends Fragment {
                     etNominal.setText("");
                     tvNominalCoin.setText("10.000.000");
 
+                    Session.save("topup_nominal", "10000000");
+                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("10000000")));
+                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("10000000")));
+
+
                     btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
                     tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                     tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -682,6 +725,11 @@ public class FragmentTopupNominal extends Fragment {
 
                     etNominal.setText("");
                     tvNominalCoin.setText("15.000.000");
+
+                    Session.save("topup_nominal", "15000000");
+                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("15000000")));
+                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("15000000")));
+
 
                     btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
                     tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));

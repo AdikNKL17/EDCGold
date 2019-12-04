@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminWithdrawAdapter;
-import id.dev.birifqa.edcgold.model.AdminWithdrawModel;
+import id.dev.birifqa.edcgold.model.admin.AdminWithdrawModel;
 
 /**
  * A simple {@link Fragment} subclass.

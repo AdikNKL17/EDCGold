@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.model.AdminListKomunitasModel;
-import id.dev.birifqa.edcgold.model.AdminReportAktifitasModel;
+import id.dev.birifqa.edcgold.model.admin.AdminListKomunitasModel;
 
 public class AdminListKomunitasAdapter extends RecyclerView.Adapter<AdminListKomunitasAdapter.MyViewHolder> {
 

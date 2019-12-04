@@ -3,38 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_wallet"
+        android:id="@+id/action_user"
         android:orderInCategory="100"
-        android:title="Wallet"
+        android:title="User"
         app:showAsAction="always"
-        android:icon="@drawable/ic_icons8_wallet_copy_2"/>
+        android:icon="@drawable/icon_user"/>
 
     <item
         android:id="@+id/action_history"
         android:orderInCategory="100"
         android:title="History"
         app:showAsAction="always"
-        android:icon="@drawable/ic_history_white_24dp"/>
+        android:icon="@drawable/icon_riwayat"/>
 
     <item
-        android:id="@+id/action_profile"
+        android:id="@+id/action_wallet"
         android:orderInCategory="100"
         android:title="Profile"
         app:showAsAction="always"
-        android:icon="@drawable/ic_icons8_user"/>
+        android:icon="@drawable/icon_dompet"/>
 
     <item
-        android:id="@+id/action_info"
+        android:id="@+id/action_mining"
         android:orderInCategory="100"
         android:title="Info"
         app:showAsAction="always"
-        android:icon="@drawable/ic_icons8_info"/>
+        android:icon="@drawable/icon_mining"/>
 
     <item
         android:id="@+id/action_qr"
         android:orderInCategory="100"
         android:title="QR"
         app:showAsAction="always"
-        android:icon="@drawable/ic_icons8_qr_code"/>
+        android:icon="@drawable/icon_qr"/>
 
 </menu>

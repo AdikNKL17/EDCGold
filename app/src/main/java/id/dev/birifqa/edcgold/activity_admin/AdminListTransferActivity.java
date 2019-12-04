@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminReportTransferAdapter;
-import id.dev.birifqa.edcgold.model.AdminReportTransferModel;
+import id.dev.birifqa.edcgold.model.admin.AdminReportTransferModel;
 
 public class AdminListTransferActivity extends AppCompatActivity {
 

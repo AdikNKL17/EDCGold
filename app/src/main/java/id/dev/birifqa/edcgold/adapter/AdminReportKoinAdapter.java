@@ -15,7 +15,7 @@ import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_admin.AdminDetailKoinActivity;
-import id.dev.birifqa.edcgold.model.AdminReportKoinModel;
+import id.dev.birifqa.edcgold.model.admin.AdminReportKoinModel;
 
 public class AdminReportKoinAdapter extends RecyclerView.Adapter<AdminReportKoinAdapter.MyViewHolder> {
 

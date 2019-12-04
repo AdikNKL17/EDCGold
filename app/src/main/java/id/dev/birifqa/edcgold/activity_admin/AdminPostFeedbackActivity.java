@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminListFeedbackAdapter;
-import id.dev.birifqa.edcgold.model.AdminListFeedbackModel;
+import id.dev.birifqa.edcgold.model.admin.AdminListFeedbackModel;
 
 public class AdminPostFeedbackActivity extends AppCompatActivity {
 

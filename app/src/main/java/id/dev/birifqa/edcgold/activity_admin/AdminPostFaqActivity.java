@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminListFaqAdapter;
-import id.dev.birifqa.edcgold.model.AdminListFaqModel;
+import id.dev.birifqa.edcgold.model.admin.AdminListFaqModel;
 
 public class AdminPostFaqActivity extends AppCompatActivity {
 

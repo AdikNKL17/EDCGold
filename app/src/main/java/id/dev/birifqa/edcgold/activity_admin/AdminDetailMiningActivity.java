@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminMiningUserAdapter;
-import id.dev.birifqa.edcgold.model.AdminUserMiningHistoryModel;
+import id.dev.birifqa.edcgold.model.admin.AdminUserMiningHistoryModel;
 
 public class AdminDetailMiningActivity extends AppCompatActivity {
 

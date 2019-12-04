@@ -9,13 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.model.AdminListFeedbackModel;
-import id.dev.birifqa.edcgold.model.AdminUserModel;
+import id.dev.birifqa.edcgold.model.admin.AdminListFeedbackModel;
 
 public class AdminListFeedbackAdapter extends RecyclerView.Adapter<AdminListFeedbackAdapter.MyViewHolder> {
 

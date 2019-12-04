@@ -14,8 +14,7 @@ import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_admin.AdminDetailListWithdrawActivity;
-import id.dev.birifqa.edcgold.model.AdminReportAktifitasModel;
-import id.dev.birifqa.edcgold.model.AdminReportWithdrawModel;
+import id.dev.birifqa.edcgold.model.admin.AdminReportWithdrawModel;
 
 public class AdminReportWithdrawAdapter extends RecyclerView.Adapter<AdminReportWithdrawAdapter.MyViewHolder> {
 
