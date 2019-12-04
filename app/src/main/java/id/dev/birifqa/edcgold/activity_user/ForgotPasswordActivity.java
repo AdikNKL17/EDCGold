@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
@@ -25,7 +28,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private AppCompatButton btnNext;
     private TextInputEditText etEmail;
     private Callback<ResponseBody> cBack;
- 
+    private AlertDialog dialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(ForgotPasswordActivity.this).build();
+
         toolbar = findViewById(R.id.toolbar);
         btnNext = findViewById(R.id.btn_next);
         etEmail = findViewById(R.id.et_email);
@@ -60,6 +67,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private void forgotPassword(){
         if (!etEmail.getText().toString().isEmpty()){
+            dialog.show();
             Call<ResponseBody> call = ParamReq.reqForgotPassword(etEmail.getText().toString(), ForgotPasswordActivity.this);
             cBack = new Callback<ResponseBody>() {
                 @Override
@@ -68,9 +76,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                         boolean handle = Handle.handleForgotPassword(response.body().string(), ForgotPasswordActivity.this);
                         if (handle) {
-                            ForgotPasswordActivity.this.finish();
+                            dialog.dismiss();
+                            Intent intent = new Intent(ForgotPasswordActivity.this, VerifikasiActivity.class);
+                            intent.putExtra("EMAIL", etEmail.getText().toString());
+                            startActivity(intent);
                         } else {
-                            Api.mProgressDialog.dismiss();
+                            dialog.dismiss();
                             Toast.makeText(ForgotPasswordActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                         }
 
@@ -85,7 +96,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 }
             };
 
-            Api.enqueueWithRetry(ForgotPasswordActivity.this, call, cBack, true, "Loading");
+            Api.enqueueWithRetry(ForgotPasswordActivity.this, call, cBack, false, "Loading");
         }
     }
 }

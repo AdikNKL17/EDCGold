@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminNotificationAdapter;
-import id.dev.birifqa.edcgold.model.AdminNotificationModel;
+import id.dev.birifqa.edcgold.model.admin.AdminNotificationModel;
 
 /**
  * A simple {@link Fragment} subclass.

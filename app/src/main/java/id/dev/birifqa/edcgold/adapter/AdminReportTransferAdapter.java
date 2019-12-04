@@ -14,8 +14,7 @@ import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_admin.AdminDetailTransferActivity;
-import id.dev.birifqa.edcgold.model.AdminReportTopupModel;
-import id.dev.birifqa.edcgold.model.AdminReportTransferModel;
+import id.dev.birifqa.edcgold.model.admin.AdminReportTransferModel;
 
 public class AdminReportTransferAdapter extends RecyclerView.Adapter<AdminReportTransferAdapter.MyViewHolder> {
 

@@ -17,7 +17,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_admin.AdminPostPetunjukActivity"></activity>
+        <activity android:name=".activity_user.SewaCloudActivity"></activity>
+        <activity android:name=".activity_user.WalletReceiveActivity" />
+        <activity android:name=".activity_user.WalletSendActivity" />
+        <activity android:name=".activity_user.NewPasswordActivity" />
+        <activity android:name=".activity_admin.AdminPostPetunjukActivity" />
         <activity android:name=".activity_admin.AdminDetailFeedbackActivity" />
         <activity android:name=".activity_admin.AdminPostFeedbackActivity" />
         <activity android:name=".activity_admin.AdminPostFaqActivity" />

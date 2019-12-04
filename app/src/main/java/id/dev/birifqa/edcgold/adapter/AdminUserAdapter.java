@@ -14,8 +14,7 @@ import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_admin.AdminDetailUserActivity;
-import id.dev.birifqa.edcgold.model.AdminNotificationModel;
-import id.dev.birifqa.edcgold.model.AdminUserModel;
+import id.dev.birifqa.edcgold.model.admin.AdminUserModel;
 
 public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.MyViewHolder> {
 

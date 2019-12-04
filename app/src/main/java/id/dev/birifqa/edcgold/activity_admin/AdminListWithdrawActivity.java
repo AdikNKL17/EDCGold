@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminReportWithdrawAdapter;
-import id.dev.birifqa.edcgold.model.AdminReportWithdrawModel;
+import id.dev.birifqa.edcgold.model.admin.AdminReportWithdrawModel;
 
 public class AdminListWithdrawActivity extends AppCompatActivity {
 

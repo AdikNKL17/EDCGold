@@ -1,7 +1,6 @@
 package id.dev.birifqa.edcgold.fragment_admin;
 
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminTransferTopupAdapter;
-import id.dev.birifqa.edcgold.model.AdminTransferTopupModel;
+import id.dev.birifqa.edcgold.model.admin.AdminTransferTopupModel;
 
 /**
  * A simple {@link Fragment} subclass.

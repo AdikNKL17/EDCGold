@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.model.AdminHistoryModel;
-import id.dev.birifqa.edcgold.model.AdminUserMiningHistoryModel;
+import id.dev.birifqa.edcgold.model.admin.AdminUserMiningHistoryModel;
 
 public class AdminMiningUserAdapter extends RecyclerView.Adapter<AdminMiningUserAdapter.MyViewHolder> {
 

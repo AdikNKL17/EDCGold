@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminHistoryAdapter;
-import id.dev.birifqa.edcgold.model.AdminHistoryModel;
+import id.dev.birifqa.edcgold.model.admin.AdminHistoryModel;
 
 /**
  * A simple {@link Fragment} subclass.

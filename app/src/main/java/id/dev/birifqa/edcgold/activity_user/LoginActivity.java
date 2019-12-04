@@ -4,9 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -44,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void findViewById(){
         view = getWindow().getDecorView().getRootView();
+        dialog = new SpotsDialog.Builder().setContext(LoginActivity.this).build();
 
         buttonForgot = findViewById(R.id.button_forgot);
         etUsername = findViewById(R.id.et_username);
@@ -55,9 +61,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onAction(){
-        dialog = new SpotsDialog.Builder().setContext(LoginActivity.this).build();
-
-
         buttonForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,8 +127,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         } else {
                             dialog.dismiss();
-
-                            Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                            showDialog();
                         }
 
                     } catch (Exception e) {
@@ -150,5 +152,26 @@ public class LoginActivity extends AppCompatActivity {
 //                    Helper.constraintLayout(R.id.notif_error, view).setVisibility(View.VISIBLE);
 //                    Helper.setText(R.id.text_error, view, "Email or Password must not be empty!!!");
         }
+    }
+
+    private void showDialog(){
+        final Dialog dialog1 = new Dialog(LoginActivity.this);
+        dialog1.setContentView(R.layout.dialog_login);
+        dialog1.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        AppCompatButton btnYes;
+
+        btnYes = dialog1.findViewById(R.id.btn_yes);
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog1.dismiss();
+            }
+        });
+
+        dialog1.show();
     }
 }

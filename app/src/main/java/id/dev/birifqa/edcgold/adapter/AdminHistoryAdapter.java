@@ -1,7 +1,6 @@
 package id.dev.birifqa.edcgold.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.activity_user.UbahRekeningBankActivity;
-import id.dev.birifqa.edcgold.model.AdminHistoryModel;
-import id.dev.birifqa.edcgold.model.BankModel;
+import id.dev.birifqa.edcgold.model.admin.AdminHistoryModel;
 
 public class AdminHistoryAdapter extends RecyclerView.Adapter<AdminHistoryAdapter.MyViewHolder> {
 

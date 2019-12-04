@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment_user.FragmentUserWalletSendType">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SEND"
+            android:fontFamily="@font/circular_std_bold"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pilih Tipe User"
+            android:fontFamily="@font/circular_std_medium"
+            android:gravity="center"
+            android:textColor="@color/mdtp_dark_gray" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_type_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            android:backgroundTint="@color/colorPrimary"
+            android:spinnerMode="dropdown"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Masukkan ID Pengirim"
+            android:fontFamily="@font/circular_std_medium"
+            android:gravity="center"
+            android:textColor="@color/mdtp_dark_gray" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner_topup_edittext"
+            android:layout_marginTop="8dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_id_pengirim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>
