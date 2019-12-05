@@ -5,8 +5,8 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +17,36 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_user.GantiUsernameSuksesActivity"></activity>
+        <activity android:name=".activity_user.SewaCloudActivity"></activity>
+        <activity android:name=".activity_user.WalletReceiveActivity" />
+        <activity android:name=".activity_user.WalletSendActivity" />
+        <activity android:name=".activity_user.NewPasswordActivity" />
+        <activity android:name=".activity_admin.AdminPostPetunjukActivity" />
+        <activity android:name=".activity_admin.AdminDetailFeedbackActivity" />
+        <activity android:name=".activity_admin.AdminPostFeedbackActivity" />
+        <activity android:name=".activity_admin.AdminPostFaqActivity" />
+        <activity android:name=".activity_admin.AdminPostKomunitasActivity" />
+        <activity android:name=".activity_admin.AdminPostTentangActivity" />
+        <activity android:name=".activity_admin.AdminDetailTransferActivity" />
+        <activity android:name=".activity_admin.AdminDetailListTopupActivity" />
+        <activity android:name=".activity_admin.AdminListTransferActivity" />
+        <activity android:name=".activity_admin.AdminListTopupActivity" />
+        <activity android:name=".activity_admin.AdminDetailListWithdrawActivity" />
+        <activity android:name=".activity_admin.AdminListWithdrawActivity" />
+        <activity android:name=".activity_admin.AdminDetailKoinActivity" />
+        <activity android:name=".activity_admin.AdminDetailUserDeactiveActivity" />
+        <activity android:name=".activity_admin.AdminTutupAkunActivity" />
+        <activity android:name=".activity_admin.AdminDetailUserActivity" />
+        <activity android:name=".activity_admin.AdminDetailWithdrawActivity" />
+        <activity android:name=".activity_admin.AdminDetailTopupActivity" />
+        <activity android:name=".activity_admin.AdminDetailMiningActivity" />
+        <activity android:name=".activity_admin.AdminDetailSewaMiningActivity" />
+        <activity android:name=".activity_admin.AdminPengaturanSewaActivity" />
+        <activity android:name=".activity_admin.AdminUbahAlamatActivity" />
+        <activity android:name=".activity_admin.AdminUbahEmailActivity" />
+        <activity android:name=".activity_admin.AdminUbahNomorActivity" />
+        <activity android:name=".activity_admin.AdminProfileInformationActivity" />
+        <activity android:name=".activity_user.GantiUsernameSuksesActivity" />
         <activity android:name=".activity_user.UbahUsernameActivity" />
         <activity android:name=".activity_user.VerifikasiActivity" />
         <activity android:name=".activity_user.SettingActivity" />
@@ -37,7 +66,6 @@
         <activity android:name=".activity_admin.AdminProfileActivity" />
         <activity
             android:name=".activity_admin.AdminHomeActivity"
-            android:label="@string/title_activity_admin_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity_user.TransferActivity" />
         <activity android:name=".activity_user.HistoryActivity" />

@@ -14,10 +14,10 @@ import id.dev.birifqa.edcgold.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AdminReportReportFragment extends Fragment {
+public class FragmentAdminKomunitasPost extends Fragment {
 
 
-    public AdminReportReportFragment() {
+    public FragmentAdminKomunitasPost() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class AdminReportReportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_report_report, container, false);
+        return inflater.inflate(R.layout.fragment_admin_komunitas_post, container, false);
     }
 
 }

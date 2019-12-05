@@ -2,6 +2,7 @@ package id.dev.birifqa.edcgold.activity_user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
@@ -26,6 +28,8 @@ public class VerifikasiActivity extends AppCompatActivity {
     private Button btnVerification;
     private TextView btnResendVerification;
     private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public class VerifikasiActivity extends AppCompatActivity {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(VerifikasiActivity.this).build();
+
         etVerification = findViewById(R.id.et_kode_verifikasi);
         btnVerification = findViewById(R.id.btn_verifikasi);
         btnResendVerification = findViewById(R.id.btn_resend_verifikasi);
@@ -46,32 +52,36 @@ public class VerifikasiActivity extends AppCompatActivity {
         btnVerification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeEmail();
+                verificationCode();
             }
         });
 
         btnResendVerification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resendChangeEmail();
+                resendVerificationCode();
             }
         });
     }
 
-    private void changeEmail(){
-        Intent getIntent = getIntent();
-        if (!getIntent.getStringExtra("OLD_EMAIL").isEmpty() && !getIntent.getStringExtra("NEW_EMAIL").isEmpty() && !getIntent.getStringExtra("CONFIRMATION").isEmpty() && !etVerification.getText().toString().isEmpty()){
-            Call<ResponseBody> call = ParamReq.changeEmail(Session.get("token"), etVerification.getText().toString(), getIntent.getStringExtra("OLD_EMAIL"), getIntent.getStringExtra("NEW_EMAIL"), getIntent.getStringExtra("CONFIRMATION"), VerifikasiActivity.this);
+    private void verificationCode(){
+        if (!etVerification.getText().toString().isEmpty()){
+            dialog.show();
+            Call<ResponseBody> call = ParamReq.requestVerification(etVerification.getText().toString(), VerifikasiActivity.this);
             cBack = new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
 
-                        boolean handle = Handle.handleChangeEmail(response.body().string(), VerifikasiActivity.this);
+                        boolean handle = Handle.handleVerificationEmail(response.body().string(), VerifikasiActivity.this);
                         if (handle) {
-                            Session.save("email", getIntent.getStringExtra("NEW_EMAIL"));
-                            startActivity(new Intent(VerifikasiActivity.this, GantiEmailSukses.class));
+                            dialog.dismiss();
+                            Intent intent = new Intent(VerifikasiActivity.this, NewPasswordActivity.class);
+                            intent.putExtra("VERIFICATION", etVerification.getText().toString());
+                            startActivity(intent);
                         } else {
+                            dialog.dismiss();
+                            Toast.makeText(VerifikasiActivity.this, "Code verifikasi tidak sesuai!!", Toast.LENGTH_SHORT).show();
                             Api.mProgressDialog.dismiss();
                         }
 
@@ -86,27 +96,29 @@ public class VerifikasiActivity extends AppCompatActivity {
                 }
             };
 
-            Api.enqueueWithRetry(VerifikasiActivity.this, call, cBack, true, "Loading");
+            Api.enqueueWithRetry(VerifikasiActivity.this, call, cBack, false, "Loading");
         } else {
             Toast.makeText(VerifikasiActivity.this, "All data must be filled !!!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void resendChangeEmail(){
+    private void resendVerificationCode(){
         Intent getIntent = getIntent();
-        if (!getIntent.getStringExtra("OLD_EMAIL").isEmpty() && !getIntent.getStringExtra("NEW_EMAIL").isEmpty() && !getIntent.getStringExtra("CONFIRMATION").isEmpty()){
-            Call<ResponseBody> call = ParamReq.changeEmailRequest(Session.get("token"), getIntent.getStringExtra("OLD_EMAIL"), getIntent.getStringExtra("NEW_EMAIL"), getIntent.getStringExtra("CONFIRMATION"), VerifikasiActivity.this);
+        if (!getIntent.getStringExtra("EMAIL").isEmpty()){
+            dialog.show();
+            Call<ResponseBody> call = ParamReq.reqForgotPassword(getIntent.getStringExtra("EMAIL"), VerifikasiActivity.this);
             cBack = new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
 
-                        boolean handle = Handle.handleChangeEmail(response.body().string(), VerifikasiActivity.this);
+                        boolean handle = Handle.handleForgotPassword(response.body().string(), VerifikasiActivity.this);
                         if (handle) {
-
+                            dialog.dismiss();
+                            Toast.makeText(VerifikasiActivity.this, "Resend Verification Code Success, Please Check Your Email!!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(VerifikasiActivity.this, "Gagal resend !!!", Toast.LENGTH_SHORT).show();
-                            Api.mProgressDialog.dismiss();
+                            dialog.dismiss();
+                            Toast.makeText(VerifikasiActivity.this, "Resend Verification Code Failed", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Exception e) {
@@ -120,7 +132,7 @@ public class VerifikasiActivity extends AppCompatActivity {
                 }
             };
 
-            Api.enqueueWithRetry(VerifikasiActivity.this, call, cBack, true, "Loading");
+            Api.enqueueWithRetry(VerifikasiActivity.this, call, cBack, false, "Loading");
         } else {
             Toast.makeText(VerifikasiActivity.this, "All data must be filled !!!", Toast.LENGTH_SHORT).show();
         }

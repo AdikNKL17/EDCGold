@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Report"
+                android:text="Koin Report"
                 android:layout_gravity="center"
                 android:textSize="16sp"
                 android:fontFamily="@font/circular_std_medium"
@@ -51,6 +51,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:tabIndicatorFullWidth="true"
+        app:tabIndicatorGravity="stretch"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabSelectedTextColor="@color/colorWhite"
         app:tabTextColor="@color/colorWhite">
 
@@ -64,7 +66,7 @@
             android:id="@+id/tab_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Report" />
+            android:text="Aktifitas" />
 
     </com.google.android.material.tabs.TabLayout>
 

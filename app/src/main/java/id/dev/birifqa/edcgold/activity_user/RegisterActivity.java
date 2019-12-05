@@ -141,9 +141,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
             public void onClick(View view) {
                 if (!etNamaDepan.getText().toString().isEmpty() && !etNamaBelakang.getText().toString().isEmpty() &&
                         !jk.isEmpty() && !etBOD.getText().toString().isEmpty() && !etPhone.getText().toString().isEmpty() &&
-                        !etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty() &&
-                        !etReferral.getText().toString().isEmpty() && !idProv.isEmpty() &&
-                        !idKab.isEmpty() && !idKec.isEmpty() &&
+                        !etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty() && !idProv.isEmpty() && !idKab.isEmpty() && !idKec.isEmpty() &&
                         !etAlamat.getText().toString().isEmpty() && !etKodepos.getText().toString().isEmpty()){
 
                     if (etPassword.getText().length() >= 6){

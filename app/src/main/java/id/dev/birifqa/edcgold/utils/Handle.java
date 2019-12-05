@@ -29,9 +29,12 @@ import id.dev.birifqa.edcgold.activity_user.UbahNomorActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahPasswordActivity;
 import id.dev.birifqa.edcgold.model.BankModel;
 import id.dev.birifqa.edcgold.model.NominalTopupModel;
+import id.dev.birifqa.edcgold.model.UserHistoryModel;
 import id.dev.birifqa.edcgold.model.address.KabupatenModel;
 import id.dev.birifqa.edcgold.model.address.KecamatanModel;
 import id.dev.birifqa.edcgold.model.address.ProvinsiModel;
+import id.dev.birifqa.edcgold.model.admin.AdminSewaMiningModel;
+import id.dev.birifqa.edcgold.model.admin.AdminTransferTopupModel;
 
 /**
  * Created by palapabeta on 03/02/18.
@@ -514,6 +517,28 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleChangeEmail(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
     public static boolean handleChangeAddress(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -558,7 +583,51 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleChangeEmail(String sjson, Context context) {
+    public static boolean handleVerificationEmail(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleChangePassword(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleAddBank(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
@@ -630,13 +699,39 @@ public class Handle {
             JSONObject dataObject = jsonObject.getJSONObject("data");
             JSONObject coinObject = dataObject.getJSONObject("coin");
 
-            tvName.setText(dataObject.getString("name"));
+            tvName.setText(dataObject.getString("name") +" "+dataObject.getString("lastname"));
             tvCoin.setText(coinObject.getString("balance_coin"));
 
             tvNameHeader.setText(dataObject.getString("name"));
             tvEmailHeader.setText(dataObject.getString("email"));
 
             return true;
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleNominalRental(String sjson, TextInputEditText etNominal1, TextInputEditText etNominal2, TextView tvNamaBank, TextView tvAtasNama, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+
+            if (jsonObject.getBoolean("success")){
+                Session.save("rental_nominal", dataObject.getString("nominal_rental"));
+                etNominal1.setText(dataObject.getString("nominal_rental"));
+                etNominal2.setText(dataObject.getString("nominal_rental"));
+                tvNamaBank.setText(dataObject.getString("bank_name"));
+                tvAtasNama.setText(dataObject.getString("account_name"));
+
+                return true;
+            }else {
+                return false;
+            }
 
         } catch (JSONException e) {
 
@@ -654,7 +749,7 @@ public class Handle {
             JSONObject dataObject = jsonObject.getJSONObject("data");
             JSONObject coinObject = dataObject.getJSONObject("coin");
 
-            tvName.setText(dataObject.getString("name"));
+            tvName.setText(dataObject.getString("name") +" "+ dataObject.getString("lastname"));
             tvCoin.setText(coinObject.getString("balance_coin"));
 
 
@@ -673,7 +768,7 @@ public class Handle {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
 
-            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
+            tvName.setText(jsonObject.getJSONObject("data").getString("name") + " "+jsonObject.getJSONObject("data").getString("lastname"));
 
             return true;
 
@@ -848,6 +943,44 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleGetTransactionHistory(String sjson, String tipe, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses){
+                JSONArray dataArray = dataObject.getJSONArray("data");
+                if (dataArray.length() >= 0) {
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        UserHistoryModel historyModel = new UserHistoryModel();
+                        historyModel.setTitle(dataArray.getJSONObject(i).getString("description"));
+                        historyModel.setStatus(dataArray.getJSONObject(i).getString("status"));
+                        historyModel.setDate(dataArray.getJSONObject(i).getString("created_at"));
+                        historyModel.setId(dataArray.getJSONObject(i).getString("transaction_code"));
+
+                        Log.e("123YOLO", dataArray.getJSONObject(i).getString("description"));
+                        if (tipe.equals("1")){
+                            Api.userHistoryProsesModels.add(historyModel);
+                        } else {
+                            Api.userHistorySelesaiModels.add(historyModel);
+                        }
+                    }
+                }
+
+                return true;
+            }else {
+                return false;
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
     public static boolean handleNominalTopup(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -915,6 +1048,97 @@ public class Handle {
             } else {
                 return false;
             }
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleTopupList(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses){
+                JSONArray dataArray = dataObject.getJSONArray("data");
+                if (dataArray.length() >= 0) {
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        AdminTransferTopupModel transferTopupModel = new AdminTransferTopupModel();
+                        transferTopupModel.setId(dataArray.getJSONObject(i).getString("id"));
+                        transferTopupModel.setTransaction_code(dataArray.getJSONObject(i).getString("transaction_code"));
+                        transferTopupModel.setUserid(dataArray.getJSONObject(i).getString("userid"));
+                        transferTopupModel.setName(dataArray.getJSONObject(i).getString("name"));
+                        transferTopupModel.setStatus(dataArray.getJSONObject(i).getString("status"));
+                        transferTopupModel.setDate(dataArray.getJSONObject(i).getString("date"));
+
+                        Api.adminTransferTopupModels.add(transferTopupModel);
+
+                    }
+                }
+
+                return true;
+            }else {
+                return false;
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleRentalMining(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            Boolean success = jsonObject.getBoolean("success");
+            if (success){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleRentalList(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses){
+                JSONArray dataArray = dataObject.getJSONArray("data");
+                if (dataArray.length() >= 0) {
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        AdminSewaMiningModel sewaMiningModel = new AdminSewaMiningModel();
+                        sewaMiningModel.setId(dataArray.getJSONObject(i).getString("id"));
+                        sewaMiningModel.setTransaction_code(dataArray.getJSONObject(i).getString("transaction_code"));
+                        sewaMiningModel.setUserid(dataArray.getJSONObject(i).getString("userid"));
+                        sewaMiningModel.setName(dataArray.getJSONObject(i).getString("name"));
+                        sewaMiningModel.setStatus(dataArray.getJSONObject(i).getString("status"));
+                        sewaMiningModel.setDate(dataArray.getJSONObject(i).getString("date"));
+
+                        Api.adminSewaMiningModels.add(sewaMiningModel);
+
+                    }
+                }
+
+                return true;
+            }else {
+                return false;
+            }
+
         } catch (JSONException e) {
 
         } catch (Exception e) {

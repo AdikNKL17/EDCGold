@@ -9,17 +9,17 @@ import id.dev.birifqa.edcgold.activity_user.MainActivity;
 import id.dev.birifqa.edcgold.request.RequestChangeAddress;
 import id.dev.birifqa.edcgold.request.RequestChangeBank;
 import id.dev.birifqa.edcgold.request.RequestChangeEmail;
+import id.dev.birifqa.edcgold.request.RequestChangePassword;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
+import id.dev.birifqa.edcgold.request.RequestChangeRate;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
+import id.dev.birifqa.edcgold.request.RequestRentalProcess;
+import id.dev.birifqa.edcgold.request.RequestTopupProcess;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
-
-/**
- * Created by palapabeta on 02/02/18.
- */
 
 public class ParamReq {
 
@@ -78,6 +78,16 @@ public class ParamReq {
         return APIInterface.getUserDetail("Bearer " +token);
     }
 
+    public static Call<ResponseBody> requestRate(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getRate("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> requestNominalRental(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getNominalRental("Bearer " +token);
+    }
+
     public static Call<ResponseBody> requestProvinsi(Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getProvinsi();
@@ -96,13 +106,39 @@ public class ParamReq {
         return APIInterface.getNominalTopup("Bearer " +token);
     }
 
+    public static Call<ResponseBody> requestTransactionHistory(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getTransactionHistory("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> requestTopupList(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getTopupList("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> requestDetailTopup(String token, String idTopup,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getDetailTopup("Bearer " +token, idTopup);
+    }
+
+    public static Call<ResponseBody> requestRentalList(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getRentalList("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> requestDetailRental(String token, String idRental,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getDetailRental("Bearer " +token, idRental);
+    }
+
     public static Call<ResponseBody> reqTopup(String token,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         final Map<String, RequestBody> map = new HashMap<>();
 
         map.put("method_id", RequestBody.create(MediaType.parse("multipart/form-data"), "1"));
-        map.put("nominal_id", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_id")));
-        map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_nominal")));
+        map.put("nominal", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_nominal")));
+        map.put("label", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_label")));
+        map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_description")));
         return APIInterface.requestTopup("Bearer " +token,map);
     }
 
@@ -110,14 +146,44 @@ public class ParamReq {
         APIInterface = Api.initRetrofit(Api.showLog);
         final Map<String, RequestBody> map = new HashMap<>();
 
-        map.put("transaction_code", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_code")));
+        map.put("method_id", RequestBody.create(MediaType.parse("multipart/form-data"), "1"));
+        map.put("nominal", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_nominal")));
+        map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_description")));
         map.put("bank_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_bank_name")));
         map.put("account_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_account_name")));
-        map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_amount")));
+        map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_nominal")));
         map.put("transfer_date", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_date")));
         map.put("images", RequestBody.create(MediaType.parse("multipart/form-data"), image));
 
         return APIInterface.requestTopupConfirmation("Bearer " +token,map);
+    }
+
+    public static Call<ResponseBody> reqRentalMining(String token, String image,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("method_id", RequestBody.create(MediaType.parse("multipart/form-data"), "3"));
+        map.put("nominal", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nominal")));
+        map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), "Sewa mining 1 bulan"));
+        map.put("bank_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nama_bank")));
+        map.put("account_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nama")));
+        map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_jumlah_transfer")));
+        map.put("transfer_date", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_date")));
+        map.put("images", RequestBody.create(MediaType.parse("multipart/form-data"), image));
+
+        return APIInterface.requestRentalMining("Bearer " +token,map);
+    }
+
+    public static Call<ResponseBody> reqAddBank(String token, String bankName, String bankNumber, String accountNumber,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("bank_name", RequestBody.create(MediaType.parse("multipart/form-data"), bankName));
+        map.put("bank_number", RequestBody.create(MediaType.parse("multipart/form-data"), bankNumber));
+        map.put("account_name", RequestBody.create(MediaType.parse("multipart/form-data"), accountNumber));
+
+
+        return APIInterface.requestAddBank("Bearer " +token,map);
     }
 
     public static Call<ResponseBody> changeUsername(String token,String name,Context context) {
@@ -139,14 +205,12 @@ public class ParamReq {
         return APIInterface.requestChangeEmail("Bearer " +token,map);
     }
 
-    public static Call<ResponseBody> changeEmail(String token,String verification, String old_email, String new_email, String confirmed,Context context) {
-        RequestChangeEmail requestChangeEmail = new RequestChangeEmail();
-        requestChangeEmail.setVerification(verification);
-        requestChangeEmail.setOld_email(old_email);
-        requestChangeEmail.setNew_email(new_email);
-        requestChangeEmail.setConfirmed(confirmed);
+    public static Call<ResponseBody> requestVerification(String verification,Context context) {
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("verification", RequestBody.create(MediaType.parse("multipart/form-data"), verification));
         APIInterface = Api.initRetrofit(Api.showLog);
-        return APIInterface.changeEmail("Bearer " +token,requestChangeEmail);
+        return APIInterface.requestVerification(map);
     }
 
     public static Call<ResponseBody> changeAddress(String token,String country, String region, String regency, String district, String address, String postcode,Context context) {
@@ -179,9 +243,40 @@ public class ParamReq {
         return APIInterface.changeBank("Bearer " +token, id, requestChangeBank);
     }
 
+    public static Call<ResponseBody> changePassword(String token, String verification, String password, String password_confirmation,Context context) {
+        RequestChangePassword requestChangePassword = new RequestChangePassword();
+        requestChangePassword.setVerification(verification);
+        requestChangePassword.setPassword(password);
+        requestChangePassword.setConfirmed(password_confirmation);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changePassword(requestChangePassword);
+    }
+
+    public static Call<ResponseBody> changeRate(String token, String saleRate, String buyRate,Context context) {
+        RequestChangeRate requestChangeRate = new RequestChangeRate();
+        requestChangeRate.setBuy_rate(buyRate);
+        requestChangeRate.setSale_rate(saleRate);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changeRate("Bearer " +token, requestChangeRate);
+    }
+
     public static Call<ResponseBody> requestRekeningBank(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getRekeningBank("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> topupProcess(String token, String idTopup, String status,Context context) {
+        RequestTopupProcess requestTopupProcess = new RequestTopupProcess();
+        requestTopupProcess.setStatus(status);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.topupProses("Bearer " +token, idTopup, requestTopupProcess);
+    }
+
+    public static Call<ResponseBody> rentalProcess(String token, String idRental, String status,Context context) {
+        RequestRentalProcess requestRentalProcess = new RequestRentalProcess();
+        requestRentalProcess.setStatus(status);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.rentalProses("Bearer " +token, idRental, requestRentalProcess);
     }
 
 }

@@ -4,6 +4,7 @@ package id.dev.birifqa.edcgold.fragment_user;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,7 +19,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -42,13 +42,17 @@ import com.bumptech.glide.Glide;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_user.RekeningBankActivity;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.FileUtil;
 import id.dev.birifqa.edcgold.utils.Handle;
@@ -92,6 +96,7 @@ public class FragmentTopupConfirmation extends Fragment {
     private File actualImage;
     private File compressedImage;
 
+    private AlertDialog dialog;
 
     public FragmentTopupConfirmation() {
         // Required empty public constructor
@@ -121,6 +126,8 @@ public class FragmentTopupConfirmation extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_topup_confirmation, container, false);
 
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+
         btnCamera = view.findViewById(R.id.btn_camera);
         imgPhoto = view.findViewById(R.id.img_foto_struk);
         btnKirim = view.findViewById(R.id.btn_kirim);
@@ -137,17 +144,8 @@ public class FragmentTopupConfirmation extends Fragment {
             public void onClick(View view) {
                 if (!filePath.isEmpty()){
                     encodeImage();
-                    String code = Session.get("topup_code");
-                    String bank = Session.get("topup_bank_name");
-                    String account = Session.get("topup_account_name");
-                    String amount = Session.get("topup_amount");
-                    String date = Session.get("topup_date");
-                    Log.e("code", code);
-                    Log.e("bank", bank);
-                    Log.e("account", account);
-                    Log.e("amount", amount);
-                    Log.e("date", date);
 
+                    Session.save("topup_date", getDate());
 
                     topupConfirmation();
 
@@ -161,6 +159,7 @@ public class FragmentTopupConfirmation extends Fragment {
     }
 
     private void topupConfirmation(){
+        dialog.show();
         Call<ResponseBody> call = ParamReq.reqTopupConfirmation(Session.get("token"), encodedImage, getActivity());
         cBack = new Callback<ResponseBody>() {
             @Override
@@ -168,8 +167,10 @@ public class FragmentTopupConfirmation extends Fragment {
                 try {
                     boolean handle = Handle.handleTopupConfirmation(response.body().string(), getActivity());
                     if (handle) {
-                        Toast.makeText(getActivity(), "Topup Berhasil!!", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), "Permintaan Topup Berhasil!! Topup akan segera diproses!!", Toast.LENGTH_SHORT).show();
                     } else {
+                        dialog.dismiss();
                         Toast.makeText(getActivity(), "Gagal topup", Toast.LENGTH_SHORT).show();
                     }
 
@@ -183,7 +184,17 @@ public class FragmentTopupConfirmation extends Fragment {
                 Api.retryDialog(getActivity(), call, cBack, 1, false);
             }
         };
-        Api.enqueueWithRetry(getActivity(), call, cBack, true, "Uploading...");
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Uploading...");
+    }
+
+    private String getDate(){
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = df.format(c);
+
+        return formattedDate;
     }
 
     private void encodeImage(){

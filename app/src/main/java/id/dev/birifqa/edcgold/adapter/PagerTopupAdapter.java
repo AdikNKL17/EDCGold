@@ -19,11 +19,11 @@ public class PagerTopupAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return FragmentTopupNominal.newInstance("", "");
+                return new FragmentTopupNominal();
             case 1:
-                return FragmentTopupBank.newInstance("", "");
+                return new FragmentTopupBank();
             case 2:
-                return FragmentTopupConfirmation.newInstance("","");
+                return new FragmentTopupConfirmation();
             default:
                 return null;
         }

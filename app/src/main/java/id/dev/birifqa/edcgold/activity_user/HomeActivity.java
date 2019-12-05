@@ -59,6 +59,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,6 +73,8 @@ import id.dev.birifqa.edcgold.fragment_user.FragmentTopup;
 import id.dev.birifqa.edcgold.fragment_user.FragmentTopupNominal;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserHistory;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserInfo;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserMining;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserNotification;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserProfile;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserWallet;
 import id.dev.birifqa.edcgold.fragment_user.MiningAktifFragment;
@@ -127,8 +131,6 @@ public class HomeActivity extends AppCompatActivity
         tvName = findViewById(R.id.tv_name);
         tvCoin = findViewById(R.id.tv_coin);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        /*anyChartView = findViewById(R.id.any_chart_view);
-        youTubePlayerView = findViewById(R.id.youtube_player_view);*/
         expandableListView = findViewById(R.id.expandableListView);
         headerView = navigationView.getHeaderView(0);
         tvNameHeader = headerView.findViewById(R.id.tv_name_header);
@@ -156,12 +158,11 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    boolean handle = Handle.handleHome(response.body().string(), tvName, tvCoin, tvNameHeader, tvEmailHeader, HomeActivity.this);
-                    if (handle) {
-
-                    } else {
-                        Api.mProgressDialog.dismiss();
-                    }
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                    JSONObject coinObject = dataObject.getJSONObject("coin");
+                    tvNameHeader.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                    tvEmailHeader.setText(dataObject.getString("email"));
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -177,21 +178,21 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void prepareMenuData(){
-        MenuModel menuModel = new MenuModel("Top Up", getResources().getDrawable(R.drawable.ic_file_upload_white_24dp), true, false); //Menu of Android Tutorial. No sub menus
+        MenuModel menuModel = new MenuModel("Top Up", getResources().getDrawable(R.drawable.ic_wallet_white_24dp), true, false); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Setting", getResources().getDrawable(R.drawable.ic_icons8_settings), false, false); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Pengaturan", getResources().getDrawable(R.drawable.ic_icons8_settings), true, false); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Komunitas",getResources().getDrawable(R.drawable.ic_community_white_24dp) , false, false); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Komunitas", getResources().getDrawable(R.drawable.ic_community_white_24dp), false, false); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
@@ -205,7 +206,14 @@ public class HomeActivity extends AppCompatActivity
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Keluar Aplikasi", getResources().getDrawable(R.drawable.ic_exit_white_24dp), false, false); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Information",getResources().getDrawable(R.drawable.ic_icons8_info) , false, false); //Menu of Android Tutorial. No sub menus
+        headerList.add(menuModel);
+
+        if (!menuModel.hasChildren) {
+            childList.put(menuModel, null);
+        }
+
+        menuModel = new MenuModel("Logout", getResources().getDrawable(R.drawable.ic_exit_white_24dp), false, false); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
@@ -229,7 +237,7 @@ public class HomeActivity extends AppCompatActivity
                         drawer.closeDrawer(GravityCompat.START, true);
                     }
 
-                    if (headerList.get(groupPosition).menuName.equals("Setting")) {
+                    if (headerList.get(groupPosition).menuName.equals("Pengaturan")) {
                         startActivity(new Intent(v.getContext(), SettingActivity.class));
                     }
 
@@ -241,7 +249,7 @@ public class HomeActivity extends AppCompatActivity
 
                     }
 
-                    if (headerList.get(groupPosition).menuName.equals("Keluar Aplikasi")) {
+                    if (headerList.get(groupPosition).menuName.equals("Logout")) {
                         logout();
                     }
                 }
@@ -351,15 +359,9 @@ public class HomeActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_tentang) {
-            return true;
-        } else if (id == R.id.action_faq){
-            return true;
-        } else if (id == R.id.action_feedback){
-            startActivity(new Intent(HomeActivity.this, FeedbackActivity.class));
-            return true;
-        } else if (id == R.id.action_petunjuk){
+
+        if (id == R.id.action_notif) {
+            loadFragment(new FragmentUserNotification());
             return true;
         }
 
@@ -375,10 +377,10 @@ public class HomeActivity extends AppCompatActivity
             loadFragment(new FragmentUserWallet());
         } else if (id == R.id.action_history) {
             loadFragment(new FragmentUserHistory());
-        } else if (id == R.id.action_profile) {
+        } else if (id == R.id.action_user) {
             loadFragment(new FragmentUserProfile());
-        } else if (id == R.id.action_info) {
-            loadFragment(new FragmentUserInfo());
+        } else if (id == R.id.action_mining) {
+            loadFragment(new FragmentUserMining());
         } else if (id == R.id.action_qr){
             showQR();
         }

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_user.RegisterActivity"
-    android:background="@color/colorBg">
+    android:background="@color/colorBg"
+    tools:context=".activity_user.RegisterActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -17,17 +17,17 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/ic_icons8_left"
-            app:contentInsetLeft="0dp">
+            app:contentInsetLeft="0dp"
+            app:navigationIcon="@drawable/ic_icons8_left">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daftar Baru"
                 android:layout_gravity="center"
-                android:textSize="16sp"
                 android:fontFamily="@font/circular_std_medium"
-                android:textColor="@color/colorWhite"/>
+                android:text="Daftar Baru"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp" />
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -35,6 +35,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <ScrollView
@@ -47,7 +48,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="16dp"
                 android:background="@drawable/bt_bg_white"
                 android:orientation="vertical">
@@ -57,23 +58,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginRight="24dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nama Depan"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="Nama Depan" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_nama_depan"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:inputType="textPersonName" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_nama_depan"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:inputType="textPersonName" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -87,16 +94,21 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nama Belakang"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="Nama Belakang" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_nama_belakang"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:inputType="textPersonName" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_nama_belakang"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:inputType="textPersonName" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
 
@@ -111,8 +123,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jenis Kelamin"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="Jenis Kelamin" />
 
                     <RadioGroup
                         android:id="@+id/radioJK"
@@ -125,18 +136,14 @@
                             android:id="@+id/rb_laki"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:text="Laki - Laki"
-                            android:textColor="@color/colorPrimary" />
+                            android:text="Laki - Laki" />
 
                         <RadioButton
                             android:id="@+id/rb_perempuan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
                             android:enabled="true"
-                            android:text="Perempuan"
-                            android:textColor="@color/colorPrimary" />
+                            android:text="Perempuan" />
 
                     </RadioGroup>
 
@@ -153,21 +160,26 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tanggal Lahir"
-                        android:textColor="@color/colorPrimary" />
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_bod"
+                        android:text="Tanggal Lahir" />
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:cursorVisible="false"
-                        android:drawableEnd="@drawable/ic_icons8_google_calendar"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="Pilih Tanggal"
-                        android:textColorHint="#888888" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_bod"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:cursorVisible="false"
+                            android:drawableEnd="@drawable/ic_icons8_google_calendar"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:textColorHint="#888888" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -181,16 +193,21 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nomer Telepon"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="Nomer Telepon" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_phone"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:inputType="number" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -204,16 +221,21 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="Email" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_email"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:inputType="textEmailAddress" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -227,17 +249,22 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Password"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="Password (Minimal 6 Karakter)" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_password"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:hint="Minimal 6 karakter"
-                        android:inputType="textPassword" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -251,19 +278,24 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Provinsi"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="Provinsi" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_provinsi"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="Pilih Provinsi" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_provinsi"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -277,19 +309,24 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Kabupaten/Kota"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="Kabupaten/Kota" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_kabupaten"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="Pilih Kabupaten/Kota" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_kabupaten"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -303,19 +340,24 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Kecamatan"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="Kecamatan" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_kecamatan"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="Pilih Kecamatan" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_kecamatan"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -329,17 +371,20 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Kode Pos"
-                        android:textColor="@color/colorPrimary" />
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_kodepos"
+                        android:text="Kode Pos" />
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:hint="Pilih Kode Pos"
-                        android:inputType="number" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_kodepos"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -353,18 +398,21 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Alamat Lengkap"
-                        android:textColor="@color/colorPrimary" />
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_alamat"
+                        android:text="Alamat Lengkap" />
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:gravity="top"
-                        android:hint="Masukkan Alamat"
-                        android:minLines="4" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_alamat"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:hint="Masukkan Alamat"
+                            android:minLines="4" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -379,15 +427,19 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Kode Refferal"
-                        android:textColor="@color/colorPrimary" />
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_referral"
+                        android:text="Kode Refferal" />
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/corner_edittext_black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_referral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -397,7 +449,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/bt_bg_blue"
                     android:text="Daftar"
                     android:textColor="@color/colorWhite"

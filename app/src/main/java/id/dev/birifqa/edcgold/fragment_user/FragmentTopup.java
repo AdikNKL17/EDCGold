@@ -20,9 +20,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.badoualy.stepperindicator.StepperIndicator;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +54,7 @@ public class FragmentTopup extends Fragment{
     private StepperIndicator indicator;
     private ImageView btnBack, btnNext;
     private Callback<ResponseBody> cBack;
+    private TextView tvName, tvCoin;
 
     private Integer pagerPosition;
 
@@ -76,6 +80,8 @@ public class FragmentTopup extends Fragment{
         pager = view.findViewById(R.id.view_pager_topup);
         btnBack = view.findViewById(R.id.btn_back);
         btnNext = view.findViewById(R.id.btn_next);
+        tvName = view.findViewById(R.id.tv_name);
+        tvCoin = view.findViewById(R.id.tv_coin);
 
         pager.setAdapter(new PagerTopupAdapter(getChildFragmentManager()));
         pager.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -86,19 +92,24 @@ public class FragmentTopup extends Fragment{
 
         pagerPosition = 0;
         Log.e("PAGER POSITION", String.valueOf(pagerPosition));
-        Session.save("topup_id", "");
+        Session.save("topup_nominal", "");
+        Session.save("topup_label", "");
+        Session.save("topup_description", "");
+        Session.save("topup_bank_name", "");
         Session.save("topup_account_name", "");
+
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (pagerPosition == 0){
-                    if (!Session.get("topup_id").equals("")){
-                        topupTransaction();
+                    if (!Session.get("topup_nominal").equals("")){
+//                        topupTransaction();
+                        pager.setCurrentItem(pagerPosition+1, true);
                     }else {
                         Toast.makeText(getActivity(), "Harap pilih nominal topup", Toast.LENGTH_SHORT).show();
                     }
                 }else if (pagerPosition == 1){
-                    if (!Session.get("topup_account_name").equals("")){
+                    if (!Session.get("topup_bank_name").equals("")){
                         pager.setCurrentItem(pagerPosition+1, true);
                     }else {
                         Toast.makeText(getActivity(), "Harap pilih bank", Toast.LENGTH_SHORT).show();
@@ -142,6 +153,7 @@ public class FragmentTopup extends Fragment{
             }
         });
 
+        getUserDetail();
 
         if (checkAndRequestPermission()){
 
@@ -154,6 +166,30 @@ public class FragmentTopup extends Fragment{
     public void onResume(){
         super.onResume();
 
+    }
+
+    private void getUserDetail(){
+        Call<ResponseBody> call = ParamReq.requestUserDetail(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                    JSONObject coinObject = dataObject.getJSONObject("coin");
+                    tvName.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                    tvCoin.setText(coinObject.getString("balance_coin"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 
     private void topupTransaction(){
