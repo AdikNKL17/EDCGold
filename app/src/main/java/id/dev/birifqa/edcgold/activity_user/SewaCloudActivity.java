@@ -45,20 +45,26 @@ public class SewaCloudActivity extends AppCompatActivity {
 
         pagerPosition = 0;
 
+        Session.save("rental_nominal", "");
+        Session.save("rental_nama", "");
+        Session.save("rental_nama_bank", "");
+        Session.save("rental_no_rekening", "");
+        Session.save("rental_jumlah_transfer", "");
+
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (pagerPosition == 0){
-                    if (!Session.get("topup_nominal").equals("")){
+                    if (!Session.get("rental_nominal").equals("")){
                         pager.setCurrentItem(pagerPosition+1, true);
                     }else {
-                        Toast.makeText(SewaCloudActivity.this, "Harap pilih nominal topup", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SewaCloudActivity.this, "Gagal Mengambil Data Nominal, Silahkan Ulangi beberapa saat algi", Toast.LENGTH_SHORT).show();
                     }
                 }else if (pagerPosition == 1){
-                    if (!Session.get("topup_bank_name").equals("")){
+                    if (!Session.get("rental_nama").equals("") || !Session.get("rental_nama_bank").equals("") || !Session.get("rental_no_rekening").equals("") || !Session.get("rental_jumlah_transfer").equals("")){
                         pager.setCurrentItem(pagerPosition+1, true);
                     }else {
-                        Toast.makeText(SewaCloudActivity.this, "Harap pilih bank", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SewaCloudActivity.this, "Harap diisi semua!!", Toast.LENGTH_SHORT).show();
                     }
                 }
 
