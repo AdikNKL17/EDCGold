@@ -29,6 +29,7 @@ import id.dev.birifqa.edcgold.activity_user.UbahNomorActivity;
 import id.dev.birifqa.edcgold.activity_user.UbahPasswordActivity;
 import id.dev.birifqa.edcgold.model.BankModel;
 import id.dev.birifqa.edcgold.model.NominalTopupModel;
+import id.dev.birifqa.edcgold.model.UserHistoryModel;
 import id.dev.birifqa.edcgold.model.address.KabupatenModel;
 import id.dev.birifqa.edcgold.model.address.KecamatanModel;
 import id.dev.birifqa.edcgold.model.address.ProvinsiModel;
@@ -713,6 +714,32 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleNominalRental(String sjson, TextInputEditText etNominal1, TextInputEditText etNominal2, TextView tvNamaBank, TextView tvAtasNama, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+
+            if (jsonObject.getBoolean("success")){
+                Session.save("rental_nominal", dataObject.getString("nominal_rental"));
+                etNominal1.setText(dataObject.getString("nominal_rental"));
+                etNominal2.setText(dataObject.getString("nominal_rental"));
+                tvNamaBank.setText(dataObject.getString("bank_name"));
+                tvAtasNama.setText(dataObject.getString("account_name"));
+
+                return true;
+            }else {
+                return false;
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
     public static boolean handleProfileSetting(String sjson, TextView tvName, TextView tvCoin, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -914,6 +941,44 @@ public class Handle {
         return false;
     }
 
+    public static boolean handleGetTransactionHistory(String sjson, String tipe, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses){
+                JSONArray dataArray = dataObject.getJSONArray("data");
+                if (dataArray.length() >= 0) {
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        UserHistoryModel historyModel = new UserHistoryModel();
+                        historyModel.setTitle(dataArray.getJSONObject(i).getString("description"));
+                        historyModel.setStatus(dataArray.getJSONObject(i).getString("status"));
+                        historyModel.setDate(dataArray.getJSONObject(i).getString("created_at"));
+                        historyModel.setId(dataArray.getJSONObject(i).getString("transaction_code"));
+
+                        Log.e("123YOLO", dataArray.getJSONObject(i).getString("description"));
+                        if (tipe.equals("1")){
+                            Api.userHistoryProsesModels.add(historyModel);
+                        } else {
+                            Api.userHistorySelesaiModels.add(historyModel);
+                        }
+                    }
+                }
+
+                return true;
+            }else {
+                return false;
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
     public static boolean handleNominalTopup(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -972,6 +1037,25 @@ public class Handle {
     }
 
     public static boolean handleTopupConfirmation(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+
+            Boolean success = jsonObject.getBoolean("success");
+            if (success){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleRentalMining(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
 

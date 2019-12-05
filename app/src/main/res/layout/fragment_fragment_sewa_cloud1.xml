@@ -24,9 +24,11 @@
                 android:textSize="18sp"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_nominal_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="500.000"
+                android:enabled="false"
                 android:textSize="42sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:fontFamily="@font/circular_std_bold"/>
@@ -50,19 +52,23 @@
                 android:fontFamily="@font/circular_std_bold"
                 android:textSize="18sp"/>
             <TextView
+                android:id="@+id/tv_nama_bank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BCA"
                 android:fontFamily="@font/circular_std_medium"
                 android:textSize="18sp"/>
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_nominal_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="500.000"
+                android:enabled="false"
                 android:textSize="40sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:fontFamily="@font/circular_std_bold"/>
             <TextView
+                android:id="@+id/tv_atas_nama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="A.N Abdul Istam"

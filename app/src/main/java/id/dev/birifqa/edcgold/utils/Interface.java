@@ -43,6 +43,12 @@ public interface Interface {
     @GET("http://45.77.252.55/api/topup_nominal")
     Call<ResponseBody> getNominalTopup(@Header("Authorization") String authorization);
 
+    @GET("http://45.77.252.55/api/rental_nominal")
+    Call<ResponseBody> getNominalRental(@Header("Authorization") String authorization);
+
+    @GET("http://45.77.252.55/api/history")
+    Call<ResponseBody> getTransactionHistory(@Header("Authorization") String authorization);
+
     //POST
     @Multipart
     @POST("http://45.77.252.55/api/login")
@@ -67,6 +73,10 @@ public interface Interface {
     @Multipart
     @POST("http://45.77.252.55/api/topup")
     Call<ResponseBody> requestTopupConfirmation(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
+    @Multipart
+    @POST("http://45.77.252.55/api/rental")
+    Call<ResponseBody> requestRentalMining(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
     @Multipart
     @POST("http://45.77.252.55/api/bank_user")

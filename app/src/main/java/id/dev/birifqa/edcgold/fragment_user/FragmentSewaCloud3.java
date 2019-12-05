@@ -33,18 +33,25 @@ import com.bumptech.glide.Glide;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.FileUtil;
+import id.dev.birifqa.edcgold.utils.Handle;
+import id.dev.birifqa.edcgold.utils.ParamReq;
 import id.dev.birifqa.edcgold.utils.Session;
 import id.zelory.compressor.Compressor;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -101,7 +108,8 @@ public class FragmentSewaCloud3 extends Fragment {
             public void onClick(View view) {
                 if (!filePath.isEmpty()){
                     encodeImage();
-
+                    Session.save("rental_date", getDate());
+                    rentalMining();
                 } else {
                     Toast.makeText(getActivity(), "Silahkan upload foto struk terlebih dahulu", Toast.LENGTH_SHORT).show();
                 }
@@ -109,6 +117,45 @@ public class FragmentSewaCloud3 extends Fragment {
         });
 
         return view;
+    }
+
+    private void rentalMining(){
+        dialog.show();
+        Call<ResponseBody> call = ParamReq.reqRentalMining(Session.get("token"), encodedImage, getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    boolean handle = Handle.handleRentalMining(response.body().string(), getActivity());
+                    if (handle) {
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), "Permintaan Sewa Cloud Mining Berhasil!! Permintaan akan segera diproses!!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), "Gagal melakukan proses permintaan Sewa Cloud Mining", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Uploading...");
+    }
+
+    private String getDate(){
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = df.format(c);
+
+        return formattedDate;
     }
 
     private void encodeImage(){

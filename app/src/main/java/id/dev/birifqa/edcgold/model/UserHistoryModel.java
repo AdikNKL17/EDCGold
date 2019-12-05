@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.model;
 
 public class UserHistoryModel {
+    private String id;
     private String title;
     private String status;
     private String date;
@@ -8,10 +9,19 @@ public class UserHistoryModel {
     public UserHistoryModel() {
     }
 
-    public UserHistoryModel(String title, String status, String date) {
+    public UserHistoryModel(String id, String title, String status, String date) {
+        this.id = id;
         this.title = title;
         this.status = status;
         this.date = date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {

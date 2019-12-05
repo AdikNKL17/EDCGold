@@ -160,7 +160,7 @@ public class HomeActivity extends AppCompatActivity
                     if (handle) {
 
                     } else {
-                        Api.mProgressDialog.dismiss();
+
                     }
 
                 } catch (Exception e) {
@@ -236,7 +236,7 @@ public class HomeActivity extends AppCompatActivity
                         drawer.closeDrawer(GravityCompat.START, true);
                     }
 
-                    if (headerList.get(groupPosition).menuName.equals("Setting")) {
+                    if (headerList.get(groupPosition).menuName.equals("Pengaturan")) {
                         startActivity(new Intent(v.getContext(), SettingActivity.class));
                     }
 

@@ -19,10 +19,12 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
     private View itemView;
     private Context mContext;
     private List<UserHistoryModel> historyModels;
+    private Integer tipe;
 
-    public UserHistoryAdapter(Context mContext, List<UserHistoryModel> historyModels) {
+    public UserHistoryAdapter(Context mContext, List<UserHistoryModel> historyModels, Integer tipe) {
         this.mContext = mContext;
         this.historyModels = historyModels;
+        this.tipe = tipe;
     }
 
     @NonNull
@@ -36,12 +38,31 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final UserHistoryModel history = historyModels.get(position);
 
-        if (position % 2 == 0){
-            holder.itemView.setBackgroundResource(R.color.colorGray);
+        if (tipe == 1){
+            if (position % 2 == 0){
+                holder.itemView.setBackgroundResource(R.color.colorGray);
+            }
+            if (history.getStatus().equals("0")){
+                holder.tvTitle.setText(history.getTitle());
+                holder.tvStatus.setText("Sedang di proses");
+                holder.tvDate.setText(history.getDate());
+            } else {
+                holder.itemView.setVisibility(View.GONE);
+            }
+
+        } else {
+            if (position % 2 == 0){
+                holder.itemView.setBackgroundResource(R.color.colorGray);
+            }
+            if (history.getStatus().equals("1")){
+                holder.tvTitle.setText(history.getTitle());
+                holder.tvStatus.setText("Transaksi Selesai");
+                holder.tvDate.setText(history.getDate());
+            } else {
+                holder.itemView.setVisibility(View.GONE);
+            }
         }
-        holder.tvTitle.setText(history.getTitle());
-        holder.tvStatus.setText(history.getStatus());
-        holder.tvDate.setText(history.getDate());
+
     }
 
     @Override

@@ -79,6 +79,11 @@ public class ParamReq {
         return APIInterface.getUserDetail("Bearer " +token);
     }
 
+    public static Call<ResponseBody> requestNominalRental(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getNominalRental("Bearer " +token);
+    }
+
     public static Call<ResponseBody> requestProvinsi(Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getProvinsi();
@@ -95,6 +100,11 @@ public class ParamReq {
     public static Call<ResponseBody> requestNominalTopup(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getNominalTopup("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> requestTransactionHistory(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getTransactionHistory("Bearer " +token);
     }
 
     public static Call<ResponseBody> reqTopup(String token,Context context) {
@@ -122,6 +132,22 @@ public class ParamReq {
         map.put("images", RequestBody.create(MediaType.parse("multipart/form-data"), image));
 
         return APIInterface.requestTopupConfirmation("Bearer " +token,map);
+    }
+
+    public static Call<ResponseBody> reqRentalMining(String token, String image,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("method_id", RequestBody.create(MediaType.parse("multipart/form-data"), "3"));
+        map.put("nominal", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nominal")));
+        map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), "Sewa mining 1 bulan"));
+        map.put("bank_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nama_bank")));
+        map.put("account_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nama")));
+        map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_jumlah_transfer")));
+        map.put("transfer_date", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_date")));
+        map.put("images", RequestBody.create(MediaType.parse("multipart/form-data"), image));
+
+        return APIInterface.requestRentalMining("Bearer " +token,map);
     }
 
     public static Call<ResponseBody> reqAddBank(String token, String bankName, String bankNumber, String accountNumber,Context context) {
