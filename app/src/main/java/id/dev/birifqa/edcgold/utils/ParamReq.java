@@ -11,16 +11,15 @@ import id.dev.birifqa.edcgold.request.RequestChangeBank;
 import id.dev.birifqa.edcgold.request.RequestChangeEmail;
 import id.dev.birifqa.edcgold.request.RequestChangePassword;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
+import id.dev.birifqa.edcgold.request.RequestChangeRate;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
+import id.dev.birifqa.edcgold.request.RequestRentalProcess;
+import id.dev.birifqa.edcgold.request.RequestTopupProcess;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
-
-/**
- * Created by palapabeta on 02/02/18.
- */
 
 public class ParamReq {
 
@@ -79,6 +78,11 @@ public class ParamReq {
         return APIInterface.getUserDetail("Bearer " +token);
     }
 
+    public static Call<ResponseBody> requestRate(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getRate("Bearer " +token);
+    }
+
     public static Call<ResponseBody> requestNominalRental(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getNominalRental("Bearer " +token);
@@ -105,6 +109,26 @@ public class ParamReq {
     public static Call<ResponseBody> requestTransactionHistory(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getTransactionHistory("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> requestTopupList(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getTopupList("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> requestDetailTopup(String token, String idTopup,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getDetailTopup("Bearer " +token, idTopup);
+    }
+
+    public static Call<ResponseBody> requestRentalList(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getRentalList("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> requestDetailRental(String token, String idRental,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getDetailRental("Bearer " +token, idRental);
     }
 
     public static Call<ResponseBody> reqTopup(String token,Context context) {
@@ -228,9 +252,31 @@ public class ParamReq {
         return APIInterface.changePassword(requestChangePassword);
     }
 
+    public static Call<ResponseBody> changeRate(String token, String saleRate, String buyRate,Context context) {
+        RequestChangeRate requestChangeRate = new RequestChangeRate();
+        requestChangeRate.setBuy_rate(buyRate);
+        requestChangeRate.setSale_rate(saleRate);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changeRate("Bearer " +token, requestChangeRate);
+    }
+
     public static Call<ResponseBody> requestRekeningBank(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getRekeningBank("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> topupProcess(String token, String idTopup, String status,Context context) {
+        RequestTopupProcess requestTopupProcess = new RequestTopupProcess();
+        requestTopupProcess.setStatus(status);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.topupProses("Bearer " +token, idTopup, requestTopupProcess);
+    }
+
+    public static Call<ResponseBody> rentalProcess(String token, String idRental, String status,Context context) {
+        RequestRentalProcess requestRentalProcess = new RequestRentalProcess();
+        requestRentalProcess.setStatus(status);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.rentalProses("Bearer " +token, idRental, requestRentalProcess);
     }
 
 }

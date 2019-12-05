@@ -129,7 +129,7 @@
                     android:background="@drawable/corner_edittext_black">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/konfirmasi"
+                        android:id="@+id/et_email_konfirmasi"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/colorPrimary"
@@ -144,6 +144,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_simpan"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginRight="16dp"
@@ -153,6 +154,7 @@
                         android:textColor="@color/colorWhite" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_batal"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:background="@drawable/corner_edittext_blue"

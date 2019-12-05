@@ -76,7 +76,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/imageView15" />
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/et_nama"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -86,13 +86,13 @@
                     android:drawableRight="@drawable/ic_edit_white_24dp"
                     android:text="Nama Pengguna"
                     android:textColor="@color/colorWhite"
-                    app:layout_constraintBottom_toTopOf="@+id/appCompatButton"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_simpan"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/imageView15" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/appCompatButton"
+                    android:id="@+id/btn_simpan"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginBottom="8dp"
@@ -102,7 +102,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimaryDark"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView15"
-                    app:layout_constraintStart_toStartOf="@+id/editText" />
+                    app:layout_constraintStart_toStartOf="@+id/et_nama" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -38,15 +38,17 @@ public class AdminSewaMiningAdapter extends RecyclerView.Adapter<AdminSewaMining
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminSewaMiningModel sewaMining = sewaMinings.get(position);
 
-        holder.tvNama.setText(sewaMining.getNama_user());
-        holder.tvId.setText(sewaMining.getId_user());
-        holder.tvNoTransaksi.setText(sewaMining.getNo_transaksi());
-        holder.tvTglTransaksi.setText(sewaMining.getTgl_transaksi());
+        holder.tvNama.setText(sewaMining.getName());
+        holder.tvId.setText(sewaMining.getId());
+        holder.tvNoTransaksi.setText(sewaMining.getTransaction_code());
+        holder.tvTglTransaksi.setText(sewaMining.getDate());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, AdminDetailSewaMiningActivity.class));
+                Intent intent = new Intent(mContext, AdminDetailSewaMiningActivity.class);
+                intent.putExtra("id_rental", sewaMining.getId());
+                mContext.startActivity(intent);
             }
         });
     }

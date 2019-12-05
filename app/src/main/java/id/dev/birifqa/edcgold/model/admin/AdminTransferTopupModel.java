@@ -1,50 +1,70 @@
 package id.dev.birifqa.edcgold.model.admin;
 
 public class AdminTransferTopupModel {
-    private String nama_user;
-    private String id_user;
-    private String status_proses;
-    private String tgl_topup;
+    private String id;
+    private String transaction_code;
+    private String userid;
+    private String name;
+    private String status;
+    private String date;
 
     public AdminTransferTopupModel() {
     }
 
-    public AdminTransferTopupModel(String nama_user, String id_user, String status_proses, String tgl_topup) {
-        this.nama_user = nama_user;
-        this.id_user = id_user;
-        this.status_proses = status_proses;
-        this.tgl_topup = tgl_topup;
+    public AdminTransferTopupModel(String id, String transaction_code, String userid, String name, String status, String date) {
+        this.id = id;
+        this.transaction_code = transaction_code;
+        this.userid = userid;
+        this.name = name;
+        this.status = status;
+        this.date = date;
     }
 
-    public String getNama_user() {
-        return nama_user;
+    public String getId() {
+        return id;
     }
 
-    public void setNama_user(String nama_user) {
-        this.nama_user = nama_user;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getId_user() {
-        return id_user;
+    public String getTransaction_code() {
+        return transaction_code;
     }
 
-    public void setId_user(String id_user) {
-        this.id_user = id_user;
+    public void setTransaction_code(String transaction_code) {
+        this.transaction_code = transaction_code;
     }
 
-    public String getStatus_proses() {
-        return status_proses;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setStatus_proses(String status_proses) {
-        this.status_proses = status_proses;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
-    public String getTgl_topup() {
-        return tgl_topup;
+    public String getName() {
+        return name;
     }
 
-    public void setTgl_topup(String tgl_topup) {
-        this.tgl_topup = tgl_topup;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

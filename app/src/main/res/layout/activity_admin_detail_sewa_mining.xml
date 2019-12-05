@@ -36,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/appCompatButton3"
+        app:layout_constraintBottom_toTopOf="@+id/btn_proses"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar">
@@ -78,7 +78,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView31"
+                        android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
@@ -91,6 +91,7 @@
                         app:layout_constraintTop_toTopOf="@+id/appCompatImageView6" />
 
                     <TextView
+                        android:id="@+id/tv_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -98,8 +99,8 @@
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView6"
-                        app:layout_constraintStart_toStartOf="@+id/textView31"
-                        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+                        app:layout_constraintStart_toStartOf="@+id/tv_name"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -126,7 +127,7 @@
                         android:text="Tgl Transaksi :"
                         android:textColor="@color/mdtp_dark_gray"
                         app:layout_constraintStart_toStartOf="@+id/textView32"
-                        app:layout_constraintTop_toTopOf="@+id/textView35" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_date" />
 
                     <TextView
                         android:id="@+id/textView36"
@@ -137,10 +138,10 @@
                         android:text="Pembayaran :"
                         android:textColor="@color/mdtp_dark_gray"
                         app:layout_constraintStart_toStartOf="@+id/textView33"
-                        app:layout_constraintTop_toBottomOf="@+id/textView35" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
                     <TextView
-                        android:id="@+id/textView34"
+                        android:id="@+id/tv_transaction_code"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -153,7 +154,7 @@
                         app:layout_constraintTop_toTopOf="@+id/textView32" />
 
                     <TextView
-                        android:id="@+id/textView35"
+                        android:id="@+id/tv_date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -162,10 +163,11 @@
                         android:text="14/09/2019  -  09:54:00"
                         android:textColor="@color/mdtp_dark_gray"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView34"
-                        app:layout_constraintTop_toBottomOf="@+id/textView34" />
+                        app:layout_constraintStart_toStartOf="@+id/tv_transaction_code"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_transaction_code" />
 
                     <TextView
+                        android:id="@+id/tv_description"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -175,7 +177,7 @@
                         android:textColor="@color/mdtp_dark_gray"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView35"
+                        app:layout_constraintStart_toStartOf="@+id/tv_date"
                         app:layout_constraintTop_toTopOf="@+id/textView36" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
@@ -211,7 +213,7 @@
                     android:text="Nama Pengirim"
                     android:textColor="@color/mdtp_dark_gray"
                     app:layout_constraintStart_toStartOf="@+id/textView37"
-                    app:layout_constraintTop_toTopOf="@+id/textView39" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_atas_nama" />
 
                 <TextView
                     android:id="@+id/textView42"
@@ -221,7 +223,7 @@
                     android:text="No. Rekening"
                     android:textColor="@color/mdtp_dark_gray"
                     app:layout_constraintStart_toStartOf="@+id/textView38"
-                    app:layout_constraintTop_toTopOf="@+id/textView40" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_no_rekening" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -230,10 +232,10 @@
                     android:text="Jumlah Dibayar"
                     android:textColor="@color/mdtp_dark_gray"
                     app:layout_constraintStart_toStartOf="@+id/textView42"
-                    app:layout_constraintTop_toTopOf="@+id/textView43" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_transfer" />
 
                 <TextView
-                    android:id="@+id/textView41"
+                    android:id="@+id/tv_nama_bank"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
@@ -241,11 +243,11 @@
                     android:text=": BCA"
                     android:textColor="@color/mdtp_dark_gray"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView39"
+                    app:layout_constraintStart_toStartOf="@+id/tv_atas_nama"
                     app:layout_constraintTop_toTopOf="@+id/textView37" />
 
                 <TextView
-                    android:id="@+id/textView39"
+                    android:id="@+id/tv_atas_nama"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -256,10 +258,10 @@
                     android:textColor="@color/mdtp_dark_gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView38"
-                    app:layout_constraintTop_toBottomOf="@+id/textView41" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_nama_bank" />
 
                 <TextView
-                    android:id="@+id/textView40"
+                    android:id="@+id/tv_no_rekening"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -268,11 +270,11 @@
                     android:text=": 2532536266226"
                     android:textColor="@color/mdtp_dark_gray"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView39"
-                    app:layout_constraintTop_toBottomOf="@+id/textView39" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_atas_nama"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_atas_nama" />
 
                 <TextView
-                    android:id="@+id/textView43"
+                    android:id="@+id/tv_transfer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -281,8 +283,8 @@
                     android:text=": Rp. 500.000"
                     android:textColor="@color/mdtp_dark_gray"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView40"
-                    app:layout_constraintTop_toBottomOf="@+id/textView40" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_no_rekening"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_no_rekening" />
 
                 <TextView
                     android:id="@+id/textView44"
@@ -294,7 +296,7 @@
                     android:textColor="@color/mdtp_dark_gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView43" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_transfer" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -329,7 +331,7 @@
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appCompatButton3"
+        android:id="@+id/btn_proses"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

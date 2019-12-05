@@ -14,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -23,6 +26,13 @@ import id.dev.birifqa.edcgold.activity_user.WalletReceiveActivity;
 import id.dev.birifqa.edcgold.activity_user.WalletSendActivity;
 import id.dev.birifqa.edcgold.adapter.UserAktifitasAdapter;
 import id.dev.birifqa.edcgold.model.UserAktifitasModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +45,8 @@ public class FragmentUserWallet extends Fragment {
     private UserAktifitasAdapter aktifitasAdapter;
     private ArrayList<UserAktifitasModel> aktifitasModels;
     private AppCompatButton btnSend, btnReceive;
+    private TextView tvName, tvCoin;
+    private Callback<ResponseBody> cBack;
 
     public FragmentUserWallet() {
         // Required empty public constructor
@@ -58,6 +70,8 @@ public class FragmentUserWallet extends Fragment {
         recyclerView = view.findViewById(R.id.rv_aktifitas);
         btnSend = view.findViewById(R.id.btn_send);
         btnReceive = view.findViewById(R.id.btn_receive);
+        tvName = view.findViewById(R.id.tv_name);
+        tvCoin = view.findViewById(R.id.tv_coin);
     }
 
     private void onAction(){
@@ -84,7 +98,32 @@ public class FragmentUserWallet extends Fragment {
             }
         });
 
+        getUserDetail();
         getData();
+    }
+
+    private void getUserDetail(){
+        Call<ResponseBody> call = ParamReq.requestUserDetail(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                    JSONObject coinObject = dataObject.getJSONObject("coin");
+                    tvName.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                    tvCoin.setText(coinObject.getString("balance_coin"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 
     private void getData(){

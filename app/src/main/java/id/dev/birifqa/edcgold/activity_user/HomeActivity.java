@@ -59,6 +59,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -156,12 +158,11 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    boolean handle = Handle.handleHome(response.body().string(), tvName, tvCoin, tvNameHeader, tvEmailHeader, HomeActivity.this);
-                    if (handle) {
-
-                    } else {
-
-                    }
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                    JSONObject coinObject = dataObject.getJSONObject("coin");
+                    tvNameHeader.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                    tvEmailHeader.setText(dataObject.getString("email"));
 
                 } catch (Exception e) {
                     e.printStackTrace();

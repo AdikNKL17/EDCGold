@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_admin;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,12 +13,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminTransferTopupAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminTransferTopupModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.Handle;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +38,9 @@ public class FragmentAdminTopup extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private AdminTransferTopupAdapter transferTopupAdapter;
-    private ArrayList<AdminTransferTopupModel> transferTopupModels;
+    private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
+
 
     private ImageView btnSetting;
 
@@ -49,13 +62,15 @@ public class FragmentAdminTopup extends Fragment {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+
         recyclerView = view.findViewById(R.id.rv_transfer_topup);
         btnSetting = view.findViewById(R.id.btn_setting);
     }
 
     private void onAction(){
-        transferTopupModels = new ArrayList<>();
-        transferTopupAdapter = new AdminTransferTopupAdapter(getActivity(), transferTopupModels);
+        Api.adminTransferTopupModels = new ArrayList<>();
+        transferTopupAdapter = new AdminTransferTopupAdapter(getActivity(), Api.adminTransferTopupModels);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(transferTopupAdapter);
@@ -70,37 +85,36 @@ public class FragmentAdminTopup extends Fragment {
         getData();
     }
 
+
     private void getData(){
-        transferTopupModels.clear();
+        Api.adminTransferTopupModels.clear();
 
-        AdminTransferTopupModel transferTopup1 = new AdminTransferTopupModel();
-        transferTopup1.setNama_user("Habib A.M");
-        transferTopup1.setId_user("ID. 52802000611111");
-        transferTopup1.setStatus_proses("Belum di proses");
-        transferTopup1.setTgl_topup("11-10-2019");
-        transferTopupModels.add(transferTopup1);
+        dialog.show();
+        Call<ResponseBody> call = ParamReq.requestTopupList(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    boolean handle = Handle.handleTopupList(response.body().string(), getActivity());
+                    if (handle) {
+                        dialog.dismiss();
+                        transferTopupAdapter.notifyDataSetChanged();
+                    } else {
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), "Gagal mengambil data history", Toast.LENGTH_SHORT).show();
+                    }
 
-        AdminTransferTopupModel transferTopup2 = new AdminTransferTopupModel();
-        transferTopup2.setNama_user("Ujang S.");
-        transferTopup2.setId_user("ID. 206503444405");
-        transferTopup2.setStatus_proses("Belum di proses");
-        transferTopup2.setTgl_topup("05-10-2019");
-        transferTopupModels.add(transferTopup2);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-        AdminTransferTopupModel transferTopup3 = new AdminTransferTopupModel();
-        transferTopup3.setNama_user("Nadia H");
-        transferTopup3.setId_user("ID. 5800048450311");
-        transferTopup3.setStatus_proses("Berhasil di proses ");
-        transferTopup3.setTgl_topup("15-09-2019");
-        transferTopupModels.add(transferTopup3);
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
 
-        AdminTransferTopupModel transferTopup4 = new AdminTransferTopupModel();
-        transferTopup4.setNama_user("Rani H. A");
-        transferTopup4.setId_user("ID. 1220364544044");
-        transferTopup4.setStatus_proses("Berhasil di proses ");
-        transferTopup4.setTgl_topup("08-09-2019");
-        transferTopupModels.add(transferTopup4);
-
-        transferTopupAdapter.notifyDataSetChanged();
     }
 }

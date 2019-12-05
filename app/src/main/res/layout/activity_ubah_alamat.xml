@@ -60,17 +60,24 @@
                     android:layout_height="wrap_content"
                     android:text="Provinsi"
                     android:textColor="@color/colorPrimary"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_provinsi"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:cursorVisible="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_provinsi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_marginTop="4dp"
+                        android:backgroundTint="@color/colorPrimary"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -85,16 +92,23 @@
                     android:layout_height="wrap_content"
                     android:text="Kabupaten / Kota"
                     android:textColor="@color/colorPrimary"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_kabkota"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:cursorVisible="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_kabkota"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_marginTop="4dp"
+                        android:backgroundTint="@color/colorPrimary"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -109,16 +123,23 @@
                     android:layout_height="wrap_content"
                     android:text="Kecamatan"
                     android:textColor="@color/colorPrimary"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_kecamatan"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:cursorVisible="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_kecamatan"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_marginTop="4dp"
+                        android:backgroundTint="@color/colorPrimary"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -133,13 +154,20 @@
                     android:layout_height="wrap_content"
                     android:text="Kode Pos"
                     android:textColor="@color/colorPrimary"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_kodepos"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_kodepos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
+                        android:backgroundTint="@color/colorPrimary"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -154,14 +182,21 @@
                     android:layout_height="wrap_content"
                     android:text="Alamat Lengkap"
                     android:textColor="@color/colorPrimary"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_alamat"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
-                    android:minLines="4"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_alamat"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
+                        android:minLines="4"
+                        android:backgroundTint="@color/colorPrimary"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
         </LinearLayout>

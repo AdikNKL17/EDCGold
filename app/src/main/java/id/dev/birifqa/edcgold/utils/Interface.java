@@ -7,7 +7,10 @@ import id.dev.birifqa.edcgold.request.RequestChangeBank;
 import id.dev.birifqa.edcgold.request.RequestChangeEmail;
 import id.dev.birifqa.edcgold.request.RequestChangePassword;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
+import id.dev.birifqa.edcgold.request.RequestChangeRate;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
+import id.dev.birifqa.edcgold.request.RequestRentalProcess;
+import id.dev.birifqa.edcgold.request.RequestTopupProcess;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -37,6 +40,9 @@ public interface Interface {
     @GET("http://45.77.252.55/api/district/{id}")
     Call<ResponseBody> getKecamatan(@Path("id") String id_kab);
 
+    @GET("http://45.77.252.55/api/rate")
+    Call<ResponseBody> getRate(@Header("Authorization") String authorization);
+
     @GET("http://45.77.252.55/api/bank_user")
     Call<ResponseBody> getRekeningBank(@Header("Authorization") String authorization);
 
@@ -48,6 +54,18 @@ public interface Interface {
 
     @GET("http://45.77.252.55/api/history")
     Call<ResponseBody> getTransactionHistory(@Header("Authorization") String authorization);
+
+    @GET("http://45.77.252.55/api/topup_list")
+    Call<ResponseBody> getTopupList(@Header("Authorization") String authorization);
+
+    @GET("http://45.77.252.55/api/topup_detail/{id}")
+    Call<ResponseBody> getDetailTopup(@Header("Authorization") String authorization, @Path("id") String id_topup);
+
+    @GET("http://45.77.252.55/api/rental_list")
+    Call<ResponseBody> getRentalList(@Header("Authorization") String authorization);
+
+    @GET("http://45.77.252.55/api/rental_detail/{id}")
+    Call<ResponseBody> getDetailRental(@Header("Authorization") String authorization, @Path("id") String id_rental);
 
     //POST
     @Multipart
@@ -104,6 +122,16 @@ public interface Interface {
 
     @PUT("http://45.77.252.55/api/reset")
     Call<ResponseBody> changePassword(@Body RequestChangePassword requestChangePassword);
+
+    @PUT("http://45.77.252.55/api/rate")
+    Call<ResponseBody> changeRate(@Header("Authorization") String authorization, @Body RequestChangeRate requestChangeRate);
+
+    @PUT("http://45.77.252.55/api/process_transaction/{id}")
+    Call<ResponseBody> topupProses(@Header("Authorization") String authorization, @Path("id") String id_topup, @Body RequestTopupProcess requestTopupProcess);
+
+    @PUT("http://45.77.252.55/api/process_transaction/{id}")
+    Call<ResponseBody> rentalProses(@Header("Authorization") String authorization, @Path("id") String id_rental, @Body RequestRentalProcess requestRentalProcess);
+
 }
 
 

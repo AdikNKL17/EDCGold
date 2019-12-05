@@ -86,7 +86,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_coin"
+                    android:id="@+id/tv_coin_masuk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -103,12 +103,6 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView7" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
-                android:id="@+id/view4"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:layout_editor_absoluteX="180dp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/img_coin_keluar"
@@ -139,7 +133,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_coin2"
+                    android:id="@+id/tv_coin_keluar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -200,12 +194,12 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_arrow_upward_red_24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_rate_jual"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toTopOf="@+id/textView13" />
+                app:layout_constraintTop_toTopOf="@+id/tv_rate_jual" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/tv_rate_jual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -223,12 +217,12 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_arrow_downward_green_24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView15"
-                app:layout_constraintEnd_toStartOf="@+id/textView15"
-                app:layout_constraintTop_toTopOf="@+id/textView15" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_rate_beli"
+                app:layout_constraintEnd_toStartOf="@+id/tv_rate_beli"
+                app:layout_constraintTop_toTopOf="@+id/tv_rate_beli" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/tv_rate_beli"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -250,7 +244,7 @@
                 android:background="@color/colorGray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_rate_jual" />
 
             <Switch
                 android:id="@+id/switch1"
@@ -293,11 +287,12 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/corner_edittext_blue"
-                app:layout_constraintEnd_toStartOf="@+id/imageView13"
+                app:layout_constraintEnd_toStartOf="@+id/btn_buy_rate"
                 app:layout_constraintStart_toStartOf="@+id/textView16"
                 app:layout_constraintTop_toBottomOf="@+id/textView16">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_buy_rate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="8dp" />
@@ -305,7 +300,7 @@
 
 
             <ImageView
-                android:id="@+id/imageView13"
+                android:id="@+id/btn_buy_rate"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
@@ -336,17 +331,18 @@
                 android:layout_marginBottom="32dp"
                 android:background="@drawable/corner_edittext_blue"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView14"
+                app:layout_constraintEnd_toStartOf="@+id/btn_sale_rate"
                 app:layout_constraintStart_toStartOf="@+id/textView17"
                 app:layout_constraintTop_toBottomOf="@+id/textView17">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_sale_rate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
-                android:id="@+id/imageView14"
+                android:id="@+id/btn_sale_rate"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
