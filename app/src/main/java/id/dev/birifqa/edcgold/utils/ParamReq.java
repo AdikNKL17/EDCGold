@@ -15,6 +15,7 @@ import id.dev.birifqa.edcgold.request.RequestChangeRate;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
 import id.dev.birifqa.edcgold.request.RequestRentalProcess;
 import id.dev.birifqa.edcgold.request.RequestTopupProcess;
+import id.dev.birifqa.edcgold.request.RequestUpdateRate;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -277,6 +278,14 @@ public class ParamReq {
         requestRentalProcess.setStatus(status);
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.rentalProses("Bearer " +token, idRental, requestRentalProcess);
+    }
+
+    public static Call<ResponseBody> updateRate(String token, String buyRate, String saleRate,Context context) {
+        RequestUpdateRate requestUpdateRate = new RequestUpdateRate();
+        requestUpdateRate.setBuy_rate(buyRate);
+        requestUpdateRate.setSale_rate(saleRate);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.updateRate("Bearer " +token, requestUpdateRate);
     }
 
 }

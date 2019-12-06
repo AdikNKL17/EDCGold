@@ -11,6 +11,7 @@ import id.dev.birifqa.edcgold.request.RequestChangeRate;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
 import id.dev.birifqa.edcgold.request.RequestRentalProcess;
 import id.dev.birifqa.edcgold.request.RequestTopupProcess;
+import id.dev.birifqa.edcgold.request.RequestUpdateRate;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -132,6 +133,8 @@ public interface Interface {
     @PUT("http://45.77.252.55/api/process_transaction/{id}")
     Call<ResponseBody> rentalProses(@Header("Authorization") String authorization, @Path("id") String id_rental, @Body RequestRentalProcess requestRentalProcess);
 
+    @PUT("http://45.77.252.55/api/rate")
+    Call<ResponseBody> updateRate(@Header("Authorization") String authorization, @Body RequestUpdateRate requestUpdateRate);
 }
 
 

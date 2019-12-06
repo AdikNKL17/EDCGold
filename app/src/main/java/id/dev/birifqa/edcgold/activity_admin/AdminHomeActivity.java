@@ -169,20 +169,54 @@ public class AdminHomeActivity extends AppCompatActivity
         btnBuyRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (!etBuyRate.getText().toString().isEmpty()){
+                    updateRate(etBuyRate.getText().toString(), rateJual.toString());
+                } else {
+                    Toast.makeText(AdminHomeActivity.this, "Harap isi Buy Rate terlebih dahulu", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnSaleRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (!etSaleRate.getText().toString().isEmpty()){
+                    updateRate(rateBeli.toString(), etSaleRate.getText().toString());
+                } else {
+                    Toast.makeText(AdminHomeActivity.this, "Harap isi Sale Rate terlebih dahulu", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         getRate();
 
         dialog1.show();
+    }
+
+    private void updateRate(String buyRate, String saleRate){
+        Call<ResponseBody> call = ParamReq.updateRate(session.get("token"), buyRate, saleRate, AdminHomeActivity.this);
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    if (jsonObject.getBoolean("success")){
+                        Toast.makeText(AdminHomeActivity.this, "Rate berhasil update", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AdminHomeActivity.this, "Gagal update rate", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(AdminHomeActivity.this, call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(AdminHomeActivity.this, call, cBack, false, "Loading");
     }
 
     private void getRate(){
