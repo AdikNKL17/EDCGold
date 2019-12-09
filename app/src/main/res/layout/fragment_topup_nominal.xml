@@ -20,14 +20,16 @@
             android:text="Masukkan nominal uang"
             android:fontFamily="@font/circular_std_medium"
             android:gravity="center"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_nominal"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:visibility="gone"/>
 
 
         <LinearLayout
@@ -56,7 +58,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/btn_topup_1"
@@ -216,6 +219,7 @@
                             android:id="@+id/btn_topup_4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
                             android:layout_weight="1"
                             android:layout_marginRight="8dp"
                             android:background="@drawable/bt_bg_white">
@@ -240,7 +244,7 @@
                                 android:layout_marginBottom="8dp"
                                 android:fontFamily="@font/circular_std_black"
                                 android:gravity="center"
-                                android:text="1"
+                                android:text="2"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -289,7 +293,7 @@
                                 android:layout_marginBottom="8dp"
                                 android:fontFamily="@font/circular_std_black"
                                 android:gravity="center"
-                                android:text="2"
+                                android:text="3"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -315,6 +319,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginLeft="8dp"
+                            android:visibility="gone"
                             android:background="@drawable/bt_bg_white">
 
                             <TextView
@@ -371,6 +376,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:layout_marginLeft="8dp"
                             android:layout_marginRight="8dp"
                             android:background="@drawable/bt_bg_white">
 
@@ -395,7 +401,7 @@
                                 android:layout_marginBottom="8dp"
                                 android:fontFamily="@font/circular_std_black"
                                 android:gravity="center"
-                                android:text="7"
+                                android:text="4"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -444,7 +450,7 @@
                                 android:layout_marginBottom="8dp"
                                 android:fontFamily="@font/circular_std_black"
                                 android:gravity="center"
-                                android:text="10"
+                                android:text="5"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -470,6 +476,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginLeft="8dp"
+                            android:visibility="gone"
                             android:background="@drawable/bt_bg_white">
                             <TextView
                                 android:id="@+id/tv_rp_9"
