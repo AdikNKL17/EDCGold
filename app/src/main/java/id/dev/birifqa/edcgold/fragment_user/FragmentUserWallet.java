@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_user;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,10 +17,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.HomeActivity;
 import id.dev.birifqa.edcgold.activity_user.WalletReceiveActivity;
@@ -47,6 +50,8 @@ public class FragmentUserWallet extends Fragment {
     private AppCompatButton btnSend, btnReceive;
     private TextView tvName, tvCoin;
     private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
+
 
     public FragmentUserWallet() {
         // Required empty public constructor
@@ -66,6 +71,8 @@ public class FragmentUserWallet extends Fragment {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+
         noData = view.findViewById(R.id.no_data);
         recyclerView = view.findViewById(R.id.rv_aktifitas);
         btnSend = view.findViewById(R.id.btn_send);
@@ -99,10 +106,12 @@ public class FragmentUserWallet extends Fragment {
         });
 
         getUserDetail();
-        getData();
+        getDataAktifitas();
+        getDataReceive();
     }
 
     private void getUserDetail(){
+        dialog.show();
         Call<ResponseBody> call = ParamReq.requestUserDetail(Session.get("token"), getActivity());
         cBack = new Callback<ResponseBody>() {
             @Override
@@ -114,6 +123,7 @@ public class FragmentUserWallet extends Fragment {
                     tvName.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
                     tvCoin.setText(coinObject.getString("balance_coin"));
                 } catch (Exception e) {
+                    dialog.dismiss();
                     e.printStackTrace();
                 }
             }
@@ -126,38 +136,81 @@ public class FragmentUserWallet extends Fragment {
         Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 
-    private void getData(){
+    private void getDataAktifitas(){
         aktifitasModels.clear();
 
-        UserAktifitasModel data1 = new UserAktifitasModel();
-        data1.setTipe("1");
-        data1.setTitle("Anda Melakukan Deposit");
-        data1.setStatus("Transaksi Selesai");
-        data1.setDate("05-06-2019 ");
-        data1.setNominal("Rp. 2.500.000");
+        Call<ResponseBody> call = ParamReq.requestTransactionHistory(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONArray dataObject = jsonObject.getJSONArray("data");
 
-        aktifitasModels.add(data1);
+                    if (dataObject.length() > 0){
+                        for (int i = 0; i<= dataObject.length() ; i++){
+                            UserAktifitasModel model = new UserAktifitasModel();
+                            model.setId(dataObject.getJSONObject(i).getString("id"));
+                            model.setBuyer_id(dataObject.getJSONObject(i).getString("buyer_id"));
+                            model.setSeller_id(dataObject.getJSONObject(i).getString("seller_id"));
+                            model.setTransaction_code(dataObject.getJSONObject(i).getString("transaction_code"));
+                            model.setMethod(dataObject.getJSONObject(i).getString("method"));
+                            model.setNominal(dataObject.getJSONObject(i).getString("nominal"));
+                            model.setBalance_point(dataObject.getJSONObject(i).getString("balance_point"));
+                            model.setBalance_coin(dataObject.getJSONObject(i).getString("balance_coin"));
+                            model.setAmount_point(dataObject.getJSONObject(i).getString("amount_point"));
+                            model.setAmount_coin(dataObject.getJSONObject(i).getString("amount_coin"));
+                            model.setStatus(dataObject.getJSONObject(i).getString("status"));
+                            model.setDescription(dataObject.getJSONObject(i).getString("description"));
+                            model.setCreated_at(dataObject.getJSONObject(i).getString("created_at"));
+                            model.setUpdated_at(dataObject.getJSONObject(i).getString("updated_at"));
+                            model.setType_transfer(dataObject.getJSONObject(i).getString("type_transfer"));
 
-        UserAktifitasModel data2 = new UserAktifitasModel();
-        data2.setTipe("1");
-        data2.setTitle("Anda Melakukan Top Up");
-        data2.setStatus("Transaksi Selesai");
-        data2.setDate("05-06-2019 ");
-        data2.setNominal("Rp. 2.500.000");
+                            aktifitasModels.add(model);
+                        }
+                    }
+                } catch (Exception e) {
+                    dialog.dismiss();
+                    e.printStackTrace();
+                }
+            }
 
-        aktifitasModels.add(data2);
-
-        UserAktifitasModel data3 = new UserAktifitasModel();
-        data3.setTipe("2");
-        data3.setTitle("Anda Melakukan Pembelian Koin");
-        data3.setStatus("Transaksi Selesai");
-        data3.setDate("25-05-2019 ");
-        data3.setNominal("Rp. 50.000");
-
-        aktifitasModels.add(data3);
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
 
 
         aktifitasAdapter.notifyDataSetChanged();
+    }
+    private void getDataReceive(){
+        Call<ResponseBody> call = ParamReq.requestHistoryReceive(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONArray dataObject = jsonObject.getJSONArray("data");
+
+                    if (dataObject.length() > 0){
+                        dialog.dismiss();
+                    } else {
+
+                    }
+                } catch (Exception e) {
+                    dialog.dismiss();
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 
 }
