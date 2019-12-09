@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Masukkan ID Pengirim"
+            android:text="Masukkan ID Penerima"
             android:fontFamily="@font/circular_std_medium"
             android:gravity="center"
             android:textColor="@color/mdtp_dark_gray" />
@@ -56,9 +56,10 @@
             android:background="@drawable/corner_topup_edittext"
             android:layout_marginTop="8dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_id_pengirim"
+                android:id="@+id/et_id_penerima"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 

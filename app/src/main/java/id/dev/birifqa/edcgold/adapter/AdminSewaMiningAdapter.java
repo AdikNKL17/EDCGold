@@ -39,7 +39,7 @@ public class AdminSewaMiningAdapter extends RecyclerView.Adapter<AdminSewaMining
         final AdminSewaMiningModel sewaMining = sewaMinings.get(position);
 
         holder.tvNama.setText(sewaMining.getName());
-        holder.tvId.setText(sewaMining.getId());
+        holder.tvId.setText(sewaMining.getUserid());
         holder.tvNoTransaksi.setText(sewaMining.getTransaction_code());
         holder.tvTglTransaksi.setText(sewaMining.getDate());
 

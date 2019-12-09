@@ -22,31 +22,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminPengaturanSewaActivity extends AppCompatActivity {
+public class AdminPengaturanTopupActivity extends AppCompatActivity {
 
     private Callback<ResponseBody> cBack;
     private AlertDialog dialog;
     private Toolbar toolbar;
-    private EditText etNominal, etLamaSewa, etNamaBank, etNoRekening, etNamaPemilik;
+    private EditText etNominal;
     private AppCompatButton btnSimpan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_pengaturan_sewa);
+        setContentView(R.layout.activity_admin_pengaturan_topup);
 
         findViewById();
         onAction();
     }
 
     private void findViewById(){
-        dialog = new SpotsDialog.Builder().setContext(AdminPengaturanSewaActivity.this).build();
+        dialog = new SpotsDialog.Builder().setContext(AdminPengaturanTopupActivity.this).build();
         toolbar = findViewById(R.id.toolbar);
         etNominal = findViewById(R.id.et_nominal);
-        etLamaSewa = findViewById(R.id.et_lama_sewa);
-        etNamaBank = findViewById(R.id.et_nama_bank);
-        etNoRekening = findViewById(R.id.et_no_rekening);
-        etNamaPemilik = findViewById(R.id.et_nama_pemilik);
         btnSimpan = findViewById(R.id.btn_simpan);
     }
 
@@ -55,28 +51,25 @@ public class AdminPengaturanSewaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-                AdminPengaturanSewaActivity.this.finish();
+                AdminPengaturanTopupActivity.this.finish();
             }
         });
 
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etNominal.getText().toString().isEmpty() || !etLamaSewa.getText().toString().isEmpty() ||
-                        !etNamaBank.getText().toString().isEmpty() || !etNoRekening.getText().toString().isEmpty() ||
-                        !etNamaPemilik.getText().toString().isEmpty()){
-                    updateRate();
+                if (!etNominal.getText().toString().isEmpty()){
+                    updateTopup();
                 } else {
-                    Toast.makeText(AdminPengaturanSewaActivity.this, "Harap diisi semua", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminPengaturanTopupActivity.this, "Harap diisi nominal topup", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void updateRate(){
+    private void updateTopup(){
         dialog.show();
-        Call<ResponseBody> call = ParamReq.updateRental(Session.get("token"), etNominal.getText().toString(), etLamaSewa.getText().toString(),
-                etNamaBank.getText().toString(), etNoRekening.getText().toString(), etNamaPemilik.getText().toString(),AdminPengaturanSewaActivity.this);
+        Call<ResponseBody> call = ParamReq.updateTopup(Session.get("token"), etNominal.getText().toString(),AdminPengaturanTopupActivity.this);
         cBack = new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -85,11 +78,11 @@ public class AdminPengaturanSewaActivity extends AppCompatActivity {
                     if (jsonObject.getBoolean("success")){
                         dialog.dismiss();
                         onBackPressed();
-                        AdminPengaturanSewaActivity.this.finish();
-                        Toast.makeText(AdminPengaturanSewaActivity.this, "Rental berhasil update", Toast.LENGTH_SHORT).show();
+                        AdminPengaturanTopupActivity.this.finish();
+                        Toast.makeText(AdminPengaturanTopupActivity.this, "Rental berhasil update", Toast.LENGTH_SHORT).show();
                     } else {
                         dialog.dismiss();
-                        Toast.makeText(AdminPengaturanSewaActivity.this, "Gagal update rental", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminPengaturanTopupActivity.this, "Gagal update nominal topup", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -99,9 +92,9 @@ public class AdminPengaturanSewaActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Api.retryDialog(AdminPengaturanSewaActivity.this, call, cBack, 1, false);
+                Api.retryDialog(AdminPengaturanTopupActivity.this, call, cBack, 1, false);
             }
         };
-        Api.enqueueWithRetry(AdminPengaturanSewaActivity.this, call, cBack, false, "Loading");
+        Api.enqueueWithRetry(AdminPengaturanTopupActivity.this, call, cBack, false, "Loading");
     }
 }

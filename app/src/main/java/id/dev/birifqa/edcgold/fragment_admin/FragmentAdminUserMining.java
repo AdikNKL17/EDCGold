@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_admin;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,12 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminUserMiningAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminUserMiningModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.Handle;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +38,8 @@ public class FragmentAdminUserMining extends Fragment {
     private RecyclerView recyclerView;
     private AdminUserMiningAdapter userMiningAdapter;
     private ArrayList<AdminUserMiningModel> userMiningModels;
+    private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
 
     public FragmentAdminUserMining() {
         // Required empty public constructor
@@ -46,12 +59,14 @@ public class FragmentAdminUserMining extends Fragment {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+
         recyclerView = view.findViewById(R.id.rv_user_mining);
     }
 
     private void onAction(){
-        userMiningModels = new ArrayList<>();
-        userMiningAdapter = new AdminUserMiningAdapter(getActivity(), userMiningModels);
+        Api.adminUserMiningModels = new ArrayList<>();
+        userMiningAdapter = new AdminUserMiningAdapter(getActivity(), Api.adminUserMiningModels);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(userMiningAdapter);
@@ -60,37 +75,34 @@ public class FragmentAdminUserMining extends Fragment {
     }
 
     private void getData(){
-        userMiningModels.clear();
+        Api.adminUserMiningModels.clear();
 
-        AdminUserMiningModel userMining1 = new AdminUserMiningModel();
-        userMining1.setNama_user("Olivier Straw");
-        userMining1.setId_user("ID - 52802000611111");
-        userMining1.setMulai_mining("Mulai Mining : 15/09/2019  09:05 PM");
-        userMining1.setSisa_waktu("Sisa Waktu - 05 : 45 : 09");
-        userMiningModels.add(userMining1);
+        dialog.show();
+        Call<ResponseBody> call = ParamReq.requestUserMiningList(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    boolean handle = Handle.handleUserMiningList(response.body().string(), getActivity());
+                    if (handle) {
+                        dialog.dismiss();
+                        userMiningAdapter.notifyDataSetChanged();
+                    } else {
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), "Gagal mengambil data user mining aktif", Toast.LENGTH_SHORT).show();
+                    }
 
-        AdminUserMiningModel userMining2 = new AdminUserMiningModel();
-        userMining2.setNama_user("Fachrul Roni");
-        userMining2.setId_user("ID - 3523523626266");
-        userMining2.setMulai_mining("Mulai Mining : 14/09/2019  16:05 PM ");
-        userMining2.setSisa_waktu("Sisa Waktu - 00 : 35 : 05");
-        userMiningModels.add(userMining2);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-        AdminUserMiningModel userMining3 = new AdminUserMiningModel();
-        userMining3.setNama_user("Amin Surya");
-        userMining3.setId_user("ID - 2412414251500");
-        userMining3.setMulai_mining("Mulai Mining : 14/09/2019  15:45 PM");
-        userMining3.setSisa_waktu("Sisa Waktu - 00 : 25 : 00");
-        userMiningModels.add(userMining3);
-
-        AdminUserMiningModel userMining4 = new AdminUserMiningModel();
-        userMining4.setNama_user("Soraya Larasati");
-        userMining4.setId_user("ID - 353153207888");
-        userMining4.setMulai_mining("Mulai Mining : 14/09/2019  15:35 PM");
-        userMining4.setSisa_waktu("Sisa Waktu - 00 : 15 : 09");
-        userMiningModels.add(userMining4);
-
-        userMiningAdapter.notifyDataSetChanged();
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 
 }

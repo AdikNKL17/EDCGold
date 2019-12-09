@@ -1,6 +1,9 @@
 package id.dev.birifqa.edcgold.activity_user;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -138,7 +141,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void onAction(){
-        loadFragment(new FragmentUserWallet());
+        loadFragment(new FragmentUserProfile());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         prepareMenuData();
@@ -161,6 +164,8 @@ public class HomeActivity extends AppCompatActivity
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     JSONObject dataObject = jsonObject.getJSONObject("data");
                     JSONObject coinObject = dataObject.getJSONObject("coin");
+                    JSONObject referralObject = dataObject.getJSONObject("referral");
+                    Session.save("referral", referralObject.getString("referral_code"));
                     tvNameHeader.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
                     tvEmailHeader.setText(dataObject.getString("email"));
 
@@ -299,6 +304,10 @@ public class HomeActivity extends AppCompatActivity
 
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         ImageView btnClose = dialogView.findViewById(R.id.btn_close);
+        ImageView btnCopy = dialogView.findViewById(R.id.btn_copy);
+        TextView tvReferral = dialogView.findViewById(R.id.tv_referral);
+
+        tvReferral.setText(Session.get("referral"));
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -306,6 +315,23 @@ public class HomeActivity extends AppCompatActivity
                 alertDialog.dismiss();
             }
         });
+
+        btnCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("referral", Session.get("referral"));
+                clipboard.setPrimaryClip(clip);
+
+                Toast.makeText(HomeActivity.this, "Referral code is copied", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Session.save("wallet_id_penerima", "");
+        Session.save("wallet_nama_penerima", "");
+        Session.save("wallet_sale_rate", "");
+        Session.save("wallet_buy_rate", "");
+        Session.save("wallet_fee", "");
 
         alertDialog.show();
     }

@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_admin;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,12 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminUserAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminUserModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.Handle;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +38,8 @@ public class FragmentAdminUserAktif extends Fragment {
     private RecyclerView recyclerView;
     private AdminUserAdapter userAdapter;
     private ArrayList<AdminUserModel> userModels;
+    private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
 
     public FragmentAdminUserAktif() {
         // Required empty public constructor
@@ -46,12 +59,14 @@ public class FragmentAdminUserAktif extends Fragment {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+
         recyclerView = view.findViewById(R.id.rv_user_aktif);
     }
 
     private void onAction(){
-        userModels = new ArrayList<>();
-        userAdapter = new AdminUserAdapter(getActivity(), userModels);
+        Api.adminUserAktifModels = new ArrayList<>();
+        userAdapter = new AdminUserAdapter(getActivity(), Api.adminUserAktifModels);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(userAdapter);
@@ -60,65 +75,34 @@ public class FragmentAdminUserAktif extends Fragment {
     }
 
     private void getData(){
-        userModels.clear();
+        Api.adminUserAktifModels.clear();
 
-        AdminUserModel user1 = new AdminUserModel();
-        user1.setId("ID. 42802000611111");
-        userModels.add(user1);
+        dialog.show();
+        Call<ResponseBody> call = ParamReq.requestUserList(Session.get("token"), "0", "0", "", getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    boolean handle = Handle.handleUserList(response.body().string(), "3", getActivity());
+                    if (handle) {
+                        dialog.dismiss();
+                        userAdapter.notifyDataSetChanged();
+                    } else {
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), "Gagal mengambil data user", Toast.LENGTH_SHORT).show();
+                    }
 
-        AdminUserModel user2 = new AdminUserModel();
-        user2.setId("ID. 42802000611112");
-        userModels.add(user2);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-        AdminUserModel user3 = new AdminUserModel();
-        user3.setId("ID. 42802000611113");
-        userModels.add(user3);
-
-        AdminUserModel user4 = new AdminUserModel();
-        user4.setId("ID. 42802000611114");
-        userModels.add(user4);
-
-        AdminUserModel user5 = new AdminUserModel();
-        user5.setId("ID. 42802000611115");
-        userModels.add(user5);
-
-        AdminUserModel user6 = new AdminUserModel();
-        user6.setId("ID. 42802000611115");
-        userModels.add(user6);
-
-        AdminUserModel user7 = new AdminUserModel();
-        user7.setId("ID. 42802000611115");
-        userModels.add(user7);
-
-        AdminUserModel user8 = new AdminUserModel();
-        user8.setId("ID. 42802000611115");
-        userModels.add(user8);
-
-        AdminUserModel user9 = new AdminUserModel();
-        user9.setId("ID. 42802000611115");
-        userModels.add(user9);
-
-        AdminUserModel user10 = new AdminUserModel();
-        user10.setId("ID. 42802000611115");
-        userModels.add(user10);
-
-        AdminUserModel user11 = new AdminUserModel();
-        user11.setId("ID. 42802000611115");
-        userModels.add(user11);
-
-        AdminUserModel user12 = new AdminUserModel();
-        user12.setId("ID. 42802000611115");
-        userModels.add(user12);
-
-        AdminUserModel user13 = new AdminUserModel();
-        user13.setId("ID. 42802000611115");
-        userModels.add(user13);
-
-        AdminUserModel user14 = new AdminUserModel();
-        user14.setId("ID. 42802000611115");
-        userModels.add(user14);
-
-        userAdapter.notifyDataSetChanged();
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 
 }

@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.activity_user;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.PagerSewaCloudAdapter;
@@ -24,6 +25,7 @@ public class SewaCloudActivity extends AppCompatActivity {
     private StepperIndicator indicator;
     private ImageView btnBack, btnNext;
     private Callback<ResponseBody> cBack;
+    private Toolbar toolbar;
 
     private Integer pagerPosition;
 
@@ -32,6 +34,7 @@ public class SewaCloudActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sewa_cloud);
 
+        toolbar = findViewById(R.id.toolbar);
         pager = findViewById(R.id.view_pager_sewa_cloud);
         btnBack = findViewById(R.id.btn_back);
         btnNext = findViewById(R.id.btn_next);
@@ -69,6 +72,14 @@ public class SewaCloudActivity extends AppCompatActivity {
                 }
 
 
+            }
+        });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                SewaCloudActivity.this.finish();
             }
         });
 

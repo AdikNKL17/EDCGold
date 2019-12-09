@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_admin.AdminPengaturanSewaActivity">
+    tools:context=".activity_admin.AdminPengaturanTopupActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Detail Sewa Mining"
+                android:text="Top Up Setting"
                 android:layout_gravity="center"
                 android:textSize="16sp"
                 android:fontFamily="@font/circular_std_medium"
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/circular_std_bold"
-                android:text="Setting Harga Sewa Mining"
+                android:text="Setting Top Up Menu"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/circular_std_medium"
-                    android:text="Masukkan Nominal Sewa"
+                    android:text="Masukkan Nominal Topup"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <EditText
@@ -89,20 +89,6 @@
                     android:layout_marginTop="8dp"
                     android:hint="Rp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/circular_std_medium"
-                    android:text="Masukkan Lama Sewa"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <EditText
-                    android:id="@+id/et_lama_sewa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="Hari" />
             </LinearLayout>
 
             <LinearLayout
@@ -122,8 +108,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/circular_std_medium"
-                    android:text="Masukkan Nama Bank"
+                    android:text="Setting nominal di Top Up cepat (YG INI BELUM BISA)"
                     android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/circular_std_medium"
+                    android:text="Masukkan Nominal" />
 
                 <EditText
                     android:id="@+id/et_nama_bank"

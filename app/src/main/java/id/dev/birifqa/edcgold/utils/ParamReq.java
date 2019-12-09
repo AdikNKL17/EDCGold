@@ -15,6 +15,9 @@ import id.dev.birifqa.edcgold.request.RequestChangeRate;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
 import id.dev.birifqa.edcgold.request.RequestRentalProcess;
 import id.dev.birifqa.edcgold.request.RequestTopupProcess;
+import id.dev.birifqa.edcgold.request.RequestUpdateRate;
+import id.dev.birifqa.edcgold.request.RequestUpdateRental;
+import id.dev.birifqa.edcgold.request.RequestUpdateTopup;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -121,6 +124,11 @@ public class ParamReq {
         return APIInterface.getDetailTopup("Bearer " +token, idTopup);
     }
 
+    public static Call<ResponseBody> requestDetailUser(String token, String idUser,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getDetailUser("Bearer " +token, idUser);
+    }
+
     public static Call<ResponseBody> requestRentalList(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getRentalList("Bearer " +token);
@@ -129,6 +137,11 @@ public class ParamReq {
     public static Call<ResponseBody> requestDetailRental(String token, String idRental,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getDetailRental("Bearer " +token, idRental);
+    }
+
+    public static Call<ResponseBody> requestUserMiningList(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getUserMiningList("Bearer " +token);
     }
 
     public static Call<ResponseBody> reqTopup(String token,Context context) {
@@ -140,6 +153,11 @@ public class ParamReq {
         map.put("label", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_label")));
         map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_description")));
         return APIInterface.requestTopup("Bearer " +token,map);
+    }
+
+    public static Call<ResponseBody> requestDetailMining(String token, String idMining,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getDetailMining("Bearer " +token, idMining);
     }
 
     public static Call<ResponseBody> reqTopupConfirmation(String token, String image,Context context) {
@@ -186,6 +204,18 @@ public class ParamReq {
         return APIInterface.requestAddBank("Bearer " +token,map);
     }
 
+    public static Call<ResponseBody> reqSendWallet(String token ,Context context) {
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("method_id", RequestBody.create(MediaType.parse("multipart/form-data"), "5"));
+        map.put("userid", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("wallet_id_penerima")));
+        map.put("nominal", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("wallet_nominal")));
+        map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("wallet_description")));
+
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.requestSend("Bearer " +token,map);
+    }
+
     public static Call<ResponseBody> changeUsername(String token,String name,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
 
@@ -203,6 +233,14 @@ public class ParamReq {
         map.put("confirmed", RequestBody.create(MediaType.parse("multipart/form-data"), confirmed));
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.requestChangeEmail("Bearer " +token,map);
+    }
+
+    public static Call<ResponseBody> checkUser(String token, String userId,Context context) {
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("userid", RequestBody.create(MediaType.parse("multipart/form-data"), userId));
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.requestCheckUser("Bearer " +token,map);
     }
 
     public static Call<ResponseBody> requestVerification(String verification,Context context) {
@@ -260,6 +298,16 @@ public class ParamReq {
         return APIInterface.changeRate("Bearer " +token, requestChangeRate);
     }
 
+    public static Call<ResponseBody> requestUserList(String token, String isNew, String isClose, String keyword, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getUserList("Bearer " +token, isNew, isClose, keyword);
+    }
+
+    public static Call<ResponseBody> requestAktifitasList(String token, String transfer, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getAktifitasList("Bearer " +token, transfer);
+    }
+
     public static Call<ResponseBody> requestRekeningBank(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getRekeningBank("Bearer " +token);
@@ -277,6 +325,33 @@ public class ParamReq {
         requestRentalProcess.setStatus(status);
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.rentalProses("Bearer " +token, idRental, requestRentalProcess);
+    }
+
+    public static Call<ResponseBody> updateRate(String token, String buyRate, String saleRate,Context context) {
+        RequestUpdateRate requestUpdateRate = new RequestUpdateRate();
+        requestUpdateRate.setBuy_rate(buyRate);
+        requestUpdateRate.setSale_rate(saleRate);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.updateRate("Bearer " +token, requestUpdateRate);
+    }
+
+    public static Call<ResponseBody> updateRental(String token, String nominalRental, String rentalDays, String bankName, String banKNumber, String accountName,Context context) {
+        RequestUpdateRental requestUpdateRental = new RequestUpdateRental();
+        requestUpdateRental.setNominal_rental(nominalRental);
+        requestUpdateRental.setRental_days(nominalRental);
+        requestUpdateRental.setBank_name(bankName);
+        requestUpdateRental.setBank_number(banKNumber);
+        requestUpdateRental.setAccount_name(accountName);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.updateRental("Bearer " +token, requestUpdateRental);
+    }
+
+    public static Call<ResponseBody> updateTopup(String token, String nominal,Context context) {
+        RequestUpdateTopup requestUpdateTopup = new RequestUpdateTopup();
+        requestUpdateTopup.setLabel(Helper.getNumberFormatCurrency(Integer.parseInt(nominal)));
+        requestUpdateTopup.setNominal(nominal);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.updateTopup("Bearer " +token, requestUpdateTopup);
     }
 
 }

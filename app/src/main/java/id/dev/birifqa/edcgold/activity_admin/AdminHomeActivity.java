@@ -89,7 +89,7 @@ public class AdminHomeActivity extends AppCompatActivity
     private ConstraintLayout btnQuickMenu, btnNotification;
     private TextView tvCoin,koinMasuk, koinKeluar, rateJual, rateBeli;
     private TextInputEditText etBuyRate, etSaleRate;
-    private ImageView btnBuyRate, btnSaleRate;
+    private ImageView btnBuyRate, btnSaleRate, btnClose;
 
     private List<MenuModel> headerList = new ArrayList<>();
     private HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
@@ -165,24 +165,66 @@ public class AdminHomeActivity extends AppCompatActivity
         etSaleRate = dialog1.findViewById(R.id.et_sale_rate);
         btnBuyRate = dialog1.findViewById(R.id.btn_buy_rate);
         btnSaleRate = dialog1.findViewById(R.id.btn_sale_rate);
+        btnClose = dialog1.findViewById(R.id.btn_close);
 
         btnBuyRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (!etBuyRate.getText().toString().isEmpty()){
+                    updateRate(etBuyRate.getText().toString(), rateJual.toString());
+                } else {
+                    Toast.makeText(AdminHomeActivity.this, "Harap isi Buy Rate terlebih dahulu", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnSaleRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!etSaleRate.getText().toString().isEmpty()){
+                    updateRate(rateBeli.toString(), etSaleRate.getText().toString());
+                } else {
+                    Toast.makeText(AdminHomeActivity.this, "Harap isi Sale Rate terlebih dahulu", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
             }
         });
 
         getRate();
 
         dialog1.show();
+    }
+
+    private void updateRate(String buyRate, String saleRate){
+        Call<ResponseBody> call = ParamReq.updateRate(session.get("token"), buyRate, saleRate, AdminHomeActivity.this);
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    if (jsonObject.getBoolean("success")){
+                        Toast.makeText(AdminHomeActivity.this, "Rate berhasil update", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AdminHomeActivity.this, "Gagal update rate", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(AdminHomeActivity.this, call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(AdminHomeActivity.this, call, cBack, false, "Loading");
     }
 
     private void getRate(){
