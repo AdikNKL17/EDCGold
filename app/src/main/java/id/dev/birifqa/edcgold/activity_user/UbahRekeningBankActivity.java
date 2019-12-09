@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
@@ -27,6 +29,8 @@ public class UbahRekeningBankActivity extends AppCompatActivity {
     private AppCompatButton btnConfirm;
     private TextInputEditText etBankName, etBankNumber, etAccountName;
     private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class UbahRekeningBankActivity extends AppCompatActivity {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(UbahRekeningBankActivity.this).build();
+
         toolbar = findViewById(R.id.toolbar);
         btnConfirm = findViewById(R.id.btn_confirm);
         etBankName = findViewById(R.id.et_nama_bank);
@@ -70,6 +76,7 @@ public class UbahRekeningBankActivity extends AppCompatActivity {
     }
 
     private void changeBank(String id){
+        dialog.dismiss();
         Call<ResponseBody> call = ParamReq.changeBank(Session.get("token"), id, etBankName.getText().toString(), etBankNumber.getText().toString(), etAccountName.getText().toString(), UbahRekeningBankActivity.this);
         cBack = new Callback<ResponseBody>() {
             @Override
@@ -79,9 +86,9 @@ public class UbahRekeningBankActivity extends AppCompatActivity {
                     boolean handle = Handle.handleChangeBank(response.body().string(), UbahRekeningBankActivity.this);
                     if (handle) {
                         startActivity(new Intent(UbahRekeningBankActivity.this, GantiRekeningSuksesActivity.class));
-                        UbahRekeningBankActivity.this.finish();
+                        dialog.dismiss();
                     } else {
-                        Api.mProgressDialog.dismiss();
+                        dialog.dismiss();
                         Toast.makeText(UbahRekeningBankActivity.this, "Change Bank Failed, Check again later !!!", Toast.LENGTH_SHORT).show();
                     }
 
@@ -96,6 +103,6 @@ public class UbahRekeningBankActivity extends AppCompatActivity {
             }
         };
 
-        Api.enqueueWithRetry(UbahRekeningBankActivity.this, call, cBack, true, "Loading");
+        Api.enqueueWithRetry(UbahRekeningBankActivity.this, call, cBack, false, "Loading");
     }
 }

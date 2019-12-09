@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.HomeActivity;
+import id.dev.birifqa.edcgold.activity_user.WalletSendActivity;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Helper;
 import id.dev.birifqa.edcgold.utils.ParamReq;
@@ -44,11 +45,7 @@ public class FragmentUserWalletSendDetail extends Fragment {
     private TextInputEditText etJumlahCoin, etRate, etFee, etTotalPembayaran;
     private AppCompatButton btnProses;
     private AlertDialog dialog;
-
-
-    public FragmentUserWalletSendDetail() {
-        // Required empty public constructor
-    }
+    private WalletSendActivity activity;
 
 
     @Override
@@ -58,6 +55,7 @@ public class FragmentUserWalletSendDetail extends Fragment {
         view = inflater.inflate(R.layout.fragment_user_wallet_send_detail, container, false);
 
         findViewById();
+
         onAction();
 
         return view;
@@ -66,7 +64,7 @@ public class FragmentUserWalletSendDetail extends Fragment {
     private void findViewById(){
         dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
 
-
+        activity = (WalletSendActivity) getActivity();
         tvNama = view.findViewById(R.id.tv_nama);
         etJumlahCoin = view.findViewById(R.id.et_jumlah_coin);
         etRate = view.findViewById(R.id.et_rate);
@@ -83,9 +81,11 @@ public class FragmentUserWalletSendDetail extends Fragment {
     }
 
     private void onAction(){
-
-        tvNama.setText(Session.get("wallet_nama_penerima"));
-        etRate.setText(Session.get("wallet_sale_rate"));
+        String nama = ((WalletSendActivity) getActivity()).getName();
+        tvNama.setText(nama);
+        if (!Session.get("wallet_sale_rate").equals("")){
+            etRate.setText(Helper.getNumberFormatCurrency(Integer.parseInt(Session.get("wallet_sale_rate"))));
+        }
 
         etJumlahCoin.addTextChangedListener(new TextWatcher() {
             @Override
@@ -95,14 +95,22 @@ public class FragmentUserWalletSendDetail extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int fee = Integer.parseInt(s.toString()) *Integer.parseInt(Session.get("wallet_sale_rate")) * Integer.parseInt(Session.get("wallet_fee")) / 100;
-                etFee.setText(Double.toString(fee));
+                if (!etJumlahCoin.getText().toString().trim().equals("")){
+                    int fee = Integer.parseInt(s.toString()) *Integer.parseInt(Session.get("wallet_sale_rate")) * Integer.parseInt(Session.get("wallet_fee")) / 100;
+                    Log.e("FEE123", String.valueOf(fee));
+                    etFee.setText(Helper.getNumberFormatCurrency(fee));
 
-                int totalPembayaran = Integer.parseInt(s.toString()) * Integer.parseInt(Session.get("wallet_sale_rate")) + fee;
-                etTotalPembayaran.setText(Helper.getNumberFormatCurrency(totalPembayaran));
-                Session.save("wallet_nominal", Helper.getNumberFormat(totalPembayaran));
-                Session.save("wallet_description", "Transfer sebesar "+Helper.getNumberFormatCurrency(totalPembayaran));
+                    int totalPembayaran = Integer.parseInt(s.toString()) * Integer.parseInt(Session.get("wallet_sale_rate")) + fee;
+                    etTotalPembayaran.setText(Helper.getNumberFormatCurrency(totalPembayaran));
+                    Session.save("wallet_nominal", Helper.getNumberFormat(totalPembayaran));
+                    Session.save("wallet_description", "Transfer sebesar "+Helper.getNumberFormatCurrency(totalPembayaran));
+                } else {
+                    etFee.setText("");
+                    etTotalPembayaran.setText("");
 
+                    Session.save("wallet_nominal", "");
+                    Session.save("wallet_description", "");
+                }
             }
 
             @Override
@@ -111,6 +119,9 @@ public class FragmentUserWalletSendDetail extends Fragment {
             }
         });
     }
+
+
+
 
     private void sendProsesSend(){
         dialog.show();
@@ -122,6 +133,11 @@ public class FragmentUserWalletSendDetail extends Fragment {
                     JSONObject jsonObject = new JSONObject(response.body().string());
 
                     if (jsonObject.getBoolean("success")){
+                        Session.save("wallet_id_penerima", "");
+                        Session.save("wallet_nama_penerima", "");
+                        Session.save("wallet_sale_rate", "");
+                        Session.save("wallet_buy_rate", "");
+                        Session.save("wallet_fee", "");
                         dialog.dismiss();
                         startActivity(new Intent(getActivity(), HomeActivity.class));
                     } else{

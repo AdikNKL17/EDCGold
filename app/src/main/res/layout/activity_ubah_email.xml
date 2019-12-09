@@ -71,8 +71,8 @@
                         android:layout_height="match_parent"
                         android:enabled="false"
                         android:inputType="textEmailAddress"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary" />
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -101,8 +101,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textEmailAddress"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary" />
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -131,8 +131,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textEmailAddress"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary" />
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>

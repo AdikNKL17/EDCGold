@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
@@ -28,6 +30,8 @@ public class UbahNomorActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Callback<ResponseBody> cBack;
     private Session session;
+    private AlertDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class UbahNomorActivity extends AppCompatActivity {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(UbahNomorActivity.this).build();
+
         toolbar = findViewById(R.id.toolbar);
         etPhoneLama = findViewById(R.id.et_nomor_lama);
         etPhoneBaru = findViewById(R.id.et_nomor_baru);
@@ -68,19 +74,20 @@ public class UbahNomorActivity extends AppCompatActivity {
 
     private void changePhone(){
         if (!etPhoneLama.getText().toString().isEmpty() && !etPhoneBaru.getText().toString().isEmpty() && !etKonfirmasi.getText().toString().isEmpty()){
+            dialog.show();
             Call<ResponseBody> call = ParamReq.changePhone(session.get("token"),etPhoneLama.getText().toString(), etPhoneBaru.getText().toString(), etKonfirmasi.getText().toString(), UbahNomorActivity.this);
             cBack = new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
-
                         boolean handle = Handle.handleChangePhone(response.body().string(), UbahNomorActivity.this);
                         if (handle) {
+                            dialog.dismiss();
                             Session.save("phone", etPhoneBaru.getText().toString());
                             startActivity(new Intent(UbahNomorActivity.this, GantiNomorSuksesActivity.class));
                         } else {
                             Toast.makeText(UbahNomorActivity.this, "Nomor telepon baru dan nomor konfirmasi harus sama !!", Toast.LENGTH_SHORT).show();
-                            Api.mProgressDialog.dismiss();
+                            dialog.dismiss();
                         }
 
                     } catch (Exception e) {
@@ -94,7 +101,7 @@ public class UbahNomorActivity extends AppCompatActivity {
                 }
             };
 
-            Api.enqueueWithRetry(UbahNomorActivity.this, call, cBack, true, "Loading");
+            Api.enqueueWithRetry(UbahNomorActivity.this, call, cBack, false, "Loading");
         } else {
             Toast.makeText(UbahNomorActivity.this, "All data must be filled !!!", Toast.LENGTH_SHORT).show();
         }

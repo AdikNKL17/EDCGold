@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,6 +28,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.KabupatenAdapter;
 import id.dev.birifqa.edcgold.adapter.KecamatanAdapter;
@@ -50,6 +52,7 @@ public class UbahAlamatActivity extends AppCompatActivity {
     private Session session;
     private Callback<ResponseBody> cBack;
     private Toolbar toolbar;
+    private AlertDialog dialog;
 
     public static String idNegara;
     public static String idProv;
@@ -69,6 +72,8 @@ public class UbahAlamatActivity extends AppCompatActivity {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(UbahAlamatActivity.this).build();
+
         toolbar = findViewById(R.id.toolbar);
         etProvinsi = findViewById(R.id.et_provinsi);
         etKabupaten = findViewById(R.id.et_kabkota);
@@ -79,6 +84,8 @@ public class UbahAlamatActivity extends AppCompatActivity {
     }
 
     private void onAction(){
+        dialog.show();
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,6 +160,7 @@ public class UbahAlamatActivity extends AppCompatActivity {
 
     private void changeAddress(){
         if (!idNegara.isEmpty() && !idProv.isEmpty() && !idKab.isEmpty() && !idKec.isEmpty() && !etKodepos.getText().toString().isEmpty() && !etAlamat.getText().toString().isEmpty()){
+            dialog.show();
             Call<ResponseBody> call = ParamReq.changeAddress(Session.get("token"),idNegara, idProv, idKab, idKec, etAlamat.getText().toString(), etKodepos.getText().toString(), UbahAlamatActivity.this);
             cBack = new Callback<ResponseBody>() {
                 @Override
@@ -169,7 +177,7 @@ public class UbahAlamatActivity extends AppCompatActivity {
                             Session.save("address", etAlamat.getText().toString());
                             startActivity(new Intent(UbahAlamatActivity.this, GantiAlamatSuksesActivity.class));
                         } else {
-                            Api.mProgressDialog.dismiss();
+                            dialog.dismiss();
                             Toast.makeText(UbahAlamatActivity.this, "Change Address Failed, Check again later !!!", Toast.LENGTH_SHORT).show();
                         }
 
@@ -184,7 +192,7 @@ public class UbahAlamatActivity extends AppCompatActivity {
                 }
             };
 
-            Api.enqueueWithRetry(UbahAlamatActivity.this, call, cBack, true, "Loading");
+            Api.enqueueWithRetry(UbahAlamatActivity.this, call, cBack, false, "Loading");
         } else {
             Toast.makeText(UbahAlamatActivity.this, "All data must be filled !!!", Toast.LENGTH_SHORT).show();
         }
@@ -201,8 +209,8 @@ public class UbahAlamatActivity extends AppCompatActivity {
                         Log.d("prov id", idProv);
                         getKabupaten();
                     } else {
-                        Api.mProgressDialog.dismiss();
-                    }
+                        dialog.dismiss();
+                        Toast.makeText(UbahAlamatActivity.this, "Gagal mengambil data provinsi", Toast.LENGTH_SHORT).show();                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -229,8 +237,8 @@ public class UbahAlamatActivity extends AppCompatActivity {
                         Log.d("kab id", idKab);
                         getKecamatan();
                     } else {
-                        Api.mProgressDialog.dismiss();
-                    }
+                        dialog.dismiss();
+                        Toast.makeText(UbahAlamatActivity.this, "Gagal mengambil data kabupaten", Toast.LENGTH_SHORT).show();                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -254,9 +262,11 @@ public class UbahAlamatActivity extends AppCompatActivity {
                 try {
                     boolean handle = Handle.handleGetKecamatanName(response.body().string(), etKecamatan, UbahAlamatActivity.this);
                     if (handle) {
+                        dialog.dismiss();
                         Log.d("kec id", idKec);
                     } else {
-                        Api.mProgressDialog.dismiss();
+                        dialog.dismiss();
+                        Toast.makeText(UbahAlamatActivity.this, "Gagal mengambil data kecamatan", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

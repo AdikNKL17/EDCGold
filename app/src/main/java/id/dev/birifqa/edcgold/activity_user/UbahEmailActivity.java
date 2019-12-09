@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
@@ -28,6 +30,8 @@ public class UbahEmailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Callback<ResponseBody> cBack;
     private Session session;
+    private AlertDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class UbahEmailActivity extends AppCompatActivity {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(UbahEmailActivity.this).build();
+
         toolbar = findViewById(R.id.toolbar);
         etEmailLama = findViewById(R.id.et_email_lama);
         etEmailBaru = findViewById(R.id.et_email_baru);
@@ -68,6 +74,7 @@ public class UbahEmailActivity extends AppCompatActivity {
 
     private void changeEmail(){
         if (!etEmailLama.getText().toString().isEmpty() && !etEmailBaru.getText().toString().isEmpty() && !etKonfirmasi.getText().toString().isEmpty()){
+            dialog.show();
             Call<ResponseBody> call = ParamReq.changeEmailRequest(session.get("token"), etEmailLama.getText().toString(), etEmailBaru.getText().toString(), etKonfirmasi.getText().toString(), UbahEmailActivity.this);
             cBack = new Callback<ResponseBody>() {
                 @Override
@@ -76,14 +83,15 @@ public class UbahEmailActivity extends AppCompatActivity {
 
                         boolean handle = Handle.handleChangeEmail(response.body().string(), UbahEmailActivity.this);
                         if (handle) {
+                            dialog.dismiss();
                             Intent intent = new Intent(UbahEmailActivity.this, VerifikasiActivity.class);
                             intent.putExtra("OLD_EMAIL", etEmailLama.getText().toString());
                             intent.putExtra("NEW_EMAIL", etEmailBaru.getText().toString());
                             intent.putExtra("CONFIRMATION", etKonfirmasi.getText().toString());
                             startActivity(intent);
                         } else {
-                            Api.mProgressDialog.dismiss();
-                            Toast.makeText(UbahEmailActivity.this, "Email baru dan email konfirmasi harus sama !!", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                            Toast.makeText(UbahEmailActivity.this, "Gagal update emai, periksa kembali data anda", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Exception e) {
@@ -97,7 +105,7 @@ public class UbahEmailActivity extends AppCompatActivity {
                 }
             };
 
-            Api.enqueueWithRetry(UbahEmailActivity.this, call, cBack, true, "Loading");
+            Api.enqueueWithRetry(UbahEmailActivity.this, call, cBack, false, "Loading");
         } else {
             Toast.makeText(UbahEmailActivity.this, "All data must be filled !!!", Toast.LENGTH_SHORT).show();
         }

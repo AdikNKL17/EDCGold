@@ -48,20 +48,7 @@ public class WalletReceiveActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pagerPosition == 0){
-                    if (!Session.get("topup_nominal").equals("")){
-                        pager.setCurrentItem(pagerPosition+1, true);
-                    }else {
-                        Toast.makeText(WalletReceiveActivity.this, "Harap pilih nominal topup", Toast.LENGTH_SHORT).show();
-                    }
-                }else if (pagerPosition == 1){
-                    if (!Session.get("topup_bank_name").equals("")){
-                        pager.setCurrentItem(pagerPosition+1, true);
-                    }else {
-                        Toast.makeText(WalletReceiveActivity.this, "Harap pilih bank", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
+                pager.setCurrentItem(pagerPosition+1, true);
 
             }
         });

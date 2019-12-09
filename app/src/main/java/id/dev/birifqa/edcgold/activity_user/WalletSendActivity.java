@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.PagerWalletSendAdapter;
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserWalletSendDetail;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.HeightWrappingViewPager;
 import id.dev.birifqa.edcgold.utils.ParamReq;
@@ -17,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,8 +39,14 @@ public class WalletSendActivity extends AppCompatActivity {
     private TextView tvName, tvCoin;
     private AlertDialog dialog;
     private Toolbar toolbar;
+    private Intent getIntent;
 
     private Integer pagerPosition;
+
+    public static String nama_penerima = "";
+    public static String sale_rate = "";
+    public static String sale_fee = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,10 @@ public class WalletSendActivity extends AppCompatActivity {
 
         pagerPosition = 0;
 
+        if (!Session.get("wallet_id_penerima").equals("")){
+            pager.setCurrentItem(pagerPosition+1, true);
+        }
+
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +91,11 @@ public class WalletSendActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Session.save("wallet_id_penerima", "");
+                Session.save("wallet_nama_penerima", "");
+                Session.save("wallet_sale_rate", "");
+                Session.save("wallet_buy_rate", "");
+                Session.save("wallet_fee", "");
                 pager.setCurrentItem(pagerPosition-1, true);
             }
         });
@@ -88,6 +105,12 @@ public class WalletSendActivity extends AppCompatActivity {
             public void onClick(View v) {
                 onBackPressed();
                 WalletSendActivity.this.finish();
+
+                Session.save("wallet_id_penerima", "");
+                Session.save("wallet_nama_penerima", "");
+                Session.save("wallet_sale_rate", "");
+                Session.save("wallet_buy_rate", "");
+                Session.save("wallet_fee", "");
             }
         });
 
@@ -101,6 +124,8 @@ public class WalletSendActivity extends AppCompatActivity {
                     btnBack.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.INVISIBLE);
                 }
+                pager.getAdapter().notifyDataSetChanged();
+
             }
 
             @Override
@@ -117,6 +142,10 @@ public class WalletSendActivity extends AppCompatActivity {
         getUserDetail();
     }
 
+    public String getName(){
+        return nama_penerima;
+    }
+
     private void checkUser(){
         dialog.show();
         Call<ResponseBody> call = ParamReq.checkUser(Session.get("token"), Session.get("wallet_id_penerima"), WalletSendActivity.this);
@@ -131,7 +160,14 @@ public class WalletSendActivity extends AppCompatActivity {
                         Session.save("wallet_sale_rate", dataObject.getString("sale_rate"));
                         Session.save("wallet_buy_rate", dataObject.getString("buy_rate"));
                         Session.save("wallet_fee", dataObject.getString("fee"));
-                        pager.setCurrentItem(pagerPosition+1, true);
+
+                        nama_penerima = dataObject.getString("receive_name");
+                        sale_fee = dataObject.getString("fee");
+                        sale_rate = dataObject.getString("sale_rate");
+
+                        Intent intent = new Intent(WalletSendActivity.this, WalletSendActivity.class);
+                        startActivity(intent);
+                        WalletSendActivity.this.finish();
                         dialog.dismiss();
                     } else {
                         dialog.dismiss();

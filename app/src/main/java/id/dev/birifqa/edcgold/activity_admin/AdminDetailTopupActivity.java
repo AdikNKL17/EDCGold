@@ -2,6 +2,7 @@ package id.dev.birifqa.edcgold.activity_admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -29,6 +30,7 @@ public class AdminDetailTopupActivity extends AppCompatActivity {
     private Callback<ResponseBody> cBack;
     private TextView tvId, tvNama, tvNominal;
     private AppCompatButton btnTerima, btnTolak;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class AdminDetailTopupActivity extends AppCompatActivity {
     private void findViewById(){
         dialog = new SpotsDialog.Builder().setContext(AdminDetailTopupActivity.this).build();
 
+        toolbar = findViewById(R.id.toolbar);
         tvId = findViewById(R.id.tv_id);
         tvNama = findViewById(R.id.tv_name);
         tvNominal = findViewById(R.id.tv_nominal);
@@ -50,6 +53,14 @@ public class AdminDetailTopupActivity extends AppCompatActivity {
     }
     private void onAction(){
         getDetailTopup();
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                AdminDetailTopupActivity.this.finish();
+            }
+        });
 
         btnTerima.setOnClickListener(new View.OnClickListener() {
             @Override

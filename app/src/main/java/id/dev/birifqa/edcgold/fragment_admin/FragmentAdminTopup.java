@@ -84,6 +84,11 @@ public class FragmentAdminTopup extends Fragment {
         getData();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        getData();
+    }
 
     private void getData(){
         Api.adminTransferTopupModels.clear();
