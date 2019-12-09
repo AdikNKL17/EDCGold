@@ -12,6 +12,8 @@ import id.dev.birifqa.edcgold.request.RequestChangeUsername;
 import id.dev.birifqa.edcgold.request.RequestRentalProcess;
 import id.dev.birifqa.edcgold.request.RequestTopupProcess;
 import id.dev.birifqa.edcgold.request.RequestUpdateRate;
+import id.dev.birifqa.edcgold.request.RequestUpdateRental;
+import id.dev.birifqa.edcgold.request.RequestUpdateTopup;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -23,6 +25,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by XGibar on 27/10/2016.
@@ -62,11 +65,28 @@ public interface Interface {
     @GET("http://45.77.252.55/api/topup_detail/{id}")
     Call<ResponseBody> getDetailTopup(@Header("Authorization") String authorization, @Path("id") String id_topup);
 
+
     @GET("http://45.77.252.55/api/rental_list")
     Call<ResponseBody> getRentalList(@Header("Authorization") String authorization);
 
     @GET("http://45.77.252.55/api/rental_detail/{id}")
     Call<ResponseBody> getDetailRental(@Header("Authorization") String authorization, @Path("id") String id_rental);
+
+    @GET("http://45.77.252.55/api/user_list")
+    Call<ResponseBody> getUserList(@Header("Authorization") String authorization, @Query("is_new") String is_new, @Query("is_close") String is_close,
+                                   @Query("keyword") String keyword);
+
+    @GET("http://45.77.252.55/api/user_detail/{id}")
+    Call<ResponseBody> getDetailUser(@Header("Authorization") String authorization, @Path("id") String id_user);
+
+    @GET("http://45.77.252.55/api/mining_list")
+    Call<ResponseBody> getUserMiningList(@Header("Authorization") String authorization);
+
+    @GET("http://45.77.252.55/api/mining_detail/{id}")
+    Call<ResponseBody> getDetailMining(@Header("Authorization") String authorization, @Path("id") String id_mining);
+
+    @GET("http://45.77.252.55/api/user_list")
+    Call<ResponseBody> getAktifitasList(@Header("Authorization") String authorization, @Query("transfer") String transfer);
 
     //POST
     @Multipart
@@ -105,6 +125,14 @@ public interface Interface {
     @POST("http://45.77.252.55/api/email")
     Call<ResponseBody> requestChangeEmail(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
+    @Multipart
+    @POST("http://45.77.252.55/api/check_user")
+    Call<ResponseBody> requestCheckUser(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
+    @Multipart
+    @POST("http://45.77.252.55/api/transfer")
+    Call<ResponseBody> requestSend(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
     //PUT
     @PUT("http://45.77.252.55/api/username")
     Call<ResponseBody> changeUsername(@Header("Authorization") String authorization, @Body RequestChangeUsername requestChangeUsername);
@@ -135,6 +163,12 @@ public interface Interface {
 
     @PUT("http://45.77.252.55/api/rate")
     Call<ResponseBody> updateRate(@Header("Authorization") String authorization, @Body RequestUpdateRate requestUpdateRate);
+
+    @PUT("http://45.77.252.55/api/topup_nominal")
+    Call<ResponseBody> updateTopup(@Header("Authorization") String authorization, @Body RequestUpdateTopup requestUpdateTopup);
+
+    @PUT("http://45.77.252.55/api/rate")
+    Call<ResponseBody> updateRental(@Header("Authorization") String authorization, @Body RequestUpdateRental requestUpdateRental);
 }
 
 

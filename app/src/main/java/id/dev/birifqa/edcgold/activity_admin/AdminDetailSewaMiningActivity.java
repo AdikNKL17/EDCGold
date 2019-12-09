@@ -2,6 +2,7 @@ package id.dev.birifqa.edcgold.activity_admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -29,6 +30,7 @@ public class AdminDetailSewaMiningActivity extends AppCompatActivity {
     private AppCompatButton btnProses;
     private AlertDialog dialog;
     private Callback<ResponseBody> cBack;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class AdminDetailSewaMiningActivity extends AppCompatActivity {
     private void findViewById(){
         dialog = new SpotsDialog.Builder().setContext(AdminDetailSewaMiningActivity.this).build();
 
+        toolbar = findViewById(R.id.toolbar);
         tvId = findViewById(R.id.tv_id);
         tvNama = findViewById(R.id.tv_name);
         tvTransactionCode = findViewById(R.id.tv_transaction_code);
@@ -55,6 +58,14 @@ public class AdminDetailSewaMiningActivity extends AppCompatActivity {
     }
     private void onAction(){
         getDetailRental();
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                AdminDetailSewaMiningActivity.this.finish();
+            }
+        });
 
         btnProses.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +129,7 @@ public class AdminDetailSewaMiningActivity extends AppCompatActivity {
                     tvDescription.setText(dataObject.getString("description"));
                     tvNamaBank.setText(dataObject.getString("bank_name"));
                     tvAtasNama.setText(dataObject.getString("account_name"));
-                    tvNoRekening.setText(dataObject.getString("ga ada di api"));
+                    tvNoRekening.setText("null");
                     tvTransfer.setText(Helper.getNumberFormatCurrency(Integer.parseInt(dataObject.getString("transfer_amount"))));
 
                 } catch (Exception e) {

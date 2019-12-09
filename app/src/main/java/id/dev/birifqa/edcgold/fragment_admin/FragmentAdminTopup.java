@@ -2,6 +2,7 @@ package id.dev.birifqa.edcgold.fragment_admin;
 
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminPengaturanTopupActivity;
 import id.dev.birifqa.edcgold.adapter.AdminTransferTopupAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminTransferTopupModel;
 import id.dev.birifqa.edcgold.utils.Api;
@@ -40,10 +42,7 @@ public class FragmentAdminTopup extends Fragment {
     private AdminTransferTopupAdapter transferTopupAdapter;
     private Callback<ResponseBody> cBack;
     private AlertDialog dialog;
-
-
     private ImageView btnSetting;
-
     public FragmentAdminTopup() {
         // Required empty public constructor
     }
@@ -78,7 +77,7 @@ public class FragmentAdminTopup extends Fragment {
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), AdminPengaturanTopupActivity.class));
             }
         });
 

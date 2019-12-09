@@ -89,7 +89,7 @@ public class AdminHomeActivity extends AppCompatActivity
     private ConstraintLayout btnQuickMenu, btnNotification;
     private TextView tvCoin,koinMasuk, koinKeluar, rateJual, rateBeli;
     private TextInputEditText etBuyRate, etSaleRate;
-    private ImageView btnBuyRate, btnSaleRate;
+    private ImageView btnBuyRate, btnSaleRate, btnClose;
 
     private List<MenuModel> headerList = new ArrayList<>();
     private HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
@@ -165,6 +165,7 @@ public class AdminHomeActivity extends AppCompatActivity
         etSaleRate = dialog1.findViewById(R.id.et_sale_rate);
         btnBuyRate = dialog1.findViewById(R.id.btn_buy_rate);
         btnSaleRate = dialog1.findViewById(R.id.btn_sale_rate);
+        btnClose = dialog1.findViewById(R.id.btn_close);
 
         btnBuyRate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +186,13 @@ public class AdminHomeActivity extends AppCompatActivity
                 } else {
                     Toast.makeText(AdminHomeActivity.this, "Harap isi Sale Rate terlebih dahulu", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
             }
         });
 

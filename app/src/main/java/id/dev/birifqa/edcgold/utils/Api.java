@@ -28,6 +28,8 @@ import id.dev.birifqa.edcgold.model.address.KecamatanModel;
 import id.dev.birifqa.edcgold.model.address.ProvinsiModel;
 import id.dev.birifqa.edcgold.model.admin.AdminSewaMiningModel;
 import id.dev.birifqa.edcgold.model.admin.AdminTransferTopupModel;
+import id.dev.birifqa.edcgold.model.admin.AdminUserMiningModel;
+import id.dev.birifqa.edcgold.model.admin.AdminUserModel;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -57,7 +59,11 @@ public class Api {
     public static List<UserHistoryModel> userHistorySelesaiModels;
     public static List<AdminTransferTopupModel> adminTransferTopupModels;
     public static List<AdminSewaMiningModel> adminSewaMiningModels;
-
+    public static List<AdminUserModel> adminUserNewUserModels;
+    public static List<AdminUserModel> adminUserAllUserModels;
+    public static List<AdminUserModel> adminUserAktifModels;
+    public static List<AdminUserModel> adminUserClosedModels;
+    public static List<AdminUserMiningModel> adminUserMiningModels;
 
     public static ProgressDialog mProgressDialog;
     public static boolean showLog = true;

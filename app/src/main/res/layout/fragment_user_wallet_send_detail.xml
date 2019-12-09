@@ -52,6 +52,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_nama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
@@ -100,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/circular_std_bold"
                     android:gravity="center"
-                    android:text="45"
+                    android:inputType="number"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="26sp" />
 
@@ -132,7 +133,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/circular_std_bold"
                             android:gravity="center"
-                            android:text="15.000"
+                            android:enabled="false"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="26sp" />
                     </LinearLayout>
@@ -159,7 +160,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/circular_std_bold"
                             android:gravity="center"
-                            android:text="0"
+                            android:enabled="false"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="26sp" />
                     </LinearLayout>
@@ -180,11 +181,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/circular_std_bold"
                     android:gravity="center"
-                    android:text="456.000"
+                    android:enabled="false"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="26sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_proses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
