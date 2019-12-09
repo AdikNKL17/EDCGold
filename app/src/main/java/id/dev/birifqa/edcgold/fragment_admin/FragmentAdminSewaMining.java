@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_admin;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,13 +14,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_admin.AdminPengaturanSewaActivity;
 import id.dev.birifqa.edcgold.adapter.AdminSewaMiningAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminSewaMiningModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.Handle;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +40,8 @@ public class FragmentAdminSewaMining extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private AdminSewaMiningAdapter sewaMiningAdapter;
-    private ArrayList<AdminSewaMiningModel> sewaMiningModels;
+    private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
 
     private ImageView btnSetting;
 
@@ -51,13 +63,15 @@ public class FragmentAdminSewaMining extends Fragment {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+
         recyclerView = view.findViewById(R.id.rv_sewa_mining);
         btnSetting = view.findViewById(R.id.btn_setting);
     }
 
     private void onAction(){
-        sewaMiningModels = new ArrayList<>();
-        sewaMiningAdapter = new AdminSewaMiningAdapter(getActivity(), sewaMiningModels);
+        Api.adminSewaMiningModels = new ArrayList<>();
+        sewaMiningAdapter = new AdminSewaMiningAdapter(getActivity(), Api.adminSewaMiningModels);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(sewaMiningAdapter);
@@ -73,41 +87,35 @@ public class FragmentAdminSewaMining extends Fragment {
     }
 
     private void getData(){
-        sewaMiningModels.clear();
+        Api.adminSewaMiningModels.clear();
 
-        AdminSewaMiningModel sewaMining1 = new AdminSewaMiningModel();
-        sewaMining1.setNama_user("Olivier Straw ");
-        sewaMining1.setId_user("ID - 52802000611111");
-        sewaMining1.setNo_transaksi("No. Transaksi : 4124242411414");
-        sewaMining1.setTgl_transaksi("Tgl Transaksi : 14/09/2019");
+        dialog.show();
+        Call<ResponseBody> call = ParamReq.requestRentalList(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    boolean handle = Handle.handleRentalList(response.body().string(), getActivity());
+                    if (handle) {
+                        dialog.dismiss();
+                        sewaMiningAdapter.notifyDataSetChanged();
+                    } else {
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), "Gagal mengambil data history", Toast.LENGTH_SHORT).show();
+                    }
 
-        sewaMiningModels.add(sewaMining1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-        AdminSewaMiningModel sewaMining2 = new AdminSewaMiningModel();
-        sewaMining2.setNama_user("Jane ");
-        sewaMining2.setId_user("ID - 32362362887879");
-        sewaMining2.setNo_transaksi("No. Transaksi : 4364367347");
-        sewaMining2.setTgl_transaksi("Tgl Transaksi : 14/09/2019");
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
 
-        sewaMiningModels.add(sewaMining2);
-
-        AdminSewaMiningModel sewaMining3 = new AdminSewaMiningModel();
-        sewaMining3.setNama_user("Madanda Suharta");
-        sewaMining3.setId_user("ID - 3522362624626");
-        sewaMining3.setNo_transaksi("No. Transaksi : 2422429000");
-        sewaMining3.setTgl_transaksi("Tgl Transaksi : 14/09/2019");
-
-        sewaMiningModels.add(sewaMining3);
-
-        AdminSewaMiningModel sewaMining4 = new AdminSewaMiningModel();
-        sewaMining4.setNama_user("Soeharto");
-        sewaMining4.setId_user("ID - 3423500000007");
-        sewaMining4.setNo_transaksi("No. Transaksi : 3523532522");
-        sewaMining4.setTgl_transaksi("Tgl Transaksi : 09/09/2019");
-
-        sewaMiningModels.add(sewaMining4);
-
-        sewaMiningAdapter.notifyDataSetChanged();
     }
 
 }

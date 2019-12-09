@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_admin;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,9 +15,12 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminWithdrawAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminWithdrawModel;
+import okhttp3.ResponseBody;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +31,8 @@ public class FragmentAdminWithdraw extends Fragment {
     private RecyclerView recyclerView;
     private AdminWithdrawAdapter withdrawAdapter;
     private ArrayList<AdminWithdrawModel> withdrawModels;
+    private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
 
     public FragmentAdminWithdraw() {
         // Required empty public constructor
@@ -46,6 +52,8 @@ public class FragmentAdminWithdraw extends Fragment {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+
         recyclerView = view.findViewById(R.id.rv_withdraw);
     }
 

@@ -11,10 +11,20 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONObject;
+
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +34,8 @@ public class FragmentUserHistory extends Fragment {
     private View view;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Callback<ResponseBody> cBack;
+    private TextView tvName, tvCoin;
 
     public FragmentUserHistory() {
         // Required empty public constructor
@@ -45,6 +57,8 @@ public class FragmentUserHistory extends Fragment {
     private void findViewById(){
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager = view.findViewById(R.id.view_pager);
+        tvName = view.findViewById(R.id.tv_name);
+        tvCoin = view.findViewById(R.id.tv_coin);
     }
 
     private void onAction(){
@@ -70,6 +84,32 @@ public class FragmentUserHistory extends Fragment {
 
             }
         });
+
+        getUserDetail();
+    }
+
+    private void getUserDetail(){
+        Call<ResponseBody> call = ParamReq.requestUserDetail(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                    JSONObject coinObject = dataObject.getJSONObject("coin");
+                    tvName.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                    tvCoin.setText(coinObject.getString("balance_coin"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 
     public class PagerAdapter extends FragmentStatePagerAdapter {

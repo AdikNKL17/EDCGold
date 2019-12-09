@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.activity_user;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -29,6 +30,7 @@ public class VerifikasiActivity extends AppCompatActivity {
     private TextView btnResendVerification;
     private Callback<ResponseBody> cBack;
     private AlertDialog dialog;
+    private Toolbar toolbar;
 
 
     @Override
@@ -43,12 +45,21 @@ public class VerifikasiActivity extends AppCompatActivity {
     private void findViewById(){
         dialog = new SpotsDialog.Builder().setContext(VerifikasiActivity.this).build();
 
+        toolbar = findViewById(R.id.toolbar);
         etVerification = findViewById(R.id.et_kode_verifikasi);
         btnVerification = findViewById(R.id.btn_verifikasi);
         btnResendVerification = findViewById(R.id.btn_resend_verifikasi);
     }
 
     private void onAction(){
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                VerifikasiActivity.this.finish();
+            }
+        });
+
         btnVerification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

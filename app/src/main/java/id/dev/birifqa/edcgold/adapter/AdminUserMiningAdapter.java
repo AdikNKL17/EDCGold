@@ -38,15 +38,17 @@ public class AdminUserMiningAdapter extends RecyclerView.Adapter<AdminUserMining
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminUserMiningModel userMining = userMinings.get(position);
 
-        holder.tvNama.setText(userMining.getNama_user());
-        holder.tvId.setText(userMining.getId_user());
-        holder.tvMulaiMining.setText(userMining.getMulai_mining());
-        holder.tvSisaWaktu.setText(userMining.getSisa_waktu());
+        holder.tvNama.setText(userMining.getName());
+        holder.tvId.setText("ID - "+userMining.getUserid());
+        holder.tvMulaiMining.setText(userMining.getStart_mining());
+        holder.tvSisaWaktu.setText(userMining.getEnd_mining());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, AdminDetailMiningActivity.class));
+                Intent intent = new Intent(mContext, AdminDetailMiningActivity.class);
+                intent.putExtra("id_mining", userMining.getId());
+                mContext.startActivity(intent);
             }
         });
     }

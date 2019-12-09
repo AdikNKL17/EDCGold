@@ -39,22 +39,27 @@ public class AdminTransferTopupAdapter extends RecyclerView.Adapter<AdminTransfe
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminTransferTopupModel transferTopup = transferTopups.get(position);
 
-        if (transferTopup.getStatus_proses().equals("Belum di proses")){
+        if (transferTopup.getStatus().equals("0")){
             holder.icStatus.setVisibility(View.VISIBLE);
+            holder.tvStatusProses.setText("Belum di proses");
         } else {
             holder.icStatus.setVisibility(View.INVISIBLE);
+            holder.tvStatusProses.setText("Berhasil di proses");
         }
-        holder.tvNama.setText(transferTopup.getNama_user());
-        holder.tvId.setText(transferTopup.getId_user());
-        holder.tvStatusProses.setText(transferTopup.getStatus_proses());
-        holder.tvTglTopup.setText(transferTopup.getTgl_topup());
+        holder.tvNama.setText(transferTopup.getName());
+        holder.tvId.setText(transferTopup.getTransaction_code());
+        holder.tvTglTopup.setText(transferTopup.getDate());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, AdminDetailTopupActivity.class));
-            }
-        });
+        if (transferTopup.getStatus().equals("0")){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, AdminDetailTopupActivity.class);
+                    intent.putExtra("id_topup", transferTopup.getId());
+                    mContext.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override

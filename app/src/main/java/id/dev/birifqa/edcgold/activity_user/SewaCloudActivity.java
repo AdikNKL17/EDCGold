@@ -1,6 +1,11 @@
 package id.dev.birifqa.edcgold.activity_user;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.PagerSewaCloudAdapter;
@@ -10,6 +15,9 @@ import id.dev.birifqa.edcgold.utils.Session;
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,12 +26,26 @@ import android.widget.Toast;
 
 import com.badoualy.stepperindicator.StepperIndicator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class SewaCloudActivity extends AppCompatActivity {
 
     private HeightWrappingViewPager pager;
     private StepperIndicator indicator;
     private ImageView btnBack, btnNext;
     private Callback<ResponseBody> cBack;
+    private Toolbar toolbar;
+
+    private static final int PERMISSION_REQUEST_CODE = 1100;
+
+    String[] appPermission = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     private Integer pagerPosition;
 
@@ -32,6 +54,7 @@ public class SewaCloudActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sewa_cloud);
 
+        toolbar = findViewById(R.id.toolbar);
         pager = findViewById(R.id.view_pager_sewa_cloud);
         btnBack = findViewById(R.id.btn_back);
         btnNext = findViewById(R.id.btn_next);
@@ -72,6 +95,14 @@ public class SewaCloudActivity extends AppCompatActivity {
             }
         });
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                SewaCloudActivity.this.finish();
+            }
+        });
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +110,7 @@ public class SewaCloudActivity extends AppCompatActivity {
             }
         });
 
+        pager.beginFakeDrag();
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -104,5 +136,72 @@ public class SewaCloudActivity extends AppCompatActivity {
 
             }
         });
+
+        if (checkAndRequestPermission()){
+
+        }
+    }
+
+    public boolean checkAndRequestPermission(){
+        List<String> listPermissionNeeded = new ArrayList<>();
+        for (String perm: appPermission){
+            if (ContextCompat.checkSelfPermission(SewaCloudActivity.this, perm) != PackageManager.PERMISSION_GRANTED){
+                listPermissionNeeded.add(perm);
+            }
+        }
+        if (!listPermissionNeeded.isEmpty()){
+            ActivityCompat.requestPermissions(SewaCloudActivity.this, listPermissionNeeded.toArray(new String[listPermissionNeeded.size()]), PERMISSION_REQUEST_CODE);
+            return false;
+        }
+
+        return true;
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE){
+            HashMap<String, Integer> permissionResults = new HashMap<>();
+            int deniedCount = 0;
+
+            for (int i=0; i<grantResults.length;i++){
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED){
+                    permissionResults.put(permissions[i], grantResults[i]);
+                    deniedCount++;
+                }
+            }
+
+            if (deniedCount == 0){
+
+            } else {
+                for (Map.Entry<String, Integer> entry : permissionResults.entrySet()){
+                    String permName = entry.getKey();
+                    int permResult = entry.getValue();
+
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(SewaCloudActivity.this, permName)){
+                        AlertDialog.Builder alertDialog= new AlertDialog.Builder(SewaCloudActivity.this);
+                        alertDialog.setTitle("Alert");
+                        alertDialog.setMessage("This App need Camera Permission to work without and problems");
+                        alertDialog.setPositiveButton("YES, Granted permission", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                checkAndRequestPermission();
+                            }
+                        });
+                        alertDialog.setNegativeButton("NO, Cancel Taking Picture", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                System.exit(0);
+                            }
+                        });
+                        alertDialog.setCancelable(false);
+                        AlertDialog alert = alertDialog.create();
+                        alert.show();
+
+                    }
+                }
+            }
+        }
     }
 }

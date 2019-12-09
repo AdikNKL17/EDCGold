@@ -35,7 +35,8 @@
                     android:id="@+id/et_nama"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorPrimary"
+                    android:backgroundTint="@color/colorWhite"
+                    android:layout_margin="2dp"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,7 +66,8 @@
                     android:id="@+id/et_nama_bank"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorPrimary"
+                    android:backgroundTint="@color/colorWhite"
+                    android:layout_margin="2dp"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -94,7 +96,8 @@
                     android:id="@+id/et_no_rekening"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorPrimary"
+                    android:backgroundTint="@color/colorWhite"
+                    android:layout_margin="2dp"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -123,7 +126,8 @@
                     android:id="@+id/et_jumlah_transfer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorPrimary"
+                    android:backgroundTint="@color/colorWhite"
+                    android:layout_margin="2dp"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -29,7 +30,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminDetailMiningActivity;
 import id.dev.birifqa.edcgold.adapter.KabupatenAdapter;
 import id.dev.birifqa.edcgold.adapter.KecamatanAdapter;
 import id.dev.birifqa.edcgold.adapter.ProvinsiAdapter;
@@ -49,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
     private TextInputEditText etNamaDepan, etNamaBelakang, etBOD, etPhone, etEmail, etPassword, etProvinsi, etKabupaten, etKecamatan, etKodepos, etAlamat, etReferral;
     private AppCompatButton btnDaftar;
     private RadioGroup groupJK;
+    private AlertDialog dialog;
 
     private String jk = "";
     public static String idProv = "";
@@ -70,6 +74,8 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(RegisterActivity.this).build();
+
         etNamaDepan = findViewById(R.id.et_nama_depan);
         etNamaBelakang = findViewById(R.id.et_nama_belakang);
         etBOD = findViewById(R.id.et_bod);
@@ -145,6 +151,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                         !etAlamat.getText().toString().isEmpty() && !etKodepos.getText().toString().isEmpty()){
 
                     if (etPassword.getText().length() >= 6){
+                        dialog.show();
                         requestRegister();
                     }else {
                         Toast.makeText(RegisterActivity.this, "Password minimal 6 karakter", Toast.LENGTH_SHORT).show();
@@ -206,7 +213,8 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                         intent.putExtra("NAME", etNamaDepan.getText().toString());
                         startActivity(intent);
                     } else {
-                        Api.mProgressDialog.dismiss();
+                        dialog.dismiss();
+                        Toast.makeText(RegisterActivity.this, "Register Failed!!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -219,7 +227,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
             }
         };
 
-        Api.enqueueWithRetry(RegisterActivity.this, call, cBack, true, "Loading");
+        Api.enqueueWithRetry(RegisterActivity.this, call, cBack, false, "Loading");
     }
 
     private void showDatePicker(){

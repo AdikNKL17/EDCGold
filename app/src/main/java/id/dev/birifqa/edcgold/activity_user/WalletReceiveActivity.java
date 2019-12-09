@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.activity_user;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.PagerWalletReceiveAdapter;
@@ -22,6 +23,7 @@ public class WalletReceiveActivity extends AppCompatActivity {
     private StepperIndicator indicator;
     private ImageView btnBack, btnNext;
     private Callback<ResponseBody> cBack;
+    private Toolbar toolbar;
 
     private Integer pagerPosition;
     @Override
@@ -32,6 +34,7 @@ public class WalletReceiveActivity extends AppCompatActivity {
         pager = findViewById(R.id.view_pager_wallet_receive);
         btnBack = findViewById(R.id.btn_back);
         btnNext = findViewById(R.id.btn_next);
+        toolbar = findViewById(R.id.toolbar);
 
         pager.setAdapter(new PagerWalletReceiveAdapter(getSupportFragmentManager()));
         pager.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -45,20 +48,7 @@ public class WalletReceiveActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pagerPosition == 0){
-                    if (!Session.get("topup_nominal").equals("")){
-                        pager.setCurrentItem(pagerPosition+1, true);
-                    }else {
-                        Toast.makeText(WalletReceiveActivity.this, "Harap pilih nominal topup", Toast.LENGTH_SHORT).show();
-                    }
-                }else if (pagerPosition == 1){
-                    if (!Session.get("topup_bank_name").equals("")){
-                        pager.setCurrentItem(pagerPosition+1, true);
-                    }else {
-                        Toast.makeText(WalletReceiveActivity.this, "Harap pilih bank", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
+                pager.setCurrentItem(pagerPosition+1, true);
 
             }
         });
@@ -67,6 +57,14 @@ public class WalletReceiveActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 pager.setCurrentItem(pagerPosition-1, true);
+            }
+        });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                WalletReceiveActivity.this.finish();
             }
         });
 

@@ -1,7 +1,11 @@
 package id.dev.birifqa.edcgold.activity_user;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -58,6 +62,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import net.glxn.qrgen.android.QRCode;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -136,7 +144,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void onAction(){
-        loadFragment(new FragmentUserWallet());
+        loadFragment(new FragmentUserProfile());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         prepareMenuData();
@@ -148,6 +156,12 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
+        Session.save("wallet_id_penerima", "");
+        Session.save("wallet_nama_penerima", "");
+        Session.save("wallet_sale_rate", "");
+        Session.save("wallet_buy_rate", "");
+        Session.save("wallet_fee", "");
+
     }
 
     private void getUserDetail(){
@@ -156,12 +170,13 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    boolean handle = Handle.handleHome(response.body().string(), tvName, tvCoin, tvNameHeader, tvEmailHeader, HomeActivity.this);
-                    if (handle) {
-
-                    } else {
-
-                    }
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                    JSONObject coinObject = dataObject.getJSONObject("coin");
+                    JSONObject referralObject = dataObject.getJSONObject("referral");
+                    Session.save("referral", referralObject.getString("referral_code"));
+                    tvNameHeader.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                    tvEmailHeader.setText(dataObject.getString("email"));
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -298,11 +313,30 @@ public class HomeActivity extends AppCompatActivity
 
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         ImageView btnClose = dialogView.findViewById(R.id.btn_close);
+        ImageView btnCopy = dialogView.findViewById(R.id.btn_copy);
+        ImageView imgQrCode = dialogView.findViewById(R.id.img_qr_code);
+        TextView tvReferral = dialogView.findViewById(R.id.tv_referral);
+
+        tvReferral.setText(Session.get("referral"));
+
+        Bitmap qrBitmap = QRCode.from(Session.get("referral")).bitmap();
+        imgQrCode.setImageBitmap(qrBitmap);
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
+            }
+        });
+
+        btnCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("referral", Session.get("referral"));
+                clipboard.setPrimaryClip(clip);
+
+                Toast.makeText(HomeActivity.this, "Referral code is copied", Toast.LENGTH_SHORT).show();
             }
         });
 

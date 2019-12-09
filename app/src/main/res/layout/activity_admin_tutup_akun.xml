@@ -78,19 +78,19 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView31"
+                        android:id="@+id/tv_nama"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/circular_std_medium"
-                        android:text="Olivier Straw"
                         android:textColor="@color/colorWhite"
                         android:textSize="26sp"
                         app:layout_constraintStart_toEndOf="@+id/appCompatImageView6"
                         app:layout_constraintTop_toTopOf="@+id/appCompatImageView6" />
 
                     <TextView
+                        android:id="@+id/tv_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -98,8 +98,8 @@
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView6"
-                        app:layout_constraintStart_toStartOf="@+id/textView31"
-                        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+                        app:layout_constraintStart_toStartOf="@+id/tv_nama"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -119,22 +119,24 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout10"
-                        android:layout_width="0dp"
-                        android:layout_height="150dp"
+                    <EditText
+                        android:id="@+id/et_reason_close"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="4dp"
                         android:layout_marginEnd="24dp"
-                        android:layout_marginBottom="16dp"
-                        android:background="@drawable/background_foto_grey"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:gravity="top|start"
+                        android:hint="Masukkan Alasan Penutupan Akun"
+                        android:maxLines="5"
+                        android:minLines="5"
+                        android:textColor="#222222"
                         app:layout_constraintBottom_toTopOf="@+id/appCompatButton4"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView44">
+                        app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/appCompatButton4"

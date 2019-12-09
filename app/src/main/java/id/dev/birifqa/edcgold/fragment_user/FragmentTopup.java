@@ -20,9 +20,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.badoualy.stepperindicator.StepperIndicator;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +54,7 @@ public class FragmentTopup extends Fragment{
     private StepperIndicator indicator;
     private ImageView btnBack, btnNext;
     private Callback<ResponseBody> cBack;
+    private TextView tvName, tvCoin;
 
     private Integer pagerPosition;
 
@@ -76,6 +80,8 @@ public class FragmentTopup extends Fragment{
         pager = view.findViewById(R.id.view_pager_topup);
         btnBack = view.findViewById(R.id.btn_back);
         btnNext = view.findViewById(R.id.btn_next);
+        tvName = view.findViewById(R.id.tv_name);
+        tvCoin = view.findViewById(R.id.tv_coin);
 
         pager.setAdapter(new PagerTopupAdapter(getChildFragmentManager()));
         pager.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -121,6 +127,8 @@ public class FragmentTopup extends Fragment{
             }
         });
 
+        pager.beginFakeDrag();
+
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -147,6 +155,7 @@ public class FragmentTopup extends Fragment{
             }
         });
 
+        getUserDetail();
 
         if (checkAndRequestPermission()){
 
@@ -159,6 +168,30 @@ public class FragmentTopup extends Fragment{
     public void onResume(){
         super.onResume();
 
+    }
+
+    private void getUserDetail(){
+        Call<ResponseBody> call = ParamReq.requestUserDetail(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                    JSONObject coinObject = dataObject.getJSONObject("coin");
+                    tvName.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                    tvCoin.setText(coinObject.getString("balance_coin"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 
     private void topupTransaction(){

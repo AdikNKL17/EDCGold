@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_user;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,16 +11,30 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.SewaCloudActivity;
 import id.dev.birifqa.edcgold.adapter.UserMiningAdapter;
+import id.dev.birifqa.edcgold.model.HistoryMiningModel;
 import id.dev.birifqa.edcgold.model.UserMiningModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +44,11 @@ public class FragmentUserMining extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private UserMiningAdapter miningAdapter;
-    private ArrayList<UserMiningModel> miningModels;
+    private Callback<ResponseBody> cBack;
+    private ArrayList<HistoryMiningModel> miningModels;
+    private AlertDialog dialog;
+    private TextView tvPoint, tvRemainingTime, tvRemainingAging, tvAging, tvDate, tvPersen;
+    private ImageView imgCoin;
 
     private ConstraintLayout btnSewaCloud;
 
@@ -51,8 +70,17 @@ public class FragmentUserMining extends Fragment {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+
         recyclerView = view.findViewById(R.id.rv_user_mining);
         btnSewaCloud = view.findViewById(R.id.btn_sewa_cloud);
+        tvPoint = view.findViewById(R.id.tv_point);
+        tvRemainingTime = view.findViewById(R.id.tv_remaining_time);
+        tvRemainingAging = view.findViewById(R.id.tv_remaining_aging);
+        tvAging = view.findViewById(R.id.tv_aging);
+        tvDate = view.findViewById(R.id.tv_date);
+        tvPersen = view.findViewById(R.id.tv_persen);
+        imgCoin = view.findViewById(R.id.img_coin);
     }
 
     private void onAction(){
@@ -69,38 +97,89 @@ public class FragmentUserMining extends Fragment {
             }
         });
 
-        getData();
+        getMiningDetail1();
     }
 
-    private void getData(){
+    private void getMiningDetail1(){
+        dialog.show();
         miningModels.clear();
+        Call<ResponseBody> call = ParamReq.requestMyRental(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                    JSONObject rentalObject = dataObject.getJSONObject("rental");
+                    JSONObject userObject = rentalObject.getJSONObject("user");
+                    JSONObject coinObject = userObject.getJSONObject("coin");
+                    JSONObject pointObject = userObject.getJSONObject("point");
+                    JSONObject agingObject = dataObject.getJSONObject("aging");
 
-        UserMiningModel user1 = new UserMiningModel();
-        user1.setCoin("+ 0.09 EDCG");
-        user1.setProses("Proses");
-        user1.setDate("24/09/2019");
-        miningModels.add(user1);
+                    JSONArray historyObject = rentalObject.getJSONArray("history_minings");
 
-        UserMiningModel user2 = new UserMiningModel();
-        user2.setCoin("+ 1.187 EDCG");
-        user2.setProses("Sukses");
-        user2.setDate("24/09/2019 - 09:00:08 ");
-        miningModels.add(user2);
+                    String point = pointObject.getString("balance_point");
+                    String remainingTime = rentalObject.getString("remaining_time");
+                    String[] remainingTimeParts = remainingTime.split(":");
+                    String remainingTime1 = remainingTimeParts[0];
+                    String remainingTime2 = remainingTimeParts[1];
+                    String remainingTime3 = remainingTimeParts[2];
 
-        UserMiningModel user3 = new UserMiningModel();
-        user3.setCoin("+ 1.187 EDCG");
-        user3.setProses("Sukses");
-        user3.setDate("24/09/2019 - 09:00:08 ");
-        miningModels.add(user3);
+                    String remainingAging = rentalObject.getString("remaining_aging");
+                    String[] remainingAgingParts = remainingAging.split(":");
+                    String remainingAging1 = remainingAgingParts[0];
+                    String remainingAging2 = remainingAgingParts[1];
+                    String remainingAging3 = remainingAgingParts[2];
+                    tvPoint.setText(point);
+                    tvRemainingTime.setText(remainingTime1+" min");
+                    tvRemainingAging.setText(remainingAging+" MIN");
+                    tvAging.setText(agingObject.getString("result"));
+                    tvDate.setText(agingObject.getString("date"));
 
-        UserMiningModel user4 = new UserMiningModel();
-        user4.setCoin("+ 1.187 EDCG");
-        user4.setProses("Sukses");
-        user4.setDate("24/09/2019 - 09:00:08 ");
-        miningModels.add(user4);
+                    int agingProses = Integer.parseInt(remainingAging1);
+                    if (agingProses <= 24 && agingProses >= 18 ){
+                        tvPersen.setText("100%");
+                        imgCoin.setImageResource(R.drawable.icon_100_mining);
+                    } else if (agingProses < 18 && agingProses >= 12){
+                        tvPersen.setText("75%");
+                        imgCoin.setImageResource(R.drawable.icon_75_mining);
+                    } else if (agingProses <= 12 && agingProses >= 6){
+                        tvPersen.setText("50%");
+                        imgCoin.setImageResource(R.drawable.icon_50_mining);
+                    } else if (agingProses <= 5 && agingProses >= 0){
+                        tvPersen.setText("25%");
+                        imgCoin.setImageResource(R.drawable.icon_25_mining);
+                    }
 
+                    if (historyObject.length() > 0){
+                        for (int i=0; i <= historyObject.length() ; i++){
+                            HistoryMiningModel model = new HistoryMiningModel();
+                            model.setId(historyObject.getJSONObject(i).getString("id"));
+                            model.setUser_id(historyObject.getJSONObject(i).getString("user_id"));
+                            model.setSewa_mining_id(historyObject.getJSONObject(i).getString("sewa_mining_id"));
+                            model.setCoin_balance(historyObject.getJSONObject(i).getString("coin_balance"));
+                            model.setAging_result(historyObject.getJSONObject(i).getString("aging_result"));
+                            model.setDays_to(historyObject.getJSONObject(i).getString("days_to"));
+                            model.setCreated_at(historyObject.getJSONObject(i).getString("created_at"));
+                            model.setUpdated_at(historyObject.getJSONObject(i).getString("updated_at"));
 
-        miningAdapter.notifyDataSetChanged();
+                            miningModels.add(model);
+                        }
+                        miningAdapter.notifyDataSetChanged();
+                    }
+                    dialog.dismiss();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
+
 
 }

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -29,8 +30,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,6 +87,9 @@ public class AdminHomeActivity extends AppCompatActivity
     private ExpandableListAdapter expandableListAdapter;
     private ExpandableListView expandableListView;
     private ConstraintLayout btnQuickMenu, btnNotification;
+    private TextView tvCoin,koinMasuk, koinKeluar, rateJual, rateBeli;
+    private TextInputEditText etBuyRate, etSaleRate;
+    private ImageView btnBuyRate, btnSaleRate, btnClose;
 
     private List<MenuModel> headerList = new ArrayList<>();
     private HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
@@ -106,14 +113,15 @@ public class AdminHomeActivity extends AppCompatActivity
         navigationView = findViewById(R.id.nav_view);
         expandableListView = findViewById(R.id.expandableListView);
         headerView = navigationView.getHeaderView(0);
-        tvName = headerView.findViewById(R.id.tv_name);
-        tvEmail = headerView.findViewById(R.id.tv_email);
+        tvName = headerView.findViewById(R.id.tv_name_header);
+        tvEmail = headerView.findViewById(R.id.tv_email_header);
         btnQuickMenu = toolbar.findViewById(R.id.btn_quick_menu);
         btnNotification = toolbar.findViewById(R.id.btn_notification);
+        tvCoin = toolbar.findViewById(R.id.tv_coin);
     }
 
     private void onAction(){
-//        getUserDetail();
+        getUserDetail();
         loadFragment(new FragmentAdminUser());
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -149,35 +157,131 @@ public class AdminHomeActivity extends AppCompatActivity
         dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
+        koinMasuk = dialog1.findViewById(R.id.tv_coin_masuk);
+        koinKeluar = dialog1.findViewById(R.id.tv_coin_keluar);
+        rateJual = dialog1.findViewById(R.id.tv_rate_jual);
+        rateBeli = dialog1.findViewById(R.id.tv_rate_beli);
+        etBuyRate = dialog1.findViewById(R.id.et_buy_rate);
+        etSaleRate = dialog1.findViewById(R.id.et_sale_rate);
+        btnBuyRate = dialog1.findViewById(R.id.btn_buy_rate);
+        btnSaleRate = dialog1.findViewById(R.id.btn_sale_rate);
+        btnClose = dialog1.findViewById(R.id.btn_close);
+
+        btnBuyRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!etBuyRate.getText().toString().isEmpty()){
+                    updateRate(etBuyRate.getText().toString(), rateJual.toString());
+                } else {
+                    Toast.makeText(AdminHomeActivity.this, "Harap isi Buy Rate terlebih dahulu", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnSaleRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!etSaleRate.getText().toString().isEmpty()){
+                    updateRate(rateBeli.toString(), etSaleRate.getText().toString());
+                } else {
+                    Toast.makeText(AdminHomeActivity.this, "Harap isi Sale Rate terlebih dahulu", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+            }
+        });
+
+        getRate();
+
         dialog1.show();
     }
 
-//    private void getUserDetail(){
-//        Call<ResponseBody> call = ParamReq.requestUserDetail(session.get("token"), AdminHomeActivity.this);
-//        cBack = new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                try {
-//                    boolean handle = Handle.handleHome(response.body().string(), tvName, tvEmail, AdminHomeActivity.this);
-//                    if (handle) {
-//
-//
-//                    } else {
-//                        Api.mProgressDialog.dismiss();
-//                    }
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                Api.retryDialog(AdminHomeActivity.this, call, cBack, 1, false);
-//            }
-//        };
-//        Api.enqueueWithRetry(AdminHomeActivity.this, call, cBack, false, "Loading");
-//    }
+    private void updateRate(String buyRate, String saleRate){
+        Call<ResponseBody> call = ParamReq.updateRate(session.get("token"), buyRate, saleRate, AdminHomeActivity.this);
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    if (jsonObject.getBoolean("success")){
+                        Toast.makeText(AdminHomeActivity.this, "Rate berhasil update", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AdminHomeActivity.this, "Gagal update rate", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(AdminHomeActivity.this, call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(AdminHomeActivity.this, call, cBack, false, "Loading");
+    }
+
+    private void getRate(){
+        Call<ResponseBody> call = ParamReq.requestRate(session.get("token"), AdminHomeActivity.this);
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+
+                    koinMasuk.setText(dataObject.getString("coin_in"));
+                    koinKeluar.setText(dataObject.getString("coin_out"));
+                    rateJual.setText(dataObject.getString("sale_rate"));
+                    rateBeli.setText(dataObject.getString("buy_rate"));
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(AdminHomeActivity.this, call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(AdminHomeActivity.this, call, cBack, false, "Loading");
+    }
+
+    private void getUserDetail(){
+        Call<ResponseBody> call = ParamReq.requestUserDetail(session.get("token"), AdminHomeActivity.this);
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                    JSONObject coinObject = dataObject.getJSONObject("coin");
+
+                    tvName.setText(dataObject.getString("name"));
+                    tvEmail.setText(dataObject.getString("email"));
+
+                    tvCoin.setText(coinObject.getString("balance_coin"));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(AdminHomeActivity.this, call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(AdminHomeActivity.this, call, cBack, false, "Loading");
+    }
 
     private void prepareMenuData(){
         MenuModel menuModel = new MenuModel("Profil Saya", getResources().getDrawable(R.drawable.ic_account_circle_white_24dp), true, false);

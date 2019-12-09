@@ -163,4 +163,10 @@ public class RekeningBankActivity extends AppCompatActivity {
         };
         Api.enqueueWithRetry(RekeningBankActivity.this, call, cBack, false, "Loading");
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        getRekeningBank();
+    }
 }

@@ -21,20 +21,20 @@
         android:orderInCategory="100"
         android:title="Profile"
         app:showAsAction="always"
-        android:icon="@drawable/ic_icons8_settings"/>
+        android:icon="@drawable/ic_mining_white_24dp"/>
 
     <item
         android:id="@+id/action_topup"
         android:orderInCategory="100"
         android:title="Info"
         app:showAsAction="always"
-        android:icon="@drawable/forgot_password_icon"/>
+        android:icon="@drawable/ic_topup_white_24dp"/>
 
     <item
         android:id="@+id/action_withdraw"
         android:orderInCategory="100"
         android:title="QR"
         app:showAsAction="always"
-        android:icon="@drawable/ic_icons8_qr_code"/>
+        android:icon="@drawable/ic_withdraw_white_24dp"/>
 
 </menu>

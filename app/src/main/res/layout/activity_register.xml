@@ -71,7 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black">
+                        android:background="@drawable/button_background_corner_grey_nofill">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_nama_depan"
@@ -100,7 +100,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black">
+                        android:background="@drawable/button_background_corner_grey_nofill">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_nama_belakang"
@@ -165,7 +165,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black"
+                        android:background="@drawable/button_background_corner_grey_nofill"
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -199,7 +199,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black">
+                        android:background="@drawable/button_background_corner_grey_nofill">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_phone"
@@ -227,7 +227,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black">
+                        android:background="@drawable/button_background_corner_grey_nofill">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_email"
@@ -255,7 +255,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black"
+                        android:background="@drawable/button_background_corner_grey_nofill"
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -284,7 +284,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black"
+                        android:background="@drawable/button_background_corner_grey_nofill"
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -315,7 +315,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black"
+                        android:background="@drawable/button_background_corner_grey_nofill"
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -346,7 +346,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black"
+                        android:background="@drawable/button_background_corner_grey_nofill"
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -376,7 +376,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black">
+                        android:background="@drawable/button_background_corner_grey_nofill">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_kodepos"
@@ -403,7 +403,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black">
+                        android:background="@drawable/button_background_corner_grey_nofill">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_alamat"
@@ -432,7 +432,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/corner_edittext_black">
+                        android:background="@drawable/button_background_corner_grey_nofill
+">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_referral"

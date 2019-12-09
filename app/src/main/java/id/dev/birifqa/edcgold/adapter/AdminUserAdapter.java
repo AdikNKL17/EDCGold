@@ -37,12 +37,14 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminUserModel user = userModels.get(position);
-        holder.tvId.setText(user.getId());
+        holder.tvId.setText(user.getUserId());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, AdminDetailUserActivity.class));
+                Intent intent = new Intent(mContext, AdminDetailUserActivity.class);
+                intent.putExtra("id_user", user.getId());
+                mContext.startActivity(intent);
             }
         });
     }

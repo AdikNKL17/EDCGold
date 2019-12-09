@@ -60,15 +60,22 @@
                     android:layout_height="wrap_content"
                     android:text="Nomor Lama"
                     android:textColor="@color/colorPrimary" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_nomor_lama"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:enabled="false"
-                    android:layout_marginTop="4dp"
-                    android:inputType="number"
-                    android:backgroundTint="@color/colorPrimary" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_nomor_lama"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:enabled="false"
+                        android:inputType="number"
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -84,14 +91,21 @@
                     android:layout_height="wrap_content"
                     android:text="Nomor Baru"
                     android:textColor="@color/colorPrimary" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_nomor_baru"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
-                    android:inputType="number"
-                    android:backgroundTint="@color/colorPrimary" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_nomor_baru"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -107,14 +121,21 @@
                     android:layout_height="wrap_content"
                     android:text="Konfirmasi Nomor Baru"
                     android:textColor="@color/colorPrimary" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/konfirmasi"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
-                    android:inputType="number"
-                    android:backgroundTint="@color/colorPrimary" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/konfirmasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
         </LinearLayout>

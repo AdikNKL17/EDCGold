@@ -7,34 +7,35 @@
         android:orderInCategory="100"
         android:title="User"
         app:showAsAction="always"
-        android:icon="@drawable/icon_user"/>
+        android:icon="@drawable/ic_person_white_24dp"/>
 
     <item
         android:id="@+id/action_history"
         android:orderInCategory="100"
         android:title="History"
         app:showAsAction="always"
-        android:icon="@drawable/icon_riwayat"/>
+        android:iconTint="@color/colorWhite"
+        android:icon="@drawable/ic_history_white_24dp"/>
 
     <item
         android:id="@+id/action_wallet"
         android:orderInCategory="100"
         android:title="Profile"
         app:showAsAction="always"
-        android:icon="@drawable/icon_dompet"/>
+        android:icon="@drawable/ic_wallet_white_24dp"/>
 
     <item
         android:id="@+id/action_mining"
         android:orderInCategory="100"
         android:title="Info"
         app:showAsAction="always"
-        android:icon="@drawable/icon_mining"/>
+        android:icon="@drawable/ic_mining_white_24dp"/>
 
     <item
         android:id="@+id/action_qr"
         android:orderInCategory="100"
         android:title="QR"
         app:showAsAction="always"
-        android:icon="@drawable/icon_qr"/>
+        android:icon="@drawable/ic_icons8_qr_code"/>
 
 </menu>

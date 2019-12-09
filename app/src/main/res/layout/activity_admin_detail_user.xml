@@ -79,14 +79,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView31"
+                        android:id="@+id/tv_nama"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="40dp"
                         android:fontFamily="@font/circular_std_medium"
-                        android:text="Olivier Straw"
                         android:textColor="@color/colorWhite"
                         android:textSize="26sp"
                         app:layout_constraintEnd_toStartOf="@+id/btn_more"
@@ -94,15 +93,15 @@
                         app:layout_constraintTop_toTopOf="@+id/appCompatImageView6" />
 
                     <TextView
+                        android:id="@+id/tv_status_active"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Status Akun: Aktif"
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView6"
-                        app:layout_constraintStart_toStartOf="@+id/textView31"
-                        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+                        app:layout_constraintStart_toStartOf="@+id/tv_nama"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
 
                     <ImageView
                         android:id="@+id/btn_more"
@@ -124,44 +123,62 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/circular_std_bold"
                         android:text="Pilih Status :"
                         android:textColor="@color/mdtp_dark_gray"
+                        app:layout_constraintBottom_toTopOf="@+id/spinner_type_user"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@+id/spinner_status_user" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/appCompatSpinner"
+                        android:id="@+id/spinner_status_user"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView32"
-                        app:layout_constraintTop_toTopOf="@+id/textView32" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView49"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
                         android:fontFamily="@font/circular_std_bold"
                         android:text="Type Akun :"
                         android:textColor="@color/mdtp_dark_gray"
+                        app:layout_constraintBottom_toBottomOf="@+id/spinner_type_user"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+                        app:layout_constraintTop_toTopOf="@+id/spinner_type_user" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner_type_user"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toTopOf="@+id/btn_simpan"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/spinner_status_user"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner_status_user" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_simpan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
+                        android:background="@drawable/button_background_corner_blue_fill"
+                        android:fontFamily="@font/circular_std_medium"
+                        android:text="Simpan"
+                        android:textColor="@color/colorWhite"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/appCompatSpinner"
-                        app:layout_constraintTop_toTopOf="@+id/textView49" />
+                        app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
@@ -204,6 +221,7 @@
                             android:id="@+id/et_nama"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>
@@ -223,9 +241,10 @@
                             android:textColor="@color/colorPrimaryDark" />
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_nama"
+                            android:id="@+id/et_id"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>
@@ -248,6 +267,7 @@
                             android:id="@+id/et_referral"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>
@@ -270,6 +290,7 @@
                             android:id="@+id/et_phone"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>
@@ -292,6 +313,7 @@
                             android:id="@+id/et_email"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>
@@ -314,6 +336,7 @@
                             android:id="@+id/et_alamat"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>

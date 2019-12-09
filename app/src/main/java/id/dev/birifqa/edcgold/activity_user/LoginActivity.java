@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -32,7 +33,8 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private AppCompatButton buttonForgot, buttonRegister, buttonLogin;
-    private TextInputEditText etUsername, etPassword, etBrainkey;
+    private TextInputEditText etUsername, etPassword;
+    private EditText etBrainkey;
     private View view;
     private Callback<ResponseBody> cBack;
     private AlertDialog dialog;
