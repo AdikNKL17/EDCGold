@@ -68,14 +68,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nama Bank"
-                    android:textColor="@color/colorPrimary"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_nama_bank"
+                    android:textColor="@color/colorPrimary" />
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_nama_bank"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textEmailAddress"
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -89,14 +96,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nomor Rekening"
-                    android:textColor="@color/colorPrimary"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_nomor_bank"
+                    android:textColor="@color/colorPrimary" />
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_nomor_bank"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textEmailAddress"
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
 
@@ -111,14 +125,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nama Pemilik Rekening"
-                    android:textColor="@color/colorPrimary"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_nama_pemilik"
+                    android:textColor="@color/colorPrimary" />
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/colorPrimary"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_edittext_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_nama_pemilik"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textEmailAddress"
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
         </LinearLayout>

@@ -541,6 +541,7 @@ public class Handle {
         return false;
     }
 
+
     public static boolean handleChangeAddress(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
@@ -652,6 +653,28 @@ public class Handle {
     }
 
     public static boolean handleChangeBank(String sjson, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses) {
+
+                return true;
+
+            } else {
+                return false;
+
+            }
+
+        } catch (JSONException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
+    public static boolean handleDeleteBank(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
             boolean succses = jsonObject.getBoolean("success");
@@ -786,14 +809,17 @@ public class Handle {
     public static boolean handleProfileDetail(String sjson, TextInputEditText etName,
                                               TextInputEditText etId, TextInputEditText etPhone,
                                               TextInputEditText etEmail, TextInputEditText etAddress,
-                                              Context context) {
+                                              TextInputEditText etRef,Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            JSONObject refObject = dataObject.getJSONObject("referral");
             etName.setText(jsonObject.getJSONObject("data").getString("name"));
             etId.setText(jsonObject.getJSONObject("data").getString("id"));
             etPhone.setText(jsonObject.getJSONObject("data").getString("phone"));
             etEmail.setText(jsonObject.getJSONObject("data").getString("email"));
             etAddress.setText(jsonObject.getJSONObject("data").getString("address"));
+            etRef.setText(refObject.getString("referral_code"));
 
             return true;
 

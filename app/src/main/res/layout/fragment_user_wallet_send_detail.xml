@@ -103,7 +103,7 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="26sp" />
+                    android:textSize="22sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                             android:gravity="center"
                             android:enabled="false"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="26sp" />
+                            android:textSize="22sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -162,7 +162,7 @@
                             android:gravity="center"
                             android:enabled="false"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="26sp" />
+                            android:textSize="22sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -183,7 +183,7 @@
                     android:gravity="center"
                     android:enabled="false"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="26sp" />
+                    android:textSize="22sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_proses"

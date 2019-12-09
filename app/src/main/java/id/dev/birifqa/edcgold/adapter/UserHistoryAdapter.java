@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -12,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.model.UserHistoryModel;
-import id.dev.birifqa.edcgold.model.UserNotificationModel;
 
 public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.MyViewHolder> {
 
@@ -38,15 +38,21 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final UserHistoryModel history = historyModels.get(position);
 
+        RecyclerView.LayoutParams param = (RecyclerView.LayoutParams) itemView.getLayoutParams();
+
         if (tipe == 1){
             if (position % 2 == 0){
                 holder.itemView.setBackgroundResource(R.color.colorGray);
             }
             if (history.getStatus().equals("0")){
+                param.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                param.width = LinearLayout.LayoutParams.MATCH_PARENT;
                 holder.tvTitle.setText(history.getTitle());
                 holder.tvStatus.setText("Sedang di proses");
                 holder.tvDate.setText(history.getDate());
             } else {
+                param.height = 0;
+                param.width = 0;
                 holder.itemView.setVisibility(View.GONE);
             }
 
@@ -55,10 +61,14 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
                 holder.itemView.setBackgroundResource(R.color.colorGray);
             }
             if (history.getStatus().equals("1")){
+                param.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                param.width = LinearLayout.LayoutParams.MATCH_PARENT;
                 holder.tvTitle.setText(history.getTitle());
                 holder.tvStatus.setText("Transaksi Selesai");
                 holder.tvDate.setText(history.getDate());
             } else {
+                param.height = 0;
+                param.width = 0;
                 holder.itemView.setVisibility(View.GONE);
             }
         }

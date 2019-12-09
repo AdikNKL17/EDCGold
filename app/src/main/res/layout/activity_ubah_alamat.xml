@@ -73,8 +73,8 @@
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,8 +105,8 @@
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"/>
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -136,8 +136,8 @@
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"/>
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -164,8 +164,8 @@
                         android:id="@+id/et_kodepos"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:backgroundTint="@color/colorPrimary"/>
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -192,9 +192,9 @@
                         android:id="@+id/et_alamat"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
                         android:minLines="4"
-                        android:backgroundTint="@color/colorPrimary"/>
+                        android:backgroundTint="@color/colorWhite"
+                        android:layout_margin="2dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>

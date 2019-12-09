@@ -31,7 +31,7 @@ public class FragmentUserProfile extends Fragment {
 
     private View view;
     private Callback<ResponseBody> cBack;
-    private TextInputEditText etNama, etId, etPhone, etEmail, etAlamat;
+    private TextInputEditText etNama, etId, etPhone, etEmail, etAlamat, etRef;
     private TextView tvName, tvCoin;
 
     public FragmentUserProfile() {
@@ -57,6 +57,7 @@ public class FragmentUserProfile extends Fragment {
         etPhone = view.findViewById(R.id.et_phone);
         etEmail = view.findViewById(R.id.et_email);
         etAlamat = view.findViewById(R.id.et_alamat);
+        etRef = view.findViewById(R.id.et_ref);
         tvName = view.findViewById(R.id.tv_name);
         tvCoin = view.findViewById(R.id.tv_coin);
     }
@@ -96,7 +97,7 @@ public class FragmentUserProfile extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    boolean handle = Handle.handleProfileDetail(response.body().string(), etNama, etId, etPhone, etEmail, etAlamat, getActivity());
+                    boolean handle = Handle.handleProfileDetail(response.body().string(), etNama, etId, etPhone, etEmail, etAlamat, etRef, getActivity());
                     if (handle) {
 
                     } else {

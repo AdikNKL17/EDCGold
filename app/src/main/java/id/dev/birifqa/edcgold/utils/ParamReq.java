@@ -281,6 +281,15 @@ public class ParamReq {
         return APIInterface.changeBank("Bearer " +token, id, requestChangeBank);
     }
 
+    public static Call<ResponseBody> changePasswordRequest(String token, String old_password, String new_password, String password_confirmation,Context context) {
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("old_password", RequestBody.create(MediaType.parse("multipart/form-data"), old_password));
+        map.put("new_password", RequestBody.create(MediaType.parse("multipart/form-data"), new_password));
+        map.put("confirmed", RequestBody.create(MediaType.parse("multipart/form-data"), password_confirmation));
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.requestChangePassword("Bearer " +token, map);
+    }
     public static Call<ResponseBody> changePassword(String token, String verification, String password, String password_confirmation,Context context) {
         RequestChangePassword requestChangePassword = new RequestChangePassword();
         requestChangePassword.setVerification(verification);
@@ -352,6 +361,11 @@ public class ParamReq {
         requestUpdateTopup.setNominal(nominal);
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.updateTopup("Bearer " +token, requestUpdateTopup);
+    }
+
+    public static Call<ResponseBody> deleteBank(String token, String id,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.deleteBank("Bearer " +token, id);
     }
 
 }

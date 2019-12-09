@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -61,6 +62,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import net.glxn.qrgen.android.QRCode;
 
 import org.json.JSONObject;
 
@@ -152,6 +155,12 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        Session.save("wallet_id_penerima", "");
+        Session.save("wallet_nama_penerima", "");
+        Session.save("wallet_sale_rate", "");
+        Session.save("wallet_buy_rate", "");
+        Session.save("wallet_fee", "");
 
     }
 
@@ -305,9 +314,13 @@ public class HomeActivity extends AppCompatActivity
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         ImageView btnClose = dialogView.findViewById(R.id.btn_close);
         ImageView btnCopy = dialogView.findViewById(R.id.btn_copy);
+        ImageView imgQrCode = dialogView.findViewById(R.id.img_qr_code);
         TextView tvReferral = dialogView.findViewById(R.id.tv_referral);
 
         tvReferral.setText(Session.get("referral"));
+
+        Bitmap qrBitmap = QRCode.from(Session.get("referral")).bitmap();
+        imgQrCode.setImageBitmap(qrBitmap);
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -326,12 +339,6 @@ public class HomeActivity extends AppCompatActivity
                 Toast.makeText(HomeActivity.this, "Referral code is copied", Toast.LENGTH_SHORT).show();
             }
         });
-
-        Session.save("wallet_id_penerima", "");
-        Session.save("wallet_nama_penerima", "");
-        Session.save("wallet_sale_rate", "");
-        Session.save("wallet_buy_rate", "");
-        Session.save("wallet_fee", "");
 
         alertDialog.show();
     }

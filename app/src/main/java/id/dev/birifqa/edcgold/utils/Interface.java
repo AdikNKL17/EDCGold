@@ -18,6 +18,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -126,6 +127,10 @@ public interface Interface {
     Call<ResponseBody> requestChangeEmail(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
     @Multipart
+    @POST("http://45.77.252.55/api/password")
+    Call<ResponseBody> requestChangePassword(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
+    @Multipart
     @POST("http://45.77.252.55/api/check_user")
     Call<ResponseBody> requestCheckUser(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
@@ -169,6 +174,10 @@ public interface Interface {
 
     @PUT("http://45.77.252.55/api/rate")
     Call<ResponseBody> updateRental(@Header("Authorization") String authorization, @Body RequestUpdateRental requestUpdateRental);
+
+    //DELETE
+    @DELETE("http://45.77.252.55/api/bank_user/{id}")
+    Call<ResponseBody> deleteBank(@Header("Authorization") String authorization,@Path("id") String id_bank);
 }
 
 
