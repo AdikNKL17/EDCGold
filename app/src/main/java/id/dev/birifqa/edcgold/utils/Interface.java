@@ -14,6 +14,7 @@ import id.dev.birifqa.edcgold.request.RequestTopupProcess;
 import id.dev.birifqa.edcgold.request.RequestUpdateRate;
 import id.dev.birifqa.edcgold.request.RequestUpdateRental;
 import id.dev.birifqa.edcgold.request.RequestUpdateTopup;
+import id.dev.birifqa.edcgold.request.RequestUpdateUser;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -174,6 +175,9 @@ public interface Interface {
 
     @PUT("http://45.77.252.55/api/rate")
     Call<ResponseBody> updateRental(@Header("Authorization") String authorization, @Body RequestUpdateRental requestUpdateRental);
+
+    @PUT("http://45.77.252.55/api/user_update/{id}")
+    Call<ResponseBody> updateUser(@Header("Authorization") String authorization, @Path("id") String id_user, @Body RequestUpdateUser requestUpdateUser);
 
     //DELETE
     @DELETE("http://45.77.252.55/api/bank_user/{id}")

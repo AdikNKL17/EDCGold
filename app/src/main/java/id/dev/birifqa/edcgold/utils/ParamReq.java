@@ -18,6 +18,7 @@ import id.dev.birifqa.edcgold.request.RequestTopupProcess;
 import id.dev.birifqa.edcgold.request.RequestUpdateRate;
 import id.dev.birifqa.edcgold.request.RequestUpdateRental;
 import id.dev.birifqa.edcgold.request.RequestUpdateTopup;
+import id.dev.birifqa.edcgold.request.RequestUpdateUser;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -361,6 +362,15 @@ public class ParamReq {
         requestUpdateTopup.setNominal(nominal);
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.updateTopup("Bearer " +token, requestUpdateTopup);
+    }
+
+    public static Call<ResponseBody> updateUser(String token, String id_user, String status_active, String type_member, String reason_close,Context context) {
+        RequestUpdateUser requestUpdateUser = new RequestUpdateUser();
+        requestUpdateUser.setStatus_active(status_active);
+        requestUpdateUser.setType_member(type_member);
+        requestUpdateUser.setReason_close(reason_close);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.updateUser("Bearer " +token, id_user, requestUpdateUser);
     }
 
     public static Call<ResponseBody> deleteBank(String token, String id,Context context) {

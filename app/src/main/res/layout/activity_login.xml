@@ -25,10 +25,14 @@
                 android:id="@+id/appCompatImageView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_bg_login"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:drawableLeft="@drawable/ic_icons8_user"
+                android:drawablePadding="16dp"
+                android:hint="Username/Email"
+                android:id="@+id/et_username"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:inputType="textEmailAddress"
+                android:padding="16dp" />
 
             <ImageView
                 android:id="@+id/appCompatImageView2"
@@ -71,15 +75,24 @@
                         android:textColor="@color/colorWhite"
                         android:textColorHint="@color/colorWhite" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputBrainkey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="8dp"
-                    app:passwordToggleEnabled="true">
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:id="@+id/et_brainkey"
+                android:padding="16dp" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_password"
