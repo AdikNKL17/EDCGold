@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_icons8_user"
                 android:drawablePadding="16dp"
-                android:hint="Username"
+                android:hint="Username/Email"
                 android:id="@+id/et_username"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:background="@drawable/corner_edittext_black"
+
             android:layout_marginBottom="8dp">
 
             <EditText
@@ -106,7 +106,7 @@
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:inputType="textMultiLine"
-                android:lines="3"
+                android:lines="2"
                 android:id="@+id/et_brainkey"
                 android:padding="16dp" />
 

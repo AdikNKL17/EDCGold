@@ -61,7 +61,8 @@
                     android:text="Alasan"
                     android:textColor="@color/colorPrimary" />
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
+                    android:id="@+id/et_reason_close"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
@@ -70,7 +71,6 @@
                     android:gravity="top|start"
                     android:hint="Masukkan Alasan Penutupan Akun"
                     android:textColor="#222222"
-                    android:enabled="false"
                     android:backgroundTint="@color/colorPrimary" />
             </LinearLayout>
 
