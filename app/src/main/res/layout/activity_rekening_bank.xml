@@ -103,7 +103,7 @@
                                 android:layout_height="match_parent"
                                 android:backgroundTint="@color/colorWhite"
                                 android:layout_margin="2dp"
-                                android:inputType="text" />
+                                android:inputType="textPersonName"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
@@ -134,7 +134,7 @@
                                 android:layout_height="match_parent"
                                 android:backgroundTint="@color/colorWhite"
                                 android:layout_margin="2dp"
-                                android:inputType="text" />
+                                android:inputType="number"/>
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 

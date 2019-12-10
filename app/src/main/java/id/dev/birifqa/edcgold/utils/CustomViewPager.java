@@ -9,7 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 public class CustomViewPager extends ViewPager {
 
-    private boolean isPagingEnabled = true;
+    private boolean isPagingEnabled = false;
 
     public CustomViewPager(Context context) {
         super(context);
@@ -32,6 +32,7 @@ public class CustomViewPager extends ViewPager {
     public void setPagingEnabled(boolean b) {
         this.isPagingEnabled = b;
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int mode = MeasureSpec.getMode(heightMeasureSpec);

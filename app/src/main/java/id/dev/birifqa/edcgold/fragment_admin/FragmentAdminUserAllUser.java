@@ -9,12 +9,16 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
@@ -40,6 +44,7 @@ public class FragmentAdminUserAllUser extends Fragment {
     private ArrayList<AdminUserModel> userModels;
     private Callback<ResponseBody> cBack;
     private AlertDialog dialog;
+    private EditText etCari;
 
     public FragmentAdminUserAllUser() {
         // Required empty public constructor
@@ -62,6 +67,7 @@ public class FragmentAdminUserAllUser extends Fragment {
         dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
 
         recyclerView = view.findViewById(R.id.rv_all_user);
+        etCari = view.findViewById(R.id.et_cari);
     }
 
     private void onAction(){
@@ -70,6 +76,36 @@ public class FragmentAdminUserAllUser extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(userAdapter);
+
+        etCari.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String textSearch = s.toString();
+                textSearch=textSearch.toLowerCase();
+                List<AdminUserModel> newList=new ArrayList<>();
+                if (textSearch.isEmpty()){
+                    newList = Api.adminUserAllUserModels;
+                }else {
+                    for (AdminUserModel adminUserModel : Api.adminUserAllUserModels){
+                        String title=adminUserModel.getUserId().toLowerCase();
+                        if (title.contains(textSearch)){
+                            newList.add(adminUserModel);
+                        }
+                    }
+                }
+                userAdapter.setFilter(newList);
+            }
+        });
 
         getData();
     }

@@ -35,7 +35,7 @@ import retrofit2.Response;
 public class FragmentUserHistorySelesai extends Fragment {
 
     private View view;
-    private ImageView noData;
+    private ImageView imgNoData;
     private RecyclerView recyclerView;
     private UserHistoryAdapter historyAdapter;
     private Callback<ResponseBody> cBack;
@@ -61,7 +61,7 @@ public class FragmentUserHistorySelesai extends Fragment {
     private void findViewById(){
         dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
 
-        noData = view.findViewById(R.id.no_data);
+        imgNoData = view.findViewById(R.id.img_nodata);
         recyclerView = view.findViewById(R.id.rv_history_selesai);
     }
 
@@ -70,7 +70,6 @@ public class FragmentUserHistorySelesai extends Fragment {
 //        recyclerView.setVisibility(View.GONE);
 
         Api.userHistorySelesaiModels = new ArrayList<>();
-        Api.userHistorySelesaiModels.clear();
         historyAdapter = new UserHistoryAdapter(getActivity(), Api.userHistorySelesaiModels, 2);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -81,12 +80,13 @@ public class FragmentUserHistorySelesai extends Fragment {
 
     private void getData(){
         dialog.show();
+        Api.userHistorySelesaiModels.clear();
         Call<ResponseBody> call = ParamReq.requestTransactionHistory(Session.get("token"), getActivity());
         cBack = new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    boolean handle = Handle.handleGetTransactionHistory(response.body().string(), "2", getActivity());
+                    boolean handle = Handle.handleGetTransactionHistory(response.body().string(), imgNoData, getActivity());
                     if (handle) {
                         dialog.dismiss();
                         historyAdapter.notifyDataSetChanged();

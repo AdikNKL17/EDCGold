@@ -9,6 +9,7 @@ import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.PagerWalletSendAdapter;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserWalletSendDetail;
 import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.CustomViewPager;
 import id.dev.birifqa.edcgold.utils.HeightWrappingViewPager;
 import id.dev.birifqa.edcgold.utils.ParamReq;
 import id.dev.birifqa.edcgold.utils.Session;
@@ -32,7 +33,7 @@ import com.badoualy.stepperindicator.StepperIndicator;
 import org.json.JSONObject;
 
 public class WalletSendActivity extends AppCompatActivity {
-    private HeightWrappingViewPager pager;
+    private CustomViewPager pager;
     private StepperIndicator indicator;
     private ImageView btnBack, btnNext;
     private Callback<ResponseBody> cBack;

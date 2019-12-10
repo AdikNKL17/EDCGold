@@ -8,8 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONObject;
@@ -33,6 +36,7 @@ public class FragmentUserProfile extends Fragment {
     private Callback<ResponseBody> cBack;
     private TextInputEditText etNama, etId, etPhone, etEmail, etAlamat, etRef;
     private TextView tvName, tvCoin;
+    private ImageView imgFoto;
 
     public FragmentUserProfile() {
         // Required empty public constructor
@@ -60,6 +64,7 @@ public class FragmentUserProfile extends Fragment {
         etRef = view.findViewById(R.id.et_ref);
         tvName = view.findViewById(R.id.tv_name);
         tvCoin = view.findViewById(R.id.tv_coin);
+        imgFoto = view.findViewById(R.id.img_foto);
     }
 
     private void onAction(){
@@ -78,6 +83,9 @@ public class FragmentUserProfile extends Fragment {
                     JSONObject coinObject = dataObject.getJSONObject("coin");
                     tvName.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
                     tvCoin.setText(coinObject.getString("balance_coin"));
+
+                    Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                            .apply(RequestOptions.circleCropTransform()).into(imgFoto);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

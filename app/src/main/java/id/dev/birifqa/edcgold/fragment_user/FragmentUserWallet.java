@@ -11,11 +11,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +28,7 @@ import java.util.ArrayList;
 
 import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.activity_user.HomeActivity;
+import id.dev.birifqa.edcgold.activity_user.DetailWalletReceiveActivity;
 import id.dev.birifqa.edcgold.activity_user.WalletReceiveActivity;
 import id.dev.birifqa.edcgold.activity_user.WalletSendActivity;
 import id.dev.birifqa.edcgold.adapter.UserAktifitasAdapter;
@@ -43,14 +47,14 @@ import retrofit2.Response;
 public class FragmentUserWallet extends Fragment {
 
     private View view;
-    private ImageView noData;
     private RecyclerView recyclerView;
     private UserAktifitasAdapter aktifitasAdapter;
     private ArrayList<UserAktifitasModel> aktifitasModels;
     private AppCompatButton btnSend, btnReceive;
-    private TextView tvName, tvCoin;
+    private TextView tvName, tvCoin, tvNotif;
     private Callback<ResponseBody> cBack;
     private AlertDialog dialog;
+    private ImageView imgFoto, imgNoData;
 
 
     public FragmentUserWallet() {
@@ -73,12 +77,14 @@ public class FragmentUserWallet extends Fragment {
     private void findViewById(){
         dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
 
-        noData = view.findViewById(R.id.no_data);
         recyclerView = view.findViewById(R.id.rv_aktifitas);
         btnSend = view.findViewById(R.id.btn_send);
         btnReceive = view.findViewById(R.id.btn_receive);
         tvName = view.findViewById(R.id.tv_name);
         tvCoin = view.findViewById(R.id.tv_coin);
+        tvNotif = view.findViewById(R.id.tv_notif);
+        imgFoto = view.findViewById(R.id.img_foto);
+        imgNoData = view.findViewById(R.id.img_nodata);
     }
 
     private void onAction(){
@@ -122,6 +128,8 @@ public class FragmentUserWallet extends Fragment {
                     JSONObject coinObject = dataObject.getJSONObject("coin");
                     tvName.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
                     tvCoin.setText(coinObject.getString("balance_coin"));
+                    Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                            .apply(RequestOptions.circleCropTransform()).into(imgFoto);
                 } catch (Exception e) {
                     dialog.dismiss();
                     e.printStackTrace();
@@ -145,29 +153,35 @@ public class FragmentUserWallet extends Fragment {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-                    JSONArray dataObject = jsonObject.getJSONArray("data");
+                    JSONArray dataArray = jsonObject.getJSONArray("data");
 
-                    if (dataObject.length() > 0){
-                        for (int i = 0; i<= dataObject.length() ; i++){
+                    if (dataArray.length() > 0){
+                        Log.e("DATALENGHT123", String.valueOf(dataArray.length()));
+                        for (int j = 0; j< dataArray.length() ; j++){
                             UserAktifitasModel model = new UserAktifitasModel();
-                            model.setId(dataObject.getJSONObject(i).getString("id"));
-                            model.setBuyer_id(dataObject.getJSONObject(i).getString("buyer_id"));
-                            model.setSeller_id(dataObject.getJSONObject(i).getString("seller_id"));
-                            model.setTransaction_code(dataObject.getJSONObject(i).getString("transaction_code"));
-                            model.setMethod(dataObject.getJSONObject(i).getString("method"));
-                            model.setNominal(dataObject.getJSONObject(i).getString("nominal"));
-                            model.setBalance_point(dataObject.getJSONObject(i).getString("balance_point"));
-                            model.setBalance_coin(dataObject.getJSONObject(i).getString("balance_coin"));
-                            model.setAmount_point(dataObject.getJSONObject(i).getString("amount_point"));
-                            model.setAmount_coin(dataObject.getJSONObject(i).getString("amount_coin"));
-                            model.setStatus(dataObject.getJSONObject(i).getString("status"));
-                            model.setDescription(dataObject.getJSONObject(i).getString("description"));
-                            model.setCreated_at(dataObject.getJSONObject(i).getString("created_at"));
-                            model.setUpdated_at(dataObject.getJSONObject(i).getString("updated_at"));
-                            model.setType_transfer(dataObject.getJSONObject(i).getString("type_transfer"));
+                            Log.e("123455", String.valueOf(j));
+                            model.setId(dataArray.getJSONObject(j).getString("id"));
+                            model.setBuyer_id(dataArray.getJSONObject(j).getString("buyer_id"));
+                            model.setSeller_id(dataArray.getJSONObject(j).getString("seller_id"));
+                            model.setTransaction_code(dataArray.getJSONObject(j).getString("transaction_code"));
+                            model.setMethod(dataArray.getJSONObject(j).getString("method"));
+                            model.setNominal(dataArray.getJSONObject(j).getString("nominal"));
+                            model.setBalance_point(dataArray.getJSONObject(j).getString("balance_point"));
+                            model.setBalance_coin(dataArray.getJSONObject(j).getString("balance_coin"));
+                            model.setAmount_point(dataArray.getJSONObject(j).getString("amount_point"));
+                            model.setAmount_coin(dataArray.getJSONObject(j).getString("amount_coin"));
+                            model.setStatus(dataArray.getJSONObject(j).getString("status"));
+                            model.setDescription(dataArray.getJSONObject(j).getString("description"));
+                            model.setCreated_at(dataArray.getJSONObject(j).getString("created_at"));
+                            model.setUpdated_at(dataArray.getJSONObject(j).getString("updated_at"));
+                            model.setType_transfer(dataArray.getJSONObject(j).getString("type_transfer"));
 
                             aktifitasModels.add(model);
                         }
+                        aktifitasAdapter.notifyDataSetChanged();
+                        imgNoData.setVisibility(View.GONE);
+                    } else{
+                        imgNoData.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {
                     dialog.dismiss();
@@ -192,12 +206,23 @@ public class FragmentUserWallet extends Fragment {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-                    JSONArray dataObject = jsonObject.getJSONArray("data");
+                    JSONArray dataArray = jsonObject.getJSONArray("data");
 
-                    if (dataObject.length() > 0){
+                    int value = 0;
+                    if (dataArray.length() > 0){
+                        for (int i =0; i < dataArray.length();i++){
+                            if (dataArray.getJSONObject(i).getString("status").equals("0")){
+                                value++;
+                            }
+                        }
+                        if (value > 0){
+                            tvNotif.setVisibility(View.VISIBLE);
+                            tvNotif.setText(String.valueOf(value));
+                        }
                         dialog.dismiss();
                     } else {
-
+                        tvNotif.setVisibility(View.GONE);
+                        dialog.dismiss();
                     }
                 } catch (Exception e) {
                     dialog.dismiss();

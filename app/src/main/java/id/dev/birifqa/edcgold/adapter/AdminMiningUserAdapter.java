@@ -37,17 +37,12 @@ public class AdminMiningUserAdapter extends RecyclerView.Adapter<AdminMiningUser
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminUserMiningHistoryModel history = historyModels.get(position);
 
-        holder.tvCoin.setText(history.getCoin());
-        holder.tvDate.setText(history.getDate());
-        holder.tvProses.setText(history.getProses());
+        holder.tvCoin.setText(history.getCoin_balance());
+        holder.tvDate.setText(history.getCreated_at());
+        holder.tvProses.setText("Sukses");
 
-        if (history.getProses().equals("Proses")){
-            holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_proses));
-            holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_mining));
-        } else{
-            holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_success));
-            holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_dompet_mining));
-        }
+        holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_success));
+        holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_dompet_mining));
     }
 
     @Override

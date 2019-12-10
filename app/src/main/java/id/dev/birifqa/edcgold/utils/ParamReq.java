@@ -10,6 +10,7 @@ import id.dev.birifqa.edcgold.request.RequestChangeAddress;
 import id.dev.birifqa.edcgold.request.RequestChangeBank;
 import id.dev.birifqa.edcgold.request.RequestChangeEmail;
 import id.dev.birifqa.edcgold.request.RequestChangePassword;
+import id.dev.birifqa.edcgold.request.RequestChangePassword1;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
 import id.dev.birifqa.edcgold.request.RequestChangeRate;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
@@ -112,7 +113,7 @@ public class ParamReq {
 
     public static Call<ResponseBody> requestTopupList(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
-        return APIInterface.getTopupList("Bearer " +token);
+        return APIInterface.getTopupList("Bearer " +token, "0", "10");
     }
 
     public static Call<ResponseBody> requestDetailTopup(String token, String idTopup,Context context) {
@@ -127,7 +128,7 @@ public class ParamReq {
 
     public static Call<ResponseBody> requestRentalList(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
-        return APIInterface.getRentalList("Bearer " +token);
+        return APIInterface.getRentalList("Bearer " +token, "0", "10");
     }
 
     public static Call<ResponseBody> requestDetailRental(String token, String idRental,Context context) {
@@ -169,12 +170,28 @@ public class ParamReq {
         map.put("nominal", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_nominal")));
         map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_description")));
         map.put("bank_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_bank_name")));
+        map.put("bank_number", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_bank_number")));
         map.put("account_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_account_name")));
         map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_nominal")));
         map.put("transfer_date", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("topup_date")));
         map.put("images", RequestBody.create(MediaType.parse("multipart/form-data"), image));
 
         return APIInterface.requestTopupConfirmation("Bearer " +token,map);
+    }
+
+    public static Call<ResponseBody> reqReceiveConfirmation(String token, String image,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("transaction_code", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("wallet_receive_transaction_code")));
+        map.put("bank_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("wallet_receive_bank_name")));
+        map.put("account_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("wallet_receive_account_name")));
+        map.put("bank_number", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("wallet_receive_bank_number")));
+        map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("wallet_receive_transfer_amount")));
+        map.put("transfer_date", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("wallet_receive_transfer_date")));
+        map.put("images", RequestBody.create(MediaType.parse("multipart/form-data"), image));
+
+        return APIInterface.requestReceiveConfirmation("Bearer " +token,map);
     }
 
     public static Call<ResponseBody> reqRentalMining(String token, String image,Context context) {
@@ -187,7 +204,7 @@ public class ParamReq {
         map.put("bank_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nama_bank")));
         map.put("bank_number", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_no_rekening")));
         map.put("account_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nama")));
-        map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_jumlah_transfer")));
+        map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nominal")));
         map.put("transfer_date", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_date")));
         map.put("images", RequestBody.create(MediaType.parse("multipart/form-data"), image));
 
@@ -204,6 +221,18 @@ public class ParamReq {
 
 
         return APIInterface.requestAddBank("Bearer " +token,map);
+    }
+
+    public static Call<ResponseBody> reqWithdraw(String token, String nominal, String description,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("method_id", RequestBody.create(MediaType.parse("multipart/form-data"), "2"));
+        map.put("nominal", RequestBody.create(MediaType.parse("multipart/form-data"), nominal));
+        map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), description));
+
+
+        return APIInterface.requestWithdraw("Bearer " +token,map);
     }
 
     public static Call<ResponseBody> reqSendWallet(String token ,Context context) {
@@ -284,13 +313,12 @@ public class ParamReq {
     }
 
     public static Call<ResponseBody> changePasswordRequest(String token, String old_password, String new_password, String password_confirmation,Context context) {
-        final Map<String, RequestBody> map = new HashMap<>();
-
-        map.put("old_password", RequestBody.create(MediaType.parse("multipart/form-data"), old_password));
-        map.put("new_password", RequestBody.create(MediaType.parse("multipart/form-data"), new_password));
-        map.put("confirmed", RequestBody.create(MediaType.parse("multipart/form-data"), password_confirmation));
+        RequestChangePassword1 requestChangePassword = new RequestChangePassword1();
+        requestChangePassword.setOld_password(old_password);
+        requestChangePassword.setNew_password(new_password);
+        requestChangePassword.setConfirmed(password_confirmation);
         APIInterface = Api.initRetrofit(Api.showLog);
-        return APIInterface.requestChangePassword("Bearer " +token, map);
+        return APIInterface.requestChangePassword("Bearer " +token, requestChangePassword);
     }
     public static Call<ResponseBody> changePassword(String token, String verification, String password, String password_confirmation,Context context) {
         RequestChangePassword requestChangePassword = new RequestChangePassword();

@@ -25,6 +25,8 @@ import com.anychart.enums.MarkerType;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Stroke;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -83,6 +85,7 @@ import id.dev.birifqa.edcgold.fragment_user.FragmentUserMining;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserNotification;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserProfile;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserWallet;
+import id.dev.birifqa.edcgold.fragment_user.FragmentWithdraw;
 import id.dev.birifqa.edcgold.fragment_user.MiningAktifFragment;
 import id.dev.birifqa.edcgold.fragment_user.MiningNonaktifFragment;
 import id.dev.birifqa.edcgold.fragment_user.PembayaranTopupFragment;
@@ -100,6 +103,7 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     private TextView tvName, tvCoin, tvNameHeader, tvEmailHeader;
+    private ImageView imgFoto;
     private Toolbar toolbar;
     private Session session;
     private Callback<ResponseBody> cBack;
@@ -141,6 +145,7 @@ public class HomeActivity extends AppCompatActivity
         headerView = navigationView.getHeaderView(0);
         tvNameHeader = headerView.findViewById(R.id.tv_name_header);
         tvEmailHeader = headerView.findViewById(R.id.tv_email_header);
+        imgFoto = headerView.findViewById(R.id.img_foto);
     }
 
     private void onAction(){
@@ -177,7 +182,8 @@ public class HomeActivity extends AppCompatActivity
                     Session.save("referral", referralObject.getString("referral_code"));
                     tvNameHeader.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
                     tvEmailHeader.setText(dataObject.getString("email"));
-
+                    Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                            .apply(RequestOptions.circleCropTransform()).into(imgFoto);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -193,6 +199,13 @@ public class HomeActivity extends AppCompatActivity
 
     private void prepareMenuData(){
         MenuModel menuModel = new MenuModel("Top Up", getResources().getDrawable(R.drawable.ic_wallet_white_24dp), true, false); //Menu of Android Tutorial. No sub menus
+        headerList.add(menuModel);
+
+        if (!menuModel.hasChildren) {
+            childList.put(menuModel, null);
+        }
+
+        menuModel = new MenuModel("Withdraw", getResources().getDrawable(R.drawable.ic_icons8_wallet_copy_2), true, false); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
@@ -248,6 +261,11 @@ public class HomeActivity extends AppCompatActivity
                 if (!headerList.get(groupPosition).isGroup) {
                     if (headerList.get(groupPosition).menuName.equals("Top Up")) {
                         loadFragment(new FragmentTopup());
+                        drawer.closeDrawer(GravityCompat.START, true);
+                    }
+
+                    if (headerList.get(groupPosition).menuName.equals("Withdraw")) {
+                        loadFragment(new FragmentWithdraw());
                         drawer.closeDrawer(GravityCompat.START, true);
                     }
 

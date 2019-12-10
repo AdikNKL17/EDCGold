@@ -81,10 +81,7 @@ public class UbahPasswordActivity extends AppCompatActivity {
                         boolean handle = Handle.handleChangePassword(response.body().string(), UbahPasswordActivity.this);
                         if (handle) {
                             dialog.dismiss();
-                            Intent intent = new Intent(UbahPasswordActivity.this, VerifikasiActivity.class);
-                            intent.putExtra("OLD_PASSWORD", etPasswordLama.getText().toString());
-                            intent.putExtra("NEW_PASSWORD", etPasswordBaru.getText().toString());
-                            intent.putExtra("CONFIRMATION", etKonfirmasi.getText().toString());
+                            Intent intent = new Intent(UbahPasswordActivity.this, GantiPasswordSuksesActivity.class);
                             startActivity(intent);
                         } else {
                             dialog.dismiss();

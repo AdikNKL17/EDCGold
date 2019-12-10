@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.PagerSewaCloudAdapter;
 import id.dev.birifqa.edcgold.adapter.PagerWalletSendAdapter;
+import id.dev.birifqa.edcgold.utils.CustomViewPager;
 import id.dev.birifqa.edcgold.utils.HeightWrappingViewPager;
 import id.dev.birifqa.edcgold.utils.Session;
 import okhttp3.ResponseBody;
@@ -33,7 +34,7 @@ import java.util.Map;
 
 public class SewaCloudActivity extends AppCompatActivity {
 
-    private HeightWrappingViewPager pager;
+    private CustomViewPager pager;
     private StepperIndicator indicator;
     private ImageView btnBack, btnNext;
     private Callback<ResponseBody> cBack;
@@ -84,7 +85,7 @@ public class SewaCloudActivity extends AppCompatActivity {
                         Toast.makeText(SewaCloudActivity.this, "Gagal Mengambil Data Nominal, Silahkan Ulangi beberapa saat algi", Toast.LENGTH_SHORT).show();
                     }
                 }else if (pagerPosition == 1){
-                    if (!Session.get("rental_nama").equals("") || !Session.get("rental_nama_bank").equals("") || !Session.get("rental_no_rekening").equals("") || !Session.get("rental_jumlah_transfer").equals("")){
+                    if (!Session.get("rental_nama").equals("") || !Session.get("rental_nama_bank").equals("") || !Session.get("rental_no_rekening").equals("")){
                         pager.setCurrentItem(pagerPosition+1, true);
                     }else {
                         Toast.makeText(SewaCloudActivity.this, "Harap diisi semua!!", Toast.LENGTH_SHORT).show();

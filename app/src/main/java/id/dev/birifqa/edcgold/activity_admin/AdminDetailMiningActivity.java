@@ -10,8 +10,10 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminMiningUserAdapter;
+import id.dev.birifqa.edcgold.model.HistoryMiningModel;
 import id.dev.birifqa.edcgold.model.admin.AdminUserMiningHistoryModel;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Helper;
@@ -37,7 +40,8 @@ public class AdminDetailMiningActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private Callback<ResponseBody> cBack;
     private Toolbar toolbar;
-    private TextView tvNama, tvIdUser, tvStartMining, tvEndMining, tvAging;
+    private ImageView imgCoin, imgNoData;
+    private TextView tvNama, tvIdUser, tvStartMining, tvEndMining, tvPoint, tvRemainingTime, tvRemainingAging, tvAging, tvDate, tvPersen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +60,16 @@ public class AdminDetailMiningActivity extends AppCompatActivity {
         tvIdUser = findViewById(R.id.tv_id_user);
         tvStartMining = findViewById(R.id.tv_start_mining);
         tvEndMining = findViewById(R.id.tv_end_mining);
-        tvAging = findViewById(R.id.tv_aging);
+        tvPoint = findViewById(R.id.tv_point);
         toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.rv_user_mining);
+        tvAging = findViewById(R.id.tv_aging);
+        tvDate = findViewById(R.id.tv_date);
+        tvPersen = findViewById(R.id.tv_persen);
+        imgCoin = findViewById(R.id.img_coin);
+        imgNoData = findViewById(R.id.img_nodata);
+        tvRemainingTime = findViewById(R.id.tv_remaining_time);
+        tvRemainingAging = findViewById(R.id.tv_remaining_aging);
     }
 
     private void onAction(){
@@ -77,7 +88,6 @@ public class AdminDetailMiningActivity extends AppCompatActivity {
         });
 
         getDetailMining();
-        getData();
     }
 
     private void getDetailMining(){
@@ -92,15 +102,72 @@ public class AdminDetailMiningActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     JSONObject dataObject = jsonObject.getJSONObject("data");
                     JSONObject rentalObject = dataObject.getJSONObject("rental");
-                    JSONObject agingObject = dataObject.getJSONObject("aging");
                     JSONObject userObject = rentalObject.getJSONObject("user");
+                    JSONObject coinObject = userObject.getJSONObject("coin");
+                    JSONObject pointObject = userObject.getJSONObject("point");
+                    JSONObject agingObject = dataObject.getJSONObject("aging");
+
+                    JSONArray historyObject = rentalObject.getJSONArray("history_minings");
+
+                    String point = pointObject.getString("balance_point");
+                    String remainingTime = rentalObject.getString("remaining_time");
+                    String[] remainingTimeParts = remainingTime.split(":");
+                    String remainingTime1 = remainingTimeParts[0];
+                    String remainingTime2 = remainingTimeParts[1];
+                    String remainingTime3 = remainingTimeParts[2];
+
+                    String remainingAging = rentalObject.getString("remaining_aging");
+                    String[] remainingAgingParts = remainingAging.split(":");
+                    String remainingAging1 = remainingAgingParts[0];
+                    String remainingAging2 = remainingAgingParts[1];
+                    String remainingAging3 = remainingAgingParts[2];
 
                     tvIdUser.setText(userObject.getString("userid"));
                     tvNama.setText(userObject.getString("name"));
                     tvStartMining.setText(rentalObject.getString("start_mining"));
                     tvEndMining.setText(rentalObject.getString("end_mining"));
+                    tvAging.setText(pointObject.getString("balance_point"));
+                    tvPoint.setText(point);
+                    tvRemainingTime.setText(remainingTime1+" min");
+                    tvRemainingAging.setText(remainingAging+" MIN");
                     tvAging.setText(agingObject.getString("result"));
+                    tvDate.setText(agingObject.getString("date"));
 
+                    int agingProses = Integer.parseInt(remainingAging1);
+                    if (agingProses <= 24 && agingProses >= 18 ){
+                        tvPersen.setText("100%");
+                        imgCoin.setImageResource(R.drawable.icon_100_mining);
+                    } else if (agingProses < 18 && agingProses >= 12){
+                        tvPersen.setText("75%");
+                        imgCoin.setImageResource(R.drawable.icon_75_mining);
+                    } else if (agingProses <= 12 && agingProses >= 6){
+                        tvPersen.setText("50%");
+                        imgCoin.setImageResource(R.drawable.icon_50_mining);
+                    } else if (agingProses <= 5 && agingProses >= 0){
+                        tvPersen.setText("25%");
+                        imgCoin.setImageResource(R.drawable.icon_25_mining);
+                    }
+
+                    if (historyObject.length() > 0){
+                        imgNoData.setVisibility(View.GONE);
+                        for (int i=0; i < historyObject.length() ; i++){
+                            AdminUserMiningHistoryModel model = new AdminUserMiningHistoryModel();
+                            model.setId(historyObject.getJSONObject(i).getString("id"));
+                            model.setUser_id(historyObject.getJSONObject(i).getString("user_id"));
+                            model.setSewa_mining_id(historyObject.getJSONObject(i).getString("sewa_mining_id"));
+                            model.setCoin_balance(historyObject.getJSONObject(i).getString("coin_balance"));
+                            model.setAging_result(historyObject.getJSONObject(i).getString("aging_result"));
+                            model.setDays_to(historyObject.getJSONObject(i).getString("days_to"));
+                            model.setCreated_at(historyObject.getJSONObject(i).getString("created_at"));
+                            model.setUpdated_at(historyObject.getJSONObject(i).getString("updated_at"));
+
+                            historyModels.add(model);
+                        }
+                        historyAdapter.notifyDataSetChanged();
+                    } else {
+                        imgNoData.setVisibility(View.VISIBLE);
+                    }
+                    dialog.dismiss();
 
                 } catch (Exception e) {
                     dialog.dismiss();
@@ -116,34 +183,4 @@ public class AdminDetailMiningActivity extends AppCompatActivity {
         Api.enqueueWithRetry(AdminDetailMiningActivity.this, call, cBack, false, "Loading");
     }
 
-    private void getData(){
-        historyModels.clear();
-
-        AdminUserMiningHistoryModel user1 = new AdminUserMiningHistoryModel();
-        user1.setCoin("+ 0.09 EDCG");
-        user1.setProses("Proses");
-        user1.setDate("24/09/2019");
-        historyModels.add(user1);
-
-        AdminUserMiningHistoryModel user2 = new AdminUserMiningHistoryModel();
-        user2.setCoin("+ 1.187 EDCG");
-        user2.setProses("Sukses");
-        user2.setDate("24/09/2019 - 09:00:08 ");
-        historyModels.add(user2);
-
-        AdminUserMiningHistoryModel user3 = new AdminUserMiningHistoryModel();
-        user3.setCoin("+ 1.187 EDCG");
-        user3.setProses("Sukses");
-        user3.setDate("24/09/2019 - 09:00:08 ");
-        historyModels.add(user3);
-
-        AdminUserMiningHistoryModel user4 = new AdminUserMiningHistoryModel();
-        user4.setCoin("+ 1.187 EDCG");
-        user4.setProses("Sukses");
-        user4.setDate("24/09/2019 - 09:00:08 ");
-        historyModels.add(user4);
-
-
-        historyAdapter.notifyDataSetChanged();
-    }
 }

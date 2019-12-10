@@ -11,8 +11,11 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONObject;
@@ -36,6 +39,7 @@ public class FragmentUserHistory extends Fragment {
     private ViewPager viewPager;
     private Callback<ResponseBody> cBack;
     private TextView tvName, tvCoin;
+    private ImageView imgFoto;
 
     public FragmentUserHistory() {
         // Required empty public constructor
@@ -59,6 +63,7 @@ public class FragmentUserHistory extends Fragment {
         viewPager = view.findViewById(R.id.view_pager);
         tvName = view.findViewById(R.id.tv_name);
         tvCoin = view.findViewById(R.id.tv_coin);
+        imgFoto = view.findViewById(R.id.img_foto);
     }
 
     private void onAction(){
@@ -99,6 +104,9 @@ public class FragmentUserHistory extends Fragment {
                     JSONObject coinObject = dataObject.getJSONObject("coin");
                     tvName.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
                     tvCoin.setText(coinObject.getString("balance_coin"));
+
+                    Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                            .apply(RequestOptions.circleCropTransform()).into(imgFoto);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

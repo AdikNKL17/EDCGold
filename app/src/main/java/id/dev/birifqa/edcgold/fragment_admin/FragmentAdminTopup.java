@@ -105,7 +105,7 @@ public class FragmentAdminTopup extends Fragment {
                         transferTopupAdapter.notifyDataSetChanged();
                     } else {
                         dialog.dismiss();
-                        Toast.makeText(getActivity(), "Gagal mengambil data history", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Gagal mengambil data topup", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

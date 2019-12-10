@@ -89,6 +89,7 @@ public class FragmentTopupBank extends Fragment {
                     etAtasnama.setText(account);
 
                     Session.save("topup_bank_name", bank);
+                    Session.save("topup_bank_number", rekening);
                     Session.save("topup_account_name", account);
                 } else {
 

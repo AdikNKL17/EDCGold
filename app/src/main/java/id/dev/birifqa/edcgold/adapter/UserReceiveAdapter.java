@@ -1,51 +1,66 @@
 package id.dev.birifqa.edcgold.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import id.dev.birifqa.edcgold.R;
-import id.dev.birifqa.edcgold.model.UserAktifitasModel;
-import id.dev.birifqa.edcgold.model.UserHistoryModel;
-import id.dev.birifqa.edcgold.utils.Helper;
 
-public class UserAktifitasAdapter extends RecyclerView.Adapter<UserAktifitasAdapter.MyViewHolder> {
+import java.util.List;
+
+import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_user.DetailWalletReceiveActivity;
+import id.dev.birifqa.edcgold.model.UserAktifitasModel;
+import id.dev.birifqa.edcgold.model.UserReceiveModel;
+import id.dev.birifqa.edcgold.utils.Helper;
+import id.dev.birifqa.edcgold.utils.Session;
+
+public class UserReceiveAdapter extends RecyclerView.Adapter<UserReceiveAdapter.MyViewHolder> {
 
     private View itemView;
     private Context mContext;
-    private List<UserAktifitasModel> aktifitasModels;
+    private List<UserReceiveModel> receiveModels;
 
-    public UserAktifitasAdapter(Context mContext, List<UserAktifitasModel> aktifitasModels) {
+    public UserReceiveAdapter(Context mContext, List<UserReceiveModel> receiveModels) {
         this.mContext = mContext;
-        this.aktifitasModels = aktifitasModels;
+        this.receiveModels = receiveModels;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_aktifitas, parent, false);
-        return new UserAktifitasAdapter.MyViewHolder(itemView);
+        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_receive, parent, false);
+        return new UserReceiveAdapter.MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final UserAktifitasModel aktifitas = aktifitasModels.get(position);
+        final UserReceiveModel model = receiveModels.get(position);
 
-        holder.tvNominal.setText(Helper.getNumberFormatCurrency(Integer.parseInt(aktifitas.getNominal())));
-        holder.tvTitle.setText(aktifitas.getDescription());
-        holder.tvDate.setText(aktifitas.getCreated_at());
+        holder.tvNominal.setText(Helper.getNumberFormatCurrency(Integer.parseInt(model.getNominal())));
+        holder.tvTitle.setText(model.getDescription());
+        holder.tvDate.setText(model.getCreated_at());
 
-        if (aktifitas.getStatus().equals("0")){
+        if (model.getStatus().equals("0")){
             holder.tvStatus.setText("Belum di proses");
             holder.tvNominal.setTextColor(mContext.getResources().getColor(R.color.mdtp_ampm_text_color));
             holder.tvTitle.setTextColor(mContext.getResources().getColor(R.color.mdtp_ampm_text_color));
-        } else if (aktifitas.getStatus().equals("1")){
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Session.save("wallet_receive_balance_coin", model.getBalance_coin());
+                    Session.save("wallet_receive_nominal", model.getNominal());
+                    Session.save("wallet_receive_transaction_code", model.getTransaction_code());
+                    Session.save("wallet_receive_transfer_amount", model.getNominal());
+                    mContext.startActivity(new Intent(mContext, DetailWalletReceiveActivity.class));
+                }
+            });
+        } else if (model.getStatus().equals("1")){
             holder.tvStatus.setText("Transaksi Selesai");
             holder.tvNominal.setTextColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
             holder.tvTitle.setTextColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
@@ -58,7 +73,7 @@ public class UserAktifitasAdapter extends RecyclerView.Adapter<UserAktifitasAdap
 
     @Override
     public int getItemCount() {
-        return aktifitasModels.size();
+        return receiveModels.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

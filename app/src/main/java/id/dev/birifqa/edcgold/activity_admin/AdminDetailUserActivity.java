@@ -75,9 +75,9 @@ public class AdminDetailUserActivity extends AppCompatActivity {
 
     }
     private void onAction(){
-        getDetailUser();
         getDataSpinnerStatus();
         getDataSpinnerType();
+        getDetailUser();
 
         Intent getIntent =getIntent();
         id_user = getIntent.getStringExtra("id_user");
@@ -86,7 +86,7 @@ public class AdminDetailUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!status_active.isEmpty() && !type_member.isEmpty()){
-                    if (status_active.equals("Block")){
+                    if (status_active.equals("2")){
                         Intent intent = new Intent(AdminDetailUserActivity.this, AdminTutupAkunActivity.class);
                         intent.putExtra("id_user", id_user);
                         intent.putExtra("nama_user", etNama.getText().toString());
@@ -118,7 +118,7 @@ public class AdminDetailUserActivity extends AppCompatActivity {
                 if (parent.getItemAtPosition(position).toString().equals("Aktif")){
                     status_active = "1";
                 } else if (parent.getItemAtPosition(position).toString().equals("Block")){
-                    status_active = "0";
+                    status_active = "2";
                 }
             }
 
@@ -134,7 +134,7 @@ public class AdminDetailUserActivity extends AppCompatActivity {
                 if (parent.getItemAtPosition(position).toString().equals("User")){
                     type_member = "1";
                 } else if (parent.getItemAtPosition(position).toString().equals("Exchanger")){
-                    type_member = "0";
+                    type_member = "2";
                 }
             }
 
@@ -170,6 +170,20 @@ public class AdminDetailUserActivity extends AppCompatActivity {
                     etPhone.setText(dataObject.getString("phone"));
                     etEmail.setText(dataObject.getString("email"));
                     etAlamat.setText(dataObject.getString("address"));
+
+                    status_active = dataObject.getString("status_active");
+                    type_member = dataObject.getString("type_member");
+
+                    if (!status_active.isEmpty()){
+                        spinnerStatus.setSelection(Integer.parseInt(status_active) - 1);
+                    } else {
+                        Toast.makeText(AdminDetailUserActivity.this, "Gagal mengambil status aktif", Toast.LENGTH_SHORT).show();
+                    }
+                    if (!type_member.isEmpty()){
+                        spinnerType.setSelection(Integer.parseInt(type_member) - 1);
+                    } else {
+                        Toast.makeText(AdminDetailUserActivity.this, "Gagal mengambil type member", Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (Exception e) {
                     dialog.dismiss();

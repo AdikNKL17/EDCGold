@@ -22,7 +22,7 @@ import id.dev.birifqa.edcgold.utils.Session;
 public class FragmentSewaCloud2 extends Fragment {
 
     private View view;
-    private TextInputEditText etNama, etNamaBank, etNoRekening, etJumlahTransfer;
+    private TextInputEditText etNama, etNamaBank, etNoRekening;
 
     public FragmentSewaCloud2() {
         // Required empty public constructor
@@ -45,7 +45,6 @@ public class FragmentSewaCloud2 extends Fragment {
         etNama = view.findViewById(R.id.et_nama);
         etNamaBank = view.findViewById(R.id.et_nama_bank);
         etNoRekening = view.findViewById(R.id.et_no_rekening);
-        etJumlahTransfer = view.findViewById(R.id.et_jumlah_transfer);
     }
 
     private void onAction(){
@@ -97,23 +96,6 @@ public class FragmentSewaCloud2 extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 Session.save("rental_no_rekening", editable.toString());
-            }
-        });
-
-        etJumlahTransfer.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                Session.save("rental_jumlah_transfer", editable.toString());
             }
         });
     }

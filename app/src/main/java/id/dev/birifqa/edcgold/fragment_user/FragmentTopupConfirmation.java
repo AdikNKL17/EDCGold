@@ -171,7 +171,7 @@ public class FragmentTopupConfirmation extends Fragment {
                         Toast.makeText(getActivity(), "Permintaan Topup Berhasil!! Topup akan segera diproses!!", Toast.LENGTH_SHORT).show();
                     } else {
                         dialog.dismiss();
-                        Toast.makeText(getActivity(), "Gagal topup", Toast.LENGTH_SHORT).show();
+
                     }
 
                 } catch (Exception e) {

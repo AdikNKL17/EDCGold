@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
 
@@ -767,7 +770,7 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleProfileSetting(String sjson, TextView tvName, TextView tvCoin, Context context) {
+    public static boolean handleProfileSetting(String sjson, TextView tvName, TextView tvCoin, ImageView imgFoto, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
 
@@ -776,7 +779,8 @@ public class Handle {
 
             tvName.setText(dataObject.getString("name") +" "+ dataObject.getString("lastname"));
             tvCoin.setText(coinObject.getString("balance_coin"));
-
+            Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                    .apply(RequestOptions.circleCropTransform()).into(imgFoto);
 
             return true;
 
@@ -971,14 +975,15 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleGetTransactionHistory(String sjson, String tipe, Context context) {
+    public static boolean handleGetTransactionHistory(String sjson, ImageView imgNoData, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
-            JSONObject dataObject = jsonObject.getJSONObject("data");
             boolean succses = jsonObject.getBoolean("success");
             if (succses){
-                JSONArray dataArray = dataObject.getJSONArray("data");
-                if (dataArray.length() >= 0) {
+                Api.userHistoryProsesModels.clear();
+                Api.userHistorySelesaiModels.clear();
+                JSONArray dataArray = jsonObject.getJSONArray("data");
+                if (dataArray.length() > 0) {
                     for (int i = 0; i < dataArray.length(); i++) {
                         UserHistoryModel historyModel = new UserHistoryModel();
                         historyModel.setTitle(dataArray.getJSONObject(i).getString("description"));
@@ -987,12 +992,17 @@ public class Handle {
                         historyModel.setId(dataArray.getJSONObject(i).getString("transaction_code"));
 
                         Log.e("123YOLO", dataArray.getJSONObject(i).getString("description"));
-                        if (tipe.equals("1")){
+                        if (dataArray.getJSONObject(i).getString("status").equals("0")){
                             Api.userHistoryProsesModels.add(historyModel);
-                        } else {
+                        } else if (dataArray.getJSONObject(i).getString("status").equals("1")){
+                            Api.userHistorySelesaiModels.add(historyModel);
+                        } else if (dataArray.getJSONObject(i).getString("status").equals("2")){
                             Api.userHistorySelesaiModels.add(historyModel);
                         }
                     }
+                    imgNoData.setVisibility(View.GONE);
+                } else {
+                    imgNoData.setVisibility(View.VISIBLE);
                 }
 
                 return true;
@@ -1074,6 +1084,7 @@ public class Handle {
             if (success){
                 return true;
             } else {
+                Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                 return false;
             }
         } catch (JSONException e) {
@@ -1088,13 +1099,14 @@ public class Handle {
     public static boolean handleTopupList(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
-            JSONObject dataObject = jsonObject.getJSONObject("data");
+            JSONArray dataArray = jsonObject.getJSONArray("data");
             boolean succses = jsonObject.getBoolean("success");
             if (succses){
-                JSONArray dataArray = dataObject.getJSONArray("data");
-                if (dataArray.length() >= 0) {
+                Api.adminTransferTopupModels.clear();
+                if (dataArray.length() > 0) {
                     for (int i = 0; i < dataArray.length(); i++) {
                         AdminTransferTopupModel transferTopupModel = new AdminTransferTopupModel();
+                        Log.e("TOPUPLIST", dataArray.getJSONObject(i).getString("name"));
                         transferTopupModel.setId(dataArray.getJSONObject(i).getString("id"));
                         transferTopupModel.setTransaction_code(dataArray.getJSONObject(i).getString("transaction_code"));
                         transferTopupModel.setUserid(dataArray.getJSONObject(i).getString("userid"));
@@ -1130,7 +1142,7 @@ public class Handle {
                 JSONArray dataArray = dataObject.getJSONArray("data");
                 if (dataArray.length() >= 0) {
                     for (int i = 0; i < dataArray.length(); i++) {
-                        if (dataArray.getJSONObject(i).getString("type_member").equals("1")){
+                        if (!dataArray.getJSONObject(i).getString("email").equals("admin@edcgold.com") &&!dataArray.getJSONObject(i).getString("email").equals("superadmin@edcgold.com")){
                             AdminUserModel model = new AdminUserModel();
                             model.setId(dataArray.getJSONObject(i).getString("id"));
                             model.setUserId(dataArray.getJSONObject(i).getString("userid"));
@@ -1245,10 +1257,11 @@ public class Handle {
     public static boolean handleRentalList(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
-            JSONObject dataObject = jsonObject.getJSONObject("data");
+            JSONArray dataArray = jsonObject.getJSONArray("data");
+
             boolean succses = jsonObject.getBoolean("success");
             if (succses){
-                JSONArray dataArray = dataObject.getJSONArray("data");
+                Api.adminSewaMiningModels.clear();
                 if (dataArray.length() >= 0) {
                     for (int i = 0; i < dataArray.length(); i++) {
                         AdminSewaMiningModel sewaMiningModel = new AdminSewaMiningModel();

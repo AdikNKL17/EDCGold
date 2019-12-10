@@ -48,7 +48,7 @@ public class FragmentUserMining extends Fragment {
     private ArrayList<HistoryMiningModel> miningModels;
     private AlertDialog dialog;
     private TextView tvPoint, tvRemainingTime, tvRemainingAging, tvAging, tvDate, tvPersen;
-    private ImageView imgCoin;
+    private ImageView imgCoin, imgNoData;
 
     private ConstraintLayout btnSewaCloud;
 
@@ -81,6 +81,7 @@ public class FragmentUserMining extends Fragment {
         tvDate = view.findViewById(R.id.tv_date);
         tvPersen = view.findViewById(R.id.tv_persen);
         imgCoin = view.findViewById(R.id.img_coin);
+        imgNoData = view.findViewById(R.id.img_nodata);
     }
 
     private void onAction(){
@@ -152,6 +153,7 @@ public class FragmentUserMining extends Fragment {
                     }
 
                     if (historyObject.length() > 0){
+                        imgNoData.setVisibility(View.GONE);
                         for (int i=0; i <= historyObject.length() ; i++){
                             HistoryMiningModel model = new HistoryMiningModel();
                             model.setId(historyObject.getJSONObject(i).getString("id"));

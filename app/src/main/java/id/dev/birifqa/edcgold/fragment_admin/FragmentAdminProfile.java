@@ -9,8 +9,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONObject;
 
@@ -33,6 +37,7 @@ public class FragmentAdminProfile extends Fragment {
     private View view;
     private LinearLayout btnProfil, btnLock, btnPengaturan;
     private TextView tvName;
+    private ImageView imgFoto;
 
     private Callback<ResponseBody> cBack;
 
@@ -56,6 +61,7 @@ public class FragmentAdminProfile extends Fragment {
     private void findViewById(){
         btnProfil = view.findViewById(R.id.btn_profil);
         tvName = view.findViewById(R.id.tv_name);
+        imgFoto = view.findViewById(R.id.img_foto);
     }
 
     private void onAction(){
@@ -76,9 +82,11 @@ public class FragmentAdminProfile extends Fragment {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
 
-                    tvName.setText(jsonObject.getJSONObject("data").getString("name"));
-
+                    tvName.setText(dataObject.getString("name"));
+                    Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                            .apply(RequestOptions.circleCropTransform()).into(imgFoto);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -6,6 +6,7 @@ import id.dev.birifqa.edcgold.request.RequestChangeAddress;
 import id.dev.birifqa.edcgold.request.RequestChangeBank;
 import id.dev.birifqa.edcgold.request.RequestChangeEmail;
 import id.dev.birifqa.edcgold.request.RequestChangePassword;
+import id.dev.birifqa.edcgold.request.RequestChangePassword1;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
 import id.dev.birifqa.edcgold.request.RequestChangeRate;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
@@ -59,13 +60,13 @@ public interface Interface {
     Call<ResponseBody> getNominalRental(@Header("Authorization") String authorization);
 
     @GET("http://45.77.252.55/api/topup_list")
-    Call<ResponseBody> getTopupList(@Header("Authorization") String authorization);
+    Call<ResponseBody> getTopupList(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
 
     @GET("http://45.77.252.55/api/topup_detail/{id}")
     Call<ResponseBody> getDetailTopup(@Header("Authorization") String authorization, @Path("id") String id_topup);
 
     @GET("http://45.77.252.55/api/rental_list")
-    Call<ResponseBody> getRentalList(@Header("Authorization") String authorization);
+    Call<ResponseBody> getRentalList(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
 
     @GET("http://45.77.252.55/api/rental_detail/{id}")
     Call<ResponseBody> getDetailRental(@Header("Authorization") String authorization, @Path("id") String id_rental);
@@ -121,6 +122,10 @@ public interface Interface {
     Call<ResponseBody> requestTopupConfirmation(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
     @Multipart
+    @POST("http://45.77.252.55/api/transfer_confirmation")
+    Call<ResponseBody> requestReceiveConfirmation(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
+    @Multipart
     @POST("http://45.77.252.55/api/rental")
     Call<ResponseBody> requestRentalMining(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
@@ -133,8 +138,10 @@ public interface Interface {
     Call<ResponseBody> requestChangeEmail(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
     @Multipart
-    @POST("http://45.77.252.55/api/password")
-    Call<ResponseBody> requestChangePassword(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+    @POST("http://45.77.252.55/api/withdraw")
+    Call<ResponseBody> requestWithdraw(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
+
 
     @Multipart
     @POST("http://45.77.252.55/api/check_user")
@@ -159,6 +166,10 @@ public interface Interface {
 
     @PUT("http://45.77.252.55/api/bank_user/{id}")
     Call<ResponseBody> changeBank(@Header("Authorization") String authorization,@Path("id") String id_bank, @Body RequestChangeBank requestChangeBank);
+
+
+    @PUT("http://45.77.252.55/api/password")
+    Call<ResponseBody> requestChangePassword(@Header("Authorization") String authorization, @Body RequestChangePassword1 requestChangePassword1);
 
     @PUT("http://45.77.252.55/api/reset")
     Call<ResponseBody> changePassword(@Body RequestChangePassword requestChangePassword);

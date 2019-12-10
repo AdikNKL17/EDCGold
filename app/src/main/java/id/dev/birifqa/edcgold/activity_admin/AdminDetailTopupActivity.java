@@ -8,8 +8,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONObject;
 
@@ -30,6 +33,7 @@ public class AdminDetailTopupActivity extends AppCompatActivity {
     private Callback<ResponseBody> cBack;
     private TextView tvId, tvNama, tvNominal;
     private AppCompatButton btnTerima, btnTolak;
+    private ImageView imgFoto;
     private Toolbar toolbar;
 
     @Override
@@ -50,6 +54,7 @@ public class AdminDetailTopupActivity extends AppCompatActivity {
         tvNominal = findViewById(R.id.tv_nominal);
         btnTerima = findViewById(R.id.btn_terima);
         btnTolak = findViewById(R.id.btn_tolak);
+        imgFoto = findViewById(R.id.img_foto);
     }
     private void onAction(){
         getDetailTopup();
@@ -127,6 +132,7 @@ public class AdminDetailTopupActivity extends AppCompatActivity {
                     tvNama.setText(dataObject.getString("name"));
                     tvNominal.setText(Helper.getNumberFormatCurrency(Integer.parseInt(dataObject.getString("nominal"))));
 
+                    Glide.with(imgFoto).load(dataObject.getString("images")).into(imgFoto);
                 } catch (Exception e) {
                     dialog.dismiss();
                     e.printStackTrace();

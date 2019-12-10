@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
@@ -64,9 +65,9 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.MyVi
     }
 
 
-//    public void setFilter(List<KabupatenModel> newList){
-//        kabupatenModels=new ArrayList<>();
-//        kabupatenModels.addAll(newList);
-//        notifyDataSetChanged();
-//    }
+    public void setFilter(List<AdminUserModel> newList){
+        userModels=new ArrayList<>();
+        userModels.addAll(newList);
+        notifyDataSetChanged();
+    }
 }

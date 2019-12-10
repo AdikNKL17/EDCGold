@@ -40,7 +40,7 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
 
         RecyclerView.LayoutParams param = (RecyclerView.LayoutParams) itemView.getLayoutParams();
 
-        if (tipe == 1){
+        if (history.getStatus().equals("0")){
             if (position % 2 == 0){
                 holder.itemView.setBackgroundResource(R.color.colorGray);
             }
@@ -56,7 +56,7 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
                 holder.itemView.setVisibility(View.GONE);
             }
 
-        } else {
+        } else if (history.getStatus().equals("1")) {
             if (position % 2 == 0){
                 holder.itemView.setBackgroundResource(R.color.colorGray);
             }

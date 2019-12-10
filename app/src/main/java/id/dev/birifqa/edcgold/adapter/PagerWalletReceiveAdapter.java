@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import id.dev.birifqa.edcgold.fragment_user.FragmentUserWalletReceiveBank;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserWalletReceiveConfirmation;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserWalletReceiveDetail;
 import id.dev.birifqa.edcgold.fragment_user.FragmentUserWalletSendDetail;
@@ -21,6 +23,8 @@ public class PagerWalletReceiveAdapter extends FragmentPagerAdapter {
             case 0:
                 return new FragmentUserWalletReceiveDetail();
             case 1:
+                return new FragmentUserWalletReceiveBank();
+            case 2:
                 return new FragmentUserWalletReceiveConfirmation();
             default:
                 return null;
@@ -29,6 +33,6 @@ public class PagerWalletReceiveAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

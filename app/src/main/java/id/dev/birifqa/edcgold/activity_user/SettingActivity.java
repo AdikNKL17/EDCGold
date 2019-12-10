@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class SettingActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private LinearLayout btnEditNama, btnEditPhone, btnEditEmail, btnEditAlamat, btnEditRekening, btnEditPassword;
     private TextView tvName, tvCoin;
+    private ImageView imgFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class SettingActivity extends AppCompatActivity {
         btnEditAlamat = findViewById(R.id.btn_edit_alamat);
         btnEditRekening = findViewById(R.id.btn_edit_rekening);
         btnEditPassword = findViewById(R.id.btn_edit_password);
-
+        imgFoto = findViewById(R.id.img_foto);
         tvName = findViewById(R.id.tv_name);
         tvCoin = findViewById(R.id.tv_coin);
     }
@@ -108,7 +110,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    boolean handle = Handle.handleProfileSetting(response.body().string(), tvName, tvCoin, SettingActivity.this);
+                    boolean handle = Handle.handleProfileSetting(response.body().string(), tvName, tvCoin, imgFoto, SettingActivity.this);
                     if (handle) {
 
                     } else {

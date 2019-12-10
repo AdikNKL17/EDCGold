@@ -58,13 +58,13 @@
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/icon_100_mining"
-        app:layout_constraintBottom_toTopOf="@+id/textView25"
-        app:layout_constraintEnd_toEndOf="@+id/textView25"
-        app:layout_constraintStart_toStartOf="@+id/textView25"
+        app:layout_constraintBottom_toTopOf="@+id/tv_proses"
+        app:layout_constraintEnd_toEndOf="@+id/tv_proses"
+        app:layout_constraintStart_toStartOf="@+id/tv_proses"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView25"
+        android:id="@+id/tv_proses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

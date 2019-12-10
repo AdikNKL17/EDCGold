@@ -40,10 +40,10 @@ public class UserMiningAdapter extends RecyclerView.Adapter<UserMiningAdapter.My
 
         holder.tvCoin.setText(mining.getCoin_balance());
         holder.tvDate.setText(mining.getCreated_at());
-        holder.tvProses.setText("Proses");
+        holder.tvProses.setText("Sukses");
 
-        holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_proses));
-        holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_mining));
+        holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_success));
+        holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_dompet_mining));
 //        if (mining.getProses().equals("Proses")){
 //            holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_proses));
 //            holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_mining));

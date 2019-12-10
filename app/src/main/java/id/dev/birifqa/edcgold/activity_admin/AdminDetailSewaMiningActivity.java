@@ -8,8 +8,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONObject;
 
@@ -31,6 +34,7 @@ public class AdminDetailSewaMiningActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private Callback<ResponseBody> cBack;
     private Toolbar toolbar;
+    private ImageView imgFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class AdminDetailSewaMiningActivity extends AppCompatActivity {
         tvNoRekening = findViewById(R.id.tv_no_rekening);
         tvTransfer = findViewById(R.id.tv_transfer);
         btnProses = findViewById(R.id.btn_proses);
+        imgFoto = findViewById(R.id.img_foto);
     }
     private void onAction(){
         getDetailRental();
@@ -129,9 +134,9 @@ public class AdminDetailSewaMiningActivity extends AppCompatActivity {
                     tvDescription.setText(dataObject.getString("description"));
                     tvNamaBank.setText(dataObject.getString("bank_name"));
                     tvAtasNama.setText(dataObject.getString("account_name"));
-                    tvNoRekening.setText("null");
+                    tvNoRekening.setText(dataObject.getString("bank_number"));
                     tvTransfer.setText(Helper.getNumberFormatCurrency(Integer.parseInt(dataObject.getString("transfer_amount"))));
-
+                    Glide.with(imgFoto).load(dataObject.getString("images")).into(imgFoto);
                 } catch (Exception e) {
                     dialog.dismiss();
                     e.printStackTrace();

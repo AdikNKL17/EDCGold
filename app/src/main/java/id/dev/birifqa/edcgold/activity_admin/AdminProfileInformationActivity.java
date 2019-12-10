@@ -9,8 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONObject;
 
@@ -32,6 +36,7 @@ public class AdminProfileInformationActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText etNama;
     private AppCompatButton btnSimpan;
+    private ImageView imgFoto;
     private AlertDialog dialog;
     private Callback<ResponseBody> cBack;
 
@@ -51,6 +56,7 @@ public class AdminProfileInformationActivity extends AppCompatActivity {
         btnUbahPassword = findViewById(R.id.btn_ubah_password);
         etNama = findViewById(R.id.et_nama);
         btnSimpan = findViewById(R.id.btn_simpan);
+        imgFoto = findViewById(R.id.img_foto);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +108,11 @@ public class AdminProfileInformationActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
 
-                    etNama.setText(jsonObject.getJSONObject("data").getString("name"));
-
+                    etNama.setText(dataObject.getString("name"));
+                    Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                            .apply(RequestOptions.circleCropTransform()).into(imgFoto);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

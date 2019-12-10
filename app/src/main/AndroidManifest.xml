@@ -17,9 +17,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_admin.AdminPengaturanTopupActivity"></activity>
+        <activity android:name=".activity_user.WalletReceiveActivity"></activity>
+        <activity android:name=".activity_user.GantiPasswordSuksesActivity" />
+        <activity android:name=".activity_admin.AdminPengaturanTopupActivity" />
         <activity android:name=".activity_user.SewaCloudActivity" />
-        <activity android:name=".activity_user.WalletReceiveActivity" />
+        <activity android:name=".activity_user.DetailWalletReceiveActivity" />
         <activity
             android:name=".activity_user.WalletSendActivity"
             android:windowSoftInputMode="adjustPan|adjustResize" />

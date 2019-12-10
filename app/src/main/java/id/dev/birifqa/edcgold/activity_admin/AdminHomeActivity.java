@@ -15,6 +15,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -89,7 +91,7 @@ public class AdminHomeActivity extends AppCompatActivity
     private ConstraintLayout btnQuickMenu, btnNotification;
     private TextView tvCoin,koinMasuk, koinKeluar, rateJual, rateBeli;
     private TextInputEditText etBuyRate, etSaleRate;
-    private ImageView btnBuyRate, btnSaleRate, btnClose;
+    private ImageView btnBuyRate, btnSaleRate, btnClose, imgFoto;
 
     private List<MenuModel> headerList = new ArrayList<>();
     private HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
@@ -115,6 +117,7 @@ public class AdminHomeActivity extends AppCompatActivity
         headerView = navigationView.getHeaderView(0);
         tvName = headerView.findViewById(R.id.tv_name_header);
         tvEmail = headerView.findViewById(R.id.tv_email_header);
+        imgFoto = headerView.findViewById(R.id.img_foto);
         btnQuickMenu = toolbar.findViewById(R.id.btn_quick_menu);
         btnNotification = toolbar.findViewById(R.id.btn_notification);
         tvCoin = toolbar.findViewById(R.id.tv_coin);
@@ -267,6 +270,8 @@ public class AdminHomeActivity extends AppCompatActivity
 
                     tvName.setText(dataObject.getString("name"));
                     tvEmail.setText(dataObject.getString("email"));
+                    Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                            .apply(RequestOptions.circleCropTransform()).into(imgFoto);
 
                     tvCoin.setText(coinObject.getString("balance_coin"));
 

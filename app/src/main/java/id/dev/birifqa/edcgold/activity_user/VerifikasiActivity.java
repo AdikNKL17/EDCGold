@@ -93,7 +93,6 @@ public class VerifikasiActivity extends AppCompatActivity {
                         } else {
                             dialog.dismiss();
                             Toast.makeText(VerifikasiActivity.this, "Code verifikasi tidak sesuai!!", Toast.LENGTH_SHORT).show();
-                            Api.mProgressDialog.dismiss();
                         }
 
                     } catch (Exception e) {

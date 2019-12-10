@@ -43,14 +43,20 @@ public class AdminSewaMiningAdapter extends RecyclerView.Adapter<AdminSewaMining
         holder.tvNoTransaksi.setText(sewaMining.getTransaction_code());
         holder.tvTglTransaksi.setText(sewaMining.getDate());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, AdminDetailSewaMiningActivity.class);
-                intent.putExtra("id_rental", sewaMining.getId());
-                mContext.startActivity(intent);
-            }
-        });
+
+        if (sewaMining.getStatus().equals("0")){
+            holder.tvProses.setText("Proses");
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, AdminDetailSewaMiningActivity.class);
+                    intent.putExtra("id_rental", sewaMining.getId());
+                    mContext.startActivity(intent);
+                }
+            });
+        } else {
+            holder.tvProses.setText("Sukses");
+        }
     }
 
     @Override
@@ -59,7 +65,7 @@ public class AdminSewaMiningAdapter extends RecyclerView.Adapter<AdminSewaMining
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNama, tvId, tvNoTransaksi, tvTglTransaksi;
+        TextView tvNama, tvId, tvNoTransaksi, tvTglTransaksi, tvProses;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -67,7 +73,7 @@ public class AdminSewaMiningAdapter extends RecyclerView.Adapter<AdminSewaMining
             tvId = itemView.findViewById(R.id.tv_id_user);
             tvNoTransaksi = itemView.findViewById(R.id.tv_no_transaksi);
             tvTglTransaksi = itemView.findViewById(R.id.tv_tgl_transaksi);
-
+            tvProses = itemView.findViewById(R.id.tv_proses);
         }
     }
 

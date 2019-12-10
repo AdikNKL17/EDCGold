@@ -132,14 +132,14 @@
                         android:maxLines="5"
                         android:minLines="5"
                         android:textColor="#222222"
-                        app:layout_constraintBottom_toTopOf="@+id/appCompatButton4"
+                        app:layout_constraintBottom_toTopOf="@+id/btn_tutup"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/appCompatButton4"
+                        android:id="@+id/btn_tutup"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"

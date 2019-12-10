@@ -102,36 +102,6 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginRight="24dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Jumlah Transfer"
-                android:textColor="@color/colorText" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/corner_edittext_black">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_jumlah_transfer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorWhite"
-                    android:layout_margin="2dp"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
     </LinearLayout>
 
 </FrameLayout>
