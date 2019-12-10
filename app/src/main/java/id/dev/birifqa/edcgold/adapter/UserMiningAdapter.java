@@ -12,6 +12,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.model.HistoryMiningModel;
 import id.dev.birifqa.edcgold.model.UserMiningModel;
 import id.dev.birifqa.edcgold.model.admin.AdminUserMiningHistoryModel;
 
@@ -19,9 +20,9 @@ public class UserMiningAdapter extends RecyclerView.Adapter<UserMiningAdapter.My
 
     private View itemView;
     private Context mContext;
-    private List<UserMiningModel> miningModels;
+    private List<HistoryMiningModel> miningModels;
 
-    public UserMiningAdapter(Context mContext, List<UserMiningModel> miningModels) {
+    public UserMiningAdapter(Context mContext, List<HistoryMiningModel> miningModels) {
         this.mContext = mContext;
         this.miningModels = miningModels;
     }
@@ -35,19 +36,21 @@ public class UserMiningAdapter extends RecyclerView.Adapter<UserMiningAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final UserMiningModel mining = miningModels.get(position);
+        final HistoryMiningModel mining = miningModels.get(position);
 
-        holder.tvCoin.setText(mining.getCoin());
-        holder.tvDate.setText(mining.getDate());
-        holder.tvProses.setText(mining.getProses());
+        holder.tvCoin.setText(mining.getCoin_balance());
+        holder.tvDate.setText(mining.getCreated_at());
+        holder.tvProses.setText("Proses");
 
-        if (mining.getProses().equals("Proses")){
-            holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_proses));
-            holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_mining));
-        } else{
-            holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_success));
-            holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_dompet_mining));
-        }
+        holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_proses));
+        holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_mining));
+//        if (mining.getProses().equals("Proses")){
+//            holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_proses));
+//            holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_mining));
+//        } else{
+//            holder.imgProses.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_mining_success));
+//            holder.imgStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_dompet_mining));
+//        }
     }
 
     @Override

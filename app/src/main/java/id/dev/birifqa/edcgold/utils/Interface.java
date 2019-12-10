@@ -58,15 +58,11 @@ public interface Interface {
     @GET("http://45.77.252.55/api/rental_nominal")
     Call<ResponseBody> getNominalRental(@Header("Authorization") String authorization);
 
-    @GET("http://45.77.252.55/api/history")
-    Call<ResponseBody> getTransactionHistory(@Header("Authorization") String authorization);
-
     @GET("http://45.77.252.55/api/topup_list")
     Call<ResponseBody> getTopupList(@Header("Authorization") String authorization);
 
     @GET("http://45.77.252.55/api/topup_detail/{id}")
     Call<ResponseBody> getDetailTopup(@Header("Authorization") String authorization, @Path("id") String id_topup);
-
 
     @GET("http://45.77.252.55/api/rental_list")
     Call<ResponseBody> getRentalList(@Header("Authorization") String authorization);
@@ -84,11 +80,20 @@ public interface Interface {
     @GET("http://45.77.252.55/api/mining_list")
     Call<ResponseBody> getUserMiningList(@Header("Authorization") String authorization);
 
+    @GET("http://45.77.252.55/api/my_rental")
+    Call<ResponseBody> getMyRental(@Header("Authorization") String authorization);
+
     @GET("http://45.77.252.55/api/mining_detail/{id}")
     Call<ResponseBody> getDetailMining(@Header("Authorization") String authorization, @Path("id") String id_mining);
 
     @GET("http://45.77.252.55/api/user_list")
     Call<ResponseBody> getAktifitasList(@Header("Authorization") String authorization, @Query("transfer") String transfer);
+
+    @GET("http://45.77.252.55/api/history")
+    Call<ResponseBody> getTransactionHistory(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
+
+    @GET("http://45.77.252.55/api/history")
+    Call<ResponseBody> getHistoryReceive(@Header("Authorization") String authorization, @Query("transfer") String transfer, @Query("offset") String offset, @Query("limit") String limit);
 
     //POST
     @Multipart

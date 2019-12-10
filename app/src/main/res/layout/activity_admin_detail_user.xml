@@ -221,6 +221,7 @@
                             android:id="@+id/et_nama"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>
@@ -243,6 +244,7 @@
                             android:id="@+id/et_id"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>
@@ -265,6 +267,7 @@
                             android:id="@+id/et_referral"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>
@@ -287,6 +290,7 @@
                             android:id="@+id/et_phone"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>
@@ -309,6 +313,7 @@
                             android:id="@+id/et_email"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>
@@ -331,6 +336,7 @@
                             android:id="@+id/et_alamat"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:enabled="false"
                             android:layout_marginTop="4dp"
                             android:inputType="textPersonName" />
                     </LinearLayout>

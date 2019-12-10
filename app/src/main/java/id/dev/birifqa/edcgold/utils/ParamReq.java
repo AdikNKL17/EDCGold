@@ -110,11 +110,6 @@ public class ParamReq {
         return APIInterface.getNominalTopup("Bearer " +token);
     }
 
-    public static Call<ResponseBody> requestTransactionHistory(String token, Context context) {
-        APIInterface = Api.initRetrofit(Api.showLog);
-        return APIInterface.getTransactionHistory("Bearer " +token);
-    }
-
     public static Call<ResponseBody> requestTopupList(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getTopupList("Bearer " +token);
@@ -161,6 +156,11 @@ public class ParamReq {
         return APIInterface.getDetailMining("Bearer " +token, idMining);
     }
 
+    public static Call<ResponseBody> requestMyRental(String token,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getMyRental("Bearer " +token);
+    }
+
     public static Call<ResponseBody> reqTopupConfirmation(String token, String image,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         final Map<String, RequestBody> map = new HashMap<>();
@@ -185,6 +185,7 @@ public class ParamReq {
         map.put("nominal", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nominal")));
         map.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), "Sewa mining 1 bulan"));
         map.put("bank_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nama_bank")));
+        map.put("bank_number", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_no_rekening")));
         map.put("account_name", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_nama")));
         map.put("transfer_amount", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_jumlah_transfer")));
         map.put("transfer_date", RequestBody.create(MediaType.parse("multipart/form-data"), Session.get("rental_date")));
@@ -311,6 +312,16 @@ public class ParamReq {
     public static Call<ResponseBody> requestUserList(String token, String isNew, String isClose, String keyword, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getUserList("Bearer " +token, isNew, isClose, keyword);
+    }
+
+    public static Call<ResponseBody> requestTransactionHistory(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getTransactionHistory("Bearer " +token, "0", "10");
+    }
+
+    public static Call<ResponseBody> requestHistoryReceive(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getHistoryReceive("Bearer " +token, "receive", "0", "10");
     }
 
     public static Call<ResponseBody> requestAktifitasList(String token, String transfer, Context context) {

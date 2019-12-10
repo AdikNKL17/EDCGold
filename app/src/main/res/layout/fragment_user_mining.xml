@@ -74,7 +74,8 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tv_point"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -86,19 +87,19 @@
                             android:text="EDCG"
                             android:textSize="12sp" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/bt_bg_blue_rounded"
-                            android:gravity="center_horizontal"
-                            android:text="+ 0.928"
-                            android:textColor="@color/mdtp_white"
-                            android:textSize="32sp" />
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50%"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:textSize="16sp"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/mdtp_white"
+                        android:background="@drawable/bt_bg_blue_rounded"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/bt_bg_grey_rounded"
@@ -127,7 +128,7 @@
                     </LinearLayout>
 
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -171,9 +172,27 @@
             android:background="@drawable/corner_grey"
             android:padding="16dp">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/icon_50_mining"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_user_mining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/corner_grey"
+        android:padding="16dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>
