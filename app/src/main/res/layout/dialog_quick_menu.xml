@@ -64,12 +64,14 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/button_background_blue_2"
                 android:letterSpacing="0.2"
                 android:orientation="horizontal"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/img_coin_keluar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView10">
 
@@ -109,6 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
@@ -118,6 +121,7 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button_check_in"
                 app:layout_constraintTop_toBottomOf="@+id/textView11">
 
                 <ImageView
@@ -247,7 +251,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_rate_jual" />
 
             <Switch
-                android:id="@+id/switch1"
+                android:id="@+id/switch_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -264,9 +268,9 @@
                 android:fontFamily="@font/circular_std_medium"
                 android:text="Lock Edit"
                 android:textColor="@color/colorText"
-                app:layout_constraintBottom_toBottomOf="@+id/switch1"
-                app:layout_constraintEnd_toStartOf="@+id/switch1"
-                app:layout_constraintTop_toTopOf="@+id/switch1" />
+                app:layout_constraintBottom_toBottomOf="@+id/switch_edit"
+                app:layout_constraintEnd_toStartOf="@+id/switch_edit"
+                app:layout_constraintTop_toTopOf="@+id/switch_edit" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -275,7 +279,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/circular_std_bold"
-                android:text="Masukkan Harga Jual"
+                android:text="Masukkan Harga Beli"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -317,7 +321,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/circular_std_bold"
-                android:text="Masukkan Harga Beli"
+                android:text="Masukkan Harga Jual"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />

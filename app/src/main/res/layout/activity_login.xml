@@ -106,7 +106,7 @@
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:inputType="textMultiLine"
-                android:lines="2"
+                android:lines="3"
                 android:id="@+id/et_brainkey"
                 android:padding="16dp" />
 

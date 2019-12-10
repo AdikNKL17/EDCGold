@@ -366,12 +366,6 @@
                         app:layout_constraintStart_toStartOf="@+id/img_proses" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/img_nodata"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:src="@drawable/nodata"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_user_mining"
                     android:layout_width="match_parent"

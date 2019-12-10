@@ -76,9 +76,11 @@ public class VerifikasiActivity extends AppCompatActivity {
     }
 
     private void verificationCode(){
+        Intent getIntent = getIntent();
         if (!etVerification.getText().toString().isEmpty()){
             dialog.show();
-            Call<ResponseBody> call = ParamReq.requestVerification(etVerification.getText().toString(), VerifikasiActivity.this);
+            Call<ResponseBody> call = ParamReq.changeEmail(Session.get("token"),etVerification.getText().toString(), getIntent.getStringExtra("OLD_EMAIL"),
+                    getIntent.getStringExtra("NEW_EMAIL"), getIntent.getStringExtra("CONFIRMATION"),VerifikasiActivity.this);
             cBack = new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -87,8 +89,8 @@ public class VerifikasiActivity extends AppCompatActivity {
                         boolean handle = Handle.handleVerificationEmail(response.body().string(), VerifikasiActivity.this);
                         if (handle) {
                             dialog.dismiss();
-                            Intent intent = new Intent(VerifikasiActivity.this, NewPasswordActivity.class);
-                            intent.putExtra("VERIFICATION", etVerification.getText().toString());
+                            Session.save("email", getIntent.getStringExtra("NEW_EMAIL"));
+                            Intent intent = new Intent(VerifikasiActivity.this, GantiEmailSukses.class);
                             startActivity(intent);
                         } else {
                             dialog.dismiss();

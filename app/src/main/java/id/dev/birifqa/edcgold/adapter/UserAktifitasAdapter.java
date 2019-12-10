@@ -37,7 +37,7 @@ public class UserAktifitasAdapter extends RecyclerView.Adapter<UserAktifitasAdap
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final UserAktifitasModel aktifitas = aktifitasModels.get(position);
 
-        holder.tvNominal.setText(Helper.getNumberFormatCurrency(Integer.parseInt(aktifitas.getNominal())));
+        holder.tvNominal.setText(aktifitas.getBalance_coin());
         holder.tvTitle.setText(aktifitas.getDescription());
         holder.tvDate.setText(aktifitas.getCreated_at());
 

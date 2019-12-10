@@ -16,6 +16,7 @@ import id.dev.birifqa.edcgold.request.RequestUpdateRate;
 import id.dev.birifqa.edcgold.request.RequestUpdateRental;
 import id.dev.birifqa.edcgold.request.RequestUpdateTopup;
 import id.dev.birifqa.edcgold.request.RequestUpdateUser;
+import id.dev.birifqa.edcgold.request.RequestWithdrawProcess;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -64,6 +65,12 @@ public interface Interface {
 
     @GET("http://45.77.252.55/api/topup_detail/{id}")
     Call<ResponseBody> getDetailTopup(@Header("Authorization") String authorization, @Path("id") String id_topup);
+
+    @GET("http://45.77.252.55/api/withdraw_list")
+    Call<ResponseBody> getWithdrawList(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
+
+    @GET("http://45.77.252.55/api/withdraw_detail/{id}")
+    Call<ResponseBody> getDetailWithdraw(@Header("Authorization") String authorization, @Path("id") String id_withdraw);
 
     @GET("http://45.77.252.55/api/rental_list")
     Call<ResponseBody> getRentalList(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
@@ -167,7 +174,6 @@ public interface Interface {
     @PUT("http://45.77.252.55/api/bank_user/{id}")
     Call<ResponseBody> changeBank(@Header("Authorization") String authorization,@Path("id") String id_bank, @Body RequestChangeBank requestChangeBank);
 
-
     @PUT("http://45.77.252.55/api/password")
     Call<ResponseBody> requestChangePassword(@Header("Authorization") String authorization, @Body RequestChangePassword1 requestChangePassword1);
 
@@ -194,6 +200,9 @@ public interface Interface {
 
     @PUT("http://45.77.252.55/api/user_update/{id}")
     Call<ResponseBody> updateUser(@Header("Authorization") String authorization, @Path("id") String id_user, @Body RequestUpdateUser requestUpdateUser);
+
+    @PUT("http://45.77.252.55/api/process_transaction_withdraw/{id}")
+    Call<ResponseBody> withdrawProcess(@Header("Authorization") String authorization, @Path("id") String id_withdraw, @Body RequestWithdrawProcess requestWithdrawProcess);
 
     //DELETE
     @DELETE("http://45.77.252.55/api/bank_user/{id}")

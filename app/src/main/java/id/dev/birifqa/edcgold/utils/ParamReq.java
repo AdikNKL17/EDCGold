@@ -20,6 +20,7 @@ import id.dev.birifqa.edcgold.request.RequestUpdateRate;
 import id.dev.birifqa.edcgold.request.RequestUpdateRental;
 import id.dev.birifqa.edcgold.request.RequestUpdateTopup;
 import id.dev.birifqa.edcgold.request.RequestUpdateUser;
+import id.dev.birifqa.edcgold.request.RequestWithdrawProcess;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -116,9 +117,19 @@ public class ParamReq {
         return APIInterface.getTopupList("Bearer " +token, "0", "10");
     }
 
+    public static Call<ResponseBody> requestWithdrawList(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getWithdrawList("Bearer " +token, "0", "10");
+    }
+
     public static Call<ResponseBody> requestDetailTopup(String token, String idTopup,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getDetailTopup("Bearer " +token, idTopup);
+    }
+
+    public static Call<ResponseBody> requestDetailWithdraw(String token, String idWithdraw,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getDetailWithdraw("Bearer " +token, idWithdraw);
     }
 
     public static Call<ResponseBody> requestDetailUser(String token, String idUser,Context context) {
@@ -266,6 +277,16 @@ public class ParamReq {
         return APIInterface.requestChangeEmail("Bearer " +token,map);
     }
 
+    public static Call<ResponseBody> changeEmail(String token, String verification, String old_email, String new_email, String comfirmed,Context context) {
+        RequestChangeEmail model = new RequestChangeEmail();
+        model.setVerification(verification);
+        model.setOld_email(old_email);
+        model.setNew_email(new_email);
+        model.setConfirmed(comfirmed);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.changeEmail("Bearer " +token, model);
+    }
+
     public static Call<ResponseBody> checkUser(String token, String userId,Context context) {
         final Map<String, RequestBody> map = new HashMap<>();
 
@@ -410,6 +431,19 @@ public class ParamReq {
         requestUpdateUser.setReason_close(reason_close);
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.updateUser("Bearer " +token, id_user, requestUpdateUser);
+    }
+
+    public static Call<ResponseBody> withdrawProcess(String token, String id_withdraw, String bank_name, String account_name, String bank_number, String transfer_amount, String transfer_date, String images,Context context) {
+        RequestWithdrawProcess model = new RequestWithdrawProcess();
+        model.setStatus("1");
+        model.setBank_name(bank_name);
+        model.setAccount_name(account_name);
+        model.setBank_number(bank_number);
+        model.setTransfer_amount(transfer_amount);
+        model.setTransfer_date(transfer_date);
+        model.setImages(images);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.withdrawProcess("Bearer " +token, id_withdraw, model);
     }
 
     public static Call<ResponseBody> deleteBank(String token, String id,Context context) {

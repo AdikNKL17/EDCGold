@@ -39,22 +39,28 @@ public class AdminWithdrawAdapter extends RecyclerView.Adapter<AdminWithdrawAdap
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminWithdrawModel withdrawModel = withdrawModels.get(position);
 
-        if (withdrawModel.getStatus_proses().equals("Belum di proses")){
+        if (withdrawModel.getStatus().equals("0")){
+            holder.tvStatusProses.setText("Belum di proses");
             holder.icStatus.setVisibility(View.VISIBLE);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, AdminDetailWithdrawActivity.class);
+                    intent.putExtra("id_withdraw", withdrawModel.getId());
+                    mContext.startActivity(intent);
+                }
+            });
         } else {
+            holder.tvStatusProses.setText("Berhasil di proses");
             holder.icStatus.setVisibility(View.INVISIBLE);
         }
-        holder.tvNama.setText(withdrawModel.getNama_user());
-        holder.tvId.setText(withdrawModel.getId_user());
-        holder.tvStatusProses.setText(withdrawModel.getStatus_proses());
-        holder.tvTglWithdraw.setText(withdrawModel.getTgl_withdraw());
+        holder.tvNama.setText(withdrawModel.getName());
+        holder.tvId.setText("ID. "+withdrawModel.getUserid());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, AdminDetailWithdrawActivity.class));
-            }
-        });
+        holder.tvTglWithdraw.setText(withdrawModel.getDate());
+
+
 
     }
 

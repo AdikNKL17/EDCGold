@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_user.LoginActivity;
+import id.dev.birifqa.edcgold.activity_user.UbahPasswordActivity;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
 import id.dev.birifqa.edcgold.utils.ParamReq;
@@ -87,7 +88,7 @@ public class AdminProfileInformationActivity extends AppCompatActivity {
         btnUbahPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(AdminProfileInformationActivity.this, .class));
+                startActivity(new Intent(AdminProfileInformationActivity.this, UbahPasswordActivity.class));
             }
         });
 

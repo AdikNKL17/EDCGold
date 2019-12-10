@@ -30,11 +30,14 @@ import androidx.fragment.app.Fragment;
 import android.view.Menu;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.json.JSONObject;
 
@@ -170,11 +173,31 @@ public class AdminHomeActivity extends AppCompatActivity
         btnSaleRate = dialog1.findViewById(R.id.btn_sale_rate);
         btnClose = dialog1.findViewById(R.id.btn_close);
 
+        Switch switchEdit = dialog1.findViewById(R.id.switch_edit);
+
+        switchEdit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    etBuyRate.setEnabled(false);
+                    etSaleRate.setEnabled(false);
+                    btnBuyRate.setClickable(false);
+                    btnSaleRate.setClickable(false);
+                } else {
+                    etBuyRate.setEnabled(true);
+                    etSaleRate.setEnabled(true);
+                    btnBuyRate.setClickable(true);
+                    btnSaleRate.setClickable(true);
+                }
+            }
+        });
+
+
         btnBuyRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!etBuyRate.getText().toString().isEmpty()){
-                    updateRate(etBuyRate.getText().toString(), rateJual.toString());
+                    updateRate(etBuyRate.getText().toString(), rateJual.getText().toString());
                 } else {
                     Toast.makeText(AdminHomeActivity.this, "Harap isi Buy Rate terlebih dahulu", Toast.LENGTH_SHORT).show();
                 }
@@ -185,7 +208,7 @@ public class AdminHomeActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if (!etSaleRate.getText().toString().isEmpty()){
-                    updateRate(rateBeli.toString(), etSaleRate.getText().toString());
+                    updateRate(rateBeli.getText().toString(), etSaleRate.getText().toString());
                 } else {
                     Toast.makeText(AdminHomeActivity.this, "Harap isi Sale Rate terlebih dahulu", Toast.LENGTH_SHORT).show();
                 }
@@ -212,6 +235,9 @@ public class AdminHomeActivity extends AppCompatActivity
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     if (jsonObject.getBoolean("success")){
+                        getRate();
+                        etSaleRate.setText("");
+                        etBuyRate.setText("");
                         Toast.makeText(AdminHomeActivity.this, "Rate berhasil update", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(AdminHomeActivity.this, "Gagal update rate", Toast.LENGTH_SHORT).show();

@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -19,8 +23,14 @@ import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminWithdrawAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminWithdrawModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.Handle;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +61,12 @@ public class FragmentAdminWithdraw extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        getData();
+    }
+
     private void findViewById(){
         dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
 
@@ -64,40 +80,50 @@ public class FragmentAdminWithdraw extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(withdrawAdapter);
 
-        getData();
     }
 
     private void getData(){
+        dialog.show();
         withdrawModels.clear();
+        Call<ResponseBody> call = ParamReq.requestWithdrawList(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
 
-        AdminWithdrawModel withdrawModel1 = new AdminWithdrawModel();
-        withdrawModel1.setNama_user("Habib A.M");
-        withdrawModel1.setId_user("ID. 52802000611111");
-        withdrawModel1.setStatus_proses("Belum di proses");
-        withdrawModel1.setTgl_withdraw("11-10-2019");
-        withdrawModels.add(withdrawModel1);
+                    if (jsonObject.getBoolean("success")){
+                        dialog.dismiss();
+                        JSONArray dataArray = jsonObject.getJSONArray("data");
 
-        AdminWithdrawModel withdrawModel2 = new AdminWithdrawModel();
-        withdrawModel2.setNama_user("Ujang S.");
-        withdrawModel2.setId_user("ID. 206503444405");
-        withdrawModel2.setStatus_proses("Belum di proses");
-        withdrawModel2.setTgl_withdraw("05-10-2019");
-        withdrawModels.add(withdrawModel2);
+                        if (dataArray.length() > 0){
+                            for (int i = 0; i < dataArray.length() ; i++){
+                                AdminWithdrawModel model = new AdminWithdrawModel();
+                                model.setId(dataArray.getJSONObject(i).getString("id"));
+                                model.setTransaction_code(dataArray.getJSONObject(i).getString("transaction_code"));
+                                model.setUserid(dataArray.getJSONObject(i).getString("userid"));
+                                model.setName(dataArray.getJSONObject(i).getString("name"));
+                                model.setStatus(dataArray.getJSONObject(i).getString("status"));
+                                model.setDate(dataArray.getJSONObject(i).getString("date"));
 
-        AdminWithdrawModel withdrawModel3 = new AdminWithdrawModel();
-        withdrawModel3.setNama_user("Nadia H");
-        withdrawModel3.setId_user("ID. 5800048450311");
-        withdrawModel3.setStatus_proses("Berhasil di proses ");
-        withdrawModel3.setTgl_withdraw("15-09-2019");
-        withdrawModels.add(withdrawModel3);
+                                withdrawModels.add(model);
+                            }
+                            withdrawAdapter.notifyDataSetChanged();
+                        } else {
+                            dialog.dismiss();
+                        }
+                    }
 
-        AdminWithdrawModel withdrawModel4 = new AdminWithdrawModel();
-        withdrawModel4.setNama_user("Rani H. A");
-        withdrawModel4.setId_user("ID. 1220364544044");
-        withdrawModel4.setStatus_proses("Berhasil di proses ");
-        withdrawModel4.setTgl_withdraw("08-09-2019");
-        withdrawModels.add(withdrawModel4);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-        withdrawAdapter.notifyDataSetChanged();
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 }

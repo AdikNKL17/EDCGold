@@ -48,7 +48,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:text="Kembali Ke Login"
+        android:text="Kembali Ke Beranda"
         android:fontFamily="@font/circular_std_medium"
         android:textStyle="bold"
         android:textAllCaps="false"
