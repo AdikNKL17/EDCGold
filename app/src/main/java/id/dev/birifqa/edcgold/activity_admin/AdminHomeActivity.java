@@ -490,9 +490,10 @@ public class AdminHomeActivity extends AppCompatActivity
             loadFragment(new FragmentAdminMining());
         } else if (id == R.id.action_topup) {
             loadFragment(new FragmentAdminTopup());
-        } else if (id == R.id.action_withdraw) {
-            loadFragment(new FragmentAdminWithdraw());
         }
+//        else if (id == R.id.action_withdraw) {
+//            loadFragment(new FragmentAdminWithdraw());
+//        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -43,6 +43,7 @@ public class FragmentUserWalletSendType extends Fragment {
     private TextInputEditText etIdPenerima;
 
     private String tipeMember = "";
+    private String tipeMemberSelected;
     private AlertDialog dialog;
 
 
@@ -73,12 +74,19 @@ public class FragmentUserWalletSendType extends Fragment {
         spinnerTypeSend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                tipeMemberSelected = parent.getItemAtPosition(position).toString();
+                if (tipeMemberSelected.equals("User")){
+                    Session.save("wallet_type_user", "1");
+                } else if (tipeMemberSelected.equals("Exchanger")){
+                    Session.save("wallet_type_user", "2");
+                } else if (tipeMemberSelected.equals("Admin")){
+                    Session.save("wallet_type_user", "3");
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Session.save("wallet_type_user", "1");
             }
         });
 
@@ -110,7 +118,6 @@ public class FragmentUserWalletSendType extends Fragment {
             typeLabel.add("Exchanger");
         } else if (tipeMember.equals("2")){
             typeLabel.add("User");
-            typeLabel.add("Exchanger");
             typeLabel.add("Admin");
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),

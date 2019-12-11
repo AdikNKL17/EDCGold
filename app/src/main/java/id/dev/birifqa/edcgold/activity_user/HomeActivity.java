@@ -205,12 +205,12 @@ public class HomeActivity extends AppCompatActivity
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Withdraw", getResources().getDrawable(R.drawable.ic_icons8_wallet_copy_2), true, false); //Menu of Android Tutorial. No sub menus
-        headerList.add(menuModel);
-
-        if (!menuModel.hasChildren) {
-            childList.put(menuModel, null);
-        }
+//        menuModel = new MenuModel("Withdraw", getResources().getDrawable(R.drawable.ic_icons8_wallet_copy_2), true, false); //Menu of Android Tutorial. No sub menus
+//        headerList.add(menuModel);
+//
+//        if (!menuModel.hasChildren) {
+//            childList.put(menuModel, null);
+//        }
 
         menuModel = new MenuModel("Pengaturan", getResources().getDrawable(R.drawable.ic_icons8_settings), true, false); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);

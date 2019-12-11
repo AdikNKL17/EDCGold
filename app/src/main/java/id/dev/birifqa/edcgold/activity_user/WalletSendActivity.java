@@ -111,6 +111,7 @@ public class WalletSendActivity extends AppCompatActivity {
                 Session.save("wallet_nama_penerima", "");
                 Session.save("wallet_sale_rate", "");
                 Session.save("wallet_buy_rate", "");
+                Session.save("wallet_type_user", "");
                 Session.save("wallet_fee", "");
             }
         });
@@ -150,7 +151,7 @@ public class WalletSendActivity extends AppCompatActivity {
 
     private void checkUser(){
         dialog.show();
-        Call<ResponseBody> call = ParamReq.checkUser(Session.get("token"), Session.get("wallet_id_penerima"), WalletSendActivity.this);
+        Call<ResponseBody> call = ParamReq.checkUser(Session.get("token"), Session.get("wallet_id_penerima"), Session.get("wallet_type_user"), WalletSendActivity.this);
         cBack = new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -173,7 +174,7 @@ public class WalletSendActivity extends AppCompatActivity {
                         dialog.dismiss();
                     } else {
                         dialog.dismiss();
-                        Toast.makeText(WalletSendActivity.this, "The selected userid is invalid", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WalletSendActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

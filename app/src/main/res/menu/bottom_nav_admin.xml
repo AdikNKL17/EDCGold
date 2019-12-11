@@ -30,11 +30,11 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_topup_white_24dp"/>
 
-    <item
-        android:id="@+id/action_withdraw"
-        android:orderInCategory="100"
-        android:title="QR"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_withdraw_white_24dp"/>
+    <!--<item-->
+        <!--android:id="@+id/action_withdraw"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="QR"-->
+        <!--app:showAsAction="always"-->
+        <!--android:icon="@drawable/ic_withdraw_white_24dp"/>-->
 
 </menu>

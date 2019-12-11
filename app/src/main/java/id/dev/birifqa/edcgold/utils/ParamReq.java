@@ -287,10 +287,12 @@ public class ParamReq {
         return APIInterface.changeEmail("Bearer " +token, model);
     }
 
-    public static Call<ResponseBody> checkUser(String token, String userId,Context context) {
+    public static Call<ResponseBody> checkUser(String token, String userId, String typeUser,Context context) {
         final Map<String, RequestBody> map = new HashMap<>();
 
         map.put("userid", RequestBody.create(MediaType.parse("multipart/form-data"), userId));
+        map.put("type_user", RequestBody.create(MediaType.parse("multipart/form-data"), typeUser));
+
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.requestCheckUser("Bearer " +token,map);
     }
