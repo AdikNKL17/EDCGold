@@ -2,16 +2,26 @@ package id.dev.birifqa.edcgold.model.admin;
 
 public class AdminListKomunitasModel {
     private String nama_komunitas;
+    private String id;
     private String nama_ketua;
     private String alamat;
 
     public AdminListKomunitasModel() {
     }
 
-    public AdminListKomunitasModel(String nama_komunitas, String nama_ketua, String alamat) {
+    public AdminListKomunitasModel(String nama_komunitas, String id, String nama_ketua, String alamat) {
         this.nama_komunitas = nama_komunitas;
+        this.id = id;
         this.nama_ketua = nama_ketua;
         this.alamat = alamat;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNama_komunitas() {

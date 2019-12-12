@@ -69,11 +69,10 @@
                             android:background="@drawable/corner_edittext_black">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/et_email_lama"
+                                android:id="@+id/et_title"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:backgroundTint="@color/colorPrimary"
-                                android:enabled="false"
+                                android:backgroundTint="@color/colorWhite"
                                 android:inputType="textEmailAddress" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,7 +89,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Sub Judul"
+                            android:text="Komunitas"
                             android:textColor="@color/colorText" />
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -99,12 +98,14 @@
                             android:layout_marginTop="8dp"
                             android:background="@drawable/corner_edittext_black">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/et_email_baru"
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinner_komunitas"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                                 android:backgroundTint="@color/colorPrimary"
-                                android:inputType="textEmailAddress" />
+                                android:spinnerMode="dropdown"
+                                />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
@@ -129,10 +130,10 @@
                             android:background="@drawable/corner_edittext_black">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/konfirmasi"
+                                android:id="@+id/et_content"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:backgroundTint="@color/colorPrimary"
+                                android:backgroundTint="@color/colorWhite"
                                 android:lines="3" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
@@ -163,19 +164,20 @@
                                 android:layout_marginEnd="8dp"
                                 android:background="@drawable/corner_edittext_black"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/imageView27"
+                                app:layout_constraintEnd_toStartOf="@+id/btn_camera"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/konfirmasi1"
+                                    android:id="@+id/et_images"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:backgroundTint="@color/colorPrimary" />
+                                    android:enabled="false"
+                                    android:backgroundTint="@color/colorWhite" />
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <ImageView
-                                android:id="@+id/imageView27"
+                                android:id="@+id/btn_camera"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:src="@drawable/camera_change_profile_icon"
@@ -192,6 +194,7 @@
                             android:orientation="horizontal">
 
                             <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_simpan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:layout_marginRight="16dp"
@@ -201,6 +204,7 @@
                                 android:textColor="@color/colorWhite" />
 
                             <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_batal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:background="@drawable/corner_edittext_blue"

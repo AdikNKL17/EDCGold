@@ -149,7 +149,6 @@ public class AdminDetailMiningActivity extends AppCompatActivity {
                     }
 
                     if (historyObject.length() > 0){
-                        imgNoData.setVisibility(View.GONE);
                         for (int i=0; i < historyObject.length() ; i++){
                             AdminUserMiningHistoryModel model = new AdminUserMiningHistoryModel();
                             model.setId(historyObject.getJSONObject(i).getString("id"));
@@ -164,8 +163,6 @@ public class AdminDetailMiningActivity extends AppCompatActivity {
                             historyModels.add(model);
                         }
                         historyAdapter.notifyDataSetChanged();
-                    } else {
-                        imgNoData.setVisibility(View.VISIBLE);
                     }
                     dialog.dismiss();
 

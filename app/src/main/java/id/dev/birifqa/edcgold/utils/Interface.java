@@ -10,8 +10,10 @@ import id.dev.birifqa.edcgold.request.RequestChangePassword1;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
 import id.dev.birifqa.edcgold.request.RequestChangeRate;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
+import id.dev.birifqa.edcgold.request.RequestPostTentang;
 import id.dev.birifqa.edcgold.request.RequestRentalProcess;
 import id.dev.birifqa.edcgold.request.RequestTopupProcess;
+import id.dev.birifqa.edcgold.request.RequestUpdateKomunitas;
 import id.dev.birifqa.edcgold.request.RequestUpdateRate;
 import id.dev.birifqa.edcgold.request.RequestUpdateRental;
 import id.dev.birifqa.edcgold.request.RequestUpdateTopup;
@@ -103,6 +105,15 @@ public interface Interface {
     @GET("http://45.77.252.55/api/history")
     Call<ResponseBody> getHistoryReceive(@Header("Authorization") String authorization, @Query("transfer") String transfer, @Query("offset") String offset, @Query("limit") String limit);
 
+    @GET("http://45.77.252.55/api/komunitas")
+    Call<ResponseBody> getKomunitas(@Header("Authorization") String authorization);
+
+    @GET("http://45.77.252.55/api/komunitas_post")
+    Call<ResponseBody> getKomunitasPost(@Header("Authorization") String authorization);
+
+    @GET("http://45.77.252.55/api/komunitas_post/{id}")
+    Call<ResponseBody> getKomunitasPostDetail(@Header("Authorization") String authorization, @Path("id") String id_post);
+
     //POST
     @Multipart
     @POST("http://45.77.252.55/api/login")
@@ -148,11 +159,17 @@ public interface Interface {
     @POST("http://45.77.252.55/api/withdraw")
     Call<ResponseBody> requestWithdraw(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
-
-
     @Multipart
     @POST("http://45.77.252.55/api/check_user")
     Call<ResponseBody> requestCheckUser(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
+    @Multipart
+    @POST("http://45.77.252.55/api/komunitas")
+    Call<ResponseBody> requestAddKomunitas(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
+
+    @Multipart
+    @POST("http://45.77.252.55/api/komunitas_post")
+    Call<ResponseBody> requestAddPostKomunitas(@Header("Authorization") String authorization,@PartMap Map<String, RequestBody> params);
 
     @Multipart
     @POST("http://45.77.252.55/api/transfer")
@@ -201,12 +218,21 @@ public interface Interface {
     @PUT("http://45.77.252.55/api/user_update/{id}")
     Call<ResponseBody> updateUser(@Header("Authorization") String authorization, @Path("id") String id_user, @Body RequestUpdateUser requestUpdateUser);
 
+    @PUT("http://45.77.252.55/api/tentang")
+    Call<ResponseBody> updateTentang(@Header("Authorization") String authorization, @Body RequestPostTentang requestPostTentang);
+
+    @PUT("http://45.77.252.55/api/komunitas/{id}")
+    Call<ResponseBody> updateKomunitas(@Header("Authorization") String authorization, @Path("id") String id_komunitas, @Body RequestUpdateKomunitas requestUpdateKomunitas);
+
     @PUT("http://45.77.252.55/api/process_transaction_withdraw/{id}")
     Call<ResponseBody> withdrawProcess(@Header("Authorization") String authorization, @Path("id") String id_withdraw, @Body RequestWithdrawProcess requestWithdrawProcess);
 
     //DELETE
     @DELETE("http://45.77.252.55/api/bank_user/{id}")
     Call<ResponseBody> deleteBank(@Header("Authorization") String authorization,@Path("id") String id_bank);
+
+    @DELETE("http://45.77.252.55/api/komunitas/{id}")
+    Call<ResponseBody> deleteKomunitas(@Header("Authorization") String authorization,@Path("id") String id_komunitas);
 }
 
 

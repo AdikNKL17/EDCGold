@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,8 @@ import java.util.List;
 import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.activity_admin.AdminUbahKomunitasActivity;
+import id.dev.birifqa.edcgold.activity_user.DetailKomunitasActivity;
+import id.dev.birifqa.edcgold.model.KomunitasModel;
 import id.dev.birifqa.edcgold.model.admin.AdminListKomunitasModel;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
@@ -35,15 +38,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminListKomunitasAdapter extends RecyclerView.Adapter<AdminListKomunitasAdapter.MyViewHolder> {
+public class KomunitasAdapter extends RecyclerView.Adapter<KomunitasAdapter.MyViewHolder> {
 
     private View itemView;
     private Context mContext;
-    private List<AdminListKomunitasModel> komunitasModels;
+    private List<KomunitasModel> komunitasModels;
     private Callback<ResponseBody> cBack;
     private AlertDialog dialog;
 
-    public AdminListKomunitasAdapter(Context mContext, List<AdminListKomunitasModel> komunitasModels) {
+    public KomunitasAdapter(Context mContext, List<KomunitasModel> komunitasModels) {
         this.mContext = mContext;
         this.komunitasModels = komunitasModels;
     }
@@ -51,45 +54,27 @@ public class AdminListKomunitasAdapter extends RecyclerView.Adapter<AdminListKom
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_admin_list_komunitas, parent, false);
+        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_komunitas, parent, false);
 
         dialog = new SpotsDialog.Builder().setContext(mContext).build();
 
-        return new AdminListKomunitasAdapter.MyViewHolder(itemView);
+        return new KomunitasAdapter.MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final AdminListKomunitasModel komunitas = komunitasModels.get(position);
-        holder.tvNamaKomunitas.setText(komunitas.getNama_komunitas());
-        holder.tvNamaKetua.setText(komunitas.getNama_ketua());
-        holder.tvAlamat.setText(komunitas.getAlamat());
+        final KomunitasModel komunitas = komunitasModels.get(position);
+        holder.tvNamaKomunitas.setText(komunitas.getKomunitas_name());
+        holder.tvTitle.setText(komunitas.getTitle());
+        holder.tvConten.setText(komunitas.getContent());
+        holder.tvDate.setText(komunitas.getDate());
 
-        holder.btnOption.setOnClickListener(new View.OnClickListener() {
+        holder.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(mContext, holder.btnOption);
-                popup.inflate(R.menu.option_komunitas);
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-
-                        switch (item.getItemId()) {
-                            case R.id.komunitas_edit:
-                                Intent intent = new Intent(mContext, AdminUbahKomunitasActivity.class);
-                                intent.putExtra("ID_KOMUNITAS", komunitas.getId());
-                                mContext.startActivity(intent);
-                                break;
-                            case R.id.komunitas_hapus:
-                                delete(komunitas.getId(), position);
-                                break;
-
-                        }
-                        return false;
-                    }
-
-                });
-                popup.show();
+                Intent intent = new Intent(mContext, DetailKomunitasActivity.class);
+                intent.putExtra("ID_KOMUNITAS_POST", komunitas.getId());
+                mContext.startActivity(intent);
             }
         });
     }
@@ -100,14 +85,16 @@ public class AdminListKomunitasAdapter extends RecyclerView.Adapter<AdminListKom
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNamaKomunitas, tvNamaKetua, tvAlamat;
-        ImageView btnOption;
+        TextView tvNamaKomunitas, tvTitle, tvConten, tvDate;
+        AppCompatButton btnMore;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNamaKomunitas = itemView.findViewById(R.id.tv_nama_komunitas);
-            tvNamaKetua = itemView.findViewById(R.id.tv_nama_ketua);
-            tvAlamat = itemView.findViewById(R.id.tv_alamat);
-            btnOption = itemView.findViewById(R.id.btn_option);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvConten = itemView.findViewById(R.id.tv_content);
+            tvDate = itemView.findViewById(R.id.tv_date);
+
+            btnMore = itemView.findViewById(R.id.btn_more);
 
         }
     }

@@ -2,15 +2,13 @@ package id.dev.birifqa.edcgold.activity_admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONObject;
@@ -25,53 +23,49 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminPostTentangActivity extends AppCompatActivity {
+public class AdminUbahKomunitasActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private TextInputEditText etPostTentang;
-    private AppCompatButton btnSimpan;
+    private TextInputEditText etNama, etKetua, etAlamat;
+    private AppCompatButton btnSimpan, btnBatal;
     private AlertDialog dialog;
     private Callback<ResponseBody> cBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_post_tentang);
+        setContentView(R.layout.activity_admin_ubah_komunitas);
 
         findViewById();
         onAction();
     }
 
     private void findViewById(){
-        dialog = new SpotsDialog.Builder().setContext(AdminPostTentangActivity.this).build();
+        dialog = new SpotsDialog.Builder().setContext(AdminUbahKomunitasActivity.this).build();
 
-        toolbar = findViewById(R.id.toolbar);
-        etPostTentang = findViewById(R.id.et_post_tentang);
+        etNama = findViewById(R.id.et_nama_komunitas);
+        etKetua = findViewById(R.id.et_ketua_komunitas);
+        etAlamat = findViewById(R.id.et_alamat_komunitas);
         btnSimpan = findViewById(R.id.btn_simpan);
+        btnBatal = findViewById(R.id.btn_batal);
     }
 
     private void onAction(){
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-                AdminPostTentangActivity.this.finish();
-            }
-        });
-
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etPostTentang.getText().toString().equals("")){
-                    postUpdate();
+                if (!etNama.getText().toString().equals("") || !etKetua.getText().toString().equals("") || !etAlamat.getText().toString().equals("")){
+                    updateKomunitas();
+                } else {
+                    Toast.makeText(AdminUbahKomunitasActivity.this, "Harus diisi semua", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void postUpdate(){
+    private void updateKomunitas(){
+        Intent getIntent = getIntent();
         dialog.show();
-        Call<ResponseBody> call = ParamReq.updatePost(Session.get("token"), etPostTentang.getText().toString(), AdminPostTentangActivity.this);
+        Call<ResponseBody> call = ParamReq.updateKomunitas(Session.get("token"), getIntent.getStringExtra("ID_KOMUNITAS"), etNama.getText().toString(), etKetua.getText().toString(), etAlamat.getText().toString(), AdminUbahKomunitasActivity.this);
         cBack = new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -80,12 +74,12 @@ public class AdminPostTentangActivity extends AppCompatActivity {
 
                     if (jsonObject.getBoolean("success")){
                         dialog.dismiss();
-                        etPostTentang.setText("");
-                        Toast.makeText(AdminPostTentangActivity.this, "Update Tentang Berhasil", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                        AdminUbahKomunitasActivity.this.finish();
+                        Toast.makeText(AdminUbahKomunitasActivity.this, "Update Komunitas Berhasil", Toast.LENGTH_SHORT).show();
                     } else {
                         dialog.dismiss();
-                        etPostTentang.setText("");
-                        Toast.makeText(AdminPostTentangActivity.this, "Gagal Update Tentang", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminUbahKomunitasActivity.this, "Gagal Update Komunitas", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -95,9 +89,10 @@ public class AdminPostTentangActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Api.retryDialog(AdminPostTentangActivity.this, call, cBack, 1, false);
+                Api.retryDialog(AdminUbahKomunitasActivity.this, call, cBack, 1, false);
             }
         };
-        Api.enqueueWithRetry(AdminPostTentangActivity.this, call, cBack, false, "Loading");
+        Api.enqueueWithRetry(AdminUbahKomunitasActivity.this, call, cBack, false, "Loading");
     }
+
 }

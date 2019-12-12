@@ -14,8 +14,10 @@ import id.dev.birifqa.edcgold.request.RequestChangePassword1;
 import id.dev.birifqa.edcgold.request.RequestChangePhone;
 import id.dev.birifqa.edcgold.request.RequestChangeRate;
 import id.dev.birifqa.edcgold.request.RequestChangeUsername;
+import id.dev.birifqa.edcgold.request.RequestPostTentang;
 import id.dev.birifqa.edcgold.request.RequestRentalProcess;
 import id.dev.birifqa.edcgold.request.RequestTopupProcess;
+import id.dev.birifqa.edcgold.request.RequestUpdateKomunitas;
 import id.dev.birifqa.edcgold.request.RequestUpdateRate;
 import id.dev.birifqa.edcgold.request.RequestUpdateRental;
 import id.dev.birifqa.edcgold.request.RequestUpdateTopup;
@@ -152,6 +154,20 @@ public class ParamReq {
         return APIInterface.getUserMiningList("Bearer " +token);
     }
 
+    public static Call<ResponseBody> requestKomunitas(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getKomunitas("Bearer " +token);
+    }
+    public static Call<ResponseBody> requestKomunitasPost(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getKomunitasPost("Bearer " +token);
+    }
+
+    public static Call<ResponseBody> requestKomunitasPostDetail(String token, String id, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getKomunitasPostDetail("Bearer " +token, id);
+    }
+
     public static Call<ResponseBody> reqTopup(String token,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         final Map<String, RequestBody> map = new HashMap<>();
@@ -258,6 +274,28 @@ public class ParamReq {
         return APIInterface.requestSend("Bearer " +token,map);
     }
 
+    public static Call<ResponseBody> reqAddKomunitas(String token, String name, String ketua, String alamat ,Context context) {
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), name));
+        map.put("ketua", RequestBody.create(MediaType.parse("multipart/form-data"), ketua));
+        map.put("alamat", RequestBody.create(MediaType.parse("multipart/form-data"), alamat));
+
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.requestAddKomunitas("Bearer " +token,map);
+    }
+    public static Call<ResponseBody> reqAddPostKomunitas(String token, String komunitas_id, String title, String content, String images,Context context) {
+        final Map<String, RequestBody> map = new HashMap<>();
+
+        map.put("komunitas_id", RequestBody.create(MediaType.parse("multipart/form-data"), komunitas_id));
+        map.put("title", RequestBody.create(MediaType.parse("multipart/form-data"), title));
+        map.put("content", RequestBody.create(MediaType.parse("multipart/form-data"), content));
+        map.put("images", RequestBody.create(MediaType.parse("multipart/form-data"), images));
+
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.requestAddPostKomunitas("Bearer " +token,map);
+    }
+
     public static Call<ResponseBody> changeUsername(String token,String name,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
 
@@ -360,6 +398,13 @@ public class ParamReq {
         return APIInterface.changeRate("Bearer " +token, requestChangeRate);
     }
 
+    public static Call<ResponseBody> updatePost(String token, String tentang,Context context) {
+        RequestPostTentang model = new RequestPostTentang();
+        model.setTentang(tentang);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.updateTentang("Bearer " +token, model);
+    }
+
     public static Call<ResponseBody> requestUserList(String token, String isNew, String isClose, String keyword, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getUserList("Bearer " +token, isNew, isClose, keyword);
@@ -448,9 +493,24 @@ public class ParamReq {
         return APIInterface.withdrawProcess("Bearer " +token, id_withdraw, model);
     }
 
+    public static Call<ResponseBody> updateKomunitas(String token, String id, String nama, String ketua, String alamat,Context context) {
+        RequestUpdateKomunitas model = new RequestUpdateKomunitas();
+        model.setName(nama);
+        model.setKetua(ketua);
+        model.setAlamat(alamat);
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.updateKomunitas("Bearer " +token, id, model);
+    }
+
     public static Call<ResponseBody> deleteBank(String token, String id,Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.deleteBank("Bearer " +token, id);
     }
+
+    public static Call<ResponseBody> deleteKomunitas(String token, String id,Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.deleteKomunitas("Bearer " +token, id);
+    }
+
 
 }

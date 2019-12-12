@@ -17,7 +17,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_user.WalletReceiveActivity"></activity>
+        <activity android:name=".activity_user.DetailKomunitasActivity"></activity>
+        <activity android:name=".activity_user.InformationActivity" />
+        <activity android:name=".activity_admin.AdminUbahKomunitasActivity" />
+        <activity android:name=".activity_user.WalletReceiveActivity" />
         <activity android:name=".activity_user.GantiPasswordSuksesActivity" />
         <activity android:name=".activity_admin.AdminPengaturanTopupActivity" />
         <activity android:name=".activity_user.SewaCloudActivity" />
