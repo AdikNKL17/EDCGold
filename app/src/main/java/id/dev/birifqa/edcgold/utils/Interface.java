@@ -88,7 +88,7 @@ public interface Interface {
     Call<ResponseBody> getDetailUser(@Header("Authorization") String authorization, @Path("id") String id_user);
 
     @GET("http://45.77.252.55/api/mining_list")
-    Call<ResponseBody> getUserMiningList(@Header("Authorization") String authorization);
+    Call<ResponseBody> getUserMiningList(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
 
     @GET("http://45.77.252.55/api/my_rental")
     Call<ResponseBody> getMyRental(@Header("Authorization") String authorization);

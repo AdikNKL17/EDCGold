@@ -1218,11 +1218,10 @@ public class Handle {
     public static boolean handleUserMiningList(String sjson, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
-            JSONObject dataObject = jsonObject.getJSONObject("data");
             boolean succses = jsonObject.getBoolean("success");
             if (succses){
-                JSONArray dataArray = dataObject.getJSONArray("data");
-                if (dataArray.length() >= 0) {
+                JSONArray dataArray = jsonObject.getJSONArray("data");
+                if (dataArray.length() > 0) {
                     for (int i = 0; i < dataArray.length(); i++) {
                         AdminUserMiningModel model = new AdminUserMiningModel();
                         model.setId(dataArray.getJSONObject(i).getString("id"));

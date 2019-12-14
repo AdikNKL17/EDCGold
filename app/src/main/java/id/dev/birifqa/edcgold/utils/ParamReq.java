@@ -149,9 +149,9 @@ public class ParamReq {
         return APIInterface.getDetailRental("Bearer " +token, idRental);
     }
 
-    public static Call<ResponseBody> requestUserMiningList(String token, Context context) {
+    public static Call<ResponseBody> requestUserMiningList(String token, String offset, String limit, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
-        return APIInterface.getUserMiningList("Bearer " +token);
+        return APIInterface.getUserMiningList("Bearer " +token, offset, limit);
     }
 
     public static Call<ResponseBody> requestKomunitas(String token, Context context) {

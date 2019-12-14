@@ -410,7 +410,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/colorPrimary"
-                            android:hint="Masukkan Alamat"
                             android:minLines="4" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -432,8 +431,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/button_background_corner_grey_nofill
-">
+                        android:background="@drawable/button_background_corner_grey_nofill">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_referral"

@@ -110,66 +110,70 @@ public class FragmentUserMining extends Fragment {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-                    JSONObject dataObject = jsonObject.getJSONObject("data");
-                    JSONObject rentalObject = dataObject.getJSONObject("rental");
-                    JSONObject userObject = rentalObject.getJSONObject("user");
-                    JSONObject coinObject = userObject.getJSONObject("coin");
-                    JSONObject pointObject = userObject.getJSONObject("point");
-                    JSONObject agingObject = dataObject.getJSONObject("aging");
+                    if (jsonObject.getBoolean("success")){
+                        JSONObject dataObject = jsonObject.getJSONObject("data");
+                        JSONObject rentalObject = dataObject.getJSONObject("rental");
+                        JSONObject userObject = rentalObject.getJSONObject("user");
+                        JSONObject coinObject = userObject.getJSONObject("coin");
+                        JSONObject pointObject = userObject.getJSONObject("point");
+                        JSONObject agingObject = dataObject.getJSONObject("aging");
 
-                    JSONArray historyObject = rentalObject.getJSONArray("history_minings");
+                        JSONArray historyObject = rentalObject.getJSONArray("history_minings");
 
-                    String point = pointObject.getString("balance_point");
-                    String remainingTime = rentalObject.getString("remaining_time");
-                    String[] remainingTimeParts = remainingTime.split(":");
-                    String remainingTime1 = remainingTimeParts[0];
-                    String remainingTime2 = remainingTimeParts[1];
-                    String remainingTime3 = remainingTimeParts[2];
+                        String point = pointObject.getString("balance_point");
+                        String remainingTime = rentalObject.getString("remaining_time");
+                        String[] remainingTimeParts = remainingTime.split(":");
+                        String remainingTime1 = remainingTimeParts[0];
+                        String remainingTime2 = remainingTimeParts[1];
+                        String remainingTime3 = remainingTimeParts[2];
 
-                    String remainingAging = rentalObject.getString("remaining_aging");
-                    String[] remainingAgingParts = remainingAging.split(":");
-                    String remainingAging1 = remainingAgingParts[0];
-                    String remainingAging2 = remainingAgingParts[1];
-                    String remainingAging3 = remainingAgingParts[2];
-                    tvPoint.setText(point);
-                    tvRemainingTime.setText(remainingTime1+" min");
-                    tvRemainingAging.setText(remainingAging+" MIN");
-                    tvAging.setText(agingObject.getString("result"));
-                    tvDate.setText(agingObject.getString("date"));
+                        String remainingAging = rentalObject.getString("remaining_aging");
+                        String[] remainingAgingParts = remainingAging.split(":");
+                        String remainingAging1 = remainingAgingParts[0];
+                        String remainingAging2 = remainingAgingParts[1];
+                        String remainingAging3 = remainingAgingParts[2];
+                        tvPoint.setText(point);
+                        tvRemainingTime.setText(remainingTime1+" min");
+                        tvRemainingAging.setText(remainingAging+" MIN");
+                        tvAging.setText(agingObject.getString("result"));
+                        tvDate.setText(agingObject.getString("date"));
 
-                    int agingProses = Integer.parseInt(remainingAging1);
-                    if (agingProses <= 24 && agingProses >= 18 ){
-                        tvPersen.setText("100%");
-                        imgCoin.setImageResource(R.drawable.icon_100_mining);
-                    } else if (agingProses < 18 && agingProses >= 12){
-                        tvPersen.setText("75%");
-                        imgCoin.setImageResource(R.drawable.icon_75_mining);
-                    } else if (agingProses <= 12 && agingProses >= 6){
-                        tvPersen.setText("50%");
-                        imgCoin.setImageResource(R.drawable.icon_50_mining);
-                    } else if (agingProses <= 5 && agingProses >= 0){
-                        tvPersen.setText("25%");
-                        imgCoin.setImageResource(R.drawable.icon_25_mining);
-                    }
-
-                    if (historyObject.length() > 0){
-                        imgNoData.setVisibility(View.GONE);
-                        for (int i=0; i <= historyObject.length() ; i++){
-                            HistoryMiningModel model = new HistoryMiningModel();
-                            model.setId(historyObject.getJSONObject(i).getString("id"));
-                            model.setUser_id(historyObject.getJSONObject(i).getString("user_id"));
-                            model.setSewa_mining_id(historyObject.getJSONObject(i).getString("sewa_mining_id"));
-                            model.setCoin_balance(historyObject.getJSONObject(i).getString("coin_balance"));
-                            model.setAging_result(historyObject.getJSONObject(i).getString("aging_result"));
-                            model.setDays_to(historyObject.getJSONObject(i).getString("days_to"));
-                            model.setCreated_at(historyObject.getJSONObject(i).getString("created_at"));
-                            model.setUpdated_at(historyObject.getJSONObject(i).getString("updated_at"));
-
-                            miningModels.add(model);
+                        int agingProses = Integer.parseInt(remainingAging1);
+                        if (agingProses <= 24 && agingProses >= 18 ){
+                            tvPersen.setText("100%");
+                            imgCoin.setImageResource(R.drawable.icon_100_mining);
+                        } else if (agingProses < 18 && agingProses >= 12){
+                            tvPersen.setText("75%");
+                            imgCoin.setImageResource(R.drawable.icon_75_mining);
+                        } else if (agingProses <= 12 && agingProses >= 6){
+                            tvPersen.setText("50%");
+                            imgCoin.setImageResource(R.drawable.icon_50_mining);
+                        } else if (agingProses <= 5 && agingProses >= 0){
+                            tvPersen.setText("25%");
+                            imgCoin.setImageResource(R.drawable.icon_25_mining);
                         }
-                        miningAdapter.notifyDataSetChanged();
+
+                        if (historyObject.length() > 0){
+                            imgNoData.setVisibility(View.GONE);
+                            for (int i=0; i <= historyObject.length() ; i++){
+                                HistoryMiningModel model = new HistoryMiningModel();
+                                model.setId(historyObject.getJSONObject(i).getString("id"));
+                                model.setUser_id(historyObject.getJSONObject(i).getString("user_id"));
+                                model.setSewa_mining_id(historyObject.getJSONObject(i).getString("sewa_mining_id"));
+                                model.setCoin_balance(historyObject.getJSONObject(i).getString("coin_balance"));
+                                model.setAging_result(historyObject.getJSONObject(i).getString("aging_result"));
+                                model.setDays_to(historyObject.getJSONObject(i).getString("days_to"));
+                                model.setCreated_at(historyObject.getJSONObject(i).getString("created_at"));
+                                model.setUpdated_at(historyObject.getJSONObject(i).getString("updated_at"));
+
+                                miningModels.add(model);
+                            }
+                            miningAdapter.notifyDataSetChanged();
+                        }
+                        dialog.dismiss();
+                    } else {
+                        dialog.dismiss();
                     }
-                    dialog.dismiss();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

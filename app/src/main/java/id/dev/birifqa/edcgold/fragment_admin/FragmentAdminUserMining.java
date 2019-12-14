@@ -78,7 +78,7 @@ public class FragmentAdminUserMining extends Fragment {
         Api.adminUserMiningModels.clear();
 
         dialog.show();
-        Call<ResponseBody> call = ParamReq.requestUserMiningList(Session.get("token"), getActivity());
+        Call<ResponseBody> call = ParamReq.requestUserMiningList(Session.get("token"), "0", "10", getActivity());
         cBack = new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -89,7 +89,6 @@ public class FragmentAdminUserMining extends Fragment {
                         userMiningAdapter.notifyDataSetChanged();
                     } else {
                         dialog.dismiss();
-                        Toast.makeText(getActivity(), "Gagal mengambil data user mining aktif", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
