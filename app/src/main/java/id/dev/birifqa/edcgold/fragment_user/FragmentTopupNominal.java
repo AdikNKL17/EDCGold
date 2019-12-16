@@ -52,12 +52,10 @@ public class FragmentTopupNominal extends Fragment {
     private View view;
     private TextView tvNominalCoin;
     private Callback<ResponseBody> cBack;
-
-    private TextInputEditText etNominal;
-    private ConstraintLayout btnTopup1,btnTopup2,btnTopup3,btnTopup4,btnTopup5,btnTopup6,btnTopup7,btnTopup8,btnTopup9;
-    private TextView tvRp1,tvRp2,tvRp3,tvRp4,tvRp5,tvRp6,tvRp7,tvRp8,tvRp9;
-    private TextView tvNominal1,tvNominal2,tvNominal3,tvNominal4,tvNominal5,tvNominal6,tvNominal7,tvNominal8,tvNominal9;
-    private TextView tvBilangan1,tvBilangan2,tvBilangan3,tvBilangan4,tvBilangan5,tvBilangan6,tvBilangan7,tvBilangan8,tvBilangan9;
+    private ConstraintLayout btnTopup1,btnTopup2,btnTopup3,btnTopup4,btnTopup5,btnTopup6;
+    private TextView tvRp1,tvRp2,tvRp3,tvRp4,tvRp5,tvRp6;
+    private TextView tvNominal1,tvNominal2,tvNominal3,tvNominal4,tvNominal5,tvNominal6;
+    private TextView tvBilangan1,tvBilangan2,tvBilangan3,tvBilangan4,tvBilangan5,tvBilangan6;
 
     public FragmentTopupNominal() {
         // Required empty public constructor
@@ -94,7 +92,6 @@ public class FragmentTopupNominal extends Fragment {
 
     private void findViewById(){
         tvNominalCoin = view.findViewById(R.id.tv_nominal_coin);
-        etNominal = view.findViewById(R.id.et_nominal);
 
         btnTopup1 = view.findViewById(R.id.btn_topup_1);
         btnTopup2 = view.findViewById(R.id.btn_topup_2);
@@ -102,9 +99,6 @@ public class FragmentTopupNominal extends Fragment {
         btnTopup4 = view.findViewById(R.id.btn_topup_4);
         btnTopup5 = view.findViewById(R.id.btn_topup_5);
         btnTopup6 = view.findViewById(R.id.btn_topup_6);
-        btnTopup7 = view.findViewById(R.id.btn_topup_7);
-        btnTopup8 = view.findViewById(R.id.btn_topup_8);
-        btnTopup9 = view.findViewById(R.id.btn_topup_9);
 
         tvRp1 = view.findViewById(R.id.tv_rp_1);
         tvRp2 = view.findViewById(R.id.tv_rp_2);
@@ -112,9 +106,6 @@ public class FragmentTopupNominal extends Fragment {
         tvRp4 = view.findViewById(R.id.tv_rp_4);
         tvRp5 = view.findViewById(R.id.tv_rp_5);
         tvRp6 = view.findViewById(R.id.tv_rp_6);
-        tvRp7 = view.findViewById(R.id.tv_rp_7);
-        tvRp8 = view.findViewById(R.id.tv_rp_8);
-        tvRp9 = view.findViewById(R.id.tv_rp_9);
 
 
         tvNominal1 = view.findViewById(R.id.tv_nominal_1);
@@ -123,9 +114,6 @@ public class FragmentTopupNominal extends Fragment {
         tvNominal4 = view.findViewById(R.id.tv_nominal_4);
         tvNominal5 = view.findViewById(R.id.tv_nominal_5);
         tvNominal6 = view.findViewById(R.id.tv_nominal_6);
-        tvNominal7 = view.findViewById(R.id.tv_nominal_7);
-        tvNominal8 = view.findViewById(R.id.tv_nominal_8);
-        tvNominal9 = view.findViewById(R.id.tv_nominal_9);
 
         tvBilangan1 = view.findViewById(R.id.tv_bilangan_1);
         tvBilangan2 = view.findViewById(R.id.tv_bilangan_2);
@@ -133,36 +121,11 @@ public class FragmentTopupNominal extends Fragment {
         tvBilangan4 = view.findViewById(R.id.tv_bilangan_4);
         tvBilangan5 = view.findViewById(R.id.tv_bilangan_5);
         tvBilangan6 = view.findViewById(R.id.tv_bilangan_6);
-        tvBilangan7 = view.findViewById(R.id.tv_bilangan_7);
-        tvBilangan8 = view.findViewById(R.id.tv_bilangan_8);
-        tvBilangan9 = view.findViewById(R.id.tv_bilangan_9);
 
 
     }
 
     private void onAction(){
-        etNominal.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!s.toString().equals("")){
-                    tvNominalCoin.setText(Helper.getNumberFormat(Integer.parseInt(s.toString())));
-                    Session.save("topup_nominal", s.toString());
-                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt(s.toString())));
-                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt(s.toString())));
-
-                }
-            }
-        });
 
         btnTopup1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +144,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal1.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan1.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    etNominal.setText("");
                     tvNominalCoin.setText("100.000");
                     Session.save("topup_nominal", "100000");
                     Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("100000")));
@@ -212,20 +174,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
 
-                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                 }
             }
         });
@@ -247,7 +195,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal2.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan2.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    etNominal.setText("");
                     tvNominalCoin.setText("300.000");
 
                     Session.save("topup_nominal", "300000");
@@ -279,21 +226,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                     tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                 }
             }
         });
@@ -315,7 +247,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal3.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan3.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    etNominal.setText("");
                     tvNominalCoin.setText("500.000");
 
                     Session.save("topup_nominal", "500000");
@@ -348,20 +279,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
 
-                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                 }
             }
         });
@@ -383,7 +300,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal4.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan4.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    etNominal.setText("");
                     tvNominalCoin.setText("1.000.000");
 
                     Session.save("topup_nominal", "1000000");
@@ -415,21 +331,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                     tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                 }
             }
         });
@@ -451,7 +352,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal5.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan5.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    etNominal.setText("");
                     tvNominalCoin.setText("2.000.000");
 
                     Session.save("topup_nominal", "2000000");
@@ -483,21 +383,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                     tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                 }
             }
         });
@@ -519,7 +404,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal6.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan6.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    etNominal.setText("");
                     tvNominalCoin.setText("5.000.000");
 
                     Session.save("topup_nominal", "5000000");
@@ -551,225 +435,6 @@ public class FragmentTopupNominal extends Fragment {
                     tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                     tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                }
-            }
-        });
-
-        btnTopup7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isChecked = false;
-                if (isChecked){
-                    isChecked = false;
-                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                }else {
-                    isChecked = true;
-                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
-                    tvRp7.setTextColor(getResources().getColor(R.color.colorWhite));
-                    tvNominal7.setTextColor(getResources().getColor(R.color.colorWhite));
-                    tvBilangan7.setTextColor(getResources().getColor(R.color.colorWhite));
-
-                    etNominal.setText("");
-                    tvNominalCoin.setText("7.000.000");
-
-                    Session.save("topup_nominal", "7000000");
-                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("7000000")));
-                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("7000000")));
-
-
-                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                }
-            }
-        });
-
-        btnTopup8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isChecked = false;
-                if (isChecked){
-                    isChecked = false;
-                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                }else {
-                    isChecked = true;
-                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
-                    tvRp8.setTextColor(getResources().getColor(R.color.colorWhite));
-                    tvNominal8.setTextColor(getResources().getColor(R.color.colorWhite));
-                    tvBilangan8.setTextColor(getResources().getColor(R.color.colorWhite));
-
-                    etNominal.setText("");
-                    tvNominalCoin.setText("10.000.000");
-
-                    Session.save("topup_nominal", "10000000");
-                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("10000000")));
-                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("10000000")));
-
-
-                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                }
-            }
-        });
-
-        btnTopup9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isChecked = false;
-                if (isChecked){
-                    isChecked = false;
-                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal9.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan9.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                }else {
-                    isChecked = true;
-                    btnTopup9.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_blue));
-                    tvRp9.setTextColor(getResources().getColor(R.color.colorWhite));
-                    tvNominal9.setTextColor(getResources().getColor(R.color.colorWhite));
-                    tvBilangan9.setTextColor(getResources().getColor(R.color.colorWhite));
-
-                    etNominal.setText("");
-                    tvNominalCoin.setText("15.000.000");
-
-                    Session.save("topup_nominal", "15000000");
-                    Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("15000000")));
-                    Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("15000000")));
-
-
-                    btnTopup1.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan1.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup2.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan2.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup3.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan3.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup4.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan4.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup5.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan5.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup6.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal6.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan6.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup7.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal7.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan7.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-
-                    btnTopup8.setBackgroundDrawable(getResources().getDrawable(R.drawable.bt_bg_white));
-                    tvRp8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
-                    tvNominal8.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    tvBilangan8.setTextColor(getResources().getColor(R.color.mdtp_light_gray));
                 }
             }
         });

@@ -155,7 +155,7 @@ public class FragmentUserMining extends Fragment {
 
                         if (historyObject.length() > 0){
                             imgNoData.setVisibility(View.GONE);
-                            for (int i=0; i <= historyObject.length() ; i++){
+                            for (int i=0; i < historyObject.length() ; i++){
                                 HistoryMiningModel model = new HistoryMiningModel();
                                 model.setId(historyObject.getJSONObject(i).getString("id"));
                                 model.setUser_id(historyObject.getJSONObject(i).getString("user_id"));

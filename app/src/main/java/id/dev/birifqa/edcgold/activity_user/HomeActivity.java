@@ -176,14 +176,20 @@ public class HomeActivity extends AppCompatActivity
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-                    JSONObject dataObject = jsonObject.getJSONObject("data");
-                    JSONObject coinObject = dataObject.getJSONObject("coin");
-                    JSONObject referralObject = dataObject.getJSONObject("referral");
-                    Session.save("referral", referralObject.getString("referral_code"));
-                    tvNameHeader.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
-                    tvEmailHeader.setText(dataObject.getString("email"));
-                    Glide.with(imgFoto).load(dataObject.getString("avatar"))
-                            .apply(RequestOptions.circleCropTransform()).into(imgFoto);
+                    if (jsonObject.getBoolean("success")){
+                        JSONObject dataObject = jsonObject.getJSONObject("data");
+                        JSONObject coinObject = dataObject.getJSONObject("coin");
+                        JSONObject referralObject = dataObject.getJSONObject("referral");
+                        Session.save("referral", referralObject.getString("referral_code"));
+                        tvNameHeader.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                        tvEmailHeader.setText(dataObject.getString("email"));
+                        Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                                .apply(RequestOptions.circleCropTransform()).into(imgFoto);
+                    } else {
+                        Toast.makeText(HomeActivity.this, "Session anda habis, silahkan login ulang", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        HomeActivity.this.finish();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

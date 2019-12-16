@@ -291,16 +291,21 @@ public class AdminHomeActivity extends AppCompatActivity
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-                    JSONObject dataObject = jsonObject.getJSONObject("data");
-                    JSONObject coinObject = dataObject.getJSONObject("coin");
+                    if (jsonObject.getBoolean("success")){
+                        JSONObject dataObject = jsonObject.getJSONObject("data");
+                        JSONObject coinObject = dataObject.getJSONObject("coin");
 
-                    tvName.setText(dataObject.getString("name"));
-                    tvEmail.setText(dataObject.getString("email"));
-                    Glide.with(imgFoto).load(dataObject.getString("avatar"))
-                            .apply(RequestOptions.circleCropTransform()).into(imgFoto);
+                        tvName.setText(dataObject.getString("name"));
+                        tvEmail.setText(dataObject.getString("email"));
+                        Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                                .apply(RequestOptions.circleCropTransform()).into(imgFoto);
 
-                    tvCoin.setText(coinObject.getString("balance_coin"));
-
+                        tvCoin.setText(coinObject.getString("balance_coin"));
+                    } else {
+                        Toast.makeText(AdminHomeActivity.this, "Session anda habis, silahkan login ulang", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(AdminHomeActivity.this, LoginActivity.class));
+                        AdminHomeActivity.this.finish();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
