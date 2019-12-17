@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_user;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -21,10 +22,12 @@ import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.utils.Api;
 import id.dev.birifqa.edcgold.utils.Handle;
@@ -48,6 +51,7 @@ public class FragmentTopupNominal extends Fragment {
     private String mParam2;
 
     private Boolean isChecked = false;
+    private AlertDialog dialog;
 
     private View view;
     private TextView tvNominalCoin;
@@ -56,6 +60,8 @@ public class FragmentTopupNominal extends Fragment {
     private TextView tvRp1,tvRp2,tvRp3,tvRp4,tvRp5,tvRp6;
     private TextView tvNominal1,tvNominal2,tvNominal3,tvNominal4,tvNominal5,tvNominal6;
     private TextView tvBilangan1,tvBilangan2,tvBilangan3,tvBilangan4,tvBilangan5,tvBilangan6;
+
+    private String saleRate;
 
     public FragmentTopupNominal() {
         // Required empty public constructor
@@ -90,7 +96,38 @@ public class FragmentTopupNominal extends Fragment {
         return view;
     }
 
+    private void getRate(){
+        dialog.show();
+        Call<ResponseBody> call = ParamReq.requestRate(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    dialog.dismiss();
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+
+                    saleRate = dataObject.getString("sale_rate");
+
+
+                } catch (Exception e) {
+                    dialog.dismiss();
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                dialog.dismiss();
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
+    }
+
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+
         tvNominalCoin = view.findViewById(R.id.tv_nominal_coin);
 
         btnTopup1 = view.findViewById(R.id.btn_topup_1);
@@ -126,7 +163,7 @@ public class FragmentTopupNominal extends Fragment {
     }
 
     private void onAction(){
-
+        getRate();
         btnTopup1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +181,8 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal1.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan1.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    tvNominalCoin.setText("100.000");
+                    int nominalCoin = Integer.parseInt("100000") / Integer.parseInt(saleRate);
+                    tvNominalCoin.setText(Integer.toString(nominalCoin));
                     Session.save("topup_nominal", "100000");
                     Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("100000")));
                     Session.save("topup_label", Helper.getNumberFormatCurrency(Integer.parseInt("100000")));
@@ -195,7 +233,8 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal2.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan2.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    tvNominalCoin.setText("300.000");
+                    int nominalCoin = Integer.parseInt("300000") / Integer.parseInt(saleRate);
+                    tvNominalCoin.setText(Integer.toString(nominalCoin));
 
                     Session.save("topup_nominal", "300000");
                     Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("300000")));
@@ -247,7 +286,8 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal3.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan3.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    tvNominalCoin.setText("500.000");
+                    int nominalCoin = Integer.parseInt("500000") / Integer.parseInt(saleRate);
+                    tvNominalCoin.setText(Integer.toString(nominalCoin));
 
                     Session.save("topup_nominal", "500000");
                     Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("500000")));
@@ -300,7 +340,8 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal4.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan4.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    tvNominalCoin.setText("1.000.000");
+                    int nominalCoin = Integer.parseInt("1000000") / Integer.parseInt(saleRate);
+                    tvNominalCoin.setText(Integer.toString(nominalCoin));
 
                     Session.save("topup_nominal", "1000000");
                     Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("1000000")));
@@ -352,7 +393,8 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal5.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan5.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    tvNominalCoin.setText("2.000.000");
+                    int nominalCoin = Integer.parseInt("2000000") / Integer.parseInt(saleRate);
+                    tvNominalCoin.setText(Integer.toString(nominalCoin));
 
                     Session.save("topup_nominal", "2000000");
                     Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("2000000")));
@@ -404,7 +446,8 @@ public class FragmentTopupNominal extends Fragment {
                     tvNominal6.setTextColor(getResources().getColor(R.color.colorWhite));
                     tvBilangan6.setTextColor(getResources().getColor(R.color.colorWhite));
 
-                    tvNominalCoin.setText("5.000.000");
+                    int nominalCoin = Integer.parseInt("5000000") / Integer.parseInt(saleRate);
+                    tvNominalCoin.setText(Integer.toString(nominalCoin));
 
                     Session.save("topup_nominal", "5000000");
                     Session.save("topup_description", "Topup sebesar "+ Helper.getNumberFormatCurrency(Integer.parseInt("5000000")));
