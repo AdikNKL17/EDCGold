@@ -214,7 +214,6 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                         startActivity(intent);
                     } else {
                         dialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, "Register Failed!!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

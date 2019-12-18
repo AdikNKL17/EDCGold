@@ -465,7 +465,6 @@ public class Handle {
             } else {
                 Toast.makeText(context, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                 return false;
-
             }
 
         } catch (JSONException e) {

@@ -24,8 +24,10 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ly_mining"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:background="@drawable/bg_mining"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
@@ -158,7 +160,9 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/ly_history_mining"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@drawable/corner_grey"

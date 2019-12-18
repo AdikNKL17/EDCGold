@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -50,7 +51,8 @@ public class FragmentUserMining extends Fragment {
     private TextView tvPoint, tvRemainingTime, tvRemainingAging, tvAging, tvDate, tvPersen;
     private ImageView imgCoin, imgNoData;
 
-    private ConstraintLayout btnSewaCloud;
+    private ConstraintLayout btnSewaCloud, lyMining;
+    private LinearLayout lyHistoryMining;
 
     public FragmentUserMining() {
         // Required empty public constructor
@@ -82,6 +84,8 @@ public class FragmentUserMining extends Fragment {
         tvPersen = view.findViewById(R.id.tv_persen);
         imgCoin = view.findViewById(R.id.img_coin);
         imgNoData = view.findViewById(R.id.img_nodata);
+        lyMining = view.findViewById(R.id.ly_mining);
+        lyHistoryMining = view.findViewById(R.id.ly_history_mining);
     }
 
     private void onAction(){
@@ -111,6 +115,8 @@ public class FragmentUserMining extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     if (jsonObject.getBoolean("success")){
+                        lyHistoryMining.setVisibility(View.VISIBLE);
+                        lyMining.setVisibility(View.VISIBLE);
                         JSONObject dataObject = jsonObject.getJSONObject("data");
                         JSONObject rentalObject = dataObject.getJSONObject("rental");
                         JSONObject userObject = rentalObject.getJSONObject("user");
@@ -172,6 +178,8 @@ public class FragmentUserMining extends Fragment {
                         }
                         dialog.dismiss();
                     } else {
+                        lyHistoryMining.setVisibility(View.INVISIBLE);
+                        lyMining.setVisibility(View.INVISIBLE);
                         dialog.dismiss();
                     }
                 } catch (Exception e) {
