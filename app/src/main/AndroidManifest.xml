@@ -17,7 +17,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_user.DetailKomunitasActivity"></activity>
+        <activity android:name=".activity_admin.AdminDownlineActivity"></activity>
+        <activity android:name=".activity_user.DownlineAcivity" />
+        <activity android:name=".activity_user.DetailKomunitasActivity" />
         <activity android:name=".activity_user.InformationActivity" />
         <activity android:name=".activity_admin.AdminUbahKomunitasActivity" />
         <activity android:name=".activity_user.WalletReceiveActivity" />
