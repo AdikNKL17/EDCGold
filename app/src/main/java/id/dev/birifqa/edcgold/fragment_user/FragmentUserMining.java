@@ -120,9 +120,8 @@ public class FragmentUserMining extends Fragment {
                         JSONObject dataObject = jsonObject.getJSONObject("data");
                         JSONObject rentalObject = dataObject.getJSONObject("rental");
                         JSONObject userObject = rentalObject.getJSONObject("user");
-                        JSONObject coinObject = userObject.getJSONObject("coin");
-                        JSONObject pointObject = userObject.getJSONObject("point");
                         JSONObject agingObject = dataObject.getJSONObject("aging");
+                        JSONObject pointObject = userObject.getJSONObject("point");
 
                         JSONArray historyObject = rentalObject.getJSONArray("history_minings");
 

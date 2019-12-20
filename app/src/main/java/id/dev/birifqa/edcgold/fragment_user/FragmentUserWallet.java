@@ -127,7 +127,7 @@ public class FragmentUserWallet extends Fragment {
                     JSONObject dataObject = jsonObject.getJSONObject("data");
                     JSONObject coinObject = dataObject.getJSONObject("coin");
                     tvName.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
-                    tvCoin.setText(coinObject.getString("amount_coin"));
+                    tvCoin.setText(coinObject.getString("balance_coin"));
                     Glide.with(imgFoto).load(dataObject.getString("avatar"))
                             .apply(RequestOptions.circleCropTransform()).into(imgFoto);
                 } catch (Exception e) {
