@@ -103,11 +103,11 @@ public class FragmentUserMining extends Fragment {
         });
 
         getMiningDetail1();
+        getMiningHistory();
     }
 
     private void getMiningDetail1(){
         dialog.show();
-        miningModels.clear();
         Call<ResponseBody> call = ParamReq.requestMyRental(Session.get("token"), getActivity());
         cBack = new Callback<ResponseBody>() {
             @Override
@@ -122,8 +122,6 @@ public class FragmentUserMining extends Fragment {
                         JSONObject userObject = rentalObject.getJSONObject("user");
                         JSONObject agingObject = dataObject.getJSONObject("aging");
                         JSONObject pointObject = userObject.getJSONObject("point");
-
-                        JSONArray historyObject = rentalObject.getJSONArray("history_minings");
 
                         String point = pointObject.getString("balance_point");
                         String remainingTime = rentalObject.getString("remaining_time");
@@ -157,19 +155,48 @@ public class FragmentUserMining extends Fragment {
                             tvPersen.setText("25%");
                             imgCoin.setImageResource(R.drawable.icon_25_mining);
                         }
+                        dialog.dismiss();
+                    } else {
+                        lyHistoryMining.setVisibility(View.INVISIBLE);
+                        lyMining.setVisibility(View.INVISIBLE);
+                        dialog.dismiss();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-                        if (historyObject.length() > 0){
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
+    }
+
+    private void getMiningHistory(){
+        dialog.show();
+        miningModels.clear();
+        Call<ResponseBody> call = ParamReq.requestMiningHistory(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    if (jsonObject.getBoolean("success")){
+                        JSONArray dataArray = jsonObject.getJSONArray("data");
+                        if (dataArray.length() > 0){
                             imgNoData.setVisibility(View.GONE);
-                            for (int i=0; i < historyObject.length() ; i++){
+                            for (int i=0; i < dataArray.length() ; i++){
                                 HistoryMiningModel model = new HistoryMiningModel();
-                                model.setId(historyObject.getJSONObject(i).getString("id"));
-                                model.setUser_id(historyObject.getJSONObject(i).getString("user_id"));
-                                model.setSewa_mining_id(historyObject.getJSONObject(i).getString("sewa_mining_id"));
-                                model.setCoin_balance(historyObject.getJSONObject(i).getString("coin_balance"));
-                                model.setAging_result(historyObject.getJSONObject(i).getString("aging_result"));
-                                model.setDays_to(historyObject.getJSONObject(i).getString("days_to"));
-                                model.setCreated_at(historyObject.getJSONObject(i).getString("created_at"));
-                                model.setUpdated_at(historyObject.getJSONObject(i).getString("updated_at"));
+                                model.setId(dataArray.getJSONObject(i).getString("id"));
+                                model.setUser_id(dataArray.getJSONObject(i).getString("user_id"));
+                                model.setSewa_mining_id(dataArray.getJSONObject(i).getString("sewa_mining_id"));
+                                model.setCoin_balance(dataArray.getJSONObject(i).getString("coin_balance"));
+                                model.setAging_result(dataArray.getJSONObject(i).getString("aging_result"));
+                                model.setDays_to(dataArray.getJSONObject(i).getString("days_to"));
+                                model.setCreated_at(dataArray.getJSONObject(i).getString("created_at"));
+                                model.setUpdated_at(dataArray.getJSONObject(i).getString("updated_at"));
 
                                 miningModels.add(model);
                             }

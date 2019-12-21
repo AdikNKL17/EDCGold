@@ -128,8 +128,6 @@ public class HomeActivity extends AppCompatActivity
 
         findViewById();
         onAction();
-
-        getUserDetail();
     }
 
     private void findViewById(){
@@ -149,6 +147,8 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void onAction(){
+        getUserDetail();
+
         loadFragment(new FragmentUserProfile());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -176,21 +176,18 @@ public class HomeActivity extends AppCompatActivity
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-                    if (jsonObject.getBoolean("success")){
-                        JSONObject dataObject = jsonObject.getJSONObject("data");
-                        JSONObject coinObject = dataObject.getJSONObject("coin");
-                        JSONObject referralObject = dataObject.getJSONObject("referral");
-                        Session.save("referral", referralObject.getString("referral_code"));
-                        tvNameHeader.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
-                        tvEmailHeader.setText(dataObject.getString("email"));
-                        Glide.with(imgFoto).load(dataObject.getString("avatar"))
-                                .apply(RequestOptions.circleCropTransform()).into(imgFoto);
-                    } else {
-                        Toast.makeText(HomeActivity.this, "Session anda habis, silahkan login ulang", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                        HomeActivity.this.finish();
-                    }
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                    JSONObject coinObject = dataObject.getJSONObject("coin");
+                    JSONObject referralObject = dataObject.getJSONObject("referral");
+                    Session.save("referral", referralObject.getString("referral_code"));
+                    tvNameHeader.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                    tvEmailHeader.setText(dataObject.getString("email"));
+                    Glide.with(imgFoto).load(dataObject.getString("avatar"))
+                            .apply(RequestOptions.circleCropTransform()).into(imgFoto);
                 } catch (Exception e) {
+                    Toast.makeText(HomeActivity.this, "Session anda habis, silahkan login ulang", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                    HomeActivity.this.finish();
                     e.printStackTrace();
                 }
             }
@@ -281,6 +278,10 @@ public class HomeActivity extends AppCompatActivity
 
                     if (headerList.get(groupPosition).menuName.equals("Komunitas")) {
                         startActivity(new Intent(v.getContext(), KomunitasActivity.class));
+                    }
+
+                    if (headerList.get(groupPosition).menuName.equals("Information")) {
+                        startActivity(new Intent(v.getContext(), DownlineAcivity.class));
                     }
 
                     if (headerList.get(groupPosition).menuName.equals("Lock")) {

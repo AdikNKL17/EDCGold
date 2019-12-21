@@ -101,6 +101,8 @@ public class KomunitasActivity extends AppCompatActivity {
                             }
                             dialog.dismiss();
                             komunitasAdapter.notifyDataSetChanged();
+                        } else {
+                            dialog.dismiss();
                         }
                     } else {
                         dialog.dismiss();

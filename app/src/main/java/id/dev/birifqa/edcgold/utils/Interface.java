@@ -105,6 +105,9 @@ public interface Interface {
     @GET("http://45.77.252.55/api/history")
     Call<ResponseBody> getHistoryReceive(@Header("Authorization") String authorization, @Query("transfer") String transfer, @Query("offset") String offset, @Query("limit") String limit);
 
+    @GET("http://45.77.252.55/api/history_mining")
+    Call<ResponseBody> getHistoryMining(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
+
     @GET("http://45.77.252.55/api/komunitas")
     Call<ResponseBody> getKomunitas(@Header("Authorization") String authorization);
 

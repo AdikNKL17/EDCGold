@@ -415,6 +415,11 @@ public class ParamReq {
         return APIInterface.getTransactionHistory("Bearer " +token, "0", "10");
     }
 
+    public static Call<ResponseBody> requestMiningHistory(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getHistoryMining("Bearer " +token, "0", "10");
+    }
+
     public static Call<ResponseBody> requestHistoryReceive(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getHistoryReceive("Bearer " +token, "receive", "0", "10");
