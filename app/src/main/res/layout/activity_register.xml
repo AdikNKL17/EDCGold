@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentInsetLeft="0dp"
@@ -53,7 +54,6 @@
                 android:background="@drawable/bt_bg_white"
                 android:orientation="vertical">
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nama Depan" />
+                        android:text="Nama Lengkap" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                         android:background="@drawable/button_background_corner_grey_nofill">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_nama_depan"
+                            android:id="@+id/et_nama_lengkap"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/colorPrimary"
@@ -94,7 +94,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nama Belakang" />
+                        android:text="Username" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                         android:background="@drawable/button_background_corner_grey_nofill">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_nama_belakang"
+                            android:id="@+id/et_username"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/colorPrimary"
@@ -442,7 +442,7 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_daftar"
+                    android:id="@+id/btn_lanjut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -450,7 +450,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/bt_bg_blue"
-                    android:text="Daftar"
+                    android:text="Lanjut"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"

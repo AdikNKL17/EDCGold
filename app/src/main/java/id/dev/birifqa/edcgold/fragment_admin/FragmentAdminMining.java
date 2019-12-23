@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.google.android.material.tabs.TabLayout;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.utils.HeightWrappingViewPager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +24,7 @@ public class FragmentAdminMining extends Fragment {
 
     private View view;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private HeightWrappingViewPager viewPager;
 
     public FragmentAdminMining() {
         // Required empty public constructor

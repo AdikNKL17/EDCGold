@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
                     android:fontFamily="@font/circular_std_bold"
-                    android:text="SEND"
+                    android:text="JUAL"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 

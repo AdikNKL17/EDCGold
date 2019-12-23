@@ -90,6 +90,9 @@ public interface Interface {
     @GET("http://45.77.252.55/api/mining_list")
     Call<ResponseBody> getUserMiningList(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
 
+    @GET("http://45.77.252.55/api/referral_list")
+    Call<ResponseBody> getDownline(@Header("Authorization") String authorization, @Query("userid") String id_user, @Query("offset") String offset, @Query("limit") String limit);
+
     @GET("http://45.77.252.55/api/my_rental")
     Call<ResponseBody> getMyRental(@Header("Authorization") String authorization);
 

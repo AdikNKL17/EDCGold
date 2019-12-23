@@ -39,6 +39,7 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminUserModel user = userModels.get(position);
         holder.tvId.setText(user.getUserId());
+        holder.tvName.setText(user.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,11 +57,11 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvId;
+        TextView tvId, tvName;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
             tvId = itemView.findViewById(R.id.tv_id_user);
+            tvName = itemView.findViewById(R.id.tv_nama_user);
         }
     }
 

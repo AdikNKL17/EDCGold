@@ -1,14 +1,21 @@
 package id.dev.birifqa.edcgold.activity_user;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -28,7 +35,9 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
@@ -49,10 +58,11 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    private TextInputEditText etNamaDepan, etNamaBelakang, etBOD, etPhone, etEmail, etPassword, etProvinsi, etKabupaten, etKecamatan, etKodepos, etAlamat, etReferral;
-    private AppCompatButton btnDaftar;
+    private TextInputEditText etNamaLengkap, etUsername, etBOD, etPhone, etEmail, etPassword, etProvinsi, etKabupaten, etKecamatan, etKodepos, etAlamat, etReferral;
+    private AppCompatButton btnLanjut;
     private RadioGroup groupJK;
     private AlertDialog dialog;
+    private Toolbar toolbar;
 
     private String jk = "";
     public static String idProv = "";
@@ -61,6 +71,14 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
 
     private DatePickerDialog datePickerDialog;
     private Callback<ResponseBody> cBack;
+
+    private static final int PERMISSION_REQUEST_CODE = 1100;
+
+    String[] appPermission = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
 
     @Override
@@ -76,8 +94,8 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
     private void findViewById(){
         dialog = new SpotsDialog.Builder().setContext(RegisterActivity.this).build();
 
-        etNamaDepan = findViewById(R.id.et_nama_depan);
-        etNamaBelakang = findViewById(R.id.et_nama_belakang);
+        etUsername = findViewById(R.id.et_username);
+        etNamaLengkap = findViewById(R.id.et_nama_lengkap);
         etBOD = findViewById(R.id.et_bod);
         etPhone = findViewById(R.id.et_phone);
         etEmail = findViewById(R.id.et_email);
@@ -89,10 +107,15 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
         etAlamat = findViewById(R.id.et_alamat);
         etReferral = findViewById(R.id.et_referral);
         groupJK = findViewById(R.id.radioJK);
-        btnDaftar = findViewById(R.id.btn_daftar);
+        btnLanjut = findViewById(R.id.btn_lanjut);
+        toolbar = findViewById(R.id.toolbar);
     }
 
     private void onAction(){
+        if (checkAndRequestPermission()){
+
+        }
+
         groupJK.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -142,26 +165,40 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
             }
         });
 
-        btnDaftar.setOnClickListener(new View.OnClickListener() {
+        btnLanjut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!etNamaDepan.getText().toString().isEmpty() && !etNamaBelakang.getText().toString().isEmpty() &&
+                if (!etNamaLengkap.getText().toString().isEmpty() && !etUsername.getText().toString().isEmpty() &&
                         !jk.isEmpty() && !etBOD.getText().toString().isEmpty() && !etPhone.getText().toString().isEmpty() &&
                         !etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty() && !idProv.isEmpty() && !idKab.isEmpty() && !idKec.isEmpty() &&
-                        !etAlamat.getText().toString().isEmpty() && !etKodepos.getText().toString().isEmpty()){
+                        !etAlamat.getText().toString().isEmpty() && !etKodepos.getText().toString().isEmpty() && !etReferral.getText().toString().isEmpty()){
 
                     if (etPassword.getText().length() >= 6){
-                        dialog.show();
-                        requestRegister();
+                        Intent intent = new Intent(RegisterActivity.this, RegisterPersonalActivity.class);
+                        intent.putExtra("name", etNamaLengkap.getText().toString());
+                        intent.putExtra("username", etUsername.getText().toString());
+                        intent.putExtra("jk", jk);
+                        intent.putExtra("bod", etBOD.getText().toString());
+                        intent.putExtra("phone", etPhone.getText().toString());
+                        intent.putExtra("email", etEmail.getText().toString());
+                        intent.putExtra("password", etPassword.getText().toString());
+                        intent.putExtra("idprov", idProv);
+                        intent.putExtra("idkab", idKab);
+                        intent.putExtra("idkec", idKec);
+                        intent.putExtra("alamat", etAlamat.getText().toString());
+                        intent.putExtra("kodepos", etKodepos.getText().toString());
+                        intent.putExtra("referral", etReferral.getText().toString());
+                        startActivity(intent);
+//                        requestRegister();
                     }else {
                         Toast.makeText(RegisterActivity.this, "Password minimal 6 karakter", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    if (etNamaDepan.getText().toString().isEmpty()){
-                        etNamaDepan.setError("Harus diisi");
+                    if (etNamaLengkap.getText().toString().isEmpty()){
+                        etNamaLengkap.setError("Harus diisi");
                     }
-                    if (etNamaBelakang.getText().toString().isEmpty()){
-                        etNamaBelakang.setError("Harus diisi");
+                    if (etUsername.getText().toString().isEmpty()){
+                        etUsername.setError("Harus diisi");
                     }
                     if (etBOD.getText().toString().isEmpty()){
                         etBOD.setError("Harus diisi");
@@ -195,38 +232,14 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                 }
             }
         });
-    }
 
-    private void requestRegister(){
-        Call<ResponseBody> call = ParamReq.requestRegister(etNamaDepan.getText().toString(), etNamaBelakang.getText().toString(), jk, etBOD.getText().toString(),
-                etPhone.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString(), idProv,
-                idKab, idKec, etKodepos.getText().toString(), etAlamat.getText().toString(),
-                etReferral.getText().toString(), RegisterActivity.this);
-        cBack = new Callback<ResponseBody>() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-
-                    boolean handle = Handle.handleRequestRegister(response.body().string(), RegisterActivity.this);
-                    if (handle) {
-                        Intent intent = new Intent(RegisterActivity.this, RegisterSuksesActivity.class);
-                        intent.putExtra("NAME", etNamaDepan.getText().toString());
-                        startActivity(intent);
-                    } else {
-                        dialog.dismiss();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onClick(View view) {
+                onBackPressed();
+                RegisterActivity.this.finish();
             }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Api.retryDialog(RegisterActivity.this, call, cBack, 1, false);
-            }
-        };
-
-        Api.enqueueWithRetry(RegisterActivity.this, call, cBack, false, "Loading");
+        });
     }
 
     private void showDatePicker(){
@@ -557,5 +570,68 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
         String date = year+"-"+(++monthOfYear)+"-"+dayOfMonth;
         etBOD.setText(date);
         datePickerDialog = null;
+    }
+
+    public boolean checkAndRequestPermission(){
+        List<String> listPermissionNeeded = new ArrayList<>();
+        for (String perm: appPermission){
+            if (ContextCompat.checkSelfPermission(RegisterActivity.this, perm) != PackageManager.PERMISSION_GRANTED){
+                listPermissionNeeded.add(perm);
+            }
+        }
+        if (!listPermissionNeeded.isEmpty()){
+            ActivityCompat.requestPermissions(RegisterActivity.this, listPermissionNeeded.toArray(new String[listPermissionNeeded.size()]), PERMISSION_REQUEST_CODE);
+            return false;
+        }
+
+        return true;
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE){
+            HashMap<String, Integer> permissionResults = new HashMap<>();
+            int deniedCount = 0;
+
+            for (int i=0; i<grantResults.length;i++){
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED){
+                    permissionResults.put(permissions[i], grantResults[i]);
+                    deniedCount++;
+                }
+            }
+
+            if (deniedCount == 0){
+
+            } else {
+                for (Map.Entry<String, Integer> entry : permissionResults.entrySet()){
+                    String permName = entry.getKey();
+                    int permResult = entry.getValue();
+
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(RegisterActivity.this, permName)){
+                        androidx.appcompat.app.AlertDialog.Builder alertDialog= new androidx.appcompat.app.AlertDialog.Builder(RegisterActivity.this);
+                        alertDialog.setTitle("Alert");
+                        alertDialog.setMessage("This App need Camera Permission to work without and problems");
+                        alertDialog.setPositiveButton("YES, Granted permission", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                checkAndRequestPermission();
+                            }
+                        });
+                        alertDialog.setNegativeButton("NO, Cancel Taking Picture", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                System.exit(0);
+                            }
+                        });
+                        alertDialog.setCancelable(false);
+                        androidx.appcompat.app.AlertDialog alert = alertDialog.create();
+                        alert.show();
+
+                    }
+                }
+            }
+        }
     }
 }

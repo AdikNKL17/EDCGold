@@ -102,7 +102,7 @@ public class FragmentUserWalletSendDetail extends Fragment {
 
                     int totalPembayaran = Integer.parseInt(s.toString()) * Integer.parseInt(Session.get("wallet_sale_rate")) + fee;
                     etTotalPembayaran.setText(Helper.getNumberFormatCurrency(totalPembayaran));
-                    Session.save("wallet_nominal", Helper.getNumberFormat(totalPembayaran));
+                    Session.save("wallet_nominal", totalPembayaran);
                     Session.save("wallet_description", "Transfer sebesar "+Helper.getNumberFormatCurrency(totalPembayaran));
                 } else {
                     etFee.setText("");

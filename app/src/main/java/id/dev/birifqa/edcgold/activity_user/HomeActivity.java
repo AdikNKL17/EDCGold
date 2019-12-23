@@ -243,6 +243,13 @@ public class HomeActivity extends AppCompatActivity
             childList.put(menuModel, null);
         }
 
+        menuModel = new MenuModel("Referral",getResources().getDrawable(R.drawable.ic_community_white_24dp) , false, false); //Menu of Android Tutorial. No sub menus
+        headerList.add(menuModel);
+
+        if (!menuModel.hasChildren) {
+            childList.put(menuModel, null);
+        }
+
         menuModel = new MenuModel("Logout", getResources().getDrawable(R.drawable.ic_exit_white_24dp), false, false); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
@@ -281,6 +288,10 @@ public class HomeActivity extends AppCompatActivity
                     }
 
                     if (headerList.get(groupPosition).menuName.equals("Information")) {
+                        startActivity(new Intent(v.getContext(), DownlineAcivity.class));
+                    }
+
+                    if (headerList.get(groupPosition).menuName.equals("Referral")) {
                         startActivity(new Intent(v.getContext(), DownlineAcivity.class));
                     }
 
@@ -418,10 +429,10 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
 
-        if (id == R.id.action_notif) {
-            loadFragment(new FragmentUserNotification());
-            return true;
-        }
+//        if (id == R.id.action_notif) {
+//            loadFragment(new FragmentUserNotification());
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

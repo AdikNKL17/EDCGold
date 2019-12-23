@@ -103,7 +103,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nama Akun"
+                        android:text="Username"
                         android:textColor="@color/colorPrimary"/>
 
                     <com.google.android.material.textfield.TextInputEditText

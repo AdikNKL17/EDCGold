@@ -65,6 +65,7 @@ public class Handle {
                         if (roles.getJSONObject(i).getString("name").equals("member")){
                             session.save("token", jsonObject.getJSONObject("data").getString("token"));
                             session.save("id", jsonObject.getJSONObject("data").getString("id"));
+                            session.save("userid", jsonObject.getJSONObject("data").getString("userid"));
                             session.save("name", jsonObject.getJSONObject("data").getString("name"));
                             session.save("email", jsonObject.getJSONObject("data").getString("email"));
                             session.save("phone", jsonObject.getJSONObject("data").getString("phone"));
@@ -748,7 +749,7 @@ public class Handle {
             JSONObject dataObject = jsonObject.getJSONObject("data");
             JSONObject coinObject = dataObject.getJSONObject("coin");
 
-            tvName.setText(dataObject.getString("name") +" "+dataObject.getString("lastname"));
+            tvName.setText(dataObject.getString("name"));
             tvCoin.setText(coinObject.getString("balance_coin"));
 
             tvNameHeader.setText(dataObject.getString("name"));
@@ -798,7 +799,7 @@ public class Handle {
             JSONObject dataObject = jsonObject.getJSONObject("data");
             JSONObject coinObject = dataObject.getJSONObject("coin");
 
-            tvName.setText(dataObject.getString("name") +" "+ dataObject.getString("lastname"));
+            tvName.setText(dataObject.getString("name"));
             tvCoin.setText(coinObject.getString("balance_coin"));
             Glide.with(imgFoto).load(dataObject.getString("avatar"))
                     .apply(RequestOptions.circleCropTransform()).into(imgFoto);
@@ -839,7 +840,7 @@ public class Handle {
             JSONObject jsonObject = new JSONObject(sjson);
             JSONObject dataObject = jsonObject.getJSONObject("data");
             JSONObject refObject = dataObject.getJSONObject("referral");
-            etName.setText(jsonObject.getJSONObject("data").getString("name"));
+            etName.setText(jsonObject.getJSONObject("data").getString("username"));
             etId.setText(jsonObject.getJSONObject("data").getString("userid"));
             etPhone.setText(jsonObject.getJSONObject("data").getString("phone"));
             etEmail.setText(jsonObject.getJSONObject("data").getString("email"));

@@ -102,7 +102,7 @@ public class FragmentUserHistory extends Fragment {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     JSONObject dataObject = jsonObject.getJSONObject("data");
                     JSONObject coinObject = dataObject.getJSONObject("coin");
-                    tvName.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                    tvName.setText(dataObject.getString("name"));
                     tvCoin.setText(coinObject.getString("balance_coin"));
 
                     Glide.with(imgFoto).load(dataObject.getString("avatar"))
