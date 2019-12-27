@@ -91,8 +91,7 @@ public class RegisterSelfieActivity extends AppCompatActivity {
     private void onAction(){
         Intent getIntent =getIntent();
         String username = getIntent.getStringExtra("username");
-        String nama_depan = getIntent.getStringExtra("nama_depan");
-        String nama_belakang = getIntent.getStringExtra("nama_belakang");
+        String fullname = getIntent.getStringExtra("fullname");
         String jk = getIntent.getStringExtra("jk");
         String bod = getIntent.getStringExtra("bod");
         String phone = getIntent.getStringExtra("phone");
@@ -128,7 +127,7 @@ public class RegisterSelfieActivity extends AppCompatActivity {
                 if (!filePath.isEmpty()){
                     encodeImage();
 
-                    requestRegister(username,nama_depan, nama_belakang, jk, bod, phone, email, password, idprov, idkab, idkec, kodepos, alamat,
+                    requestRegister(username,fullname, jk, bod, phone, email, password, idprov, idkab, idkec, kodepos, alamat,
                             referral, nik, img_ktp, encodedImage);
 
                 } else {
@@ -138,11 +137,11 @@ public class RegisterSelfieActivity extends AppCompatActivity {
         });
     }
 
-    private void requestRegister(String username ,String nama_depan, String nama_belakang, String jk, String bod, String phone,  String email,
+    private void requestRegister(String username ,String fullname, String jk, String bod, String phone,  String email,
                                  String password, String idprov, String idkab, String idkec, String kodepos, String alamat, String referral, String nik, String foto_ktp,
                                  String foto_selfi){
         dialog.show();
-        Call<ResponseBody> call = ParamReq.requestRegister(username, nama_depan, nama_belakang, jk, bod, phone, email, password,
+        Call<ResponseBody> call = ParamReq.requestRegister(fullname, username, jk, bod, phone, email, password,
                 idprov, idkab, idkec, kodepos, alamat, referral, nik, foto_ktp, foto_selfi,RegisterSelfieActivity.this);
         cBack = new Callback<ResponseBody>() {
             @Override
@@ -152,7 +151,7 @@ public class RegisterSelfieActivity extends AppCompatActivity {
                     boolean handle = Handle.handleRequestRegister(response.body().string(), RegisterSelfieActivity.this);
                     if (handle) {
                         Intent intent = new Intent(RegisterSelfieActivity.this, RegisterSuksesActivity.class);
-                        intent.putExtra("NAME", nama_depan);
+                        intent.putExtra("NAME", fullname);
                         startActivity(intent);
                     } else {
                         dialog.dismiss();
@@ -204,14 +203,7 @@ public class RegisterSelfieActivity extends AppCompatActivity {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1 && Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
-                intent.putExtra("android.intent.extras.CAMERA_FACING", CameraCharacteristics.LENS_FACING_FRONT) ;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                intent.putExtra("android.intent.extras.CAMERA_FACING", CameraCharacteristics.LENS_FACING_FRONT);
-                intent.putExtra("android.intent.extra.USE_FRONT_CAMERA", true);
-            } else {
-                intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
-            }
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, setImageUri());
             startActivityForResult(intent, REQUEST_CAPTURE_IMAGE);
             dialog.dismiss();
 

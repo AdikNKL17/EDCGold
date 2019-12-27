@@ -180,14 +180,11 @@ public class HomeActivity extends AppCompatActivity
                     JSONObject coinObject = dataObject.getJSONObject("coin");
                     JSONObject referralObject = dataObject.getJSONObject("referral");
                     Session.save("referral", referralObject.getString("referral_code"));
-                    tvNameHeader.setText(dataObject.getString("name") + " "+dataObject.getString("lastname"));
+                    tvNameHeader.setText(dataObject.getString("name"));
                     tvEmailHeader.setText(dataObject.getString("email"));
                     Glide.with(imgFoto).load(dataObject.getString("avatar"))
                             .apply(RequestOptions.circleCropTransform()).into(imgFoto);
                 } catch (Exception e) {
-                    Toast.makeText(HomeActivity.this, "Session anda habis, silahkan login ulang", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                    HomeActivity.this.finish();
                     e.printStackTrace();
                 }
             }

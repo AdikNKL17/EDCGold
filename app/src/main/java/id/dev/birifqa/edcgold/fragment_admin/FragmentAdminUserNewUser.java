@@ -82,13 +82,12 @@ public class FragmentAdminUserNewUser extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    boolean handle = Handle.handleUserList(response.body().string(), "1", getActivity());
+                    boolean handle = Handle.handleUserListNew(response.body().string(), "1", getActivity());
                     if (handle) {
                         dialog.dismiss();
                         userAdapter.notifyDataSetChanged();
                     } else {
                         dialog.dismiss();
-                        Toast.makeText(getActivity(), "Gagal mengambil data user", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

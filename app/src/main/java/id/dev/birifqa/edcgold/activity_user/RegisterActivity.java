@@ -175,7 +175,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
 
                     if (etPassword.getText().length() >= 6){
                         Intent intent = new Intent(RegisterActivity.this, RegisterPersonalActivity.class);
-                        intent.putExtra("name", etNamaLengkap.getText().toString());
+                        intent.putExtra("fullname", etNamaLengkap.getText().toString());
                         intent.putExtra("username", etUsername.getText().toString());
                         intent.putExtra("jk", jk);
                         intent.putExtra("bod", etBOD.getText().toString());

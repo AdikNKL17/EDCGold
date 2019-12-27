@@ -55,13 +55,11 @@ public class Handle {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
 
-            if (!TextUtils.isEmpty(jsonObject.getJSONObject("data").getString("token"))) {
-
+            if (jsonObject.getBoolean("success")){
                 JSONObject data = jsonObject.getJSONObject("data");
                 JSONArray roles = data.getJSONArray("roles");
-
                 if (roles.length() >= 0) {
-                    for (int i = 0; i < data.length(); i++) {
+                    for (int i = 0; i < roles.length(); i++) {
                         if (roles.getJSONObject(i).getString("name").equals("member")){
                             session.save("token", jsonObject.getJSONObject("data").getString("token"));
                             session.save("id", jsonObject.getJSONObject("data").getString("id"));
@@ -79,9 +77,25 @@ public class Handle {
 
                             Intent intent = new Intent(context, HomeActivity.class);
                             context.startActivity(intent);
+
                             return true;
 
                         } else if (roles.getJSONObject(i).getString("name").equals("admin")){
+                            session.save("token", jsonObject.getJSONObject("data").getString("token"));
+                            session.save("id", jsonObject.getJSONObject("data").getString("id"));
+                            session.save("name", jsonObject.getJSONObject("data").getString("name"));
+                            session.save("email", jsonObject.getJSONObject("data").getString("email"));
+                            session.save("regions_id", jsonObject.getJSONObject("data").getString("regions_id"));
+                            session.save("regencies_id", jsonObject.getJSONObject("data").getString("regencies_id"));
+                            session.save("districts_id", jsonObject.getJSONObject("data").getString("districts_id"));
+                            session.save("postcode", jsonObject.getJSONObject("data").getString("postcode"));
+                            session.save("address", jsonObject.getJSONObject("data").getString("address"));
+                            session.save("roles_name", roles.getJSONObject(i).getString("name"));
+
+                            Intent intent = new Intent(context, AdminHomeActivity.class);
+                            context.startActivity(intent);
+                            return true;
+                        }  else if (roles.getJSONObject(i).getString("name").equals("superadmin")){
                             session.save("token", jsonObject.getJSONObject("data").getString("token"));
                             session.save("id", jsonObject.getJSONObject("data").getString("id"));
                             session.save("name", jsonObject.getJSONObject("data").getString("name"));
@@ -100,22 +114,17 @@ public class Handle {
                     }
                     return true;
                 } else {
-                    Log.d("trip", "data not found");
+                    return false;
                 }
 
-
-                return true;
-
             } else {
-
                 return false;
-
             }
 
         } catch (JSONException e) {
-
+            Log.e("LOGIN", e.toString());
         } catch (Exception e) {
-
+            Log.e("LOGIN", e.toString());
         }
 
         return false;
@@ -819,7 +828,7 @@ public class Handle {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
 
-            tvName.setText(jsonObject.getJSONObject("data").getString("name") + " "+jsonObject.getJSONObject("data").getString("lastname"));
+            tvName.setText(jsonObject.getJSONObject("data").getString("name"));
 
             return true;
 
@@ -1155,7 +1164,7 @@ public class Handle {
         return false;
     }
 
-    public static boolean handleUserList(String sjson, String tipe, Context context) {
+    public static boolean handleUserListNew(String sjson, String tipe, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(sjson);
             JSONObject dataObject = jsonObject.getJSONObject("data");
@@ -1163,13 +1172,13 @@ public class Handle {
             if (succses){
                 JSONArray dataArray = dataObject.getJSONArray("data");
                 if (dataArray.length() >= 0) {
+                    Log.e("DATALONG", String.valueOf(dataArray.length()));
                     for (int i = 0; i < dataArray.length(); i++) {
                         if (!dataArray.getJSONObject(i).getString("email").equals("admin@edcgold.com") &&!dataArray.getJSONObject(i).getString("email").equals("superadmin@edcgold.com")){
                             AdminUserModel model = new AdminUserModel();
                             model.setId(dataArray.getJSONObject(i).getString("id"));
                             model.setUserId(dataArray.getJSONObject(i).getString("userid"));
                             model.setName(dataArray.getJSONObject(i).getString("name"));
-                            model.setLastname(dataArray.getJSONObject(i).getString("lastname"));
                             model.setEmail(dataArray.getJSONObject(i).getString("email"));
                             model.setAvatar(dataArray.getJSONObject(i).getString("avatar"));
                             model.setGender(dataArray.getJSONObject(i).getString("gender"));
@@ -1188,17 +1197,177 @@ public class Handle {
                             model.setCreated_at(dataArray.getJSONObject(i).getString("created_at"));
                             model.setUpdated_at(dataArray.getJSONObject(i).getString("updated_at"));
 
-                            if (tipe.equals("1")){
-                                Api.adminUserNewUserModels.add(model);
-                            }else if (tipe.equals("2")){
-                                Api.adminUserAllUserModels.add(model);
-                            } else if (tipe.equals("3")){
-                                Api.adminUserAktifModels.add(model);
-                            } else {
-                                Api.adminUserClosedModels.add(model);
-                            }
+                            Api.adminUserNewUserModels.add(model);
+
                         }
                     }
+                } else {
+                    Toast.makeText(context, "Data User Kosong", Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
+            }else {
+                return false;
+            }
+
+        } catch (JSONException e) {
+            Log.e("GETUSER", e.toString());
+        } catch (Exception e) {
+            Log.e("GETUSER", e.toString());
+        }
+
+        return false;
+    }
+
+    public static boolean handleUserListAll(String sjson, String tipe, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses){
+                JSONArray dataArray = dataObject.getJSONArray("data");
+                if (dataArray.length() >= 0) {
+                    Log.e("DATALONG", String.valueOf(dataArray.length()));
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        if (!dataArray.getJSONObject(i).getString("email").equals("admin@edcgold.com") &&!dataArray.getJSONObject(i).getString("email").equals("superadmin@edcgold.com")){
+                            AdminUserModel model = new AdminUserModel();
+                            model.setId(dataArray.getJSONObject(i).getString("id"));
+                            model.setUserId(dataArray.getJSONObject(i).getString("userid"));
+                            model.setName(dataArray.getJSONObject(i).getString("name"));
+                            model.setEmail(dataArray.getJSONObject(i).getString("email"));
+                            model.setAvatar(dataArray.getJSONObject(i).getString("avatar"));
+                            model.setGender(dataArray.getJSONObject(i).getString("gender"));
+                            model.setBod(dataArray.getJSONObject(i).getString("bod"));
+                            model.setPhone(dataArray.getJSONObject(i).getString("phone"));
+                            model.setCountries_id(dataArray.getJSONObject(i).getString("countries_id"));
+                            model.setRegions_id(dataArray.getJSONObject(i).getString("regions_id"));
+                            model.setRegencies_id(dataArray.getJSONObject(i).getString("regencies_id"));
+                            model.setDistricts_id(dataArray.getJSONObject(i).getString("districts_id"));
+                            model.setPostcode(dataArray.getJSONObject(i).getString("postcode"));
+                            model.setAddress(dataArray.getJSONObject(i).getString("address"));
+                            model.setReason_close(dataArray.getJSONObject(i).getString("reason_close"));
+                            model.setStatus_active(dataArray.getJSONObject(i).getString("status_active"));
+                            model.setStatus_topup(dataArray.getJSONObject(i).getString("status_topup"));
+                            model.setType_member(dataArray.getJSONObject(i).getString("type_member"));
+                            model.setCreated_at(dataArray.getJSONObject(i).getString("created_at"));
+                            model.setUpdated_at(dataArray.getJSONObject(i).getString("updated_at"));
+
+                            Api.adminUserAllUserModels.add(model);
+
+                        }
+                    }
+                } else {
+                    Toast.makeText(context, "Data User Kosong", Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
+            }else {
+                return false;
+            }
+
+        } catch (JSONException e) {
+            Log.e("GETUSER", e.toString());
+        } catch (Exception e) {
+            Log.e("GETUSER", e.toString());
+        }
+
+        return false;
+    }
+
+    public static boolean handleUserListAktif(String sjson, String tipe, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses){
+                JSONArray dataArray = dataObject.getJSONArray("data");
+                if (dataArray.length() >= 0) {
+                    Log.e("DATALONG", String.valueOf(dataArray.length()));
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        if (!dataArray.getJSONObject(i).getString("email").equals("admin@edcgold.com") &&!dataArray.getJSONObject(i).getString("email").equals("superadmin@edcgold.com")){
+                            AdminUserModel model = new AdminUserModel();
+                            model.setId(dataArray.getJSONObject(i).getString("id"));
+                            model.setUserId(dataArray.getJSONObject(i).getString("userid"));
+                            model.setName(dataArray.getJSONObject(i).getString("name"));
+                            model.setEmail(dataArray.getJSONObject(i).getString("email"));
+                            model.setAvatar(dataArray.getJSONObject(i).getString("avatar"));
+                            model.setGender(dataArray.getJSONObject(i).getString("gender"));
+                            model.setBod(dataArray.getJSONObject(i).getString("bod"));
+                            model.setPhone(dataArray.getJSONObject(i).getString("phone"));
+                            model.setCountries_id(dataArray.getJSONObject(i).getString("countries_id"));
+                            model.setRegions_id(dataArray.getJSONObject(i).getString("regions_id"));
+                            model.setRegencies_id(dataArray.getJSONObject(i).getString("regencies_id"));
+                            model.setDistricts_id(dataArray.getJSONObject(i).getString("districts_id"));
+                            model.setPostcode(dataArray.getJSONObject(i).getString("postcode"));
+                            model.setAddress(dataArray.getJSONObject(i).getString("address"));
+                            model.setReason_close(dataArray.getJSONObject(i).getString("reason_close"));
+                            model.setStatus_active(dataArray.getJSONObject(i).getString("status_active"));
+                            model.setStatus_topup(dataArray.getJSONObject(i).getString("status_topup"));
+                            model.setType_member(dataArray.getJSONObject(i).getString("type_member"));
+                            model.setCreated_at(dataArray.getJSONObject(i).getString("created_at"));
+                            model.setUpdated_at(dataArray.getJSONObject(i).getString("updated_at"));
+
+                            Api.adminUserAktifModels.add(model);
+
+                        }
+                    }
+                } else {
+                    Toast.makeText(context, "Data User Kosong", Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
+            }else {
+                return false;
+            }
+
+        } catch (JSONException e) {
+            Log.e("GETUSER", e.toString());
+        } catch (Exception e) {
+            Log.e("GETUSER", e.toString());
+        }
+
+        return false;
+    }
+
+    public static boolean handleUserListClose(String sjson, String tipe, Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject(sjson);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            boolean succses = jsonObject.getBoolean("success");
+            if (succses){
+                JSONArray dataArray = dataObject.getJSONArray("data");
+                if (dataArray.length() >= 0) {
+                    Log.e("DATALONG", String.valueOf(dataArray.length()));
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        if (!dataArray.getJSONObject(i).getString("email").equals("admin@edcgold.com") &&!dataArray.getJSONObject(i).getString("email").equals("superadmin@edcgold.com")){
+                            AdminUserModel model = new AdminUserModel();
+                            model.setId(dataArray.getJSONObject(i).getString("id"));
+                            model.setUserId(dataArray.getJSONObject(i).getString("userid"));
+                            model.setName(dataArray.getJSONObject(i).getString("name"));
+                            model.setEmail(dataArray.getJSONObject(i).getString("email"));
+                            model.setAvatar(dataArray.getJSONObject(i).getString("avatar"));
+                            model.setGender(dataArray.getJSONObject(i).getString("gender"));
+                            model.setBod(dataArray.getJSONObject(i).getString("bod"));
+                            model.setPhone(dataArray.getJSONObject(i).getString("phone"));
+                            model.setCountries_id(dataArray.getJSONObject(i).getString("countries_id"));
+                            model.setRegions_id(dataArray.getJSONObject(i).getString("regions_id"));
+                            model.setRegencies_id(dataArray.getJSONObject(i).getString("regencies_id"));
+                            model.setDistricts_id(dataArray.getJSONObject(i).getString("districts_id"));
+                            model.setPostcode(dataArray.getJSONObject(i).getString("postcode"));
+                            model.setAddress(dataArray.getJSONObject(i).getString("address"));
+                            model.setReason_close(dataArray.getJSONObject(i).getString("reason_close"));
+                            model.setStatus_active(dataArray.getJSONObject(i).getString("status_active"));
+                            model.setStatus_topup(dataArray.getJSONObject(i).getString("status_topup"));
+                            model.setType_member(dataArray.getJSONObject(i).getString("type_member"));
+                            model.setCreated_at(dataArray.getJSONObject(i).getString("created_at"));
+                            model.setUpdated_at(dataArray.getJSONObject(i).getString("updated_at"));
+
+                            Api.adminUserClosedModels.add(model);
+
+                        }
+                    }
+                } else {
+                    Toast.makeText(context, "Data User Kosong", Toast.LENGTH_SHORT).show();
                 }
 
                 return true;

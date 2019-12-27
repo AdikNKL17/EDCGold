@@ -102,6 +102,9 @@ public interface Interface {
     @GET("http://45.77.252.55/api/user_list")
     Call<ResponseBody> getAktifitasList(@Header("Authorization") String authorization, @Query("transfer") String transfer);
 
+    @GET("http://45.77.252.55/api/history_all")
+    Call<ResponseBody> getTransactionHistoryAll(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
+
     @GET("http://45.77.252.55/api/history")
     Call<ResponseBody> getTransactionHistory(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
 

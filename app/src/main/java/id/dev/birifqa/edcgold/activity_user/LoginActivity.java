@@ -95,7 +95,11 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
                     startActivity(intent);
                     LoginActivity.this.finish();
-                } else if (session.get("roles_name").equals("member")){
+                } else if (session.get("roles_name").equals("superadmin")){
+                    Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                    startActivity(intent);
+                    LoginActivity.this.finish();
+                }else if (session.get("roles_name").equals("member")){
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     LoginActivity.this.finish();

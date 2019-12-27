@@ -119,7 +119,7 @@ public class FragmentAdminUserClosed extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    boolean handle = Handle.handleUserList(response.body().string(), "4", getActivity());
+                    boolean handle = Handle.handleUserListClose(response.body().string(), "4", getActivity());
                     if (handle) {
                         dialog.dismiss();
                         userAdapter.notifyDataSetChanged();

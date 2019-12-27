@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_admin;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,12 +12,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminHistoryAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminHistoryModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.Handle;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +41,8 @@ public class FragmentAdminHistory extends Fragment {
     private RecyclerView recyclerView;
     private AdminHistoryAdapter historyAdapter;
     private ArrayList<AdminHistoryModel> historyModels;
+    private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
 
     public FragmentAdminHistory() {
         // Required empty public constructor
@@ -46,6 +62,8 @@ public class FragmentAdminHistory extends Fragment {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+
         recyclerView = view.findViewById(R.id.rv_history);
     }
 
@@ -62,42 +80,45 @@ public class FragmentAdminHistory extends Fragment {
     private void getData(){
         historyModels.clear();
 
-        AdminHistoryModel history1 = new AdminHistoryModel();
-        history1.setStatus("Anda telah menyetujui proses Topup ");
-        history1.setDate("19/09/2019  -  09 : 43 : 00");
+        dialog.show();
+        Call<ResponseBody> call = ParamReq.requestTransactionHistoryAll(Session.get("token"), getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
 
-        historyModels.add(history1);
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    if (jsonObject.getBoolean("success")){
+                        JSONArray dataArray = jsonObject.getJSONArray("data");
+                        if (dataArray.length() > 0){
+                            for (int i =0; i < dataArray.length(); i++){
+                                AdminHistoryModel model = new AdminHistoryModel();
+                                model.setStatus(dataArray.getJSONObject(i).getString("description"));
+                                model.setDate(dataArray.getJSONObject(i).getString("created_at"));
 
-        AdminHistoryModel history2 = new AdminHistoryModel();
-        history2.setStatus("Anda Memblock akun ID 24190990900");
-        history2.setDate("18/09/2019  -  20 : 12 : 00\n");
+                                historyModels.add(model);
+                            }
+                            historyAdapter.notifyDataSetChanged();
+                            dialog.dismiss();
+                        } else{
+                            dialog.dismiss();
+                            Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), "Tidak bisa mengambil data", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    dialog.dismiss();
+                    e.printStackTrace();
+                }
+            }
 
-        historyModels.add(history2);
-
-        AdminHistoryModel history3 = new AdminHistoryModel();
-        history3.setStatus("Anda menyetujui sewa mining");
-        history3.setDate("18/09/2019  -  17 : 43 : 0");
-
-        historyModels.add(history3);
-
-        AdminHistoryModel history4 = new AdminHistoryModel();
-        history4.setStatus("Anda melakukan withdraw");
-        history4.setDate("18/09/2019  -  16 : 12 : 00");
-
-        historyModels.add(history4);
-
-        AdminHistoryModel history5 = new AdminHistoryModel();
-        history5.setStatus("Anda Memiliki tambahan koin 12 EDGC");
-        history5.setDate("18/09/2019  -  15 : 12 : 00\n");
-
-        historyModels.add(history5);
-
-        AdminHistoryModel history6 = new AdminHistoryModel();
-        history6.setStatus("Anda Memiliki tambahan koin 20 EDGC");
-        history6.setDate("18/09/2019  -  15 : 34 : 56");
-
-        historyModels.add(history6);
-
-        historyAdapter.notifyDataSetChanged();
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 }

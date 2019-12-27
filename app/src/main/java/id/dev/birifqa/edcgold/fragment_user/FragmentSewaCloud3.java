@@ -129,6 +129,8 @@ public class FragmentSewaCloud3 extends Fragment {
                     boolean handle = Handle.handleRentalMining(response.body().string(), getActivity());
                     if (handle) {
                         dialog.dismiss();
+                        getActivity().onBackPressed();
+                        getActivity().finish();
                         Toast.makeText(getActivity(), "Permintaan Sewa Cloud Mining Berhasil!! Permintaan akan segera diproses!!", Toast.LENGTH_SHORT).show();
                     } else {
                         dialog.dismiss();

@@ -119,7 +119,7 @@ public class FragmentAdminUserAktif extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    boolean handle = Handle.handleUserList(response.body().string(), "3", getActivity());
+                    boolean handle = Handle.handleUserListAktif(response.body().string(), "3", getActivity());
                     if (handle) {
                         dialog.dismiss();
                         userAdapter.notifyDataSetChanged();

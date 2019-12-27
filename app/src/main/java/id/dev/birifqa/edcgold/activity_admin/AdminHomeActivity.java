@@ -346,10 +346,12 @@ public class AdminHomeActivity extends AppCompatActivity
         childModel = new MenuModel("Petunjuk", false, true);
         childModelsList.add(childModel);
 
-
         if (menuModel.hasChildren) {
             childList.put(menuModel, childModelsList);
         }
+
+        menuModel = new MenuModel("Referral",getResources().getDrawable(R.drawable.ic_community_white_24dp) , false, false); //Menu of Android Tutorial. No sub menus
+        headerList.add(menuModel);
 
         menuModel = new MenuModel("Update",getResources().getDrawable(R.drawable.ic_community_white_24dp) , false, false); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
@@ -408,6 +410,11 @@ public class AdminHomeActivity extends AppCompatActivity
                 if (!headerList.get(groupPosition).isGroup) {
                     if (headerList.get(groupPosition).menuName.equals("Profil Saya")) {
                         loadFragment(new FragmentAdminProfile());
+                        drawer.closeDrawer(GravityCompat.START, true);
+                    }
+
+                    if (headerList.get(groupPosition).menuName.equals("Referral")) {
+                        startActivity(new Intent(AdminHomeActivity.this, AdminDownlineActivity.class));
                         drawer.closeDrawer(GravityCompat.START, true);
                     }
 

@@ -42,27 +42,22 @@ public class ParamReq {
         APIInterface = Api.initRetrofit(Api.showLog);
         final Map<String, RequestBody> map = new HashMap<>();
 
-        if (email.contains("@")){
-            map.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
-        } else {
-            map.put("username", RequestBody.create(MediaType.parse("multipart/form-data"), email));
-        }
+        map.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
         map.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
         map.put("brainkey", RequestBody.create(MediaType.parse("multipart/form-data"), brainkey));
         return APIInterface.requestLogin(map);
     }
 
     //add
-    public static Call<ResponseBody> requestRegister(String username, String nama_depan, String nama_belakang, String jk,
+    public static Call<ResponseBody> requestRegister(String fullname, String username, String jk,
                                                      String bod, String phone, String email, String password,
                                                      String provinsi, String kabupaten, String kecamatan,
                                                      String kodepos, String alamat, String referral, String nik,
                                                      String foto_selfi, String foto_ktp, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         final Map<String, RequestBody> data = new HashMap<>();
+        data.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), fullname));
         data.put("username", RequestBody.create(MediaType.parse("multipart/form-data"), username));
-        data.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), nama_depan));
-        data.put("lastname", RequestBody.create(MediaType.parse("multipart/form-data"), nama_belakang));
         data.put("gender", RequestBody.create(MediaType.parse("multipart/form-data"), jk));
         data.put("bod", RequestBody.create(MediaType.parse("multipart/form-data"), bod));
         data.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), phone));
@@ -78,6 +73,7 @@ public class ParamReq {
         data.put("nik", RequestBody.create(MediaType.parse("multipart/form-data"), nik));
         data.put("foto_selfi", RequestBody.create(MediaType.parse("multipart/form-data"), foto_selfi));
         data.put("foto_ktp", RequestBody.create(MediaType.parse("multipart/form-data"), foto_ktp));
+
 
         return APIInterface.requestRegister(data);
     }
@@ -419,6 +415,10 @@ public class ParamReq {
         return APIInterface.getUserList("Bearer " +token, isNew, isClose, keyword);
     }
 
+    public static Call<ResponseBody> requestTransactionHistoryAll(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getTransactionHistoryAll("Bearer " +token, "0", "50");
+    }
     public static Call<ResponseBody> requestTransactionHistory(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getTransactionHistory("Bearer " +token, "0", "10");

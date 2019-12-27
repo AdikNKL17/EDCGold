@@ -78,8 +78,7 @@ public class RegisterPersonalActivity extends AppCompatActivity {
     private void onAction(){
         Intent getIntent = getIntent();
         String username = getIntent.getStringExtra("username");
-        String nama_depan = getIntent.getStringExtra("nama_depan");
-        String nama_belakang = getIntent.getStringExtra("nama_belakang");
+        String fullname = getIntent.getStringExtra("fullname");
         String jk = getIntent.getStringExtra("jk");
         String bod = getIntent.getStringExtra("bod");
         String phone = getIntent.getStringExtra("phone");
@@ -116,8 +115,7 @@ public class RegisterPersonalActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(RegisterPersonalActivity.this, RegisterSelfieActivity.class);
                     intent.putExtra("username", username);
-                    intent.putExtra("nama_depan", nama_depan);
-                    intent.putExtra("nama_belakang", nama_belakang);
+                    intent.putExtra("fullname", fullname);
                     intent.putExtra("jk", jk);
                     intent.putExtra("bod", bod);
                     intent.putExtra("phone", phone);
