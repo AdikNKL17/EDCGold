@@ -6,14 +6,31 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
-import java.util.ArrayList;
+import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminReportTransferAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminReportTransferModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdminListTransferActivity extends AppCompatActivity {
 
@@ -22,6 +39,9 @@ public class AdminListTransferActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdminReportTransferAdapter transferAdapter;
     private ArrayList<AdminReportTransferModel> transferModels;
+    private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
+    private TextInputEditText etCari;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +53,8 @@ public class AdminListTransferActivity extends AppCompatActivity {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(AdminListTransferActivity.this).build();
+        etCari = findViewById(R.id.et_cari);
         toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.rv_list_transfer);
     }
@@ -52,67 +74,77 @@ public class AdminListTransferActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(transferAdapter);
 
+        etCari.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String textSearch = s.toString();
+                textSearch=textSearch.toLowerCase();
+                List<AdminReportTransferModel> newList=new ArrayList<>();
+                if (textSearch.isEmpty()){
+                    newList = transferModels;
+                }else {
+                    for (AdminReportTransferModel model : transferModels){
+                        String title=model.getTransaction_code().toLowerCase();
+                        if (title.contains(textSearch)){
+                            newList.add(model);
+                        }
+                    }
+                }
+                transferAdapter.setFilter(newList);
+            }
+        });
+
         getData();
     }
 
     private void getData(){
         transferModels.clear();
 
-        AdminReportTransferModel user1 = new AdminReportTransferModel();
-        user1.setId_transaksi("No. 42802000611111");
-        transferModels.add(user1);
+        dialog.show();
+        Call<ResponseBody> call = ParamReq.requestReportTransfer(Session.get("token"), AdminListTransferActivity.this);
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
 
-        AdminReportTransferModel user2 = new AdminReportTransferModel();
-        user2.setId_transaksi("No. 42802000611112");
-        transferModels.add(user2);
+                    if (jsonObject.getBoolean("success")){
+                        dialog.dismiss();
+                        JSONArray dataArray = jsonObject.getJSONArray("data");
 
-        AdminReportTransferModel user3 = new AdminReportTransferModel();
-        user3.setId_transaksi("No. 42802000611113");
-        transferModels.add(user3);
+                        for (int i = 0; i < dataArray.length(); i++){
+                            AdminReportTransferModel model = new AdminReportTransferModel();
+                            model.setId(dataArray.getJSONObject(i).getString("id"));
+                            model.setTransaction_code(dataArray.getJSONObject(i).getString("transaction_code"));
+                            transferModels.add(model);
+                        }
 
-        AdminReportTransferModel user4 = new AdminReportTransferModel();
-        user4.setId_transaksi("No. 42802000611114");
-        transferModels.add(user4);
+                        transferAdapter.notifyDataSetChanged();
+                    } else {
+                        dialog.dismiss();
+                    }
 
-        AdminReportTransferModel user5 = new AdminReportTransferModel();
-        user5.setId_transaksi("No. 42802000611115");
-        transferModels.add(user5);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-        AdminReportTransferModel user6 = new AdminReportTransferModel();
-        user6.setId_transaksi("No. 42802000611115");
-        transferModels.add(user6);
-
-        AdminReportTransferModel user7 = new AdminReportTransferModel();
-        user7.setId_transaksi("No. 42802000611115");
-        transferModels.add(user7);
-
-        AdminReportTransferModel user8 = new AdminReportTransferModel();
-        user8.setId_transaksi("No. 42802000611115");
-        transferModels.add(user8);
-
-        AdminReportTransferModel user9 = new AdminReportTransferModel();
-        user9.setId_transaksi("No. 42802000611115");
-        transferModels.add(user9);
-
-        AdminReportTransferModel user10 = new AdminReportTransferModel();
-        user10.setId_transaksi("No. 42802000611115");
-        transferModels.add(user10);
-
-        AdminReportTransferModel user11 = new AdminReportTransferModel();
-        user11.setId_transaksi("No. 42802000611115");
-        transferModels.add(user11);
-
-        AdminReportTransferModel user12 = new AdminReportTransferModel();
-        user12.setId_transaksi("No. 42802000611115");
-        transferModels.add(user12);
-
-        AdminReportTransferModel user13 = new AdminReportTransferModel();
-        user13.setId_transaksi("No. 42802000611115");
-        transferModels.add(user13);
-
-        AdminReportTransferModel user14 = new AdminReportTransferModel();
-        user14.setId_transaksi("No. 42802000611115");
-        transferModels.add(user14);
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(AdminListTransferActivity.this, call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(AdminListTransferActivity.this, call, cBack, false, "Loading");
 
         transferAdapter.notifyDataSetChanged();
     }

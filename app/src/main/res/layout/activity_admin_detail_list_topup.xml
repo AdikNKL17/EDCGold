@@ -73,7 +73,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView31"
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -86,6 +86,7 @@
                     app:layout_constraintTop_toTopOf="@+id/appCompatImageView6" />
 
                 <TextView
+                    android:id="@+id/tv_id_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -93,8 +94,8 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView6"
-                    app:layout_constraintStart_toStartOf="@+id/textView31"
-                    app:layout_constraintTop_toBottomOf="@+id/textView31" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,6 +110,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/circular_std_bold"
                     android:text="No. Rekening"
+                    android:visibility="invisible"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -118,13 +120,14 @@
                     android:id="@+id/textView60"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:text="Koin"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView59"
-                    app:layout_constraintTop_toBottomOf="@+id/textView59" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView61"
@@ -162,67 +165,57 @@
                     app:layout_constraintStart_toStartOf="@+id/textView62"
                     app:layout_constraintTop_toBottomOf="@+id/textView62" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/circular_std_bold"
-                    android:text="Tanggal"
-                    android:textColor="@color/mdtp_dark_gray"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView63"
-                    app:layout_constraintTop_toBottomOf="@+id/textView63" />
 
                 <TextView
-                    android:id="@+id/textView64"
+                    android:id="@+id/tv_no_rekening1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/circular_std_bold"
                     android:text=": Aktif"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:visibility="invisible"
+                    android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/textView59"
                     app:layout_constraintTop_toTopOf="@+id/textView59" />
 
                 <TextView
-                    android:id="@+id/textView65"
+                    android:id="@+id/tv_coin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/circular_std_bold"
                     android:text=": 30 Gold"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView64"
-                    app:layout_constraintTop_toBottomOf="@+id/textView64" />
+                    app:layout_constraintStart_toEndOf="@+id/textView59"
+                    app:layout_constraintTop_toTopOf="@+id/textView59" />
 
                 <TextView
-                    android:id="@+id/textView66"
+                    android:id="@+id/tv_konversi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/circular_std_bold"
-                    android:text=": 15 Hari"
+                    android:text=": 20000"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView65"
-                    app:layout_constraintTop_toBottomOf="@+id/textView65" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_coin"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_coin" />
 
                 <TextView
-                    android:id="@+id/textView67"
+                    android:id="@+id/tv_transaction_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/circular_std_bold"
                     android:text=": 354546521321564"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView66"
+                    app:layout_constraintStart_toStartOf="@+id/tv_konversi"
                     app:layout_constraintTop_toTopOf="@+id/textView62" />
 
                 <TextView
-                    android:id="@+id/textView68"
+                    android:id="@+id/tv_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -230,21 +223,8 @@
                     android:text=": 50:05:55"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView67"
-                    app:layout_constraintTop_toBottomOf="@+id/textView67" />
-
-                <TextView
-                    android:id="@+id/textView69"
-                    android:layout_width="wrap_content"
-                    android:layout_height="23dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/circular_std_bold"
-                    android:text=": 15/05/2019"
-                    android:textColor="@color/mdtp_dark_gray"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView68"
-                    app:layout_constraintTop_toBottomOf="@+id/textView68" />
-
+                    app:layout_constraintStart_toStartOf="@+id/tv_transaction_code"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_transaction_code" />
 
                 <TextView
                     android:id="@+id/textView74"
@@ -255,8 +235,8 @@
                     android:text="Jumlah Topup"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView4"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    app:layout_constraintStart_toStartOf="@+id/textView63"
+                    app:layout_constraintTop_toBottomOf="@+id/textView63" />
 
                 <TextView
                     android:id="@+id/textView75"
@@ -295,7 +275,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView76" />
 
                 <TextView
-                    android:id="@+id/textView71"
+                    android:id="@+id/tv_transfer"
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
                     android:layout_marginTop="8dp"
@@ -303,11 +283,11 @@
                     android:text=": Rp. 1.000.000"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView69"
-                    app:layout_constraintTop_toBottomOf="@+id/textView69" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_date"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
                 <TextView
-                    android:id="@+id/textView72"
+                    android:id="@+id/tv_nama_bank"
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
                     android:layout_marginTop="8dp"
@@ -315,11 +295,11 @@
                     android:text=": BCA"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView71"
-                    app:layout_constraintTop_toBottomOf="@+id/textView71" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_transfer"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_transfer" />
 
                 <TextView
-                    android:id="@+id/textView73"
+                    android:id="@+id/tv_no_rekening"
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
                     android:layout_marginTop="8dp"
@@ -327,11 +307,11 @@
                     android:text=": 52110363546356 "
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView72"
-                    app:layout_constraintTop_toBottomOf="@+id/textView72" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_nama_bank"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_nama_bank" />
 
                 <TextView
-                    android:id="@+id/textView70"
+                    android:id="@+id/tv_atas_nama"
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
                     android:layout_marginTop="8dp"
@@ -339,8 +319,8 @@
                     android:text=": HABIB A.M"
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView73"
-                    app:layout_constraintTop_toBottomOf="@+id/textView73" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_no_rekening"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_no_rekening" />
 
                 <TextView
                     android:id="@+id/textView78"
@@ -353,9 +333,10 @@
                     android:textColor="@color/mdtp_dark_gray"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView70" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_atas_nama" />
 
                 <TextView
+                    android:id="@+id/tv_approve_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

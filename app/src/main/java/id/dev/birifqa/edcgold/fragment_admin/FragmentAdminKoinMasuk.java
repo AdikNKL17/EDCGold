@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.fragment_admin;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,15 +9,31 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminReportAktifitasAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminReportAktifitasModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +44,10 @@ public class FragmentAdminKoinMasuk extends Fragment {
     private RecyclerView recyclerView;
     private AdminReportAktifitasAdapter aktifitasAdapter;
     private ArrayList<AdminReportAktifitasModel> aktifitasModels;
+    private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
+    private TextInputEditText etCari;
+
     public FragmentAdminKoinMasuk() {
         // Required empty public constructor
     }
@@ -45,6 +66,8 @@ public class FragmentAdminKoinMasuk extends Fragment {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+        etCari = view.findViewById(R.id.et_cari);
         recyclerView = view.findViewById(R.id.rv_koin_masuk);
     }
 
@@ -55,69 +78,79 @@ public class FragmentAdminKoinMasuk extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(aktifitasAdapter);
 
+        etCari.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String textSearch = s.toString();
+                textSearch=textSearch.toLowerCase();
+                List<AdminReportAktifitasModel> newList=new ArrayList<>();
+                if (textSearch.isEmpty()){
+                    newList = aktifitasModels;
+                }else {
+                    for (AdminReportAktifitasModel adminUserModel : aktifitasModels){
+                        String title=adminUserModel.getTransaction_code().toLowerCase();
+                        if (title.contains(textSearch)){
+                            newList.add(adminUserModel);
+                        }
+                    }
+                }
+                aktifitasAdapter.setFilter(newList);
+            }
+        });
+
         getData();
     }
 
     private void getData(){
         aktifitasModels.clear();
 
-        AdminReportAktifitasModel user1 = new AdminReportAktifitasModel();
-        user1.setId("NTR. 42802000611111");
-        aktifitasModels.add(user1);
+        dialog.show();
+        Call<ResponseBody> call = ParamReq.requestReportKoinAktifitas(Session.get("token"), "in", getActivity());
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
 
-        AdminReportAktifitasModel user2 = new AdminReportAktifitasModel();
-        user2.setId("NTR. 42802000611112");
-        aktifitasModels.add(user2);
+                    if (jsonObject.getBoolean("success")){
+                        dialog.dismiss();
+                        JSONArray dataArray = jsonObject.getJSONArray("data");
 
-        AdminReportAktifitasModel user3 = new AdminReportAktifitasModel();
-        user3.setId("NTR. 42802000611113");
-        aktifitasModels.add(user3);
+                        for (int i = 0; i < dataArray.length(); i++){
+                            AdminReportAktifitasModel model = new AdminReportAktifitasModel();
+                            model.setId(dataArray.getJSONObject(i).getString("id"));
+                            model.setTransaction_code(dataArray.getJSONObject(i).getString("transaction_code"));
+                            model.setStatus(dataArray.getJSONObject(i).getString("status"));
 
-        AdminReportAktifitasModel user4 = new AdminReportAktifitasModel();
-        user4.setId("NTR. 42802000611114");
-        aktifitasModels.add(user4);
+                            aktifitasModels.add(model);
+                        }
 
-        AdminReportAktifitasModel user5 = new AdminReportAktifitasModel();
-        user5.setId("NTR. 42802000611115");
-        aktifitasModels.add(user5);
+                        aktifitasAdapter.notifyDataSetChanged();
+                    } else {
+                        dialog.dismiss();
+                    }
 
-        AdminReportAktifitasModel user6 = new AdminReportAktifitasModel();
-        user6.setId("NTR. 42802000611115");
-        aktifitasModels.add(user6);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-        AdminReportAktifitasModel user7 = new AdminReportAktifitasModel();
-        user7.setId("NTR. 42802000611115");
-        aktifitasModels.add(user7);
-
-        AdminReportAktifitasModel user8 = new AdminReportAktifitasModel();
-        user8.setId("NTR. 42802000611115");
-        aktifitasModels.add(user8);
-
-        AdminReportAktifitasModel user9 = new AdminReportAktifitasModel();
-        user9.setId("NTR. 42802000611115");
-        aktifitasModels.add(user9);
-
-        AdminReportAktifitasModel user10 = new AdminReportAktifitasModel();
-        user10.setId("NTR. 42802000611115");
-        aktifitasModels.add(user10);
-
-        AdminReportAktifitasModel user11 = new AdminReportAktifitasModel();
-        user11.setId("NTR. 42802000611115");
-        aktifitasModels.add(user11);
-
-        AdminReportAktifitasModel user12 = new AdminReportAktifitasModel();
-        user12.setId("NTR. 42802000611115");
-        aktifitasModels.add(user12);
-
-        AdminReportAktifitasModel user13 = new AdminReportAktifitasModel();
-        user13.setId("NTR. 42802000611115");
-        aktifitasModels.add(user13);
-
-        AdminReportAktifitasModel user14 = new AdminReportAktifitasModel();
-        user14.setId("NTR. 42802000611115");
-        aktifitasModels.add(user14);
-
-        aktifitasAdapter.notifyDataSetChanged();
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(getActivity(), call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(getActivity(), call, cBack, false, "Loading");
     }
 
 }

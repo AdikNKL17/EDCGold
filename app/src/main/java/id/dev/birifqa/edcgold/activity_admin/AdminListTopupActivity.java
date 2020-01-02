@@ -6,14 +6,31 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
-import java.util.ArrayList;
+import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import dmax.dialog.SpotsDialog;
 import id.dev.birifqa.edcgold.R;
 import id.dev.birifqa.edcgold.adapter.AdminReportTopupAdapter;
 import id.dev.birifqa.edcgold.model.admin.AdminReportTopupModel;
+import id.dev.birifqa.edcgold.utils.Api;
+import id.dev.birifqa.edcgold.utils.ParamReq;
+import id.dev.birifqa.edcgold.utils.Session;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdminListTopupActivity extends AppCompatActivity {
 
@@ -22,6 +39,9 @@ public class AdminListTopupActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdminReportTopupAdapter topupAdapter;
     private ArrayList<AdminReportTopupModel> topupModels;
+    private Callback<ResponseBody> cBack;
+    private AlertDialog dialog;
+    private TextInputEditText etCari;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +53,8 @@ public class AdminListTopupActivity extends AppCompatActivity {
     }
 
     private void findViewById(){
+        dialog = new SpotsDialog.Builder().setContext(AdminListTopupActivity.this).build();
+        etCari = findViewById(R.id.et_cari);
         toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.rv_list_topup);
     }
@@ -52,68 +74,80 @@ public class AdminListTopupActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(topupAdapter);
 
+        etCari.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String textSearch = s.toString();
+                textSearch=textSearch.toLowerCase();
+                List<AdminReportTopupModel> newList=new ArrayList<>();
+                if (textSearch.isEmpty()){
+                    newList = topupModels;
+                }else {
+                    for (AdminReportTopupModel model : topupModels){
+                        String title=model.getTransaction_code().toLowerCase();
+                        if (title.contains(textSearch)){
+                            newList.add(model);
+                        }
+                    }
+                }
+                topupAdapter.setFilter(newList);
+            }
+        });
+
         getData();
     }
 
     private void getData(){
         topupModels.clear();
 
-        AdminReportTopupModel user1 = new AdminReportTopupModel();
-        user1.setId_transaksi("No. 42802000611111");
-        topupModels.add(user1);
+        dialog.show();
+        Call<ResponseBody> call = ParamReq.requestReportTopup(Session.get("token"), AdminListTopupActivity.this);
+        cBack = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
 
-        AdminReportTopupModel user2 = new AdminReportTopupModel();
-        user2.setId_transaksi("No. 42802000611112");
-        topupModels.add(user2);
+                    if (jsonObject.getBoolean("success")){
+                        dialog.dismiss();
+                        JSONArray dataArray = jsonObject.getJSONArray("data");
 
-        AdminReportTopupModel user3 = new AdminReportTopupModel();
-        user3.setId_transaksi("No. 42802000611113");
-        topupModels.add(user3);
+                        for (int i = 0; i < dataArray.length(); i++){
+                            AdminReportTopupModel model = new AdminReportTopupModel();
+                            model.setId(dataArray.getJSONObject(i).getString("id"));
+                            model.setTransaction_code(dataArray.getJSONObject(i).getString("transaction_code"));
+                            model.setName(dataArray.getJSONObject(i).getString("name"));
+                            model.setUserId(dataArray.getJSONObject(i).getString("userid"));
 
-        AdminReportTopupModel user4 = new AdminReportTopupModel();
-        user4.setId_transaksi("No. 42802000611114");
-        topupModels.add(user4);
+                            topupModels.add(model);
+                        }
 
-        AdminReportTopupModel user5 = new AdminReportTopupModel();
-        user5.setId_transaksi("No. 42802000611115");
-        topupModels.add(user5);
+                        topupAdapter.notifyDataSetChanged();
+                    } else {
+                        dialog.dismiss();
+                    }
 
-        AdminReportTopupModel user6 = new AdminReportTopupModel();
-        user6.setId_transaksi("No. 42802000611115");
-        topupModels.add(user6);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-        AdminReportTopupModel user7 = new AdminReportTopupModel();
-        user7.setId_transaksi("No. 42802000611115");
-        topupModels.add(user7);
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Api.retryDialog(AdminListTopupActivity.this, call, cBack, 1, false);
+            }
+        };
+        Api.enqueueWithRetry(AdminListTopupActivity.this, call, cBack, false, "Loading");
 
-        AdminReportTopupModel user8 = new AdminReportTopupModel();
-        user8.setId_transaksi("No. 42802000611115");
-        topupModels.add(user8);
-
-        AdminReportTopupModel user9 = new AdminReportTopupModel();
-        user9.setId_transaksi("No. 42802000611115");
-        topupModels.add(user9);
-
-        AdminReportTopupModel user10 = new AdminReportTopupModel();
-        user10.setId_transaksi("No. 42802000611115");
-        topupModels.add(user10);
-
-        AdminReportTopupModel user11 = new AdminReportTopupModel();
-        user11.setId_transaksi("No. 42802000611115");
-        topupModels.add(user11);
-
-        AdminReportTopupModel user12 = new AdminReportTopupModel();
-        user12.setId_transaksi("No. 42802000611115");
-        topupModels.add(user12);
-
-        AdminReportTopupModel user13 = new AdminReportTopupModel();
-        user13.setId_transaksi("No. 42802000611115");
-        topupModels.add(user13);
-
-        AdminReportTopupModel user14 = new AdminReportTopupModel();
-        user14.setId_transaksi("No. 42802000611115");
-        topupModels.add(user14);
-
-        topupAdapter.notifyDataSetChanged();
     }
 }

@@ -1,6 +1,7 @@
 package id.dev.birifqa.edcgold.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
+import id.dev.birifqa.edcgold.activity_admin.AdminDetailKoinActivity;
 import id.dev.birifqa.edcgold.model.admin.AdminReportAktifitasModel;
 
 public class AdminReportAktifitasAdapter extends RecyclerView.Adapter<AdminReportAktifitasAdapter.MyViewHolder> {
@@ -35,7 +38,16 @@ public class AdminReportAktifitasAdapter extends RecyclerView.Adapter<AdminRepor
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminReportAktifitasModel aktifitas = aktifitasModels.get(position);
-        holder.tvId.setText(aktifitas.getId());
+        holder.tvId.setText(aktifitas.getTransaction_code());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, AdminDetailKoinActivity.class);
+                intent.putExtra("ID", aktifitas.getId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -53,9 +65,9 @@ public class AdminReportAktifitasAdapter extends RecyclerView.Adapter<AdminRepor
     }
 
 
-//    public void setFilter(List<KabupatenModel> newList){
-//        kabupatenModels=new ArrayList<>();
-//        kabupatenModels.addAll(newList);
-//        notifyDataSetChanged();
-//    }
+    public void setFilter(List<AdminReportAktifitasModel> newList){
+        aktifitasModels=new ArrayList<>();
+        aktifitasModels.addAll(newList);
+        notifyDataSetChanged();
+    }
 }

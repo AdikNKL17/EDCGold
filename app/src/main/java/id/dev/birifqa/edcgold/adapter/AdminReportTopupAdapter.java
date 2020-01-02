@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
@@ -37,12 +38,15 @@ public class AdminReportTopupAdapter extends RecyclerView.Adapter<AdminReportTop
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final AdminReportTopupModel aktifitas = topupModels.get(position);
-        holder.tvId.setText(aktifitas.getId_transaksi());
+        holder.tvId.setText(aktifitas.getUserId());
+        holder.tvName.setText(aktifitas.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, AdminDetailListTopupActivity.class));
+                Intent intent = new Intent(mContext, AdminDetailListTopupActivity.class);
+                intent.putExtra("ID", aktifitas.getId());
+                mContext.startActivity(intent);
             }
         });
     }
@@ -54,17 +58,17 @@ public class AdminReportTopupAdapter extends RecyclerView.Adapter<AdminReportTop
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvId;
+        TextView tvName;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            tvName = itemView.findViewById(R.id.tv_name);
             tvId = itemView.findViewById(R.id.tv_id_topup);
         }
     }
 
-
-//    public void setFilter(List<KabupatenModel> newList){
-//        kabupatenModels=new ArrayList<>();
-//        kabupatenModels.addAll(newList);
-//        notifyDataSetChanged();
-//    }
+    public void setFilter(List<AdminReportTopupModel> newList){
+        topupModels=new ArrayList<>();
+        topupModels.addAll(newList);
+        notifyDataSetChanged();
+    }
 }

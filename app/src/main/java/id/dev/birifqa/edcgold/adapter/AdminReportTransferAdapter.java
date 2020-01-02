@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import id.dev.birifqa.edcgold.R;
@@ -36,13 +37,15 @@ public class AdminReportTransferAdapter extends RecyclerView.Adapter<AdminReport
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final AdminReportTransferModel aktifitas = transferModels.get(position);
-        holder.tvId.setText(aktifitas.getId_transaksi());
+        final AdminReportTransferModel transfer = transferModels.get(position);
+        holder.tvId.setText(transfer.getTransaction_code());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, AdminDetailTransferActivity.class));
+                Intent intent = new Intent(mContext, AdminDetailTransferActivity.class);
+                intent.putExtra("ID", transfer.getId());
+                mContext.startActivity(intent);
             }
         });
     }
@@ -62,9 +65,9 @@ public class AdminReportTransferAdapter extends RecyclerView.Adapter<AdminReport
     }
 
 
-//    public void setFilter(List<KabupatenModel> newList){
-//        kabupatenModels=new ArrayList<>();
-//        kabupatenModels.addAll(newList);
-//        notifyDataSetChanged();
-//    }
+    public void setFilter(List<AdminReportTransferModel> newList){
+        transferModels=new ArrayList<>();
+        transferModels.addAll(newList);
+        notifyDataSetChanged();
+    }
 }

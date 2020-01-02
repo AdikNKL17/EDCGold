@@ -46,13 +46,6 @@ public class AdminReportKoinAdapter extends RecyclerView.Adapter<AdminReportKoin
         }
         holder.tvCoin.setText(koin.getCoin());
         holder.tvDate.setText(koin.getDate());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, AdminDetailKoinActivity.class));
-            }
-        });
     }
 
     @Override

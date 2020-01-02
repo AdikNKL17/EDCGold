@@ -102,6 +102,27 @@ public interface Interface {
     @GET("http://45.77.252.55/api/user_list")
     Call<ResponseBody> getAktifitasList(@Header("Authorization") String authorization, @Query("transfer") String transfer);
 
+    @GET("http://45.77.252.55/api/coin_server")
+    Call<ResponseBody> getReportKoin(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
+
+    @GET("http://45.77.252.55/api/coin_history")
+    Call<ResponseBody> getReportKoinAktifitas(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit, @Query("status") String status);
+
+    @GET("http://45.77.252.55/api/coin_detail/{id}")
+    Call<ResponseBody> getDetailKoinAktifitas(@Header("Authorization") String authorization, @Path("id") String id_aktifitas);
+
+    @GET("http://45.77.252.55/api/topup_history")
+    Call<ResponseBody> getReportTopup(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
+
+    @GET("http://45.77.252.55/api/topup_coin_detail/{id}")
+    Call<ResponseBody> getDetailKoinTopup(@Header("Authorization") String authorization, @Path("id") String id_topup);
+
+    @GET("http://45.77.252.55/api/transfer_history")
+    Call<ResponseBody> getReportTransfer(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
+
+    @GET("http://45.77.252.55/api/transfer_coin_detail/{id}")
+    Call<ResponseBody> getDetailKoinTransfer(@Header("Authorization") String authorization, @Path("id") String id_transfer);
+
     @GET("http://45.77.252.55/api/history_all")
     Call<ResponseBody> getTransactionHistoryAll(@Header("Authorization") String authorization, @Query("offset") String offset, @Query("limit") String limit);
 

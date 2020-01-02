@@ -415,6 +415,41 @@ public class ParamReq {
         return APIInterface.getUserList("Bearer " +token, isNew, isClose, keyword);
     }
 
+    public static Call<ResponseBody> requestReportKoin(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getReportKoin("Bearer " +token, "0", "50");
+    }
+
+    public static Call<ResponseBody> requestReportKoinAktifitas(String token, String status, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getReportKoinAktifitas("Bearer " +token, "0", "50", status);
+    }
+
+    public static Call<ResponseBody> requestDetailKoinAktifitas(String token, String id, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getDetailKoinAktifitas("Bearer " +token, id);
+    }
+
+    public static Call<ResponseBody> requestReportTopup(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getReportTopup("Bearer " +token, "0", "50");
+    }
+
+    public static Call<ResponseBody> requestDetailKoinTopup(String token, String id, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getDetailKoinTopup("Bearer " +token, id);
+    }
+
+    public static Call<ResponseBody> requestReportTransfer(String token, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getReportTransfer("Bearer " +token, "0", "50");
+    }
+
+    public static Call<ResponseBody> requestDetailKoinTransfer(String token, String id, Context context) {
+        APIInterface = Api.initRetrofit(Api.showLog);
+        return APIInterface.getDetailKoinTransfer("Bearer " +token, id);
+    }
+
     public static Call<ResponseBody> requestTransactionHistoryAll(String token, Context context) {
         APIInterface = Api.initRetrofit(Api.showLog);
         return APIInterface.getTransactionHistoryAll("Bearer " +token, "0", "50");
