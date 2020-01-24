@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity_admin.AdminDownlineChildActivity"></activity>
+        <activity android:name=".activity_admin.AdminDownlineChildActivity" />
         <activity android:name=".activity_user.RegisterSelfieActivity" />
         <activity android:name=".activity_user.RegisterPersonalActivity" />
         <activity android:name=".activity_admin.AdminDownlineActivity" />

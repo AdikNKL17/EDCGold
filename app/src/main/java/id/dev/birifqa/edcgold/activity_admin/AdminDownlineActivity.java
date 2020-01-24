@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -77,7 +78,7 @@ public class AdminDownlineActivity extends AppCompatActivity {
     private void getDownline(){
         dialog.show();
         Intent getIntent = getIntent();
-        Call<ResponseBody> call = ParamReq.requestDownline(Session.get("token"), Session.get("userid"),AdminDownlineActivity.this);
+        Call<ResponseBody> call = ParamReq.requestDownline(Session.get("token"), "743321387662",AdminDownlineActivity.this);
         Callback<ResponseBody> cBack = new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
